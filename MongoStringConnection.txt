@@ -1,0 +1,1 @@
+mongodb+srv://curvexperiencegomlop:ca6RQKnYxIauEBrH@curvespilatescluster0.lxrlb.mongodb.net/
