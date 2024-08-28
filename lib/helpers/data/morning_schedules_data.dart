@@ -1,7 +1,7 @@
 import 'package:pilates/utils/paths/images.dart';
 
-class MorningSchedulesData {
-  static List<Map<String, String>> morningSchedules = [
+class ActivitiesData {
+  static List<Map<String, String>> activities = [
     // Cada hora se divide en 3 actividades diferentes
     // Primera Hora
     {

@@ -11,12 +11,13 @@ class BottomBar extends StatelessWidget {
         bottom: 2 * SizeConfig.heightMultiplier,
         right: 5 * SizeConfig.widthMultiplier,
         left: 5 * SizeConfig.widthMultiplier,
+        top: 2 * SizeConfig.heightMultiplier,
       ),
       decoration: BoxDecoration(
         color: const Color(0xFF262626),
         borderRadius: BorderRadius.circular(50),
       ),
-      height: 10 * SizeConfig.heightMultiplier,
+      height: 6 * SizeConfig.heightMultiplier,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pilates/helpers/data/menu_data.dart';
+import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/theme/appbars/bottom_bar.dart';
 import 'package:pilates/theme/appbars/dashboard_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
+import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -22,6 +24,8 @@ class DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context);
     return Scaffold(
       backgroundColor: ColorsPalette.backgroundColor,
       appBar: const DashboardAppBar(),
@@ -94,6 +98,8 @@ class DashboardPageState extends State<DashboardPage> {
                         builder: (BuildContext context) {
                           return GestureDetector(
                             onTap: () => {
+                              clientClassProvider.clearSelectedDate(),
+                              clientClassProvider.clearSelectedHour(),
                               Navigator.pushNamed(context, activitie['route']!)
                             },
                             child: Container(
@@ -148,7 +154,7 @@ class DashboardPageState extends State<DashboardPage> {
                             value: 0.8,
                             backgroundColor: Colors.black45,
                             valueColor: const AlwaysStoppedAnimation<Color>(
-                                ColorsPalette.primaryColor),
+                                Color.fromARGB(255, 158, 140, 135)),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(15)),
                             minHeight: 1 * SizeConfig.heightMultiplier,

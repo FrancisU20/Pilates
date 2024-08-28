@@ -3,16 +3,22 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/models/response/pilates_classes_response.dart';
+import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DatePicker extends StatefulWidget {
   final CalendarFormat calendarFormat;
   final List<PilatesClassesResponse> pilatesClasses;
+  final Function getAvailableHours;
 
   const DatePicker(
-      {super.key, required this.calendarFormat, required this.pilatesClasses});
+      {super.key,
+      required this.calendarFormat,
+      required this.pilatesClasses,
+      required this.getAvailableHours});
 
   @override
   DatePickerState createState() => DatePickerState();
@@ -20,7 +26,7 @@ class DatePicker extends StatefulWidget {
 
 class DatePickerState extends State<DatePicker> {
   late DateTime firstDay;
-  late DateTime focusedDay;
+  late DateTime focusedDay = DateTime.now().add(const Duration(days: 2));
   DateTime? selectedDay;
   Texts texts = Texts();
 
@@ -30,18 +36,19 @@ class DatePickerState extends State<DatePicker> {
   @override
   void initState() {
     super.initState();
-    firstDay = DateTime.now();
-    focusedDay = firstDay;
-    selectedDay = focusedDay;
-
+    firstDay = DateTime.now().add(const Duration(days: 2));
     availableDays = {};
-    getAvailableDays();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getAvailableDays();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   void getAvailableDays() {
-    // Inicializamos el mapa de días disponibles
-    availableDays = {};
-
     // Recorremos todas las clases de pilates
     for (var pilatesClass in widget.pilatesClasses) {
       // Normalizamos la fecha de la clase para evitar problemas con componentes de tiempo
@@ -67,17 +74,59 @@ class DatePickerState extends State<DatePicker> {
       }
     }
 
-    // Actualizamos el estado para reflejar los días disponibles en la interfaz
-    setState(() {
-      availableDays = availableDays;
-    });
+    DateTime now = DateTime.now().add(const Duration(days: 2));
+
+    // Normalizar la fecha actual con la hora a 00:00:00
+    DateTime normalizedNow = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    );
+
+    // La condicional debe ser si es mayor o igual a la fecha actual para que siempre comience en el primer día disponible
+    DateTime firstAvailableDay = focusedDay = availableDays.entries
+        .firstWhere((element) =>
+            element.key.isAfter(normalizedNow) ||
+            element.key.isAtSameMomentAs(normalizedNow))
+        .key;
+
+    //Colocar el firstAvailableDay en el provider
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+    clientClassProvider.setSelectedDate(firstAvailableDay);
 
     log('availableDays: $availableDays');
+    log('Selected Day Initialized on Provider: ${clientClassProvider.selectedDate}');
+
+    // Actualizamos el estado para reflejar los días disponibles en la interfaz
+    setState(() {
+      widget.getAvailableHours();
+      availableDays = availableDays;
+      focusedDay = firstAvailableDay;
+      selectedDay = focusedDay;
+    });
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+    // Solo permitir la selección si el día tiene citas disponibles
+    DateTime normalizedSelectedDay = DateTime(
+      selectedDay.year,
+      selectedDay.month,
+      selectedDay.day,
+    );
+
+    if (availableDays[normalizedSelectedDay] == true) {
+      clientClassProvider.setSelectedDate(normalizedSelectedDay);
+      setState(() {
+        widget.getAvailableHours();
+        this.selectedDay = selectedDay;
+        this.focusedDay = focusedDay;
+      });
+    }
+
+    log('selectedDay: ${clientClassProvider.selectedDate}');
   }
 
   @override
@@ -95,22 +144,11 @@ class DatePickerState extends State<DatePicker> {
                 calendarFormat: widget.calendarFormat,
                 selectedDayPredicate: (day) => isSameDay(selectedDay, day),
                 onDaySelected: (selectedDay, focusedDay) {
-                  // Solo permitir la selección si el día tiene citas disponibles
-                  DateTime normalizedSelectedDay = DateTime(
-                    selectedDay.year,
-                    selectedDay.month,
-                    selectedDay.day,
-                  );
-                  if (availableDays[normalizedSelectedDay] == true) {
-                    setState(() {
-                      this.selectedDay = selectedDay;
-                      this.focusedDay = focusedDay;
-                    });
-                  }
+                  onDaySelected(selectedDay, focusedDay);
                 },
                 calendarStyle: CalendarStyle(
                   todayDecoration: const BoxDecoration(
-                    color: Colors.black,
+                    color: Colors.indigo,
                     shape: BoxShape.circle,
                   ),
                   selectedDecoration: const BoxDecoration(

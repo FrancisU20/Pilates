@@ -75,6 +75,9 @@ class Texts {
         ),
       ),
       textAlign: textAlign,
+      softWrap: true, // Permite que el texto se ajuste a la siguiente línea
+      overflow:
+          TextOverflow.visible, // Asegura que el texto no se corte abruptamente
     );
   }
 }

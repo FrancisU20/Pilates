@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/widgets/birthday_picker.dart';
+import 'package:pilates/screens/register/widgets/birthday_picker.dart';
 import 'package:pilates/utils/size_config.dart';
 //import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 

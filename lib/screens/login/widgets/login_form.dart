@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/clients_controller.dart';
 import 'package:pilates/models/response/login_response.dart';
+import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/screens/dashboard/dashboard_page.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
@@ -10,6 +11,7 @@ import 'package:pilates/theme/widgets/buttons.dart';
 import 'package:pilates/theme/widgets/textfields.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -39,12 +41,17 @@ class LoginFormState extends State<LoginForm> {
 
   void _loginProcess(
       String email, String password, BuildContext context) async {
+    ClientClassProvider clientClassProvider = Provider.of<ClientClassProvider>(
+      context,
+      listen: false,
+    );
     try {
       loadingModal.showLoadingModal(context);
       LoginResponse loginResponse =
           await loginController.loginProcess(email, password);
       bool isRegistered = loginResponse.token.isNotEmpty;
       if (isRegistered) {
+        clientClassProvider.setLoginResponse(loginResponse);
         Future.microtask(
           () => Navigator.pushAndRemoveUntil(
               context,

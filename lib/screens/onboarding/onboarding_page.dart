@@ -103,7 +103,10 @@ class OnboardingPageState extends State<OnboardingPage> {
                     : const SizedBox.shrink(),
                 buttons.undelineText(
                     text: 'Ya dispones de una cuenta, Inicia Sesión',
-                    onPressed: () => {},
+                    onPressed: () => {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/login', (route) => false)
+                        },
                     color: ColorsPalette.textColor)
               ],
             ),

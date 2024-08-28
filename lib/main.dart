@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
+import 'package:pilates/screens/appointments/appointments_page.dart';
 import 'package:pilates/screens/dashboard/dashboard_page.dart';
 import 'package:pilates/screens/login/login_page.dart';
 import 'package:pilates/screens/place_location/place_location_page.dart';
@@ -38,6 +40,8 @@ Future<void> main() async {
     providers: [
       ChangeNotifierProvider<RegisterProvider>(
           create: (_) => RegisterProvider()),
+      ChangeNotifierProvider<ClientClassProvider>(
+          create: (_) => ClientClassProvider()),
     ],
     child: const MyApp(),
   ));
@@ -79,6 +83,7 @@ class MyApp extends StatelessWidget {
             '/login': (context) => const LoginPage(),
             '/dashboard': (context) => const DashboardPage(),
             '/schedule_date': (context) => const ScheduleDatePage(),
+            '/appointments': (context) => const AppointmentsPage(),
             '/place_location': (context) => const PlaceLocationPage(),
           },
         );

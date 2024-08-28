@@ -3,17 +3,22 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:pilates/controllers/client_classes_controller.dart';
 import 'package:pilates/controllers/pilates_classes_controller.dart';
 import 'package:pilates/helpers/data/morning_schedules_data.dart';
+import 'package:pilates/models/response/create_class_response.dart';
 import 'package:pilates/models/response/pilates_classes_response.dart';
+import 'package:pilates/models/send/create_class_send.dart';
+import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/theme/appbars/bottom_bar.dart';
 import 'package:pilates/theme/appbars/custom_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
-import 'package:pilates/theme/widgets/date_picker.dart';
+import 'package:pilates/screens/schedule_date/widgets/date_picker.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleDatePage extends StatefulWidget {
@@ -27,13 +32,9 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
   Texts texts = Texts();
   Buttons buttons = Buttons();
   CalendarFormat _calendarFormat = CalendarFormat.week;
-  List<Map<String, String>> morningSchedulesData =
-      MorningSchedulesData.morningSchedules;
+  List<Map<String, String>> activitiesData = ActivitiesData.activities;
 
-  List<String> morningHours = MorningSchedulesData.morningSchedules
-      .map((schedule) => schedule['time-start']!)
-      .toSet()
-      .toList();
+  List<String> availableHours = [];
 
   // Modals
   final LoadingModal loadingModal = LoadingModal();
@@ -42,9 +43,13 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
   final PilatesClassesController pilatesClassesController =
       PilatesClassesController();
 
+  final ClientClassesController clientClassesController =
+      ClientClassesController();
+
   //Variables
   bool isMonth = false;
   List<PilatesClassesResponse> pilatesClasses = [];
+  int? _selectedHourIndex;
 
   @override
   void initState() {
@@ -90,8 +95,331 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
     }
   }
 
+  void getAvailableHours() {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+
+    DateTime selectedDate = clientClassProvider.selectedDate!;
+
+    availableHours = [];
+
+    for (var pilatesClass in pilatesClasses) {
+      if (pilatesClass.date.day == selectedDate.day &&
+          pilatesClass.date.month == selectedDate.month &&
+          pilatesClass.date.year == selectedDate.year) {
+        availableHours.add(pilatesClass.schedule.startHour);
+      }
+    }
+
+    // Ordenar las horas disponibles
+    availableHours.sort();
+
+    log('Horas disponibles: $availableHours');
+
+    setState(() {
+      availableHours = availableHours;
+    });
+  }
+
+  void onHourSelected(String hour) {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+
+    clientClassProvider.setSelectedHour(hour);
+
+    log('Hora seleccionada: ${clientClassProvider.selectedHour}');
+  }
+
+  void searchScheduleId() {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+
+    DateTime? selectedDate = clientClassProvider.selectedDate;
+    String? selectedHour = clientClassProvider.selectedHour;
+
+    if (selectedDate == null || selectedHour == null) {
+      Future.microtask(() => {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: texts.normalText(
+                    text:
+                        'Por favor selecciona una fecha y hora antes de continuar',
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.start,
+                    fontSize: 16,
+                    color: Colors.white),
+                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+              ),
+            ),
+          });
+      return;
+    }
+
+    for (var pilatesClass in pilatesClasses) {
+      if (pilatesClass.date.day == selectedDate.day &&
+          pilatesClass.date.month == selectedDate.month &&
+          pilatesClass.date.year == selectedDate.year &&
+          pilatesClass.schedule.startHour == selectedHour) {
+        log('Clase encontrada: ${pilatesClass.pilatesClassId}');
+        clientClassProvider.setSelectedClass(pilatesClass.pilatesClassId);
+        break;
+      }
+    }
+
+    showSheduleConfirm();
+  }
+
+  void showSheduleConfirm() {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+
+    int startHour =
+        int.parse(clientClassProvider.selectedHour!.substring(0, 2));
+    int endHour = startHour + 1;
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: texts.normalText(
+              text: 'Confirmar cita',
+              color: Colors.black,
+              fontSize: 2.5 * SizeConfig.heightMultiplier,
+              fontWeight: FontWeight.w500,
+            ),
+            content: SizedBox(
+              width: 100 * SizeConfig.widthMultiplier,
+              height: 42 * SizeConfig.heightMultiplier,
+              child: Column(
+                children: [
+                  // Logotipo de Curves
+                  Container(
+                    width: 100 * SizeConfig.widthMultiplier,
+                    height: 20 * SizeConfig.heightMultiplier,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          texts.normalText(
+                            text: 'Nombre:',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: 'Apellido:',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: 'Fecha:',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: 'Hora de inicio:',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: 'Hora de fin:',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: 'Duración:',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 5 * SizeConfig.widthMultiplier,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          texts.normalText(
+                            text:
+                                clientClassProvider.loginResponse!.client.name,
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: clientClassProvider
+                                .loginResponse!.client.lastname,
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text:
+                                '${clientClassProvider.selectedDate!.day}/${clientClassProvider.selectedDate!.month}/${clientClassProvider.selectedDate!.year}',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: '$startHour:00 hrs',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: '$endHour:00 hrs',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          texts.normalText(
+                            text: '50 min',
+                            color: Colors.black,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: texts.normalText(
+                  text: 'Cancelar',
+                  color: ColorsPalette.primaryColor,
+                  fontSize: 2 * SizeConfig.heightMultiplier,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              buttons.standart(
+                text: 'Confirmar',
+                color: ColorsPalette.primaryColor,
+                width: 8 * SizeConfig.widthMultiplier,
+                onPressed: () {
+                  log('Confirmando cita ...');
+                  createClass(clientClassProvider.selectedClass!);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  void createClass(String classId) async {
+    try {
+      // Mostrar el modal de carga
+      Future.microtask(() => {loadingModal.showLoadingModal(context)});
+
+      // Crear el objeto de la clase de pilates
+      ClientClassProvider clientClassProvider =
+          Provider.of<ClientClassProvider>(context, listen: false);
+
+      CreateClassSend createClassObject = CreateClassSend(
+        clientId: clientClassProvider.loginResponse!.client.id,
+        pilatesClassId: classId,
+        date: clientClassProvider.selectedDate!,
+      );
+
+      // Crear la clase de pilates
+      CreateClassResponse createClassResponse =
+          await clientClassesController.postClass(createClassObject);
+
+      // Actualizar el estado con los nuevos datos y cerrar el modal de carga
+      if (createClassResponse.message
+          .contains('Pilates class created successfully')) {
+        Future.microtask(() => {
+              loadingModal.closeLoadingModal(context),
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/dashboard', (route) => false),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 5),
+                  content: texts.normalText(
+                      text: 'Cita agendada correctamente',
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.start,
+                      fontSize: 16,
+                      color: Colors.white),
+                  backgroundColor: ColorsPalette.successColor,
+                ),
+              ),
+            });
+      }
+    } catch (e) {
+      log('Error: $e');
+      Future.microtask(() => {
+            loadingModal.closeLoadingModal(context),
+            loadingModal.closeLoadingModal(context),
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: texts.normalText(
+                    text: e.toString().replaceAll('Exception: ', ''),
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.start,
+                    fontSize: 16,
+                    color: Colors.white),
+                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+              ),
+            ),
+          });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context);
     return Scaffold(
       appBar: const CustomAppBar(backgroundColor: ColorsPalette.primaryColor),
       body: Container(
@@ -139,7 +467,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
             ),
             Container(
               width: 100 * SizeConfig.widthMultiplier,
-              height: 65.76 * SizeConfig.heightMultiplier,
+              height: 67 * SizeConfig.heightMultiplier,
               padding: EdgeInsets.symmetric(
                   horizontal: 5 * SizeConfig.widthMultiplier,
                   vertical: 2 * SizeConfig.heightMultiplier),
@@ -194,14 +522,16 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                       child: pilatesClasses.isNotEmpty
                           ? DatePicker(
                               calendarFormat: _calendarFormat,
-                              pilatesClasses: pilatesClasses)
+                              pilatesClasses: pilatesClasses,
+                              getAvailableHours: getAvailableHours,
+                            )
                           : LoadingAnimationWidget.staggeredDotsWave(
                               color: Colors.white,
                               size: 7.5 * SizeConfig.heightMultiplier),
                     ),
                     Column(
                       children: [
-                        texts.normalText(text: 'Selecciona la hora:'),
+                        texts.normalText(text: 'Selecciona la hora de inicio:'),
                         SizedBox(
                           height: 2 * SizeConfig.heightMultiplier,
                         ),
@@ -222,26 +552,41 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                               width: 90 * SizeConfig.widthMultiplier,
                               height: 8 * SizeConfig.heightMultiplier,
                               child: ListView.builder(
-                                itemCount: morningHours.length,
+                                itemCount: availableHours.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
+                                  bool isSelected = _selectedHourIndex == index;
                                   return Row(
                                     children: [
                                       Container(
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                             border: Border(
                                               bottom: BorderSide(
-                                                color: Colors.black,
+                                                color: isSelected
+                                                    ? ColorsPalette
+                                                        .secondaryColor
+                                                    : Colors.grey,
+                                                width: isSelected ? 2 : 1,
                                               ),
                                             ),
                                             borderRadius:
-                                                BorderRadius.all(Radius.zero)),
+                                                const BorderRadius.all(
+                                                    Radius.zero)),
                                         child: TextButton(
                                           onPressed: () {
-                                            // Implementar la lógica para seleccionar la hora
+                                            setState(() {
+                                              _selectedHourIndex = index;
+                                            });
+                                            onHourSelected(
+                                                availableHours[index]);
                                           },
                                           child: texts.normalText(
-                                            text: morningHours[index],
+                                            text: availableHours[index]
+                                                .toString()
+                                                .substring(0, 5),
+                                            color: isSelected
+                                                ? ColorsPalette.secondaryColor
+                                                : Colors.grey,
                                           ),
                                         ),
                                       ),
@@ -257,7 +602,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                             SizedBox(
                               height: 2 * SizeConfig.heightMultiplier,
                             ),
-                            texts.normalText(text: 'Actividades disponibles:'),
+                            texts.normalText(text: 'Que vas a hacer?'),
                             SizedBox(
                               height: 2 * SizeConfig.heightMultiplier,
                             ),
@@ -265,8 +610,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                               width: 90 * SizeConfig.widthMultiplier,
                               height: 40 * SizeConfig.heightMultiplier,
                               child: ListView.builder(
-                                itemCount:
-                                    morningSchedulesData.where((schedule) {
+                                itemCount: activitiesData.where((schedule) {
                                   return schedule['id_time_range'] ==
                                       'time-range-1';
                                 }).length,
@@ -281,8 +625,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: AssetImage(
-                                              morningSchedulesData[index]
-                                                  ['image']!,
+                                              activitiesData[index]['image']!,
                                             ),
                                             fit: BoxFit.cover,
                                           ),
@@ -323,8 +666,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                 children: [
                                                   texts.normalText(
                                                       text:
-                                                          morningSchedulesData[
-                                                                  index]
+                                                          activitiesData[index]
                                                               ['description']!,
                                                       color: Colors.black,
                                                       fontSize: 1.9 *
@@ -340,7 +682,21 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                   Row(
                                                     children: [
                                                       Icon(
-                                                        FontAwesomeIcons.clock,
+                                                        clientClassProvider
+                                                                    .selectedHour ==
+                                                                null
+                                                            ? FontAwesomeIcons
+                                                                .faceSmile
+                                                            : int.parse(clientClassProvider
+                                                                        .selectedHour!
+                                                                        .substring(
+                                                                            0,
+                                                                            2)) >
+                                                                    10
+                                                                ? FontAwesomeIcons
+                                                                    .moon
+                                                                : FontAwesomeIcons
+                                                                    .sun,
                                                         color: Colors.grey,
                                                         size: 2 *
                                                             SizeConfig
@@ -353,7 +709,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                       ),
                                                       texts.normalText(
                                                         text:
-                                                            '${morningSchedulesData[index]['time-start']} - ${morningSchedulesData[index]['time-end']}',
+                                                            'Actividad ${index + 1}',
                                                         color: Colors.grey,
                                                         fontSize: 1.6 *
                                                             SizeConfig
@@ -386,7 +742,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           text: 'Continuar',
                           color: ColorsPalette.primaryColor,
                           onPressed: () {
-                            // Implementar la lógica para continuar
+                            searchScheduleId();
                           },
                         ),
                       ],

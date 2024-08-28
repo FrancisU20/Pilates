@@ -122,4 +122,29 @@ class Buttons {
       ),
     );
   }
+
+  Widget iconTextUnderline({
+    required IconData icon,
+    required String text,
+    required VoidCallback onPressed,
+    required Color color,
+    bool isActive = true,
+  }) {
+    return TextButton(
+      onPressed: isActive ? onPressed : null,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color),
+          const SizedBox(width: 0.5), // Espacio entre el ícono y el texto
+          texts.underlineText(
+            text: text,
+            onPressed: onPressed,
+            color: color,
+            isActive: isActive,
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -10,7 +10,7 @@ class MenuData {
     {
       'image': images.dashboardItem2,
       'description': 'Clases Agendadas',
-      'route': '/available_classes'
+      'route': '/appointments'
     },
     {
       'image': images.dashboardItem3,
