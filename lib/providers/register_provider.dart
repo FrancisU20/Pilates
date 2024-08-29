@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pilates/models/response/plans_response.dart';
 
 class RegisterProvider extends ChangeNotifier {
   //Variables de registro
@@ -12,6 +13,8 @@ class RegisterProvider extends ChangeNotifier {
   String? _gender;
   XFile? _imageFile;
   String? _imageUrl;
+  String? _dni;
+  PlanResponse? _selectedPlan;
 
   //Getters
   String? get name => _name;
@@ -23,6 +26,8 @@ class RegisterProvider extends ChangeNotifier {
   String? get gender => _gender;
   XFile? get imageFile => _imageFile;
   String? get imageUrl => _imageUrl;
+  String? get dni => _dni;
+  PlanResponse? get selectedPlan => _selectedPlan;
 
   //Setters
   void setName(String name) {
@@ -67,6 +72,16 @@ class RegisterProvider extends ChangeNotifier {
 
   void setImageUrl(String imageUrl) {
     _imageUrl = imageUrl;
+    notifyListeners();
+  }
+
+  void setDni(String dni) {
+    _dni = dni;
+    notifyListeners();
+  }
+
+  void setSelectedPlan(PlanResponse selectedPlan) {
+    _selectedPlan = selectedPlan;
     notifyListeners();
   }
 
@@ -116,6 +131,16 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearDni() {
+    _dni = null;
+    notifyListeners();
+  }
+
+  void clearSelectedPlan() {
+    _selectedPlan = null;
+    notifyListeners();
+  }
+
   //Clear all
   void clearAll() {
     _name = null;
@@ -127,6 +152,8 @@ class RegisterProvider extends ChangeNotifier {
     _gender = null;
     _imageFile = null;
     _imageUrl = null;
+    _dni = null;
+    _selectedPlan = null;
     notifyListeners();
   }
 }

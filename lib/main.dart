@@ -9,6 +9,7 @@ import 'package:pilates/screens/contact/contact_us_page.dart';
 import 'package:pilates/screens/dashboard/dashboard_page.dart';
 import 'package:pilates/screens/login/login_page.dart';
 import 'package:pilates/screens/onboarding/onboarding_page.dart';
+import 'package:pilates/screens/payment/transfer_method.dart';
 import 'package:pilates/screens/plan/plan_page.dart';
 import 'package:pilates/screens/profile/profile_page.dart';
 import 'package:pilates/screens/register/register_page.dart';
@@ -93,6 +94,7 @@ class MyApp extends StatelessWidget {
             '/plans': (context) => const PlanPage(),
             '/onboarding': (context) => const OnboardingPage(),
             '/register': (context) => const RegisterPage(),
+            '/transfer': (context) => const TransferMethodPage(),
           },
         );
       });

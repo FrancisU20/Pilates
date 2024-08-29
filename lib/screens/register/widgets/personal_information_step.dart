@@ -18,6 +18,7 @@ class PersonalInformationStep extends StatefulWidget {
     required this.lastNameController,
     required this.birthdayController,
     required this.phoneController,
+    required this.dniController,
   });
 
   final GlobalKey<FormState> formKey;
@@ -30,6 +31,7 @@ class PersonalInformationStep extends StatefulWidget {
   final TextEditingController lastNameController;
   final TextEditingController birthdayController;
   final TextEditingController phoneController;
+  final TextEditingController dniController;
 
   @override
   PersonalInformationStepState createState() => PersonalInformationStepState();
@@ -58,6 +60,14 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
             hintText: 'info@example.com',
             typeTextField: TextFieldType.email,
             controller: widget.emailController,
+          ),
+          SizedBox(height: 1 * SizeConfig.heightMultiplier),
+          widget.textFormFields.create(
+            title: 'Cédula de identidad',
+            labelcolor: ColorsPalette.textColor,
+            hintText: '1003368724',
+            typeTextField: TextFieldType.dni,
+            controller: widget.dniController,
           ),
           SizedBox(height: 1 * SizeConfig.heightMultiplier),
           Row(

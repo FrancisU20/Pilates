@@ -27,7 +27,7 @@ class Step1State extends State<Step1> {
         SizedBox(height: 3 * SizeConfig.heightMultiplier),
         texts.normalText(
             text:
-                'Experimenta los beneficios de nuestros servicios y siente la diferencia desde la primera sesión.',
+                'Experimenta los beneficios de nuestros servicios y siente la diferencia.',
             fontSize: 2.5 * SizeConfig.textMultiplier,
             fontWeight: FontWeight.w400),
       ],

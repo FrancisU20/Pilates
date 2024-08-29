@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/plans_controller.dart';
 import 'package:pilates/models/response/plans_response.dart';
+import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/theme/appbars/custom_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
@@ -11,6 +12,7 @@ import 'package:pilates/theme/widgets/buttons.dart';
 import 'package:pilates/theme/widgets/images_containers.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
+import 'package:provider/provider.dart';
 
 class PlanPage extends StatefulWidget {
   const PlanPage({super.key});
@@ -70,8 +72,10 @@ class PlanPageState extends State<PlanPage> {
   }
 
   void showSelectedPlanAndPay(PlanResponse selectedPlan) {
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
     log('Plan seleccionado: ${selectedPlan.name}');
-
+    registerProvider.setSelectedPlan(selectedPlan);
     showDialog(
         context: context,
         builder: (context) {
@@ -141,7 +145,9 @@ class PlanPageState extends State<PlanPage> {
                       text: 'Transferencia',
                       color: ColorsPalette.primaryColor,
                       width: 15 * SizeConfig.widthMultiplier,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/transfer');
+                      },
                     ),
                     SizedBox(
                       height: 2 * SizeConfig.heightMultiplier,
@@ -150,12 +156,80 @@ class PlanPageState extends State<PlanPage> {
                       text: 'Tarjeta de Crédito',
                       color: ColorsPalette.primaryColor,
                       width: 15 * SizeConfig.widthMultiplier,
-                      onPressed: () {},
+                      onPressed: () {
+                        showCommingSoonDialog();
+                      },
                     ),
                   ],
                 ),
               )
             ],
+          );
+        });
+  }
+
+  void showCommingSoonDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: texts.normalText(
+              text: 'Próximamente ...',
+              color: Colors.black,
+              fontSize: 2.5 * SizeConfig.heightMultiplier,
+              fontWeight: FontWeight.w500,
+            ),
+            content: SizedBox(
+              width: 100 * SizeConfig.widthMultiplier,
+              height: 35 * SizeConfig.heightMultiplier,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Logotipo de Curves
+                  Container(
+                    width: 100 * SizeConfig.widthMultiplier,
+                    height: 20 * SizeConfig.heightMultiplier,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100 * SizeConfig.widthMultiplier,
+                    height: 15 * SizeConfig.heightMultiplier,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        texts.normalText(
+                          text:
+                              'El módulo estará disponible en la próxima actualización',
+                          color: Colors.black,
+                          fontSize: 2 * SizeConfig.heightMultiplier,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        SizedBox(
+                          height: 2 * SizeConfig.heightMultiplier,
+                        ),
+                        Center(
+                          child: buttons.standart(
+                            text: 'Aceptar',
+                            color: ColorsPalette.primaryColor,
+                            width: 8 * SizeConfig.widthMultiplier,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         });
   }

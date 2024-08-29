@@ -41,6 +41,7 @@ class RegisterPageState extends State<RegisterPage> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController birthdayController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController dniController = TextEditingController();
 
   @override
   void initState() {
@@ -57,6 +58,7 @@ class RegisterPageState extends State<RegisterPage> {
     lastNameController.dispose();
     birthdayController.dispose();
     phoneController.dispose();
+    dniController.dispose();
     super.dispose();
   }
 
@@ -125,7 +127,8 @@ class RegisterPageState extends State<RegisterPage> {
         nameController.text.isEmpty ||
         lastNameController.text.isEmpty ||
         birthdayController.text.isEmpty ||
-        phoneController.text.isEmpty) {
+        phoneController.text.isEmpty ||
+        dniController.text.isEmpty) {
       return false;
     } else {
       DateTime normalizedDate = DateTime.parse(birthdayController.text);
@@ -135,6 +138,7 @@ class RegisterPageState extends State<RegisterPage> {
       registerProvider.setLastname(lastNameController.text);
       registerProvider.setBirthday(normalizedDate);
       registerProvider.setPhone(phoneController.text);
+      registerProvider.setDni(dniController.text);
       return true;
     }
   }
@@ -322,6 +326,7 @@ class RegisterPageState extends State<RegisterPage> {
                   lastNameController: lastNameController,
                   birthdayController: birthdayController,
                   phoneController: phoneController,
+                  dniController: dniController,
                 ),
                 isActive: _currentStep >= 0,
                 state: _isFirstStepComplete

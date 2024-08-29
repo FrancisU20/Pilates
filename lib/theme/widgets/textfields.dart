@@ -6,7 +6,7 @@ import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/screens/register/widgets/birthday_picker.dart';
 import 'package:pilates/utils/size_config.dart';
 
-enum TextFieldType { phone, email, number, alphanumeric, date, password }
+enum TextFieldType { phone, email, number, alphanumeric, date, password, dni }
 
 class TextFormFields {
   Widget create({
@@ -47,6 +47,12 @@ class TextFormFields {
         keyboardType = TextInputType.visiblePassword;
         break;
       case TextFieldType.alphanumeric:
+        keyboardType = TextInputType.name;
+        break;
+      case TextFieldType.dni:
+        inputFormatters = [LengthLimitingTextInputFormatter(10)];
+        keyboardType = TextInputType.number;
+        break;
       default:
         keyboardType = TextInputType.text;
     }
