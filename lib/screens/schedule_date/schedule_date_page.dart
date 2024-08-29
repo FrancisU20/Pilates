@@ -381,7 +381,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
         Future.microtask(() => {
               loadingModal.closeLoadingModal(context),
               Navigator.pushNamedAndRemoveUntil(
-                  context, '/dashboard', (route) => false),
+                  context, '/appointments', (route) => false),
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   duration: const Duration(seconds: 5),
@@ -465,289 +465,301 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
             SizedBox(
               height: 2 * SizeConfig.heightMultiplier,
             ),
-            Container(
-              width: 100 * SizeConfig.widthMultiplier,
-              height: 67 * SizeConfig.heightMultiplier,
-              padding: EdgeInsets.symmetric(
-                  horizontal: 5 * SizeConfig.widthMultiplier,
-                  vertical: 2 * SizeConfig.heightMultiplier),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(
-                          50))), //Color.fromARGB(255, 87, 136, 120)
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 4 * SizeConfig.heightMultiplier,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _calendarFormat =
-                                    _calendarFormat == CalendarFormat.week
-                                        ? CalendarFormat.month
-                                        : CalendarFormat.week;
-                              });
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize
-                                  .min, // Ajusta el tamaño del Row al contenido
-                              children: [
-                                texts.normalText(text: 'Ver mes'),
-                                const SizedBox(
-                                    width:
-                                        8.0), // Espacio entre el texto y el icono
-                                Icon(
-                                  _calendarFormat == CalendarFormat.week
-                                      ? FontAwesomeIcons.toggleOff
-                                      : FontAwesomeIcons.toggleOn,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 90 * SizeConfig.widthMultiplier,
-                      height: _calendarFormat == CalendarFormat.week
-                          ? 23 * SizeConfig.heightMultiplier
-                          : 50 * SizeConfig.heightMultiplier,
-                      child: pilatesClasses.isNotEmpty
-                          ? DatePicker(
-                              calendarFormat: _calendarFormat,
-                              pilatesClasses: pilatesClasses,
-                              getAvailableHours: getAvailableHours,
-                            )
-                          : LoadingAnimationWidget.staggeredDotsWave(
-                              color: Colors.white,
-                              size: 7.5 * SizeConfig.heightMultiplier),
-                    ),
-                    Column(
-                      children: [
-                        texts.normalText(text: 'Selecciona la hora de inicio:'),
-                        SizedBox(
-                          height: 2 * SizeConfig.heightMultiplier,
-                        ),
-                        Column(
+            Flexible(
+              child: Container(
+                width: 100 * SizeConfig.widthMultiplier,
+                height: 68 * SizeConfig.heightMultiplier,
+                padding: EdgeInsets.symmetric(
+                    horizontal: 5 * SizeConfig.widthMultiplier,
+                    vertical: 2 * SizeConfig.heightMultiplier),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(
+                            50))), //Color.fromARGB(255, 87, 136, 120)
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 4 * SizeConfig.heightMultiplier,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Container(
-                              padding: EdgeInsets.only(
-                                left: 4 * SizeConfig.widthMultiplier,
-                                right: 4 * SizeConfig.widthMultiplier,
-                                bottom: 2 * SizeConfig.heightMultiplier,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: ColorsPalette.primaryColor,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              width: 90 * SizeConfig.widthMultiplier,
-                              height: 8 * SizeConfig.heightMultiplier,
-                              child: ListView.builder(
-                                itemCount: availableHours.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  bool isSelected = _selectedHourIndex == index;
-                                  return Row(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                color: isSelected
-                                                    ? ColorsPalette
-                                                        .secondaryColor
-                                                    : Colors.grey,
-                                                width: isSelected ? 2 : 1,
-                                              ),
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.zero)),
-                                        child: TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              _selectedHourIndex = index;
-                                            });
-                                            onHourSelected(
-                                                availableHours[index]);
-                                          },
-                                          child: texts.normalText(
-                                            text: availableHours[index]
-                                                .toString()
-                                                .substring(0, 5),
-                                            color: isSelected
-                                                ? ColorsPalette.secondaryColor
-                                                : Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5 * SizeConfig.widthMultiplier,
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            // Espacio
-                            SizedBox(
-                              height: 2 * SizeConfig.heightMultiplier,
-                            ),
-                            texts.normalText(text: 'Que vas a hacer?'),
-                            SizedBox(
-                              height: 2 * SizeConfig.heightMultiplier,
-                            ),
-                            SizedBox(
-                              width: 90 * SizeConfig.widthMultiplier,
-                              height: 40 * SizeConfig.heightMultiplier,
-                              child: ListView.builder(
-                                itemCount: activitiesData.where((schedule) {
-                                  return schedule['id_time_range'] ==
-                                      'time-range-1';
-                                }).length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Row(
-                                    children: [
-                                      Container(
-                                        width: 60 * SizeConfig.widthMultiplier,
-                                        height:
-                                            40 * SizeConfig.heightMultiplier,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                              activitiesData[index]['image']!,
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 31 *
-                                                  SizeConfig.heightMultiplier,
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                top: 2 *
-                                                    SizeConfig.heightMultiplier,
-                                                left: 4 *
-                                                    SizeConfig.widthMultiplier,
-                                                right: 4 *
-                                                    SizeConfig.widthMultiplier,
-                                                bottom: 1 *
-                                                    SizeConfig.heightMultiplier,
-                                              ),
-                                              width: 50 *
-                                                  SizeConfig.widthMultiplier,
-                                              height: 9 *
-                                                  SizeConfig.heightMultiplier,
-                                              decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(15),
-                                                  topRight: Radius.circular(15),
-                                                ),
-                                              ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  texts.normalText(
-                                                      text:
-                                                          activitiesData[index]
-                                                              ['description']!,
-                                                      color: Colors.black,
-                                                      fontSize: 1.9 *
-                                                          SizeConfig
-                                                              .heightMultiplier,
-                                                      textAlign:
-                                                          TextAlign.start),
-                                                  SizedBox(
-                                                    height: 1 *
-                                                        SizeConfig
-                                                            .heightMultiplier,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        clientClassProvider
-                                                                    .selectedHour ==
-                                                                null
-                                                            ? FontAwesomeIcons
-                                                                .faceSmile
-                                                            : int.parse(clientClassProvider
-                                                                        .selectedHour!
-                                                                        .substring(
-                                                                            0,
-                                                                            2)) >
-                                                                    10
-                                                                ? FontAwesomeIcons
-                                                                    .moon
-                                                                : FontAwesomeIcons
-                                                                    .sun,
-                                                        color: Colors.grey,
-                                                        size: 2 *
-                                                            SizeConfig
-                                                                .heightMultiplier,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 1 *
-                                                            SizeConfig
-                                                                .widthMultiplier,
-                                                      ),
-                                                      texts.normalText(
-                                                        text:
-                                                            'Actividad ${index + 1}',
-                                                        color: Colors.grey,
-                                                        fontSize: 1.6 *
-                                                            SizeConfig
-                                                                .heightMultiplier,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5 * SizeConfig.widthMultiplier,
-                                      ),
-                                    ],
-                                  );
-                                },
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  _calendarFormat =
+                                      _calendarFormat == CalendarFormat.week
+                                          ? CalendarFormat.month
+                                          : CalendarFormat.week;
+                                });
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize
+                                    .min, // Ajusta el tamaño del Row al contenido
+                                children: [
+                                  texts.normalText(text: 'Ver mes'),
+                                  const SizedBox(
+                                      width:
+                                          8.0), // Espacio entre el texto y el icono
+                                  Icon(
+                                    _calendarFormat == CalendarFormat.week
+                                        ? FontAwesomeIcons.toggleOff
+                                        : FontAwesomeIcons.toggleOn,
+                                    color: Colors.black,
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 2 * SizeConfig.heightMultiplier,
-                        ),
-                        buttons.standart(
-                          text: 'Continuar',
-                          color: ColorsPalette.primaryColor,
-                          onPressed: () {
-                            searchScheduleId();
-                          },
-                        ),
-                      ],
-                    )
-                  ],
+                      ),
+                      SizedBox(
+                        width: 90 * SizeConfig.widthMultiplier,
+                        height: _calendarFormat == CalendarFormat.week
+                            ? 23 * SizeConfig.heightMultiplier
+                            : 50 * SizeConfig.heightMultiplier,
+                        child: pilatesClasses.isNotEmpty
+                            ? DatePicker(
+                                calendarFormat: _calendarFormat,
+                                pilatesClasses: pilatesClasses,
+                                getAvailableHours: getAvailableHours,
+                              )
+                            : LoadingAnimationWidget.staggeredDotsWave(
+                                color: Colors.white,
+                                size: 7.5 * SizeConfig.heightMultiplier),
+                      ),
+                      Column(
+                        children: [
+                          texts.normalText(
+                              text: 'Selecciona la hora de inicio:'),
+                          SizedBox(
+                            height: 2 * SizeConfig.heightMultiplier,
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(
+                                  left: 4 * SizeConfig.widthMultiplier,
+                                  right: 4 * SizeConfig.widthMultiplier,
+                                  bottom: 2 * SizeConfig.heightMultiplier,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: ColorsPalette.primaryColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                width: 90 * SizeConfig.widthMultiplier,
+                                height: 8 * SizeConfig.heightMultiplier,
+                                child: ListView.builder(
+                                  itemCount: availableHours.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    bool isSelected =
+                                        _selectedHourIndex == index;
+                                    return Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: isSelected
+                                                      ? ColorsPalette
+                                                          .secondaryColor
+                                                      : Colors.grey,
+                                                  width: isSelected ? 2 : 1,
+                                                ),
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.zero)),
+                                          child: TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                _selectedHourIndex = index;
+                                              });
+                                              onHourSelected(
+                                                  availableHours[index]);
+                                            },
+                                            child: texts.normalText(
+                                              text: availableHours[index]
+                                                  .toString()
+                                                  .substring(0, 5),
+                                              color: isSelected
+                                                  ? ColorsPalette.secondaryColor
+                                                  : Colors.grey,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5 * SizeConfig.widthMultiplier,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                              // Espacio
+                              SizedBox(
+                                height: 2 * SizeConfig.heightMultiplier,
+                              ),
+                              texts.normalText(text: 'Que vas a hacer?'),
+                              SizedBox(
+                                height: 2 * SizeConfig.heightMultiplier,
+                              ),
+                              SizedBox(
+                                width: 90 * SizeConfig.widthMultiplier,
+                                height: 40 * SizeConfig.heightMultiplier,
+                                child: ListView.builder(
+                                  itemCount: activitiesData.where((schedule) {
+                                    return schedule['id_time_range'] ==
+                                        'time-range-1';
+                                  }).length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Row(
+                                      children: [
+                                        Container(
+                                          width:
+                                              60 * SizeConfig.widthMultiplier,
+                                          height:
+                                              40 * SizeConfig.heightMultiplier,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                activitiesData[index]['image']!,
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 31 *
+                                                    SizeConfig.heightMultiplier,
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.only(
+                                                  top: 2 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                  left: 4 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  right: 4 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  bottom: 1 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                ),
+                                                width: 50 *
+                                                    SizeConfig.widthMultiplier,
+                                                height: 9 *
+                                                    SizeConfig.heightMultiplier,
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    texts.normalText(
+                                                        text: activitiesData[
+                                                                index]
+                                                            ['description']!,
+                                                        color: Colors.black,
+                                                        fontSize: 1.9 *
+                                                            SizeConfig
+                                                                .heightMultiplier,
+                                                        textAlign:
+                                                            TextAlign.start),
+                                                    SizedBox(
+                                                      height: 1 *
+                                                          SizeConfig
+                                                              .heightMultiplier,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          clientClassProvider
+                                                                      .selectedHour ==
+                                                                  null
+                                                              ? FontAwesomeIcons
+                                                                  .faceSmile
+                                                              : int.parse(clientClassProvider
+                                                                          .selectedHour!
+                                                                          .substring(
+                                                                              0,
+                                                                              2)) >
+                                                                      10
+                                                                  ? FontAwesomeIcons
+                                                                      .moon
+                                                                  : FontAwesomeIcons
+                                                                      .sun,
+                                                          color: Colors.grey,
+                                                          size: 2 *
+                                                              SizeConfig
+                                                                  .heightMultiplier,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 1 *
+                                                              SizeConfig
+                                                                  .widthMultiplier,
+                                                        ),
+                                                        texts.normalText(
+                                                          text:
+                                                              'Actividad ${index + 1}',
+                                                          color: Colors.grey,
+                                                          fontSize: 1.6 *
+                                                              SizeConfig
+                                                                  .heightMultiplier,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5 * SizeConfig.widthMultiplier,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 2 * SizeConfig.heightMultiplier,
+                          ),
+                          buttons.standart(
+                            text: 'Continuar',
+                            color: ColorsPalette.primaryColor,
+                            onPressed: () {
+                              searchScheduleId();
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             )

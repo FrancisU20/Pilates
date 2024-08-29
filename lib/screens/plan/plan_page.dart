@@ -1,0 +1,346 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pilates/controllers/plans_controller.dart';
+import 'package:pilates/models/response/plans_response.dart';
+import 'package:pilates/theme/appbars/custom_appbar.dart';
+import 'package:pilates/theme/colors_palette.dart';
+import 'package:pilates/theme/modals/loading_modal.dart';
+import 'package:pilates/theme/widgets/buttons.dart';
+import 'package:pilates/theme/widgets/images_containers.dart';
+import 'package:pilates/theme/widgets/texts.dart';
+import 'package:pilates/utils/size_config.dart';
+
+class PlanPage extends StatefulWidget {
+  const PlanPage({super.key});
+
+  @override
+  PlanPageState createState() => PlanPageState();
+}
+
+class PlanPageState extends State<PlanPage> {
+  Texts texts = Texts();
+  ImagesContainers imagesContainers = ImagesContainers();
+  Buttons buttons = Buttons();
+  List<PlanResponse> listPlans = [];
+
+  //Controladores
+  PlansController plansController = PlansController();
+
+  // Modals
+  final LoadingModal loadingModal = LoadingModal();
+
+  @override
+  void initState() {
+    super.initState();
+    getPlans();
+  }
+
+  void getPlans() async {
+    try {
+      // Mostrar el modal de carga
+      Future.microtask(() => {loadingModal.showLoadingModal(context)});
+
+      // Obtener los datos de los planes
+      List<PlanResponse> plansResponse = await plansController.getPlans();
+
+      // Actualizar el estado con los nuevos datos y cerrar el modal de carga
+      setState(() {
+        listPlans = plansResponse;
+        loadingModal.closeLoadingModal(context);
+      });
+    } catch (e) {
+      log('Error: $e');
+      Future.microtask(() => {
+            loadingModal.closeLoadingModal(context),
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: texts.normalText(
+                    text: e.toString().replaceAll('Exception: ', ''),
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.start,
+                    fontSize: 16,
+                    color: Colors.white),
+                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+              ),
+            ),
+          });
+    }
+  }
+
+  void showSelectedPlanAndPay(PlanResponse selectedPlan) {
+    log('Plan seleccionado: ${selectedPlan.name}');
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: texts.normalText(
+              text: 'Seleccione un método de pago',
+              color: Colors.black,
+              fontSize: 2.5 * SizeConfig.heightMultiplier,
+              fontWeight: FontWeight.w500,
+            ),
+            content: SizedBox(
+              width: 100 * SizeConfig.widthMultiplier,
+              height: 35 * SizeConfig.heightMultiplier,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Logotipo de Curves
+                  Container(
+                    width: 100 * SizeConfig.widthMultiplier,
+                    height: 20 * SizeConfig.heightMultiplier,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100 * SizeConfig.widthMultiplier,
+                    height: 15 * SizeConfig.heightMultiplier,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        texts.normalText(
+                          text:
+                              'Usted ha seleccionado el plan ${selectedPlan.name}',
+                          color: Colors.black,
+                          fontSize: 2 * SizeConfig.heightMultiplier,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        SizedBox(
+                          height: 2 * SizeConfig.heightMultiplier,
+                        ),
+                        texts.normalText(
+                          text:
+                              'Nota: Una vez realizado el pago, no se aceptan devoluciones.',
+                          color: Colors.black,
+                          fontSize: 2 * SizeConfig.heightMultiplier,
+                          fontWeight: FontWeight.w500,
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buttons.standart(
+                      text: 'Transferencia',
+                      color: ColorsPalette.primaryColor,
+                      width: 15 * SizeConfig.widthMultiplier,
+                      onPressed: () {},
+                    ),
+                    SizedBox(
+                      height: 2 * SizeConfig.heightMultiplier,
+                    ),
+                    buttons.standart(
+                      text: 'Tarjeta de Crédito',
+                      color: ColorsPalette.primaryColor,
+                      width: 15 * SizeConfig.widthMultiplier,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.primaryColor),
+      body: Stack(children: [
+        Container(
+          color: ColorsPalette.primaryColor,
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 5 * SizeConfig.widthMultiplier,
+                    vertical: 1 * SizeConfig.heightMultiplier),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 8 * SizeConfig.imageSizeMultiplier,
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        FontAwesomeIcons.boxesStacked,
+                        size: 8 * SizeConfig.imageSizeMultiplier,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5 * SizeConfig.widthMultiplier,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        texts.normalText(
+                            text: 'Planes',
+                            color: Colors.white,
+                            fontSize: 4 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w400),
+                        texts.normalText(
+                            text: 'Conoce nuestros planes',
+                            color: Colors.white,
+                            fontSize: 2 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w400,
+                            textAlign: TextAlign.left),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 2 * SizeConfig.heightMultiplier,
+              ),
+              Flexible(
+                child: Container(
+                    width: 100 * SizeConfig.widthMultiplier,
+                    height: 78 * SizeConfig.heightMultiplier,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 5 * SizeConfig.widthMultiplier,
+                        vertical: 2 * SizeConfig.heightMultiplier),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(
+                                25))), //Color.fromARGB(255, 87, 136, 120)
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 2 * SizeConfig.heightMultiplier,
+                          ),
+                          Center(
+                            child: texts.normalText(
+                                text: 'Hola 👋, selecciona un plan:',
+                                color: Colors.black,
+                                fontSize: 2.5 * SizeConfig.heightMultiplier,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(
+                            height: 3.5 * SizeConfig.heightMultiplier,
+                          ),
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10.0,
+                              mainAxisSpacing: 10.0,
+                              childAspectRatio: 1 / 1,
+                            ),
+                            itemCount: listPlans.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  showSelectedPlanAndPay(listPlans[index]);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: const LinearGradient(
+                                      colors: [
+                                        Color(0xFFDDD7C9),
+                                        Color(0xFFEEEEEE),
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      stops: [
+                                        0.5,
+                                        0.5
+                                      ], // Marca el punto medio donde los colores cambian
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                        2 * SizeConfig.heightMultiplier),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 1 * SizeConfig.heightMultiplier,
+                                      ),
+                                      Center(
+                                        child: texts.normalText(
+                                          text: listPlans[index]
+                                              .numberOfClasses
+                                              .toString(),
+                                          color: Colors.black,
+                                          fontSize:
+                                              5 * SizeConfig.heightMultiplier,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Center(
+                                        child: texts.normalText(
+                                          text: 'clases',
+                                          color: Colors.black,
+                                          fontSize:
+                                              2 * SizeConfig.heightMultiplier,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 2 * SizeConfig.heightMultiplier,
+                                      ),
+                                      Column(
+                                        children: [
+                                          texts.normalText(
+                                            text: listPlans[index].name,
+                                            color: Colors.black,
+                                            fontSize: 1.5 *
+                                                SizeConfig.heightMultiplier,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          texts.normalText(
+                                            text:
+                                                '\$ ${listPlans[index].price.toStringAsFixed(2)}/mes',
+                                            color: Colors.black,
+                                            fontSize: 2.5 *
+                                                SizeConfig.heightMultiplier,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          texts.normalText(
+                                            text:
+                                                '\$ ${listPlans[index].classPrice.toStringAsFixed(2)}/por clase',
+                                            color: Colors.black,
+                                            fontSize: 1.5 *
+                                                SizeConfig.heightMultiplier,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    )),
+              )
+            ],
+          ),
+        ),
+      ]),
+    );
+  }
+}

@@ -22,12 +22,14 @@ class Step2State extends State<Step2> {
       children: [
         // COntenedor de paginas
         imagesContainers.largeImage(
-          'https://www.studio9-pilates.nl/wp-content/uploads/2024/03/Studio-9-Website_722x1088_homepage_20244-679x1024.jpg',
+          'assets/images/onboarding/onboarding2.jpg',
         ),
         SizedBox(height: 3 * SizeConfig.heightMultiplier),
-        texts.titleText(
+        texts.normalText(
             text:
-                'Descubre cómo nuestras rutinas te ayudarán a aumentar tu flexibilidad y fortaleza.'),
+                'Descubre cómo nuestras rutinas te ayudarán a aumentar tu flexibilidad y fortaleza.',
+            fontSize: 2.5 * SizeConfig.textMultiplier,
+            fontWeight: FontWeight.w400),
       ],
     );
   }

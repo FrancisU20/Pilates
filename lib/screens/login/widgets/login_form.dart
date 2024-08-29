@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/clients_controller.dart';
 import 'package:pilates/models/response/login_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
-import 'package:pilates/screens/dashboard/dashboard_page.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/snackbars/error_snackbar.dart';
@@ -53,10 +52,8 @@ class LoginFormState extends State<LoginForm> {
       if (isRegistered) {
         clientClassProvider.setLoginResponse(loginResponse);
         Future.microtask(
-          () => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const DashboardPage()),
-              (route) => false),
+          () => Navigator.pushNamedAndRemoveUntil(
+              context, '/dashboard', (route) => false),
         );
       }
     } catch (e) {
@@ -99,6 +96,16 @@ class LoginFormState extends State<LoginForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              width: 100 * SizeConfig.widthMultiplier,
+              height: 20 * SizeConfig.heightMultiplier,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
             widget.texts.titleText(
               text: 'Bienvenido,',
               fontWeight: FontWeight.w500,
@@ -143,6 +150,15 @@ class LoginFormState extends State<LoginForm> {
                 ),
               ),
             ),
+            SizedBox(height: 2 * SizeConfig.heightMultiplier),
+            Center(
+              child: widget.texts.underlineText(
+                  text: '¿Aún no tiene cuenta? Registrate',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/onboarding');
+                  },
+                  color: ColorsPalette.primaryColor),
+            )
           ],
         ),
       ),

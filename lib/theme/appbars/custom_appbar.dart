@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: backgroundColor == ColorsPalette.backgroundColor
                   ? Colors.black
                   : Colors.white),
-          onPressed: () => Navigator.pushNamed(context, '/dashboard'),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
     );

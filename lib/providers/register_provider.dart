@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterProvider extends ChangeNotifier {
   //Variables de registro
@@ -11,7 +10,8 @@ class RegisterProvider extends ChangeNotifier {
   DateTime? _birthday;
   String? _password;
   String? _gender;
-  File? _imageFile;
+  XFile? _imageFile;
+  String? _imageUrl;
 
   //Getters
   String? get name => _name;
@@ -21,7 +21,8 @@ class RegisterProvider extends ChangeNotifier {
   DateTime? get birthday => _birthday;
   String? get password => _password;
   String? get gender => _gender;
-  File? get imageFile => _imageFile;
+  XFile? get imageFile => _imageFile;
+  String? get imageUrl => _imageUrl;
 
   //Setters
   void setName(String name) {
@@ -59,8 +60,13 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setImageFile(File imageFile) {
+  void setImageFile(XFile imageFile) {
     _imageFile = imageFile;
+    notifyListeners();
+  }
+
+  void setImageUrl(String imageUrl) {
+    _imageUrl = imageUrl;
     notifyListeners();
   }
 
@@ -105,6 +111,11 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearImageUrl() {
+    _imageUrl = null;
+    notifyListeners();
+  }
+
   //Clear all
   void clearAll() {
     _name = null;
@@ -115,6 +126,7 @@ class RegisterProvider extends ChangeNotifier {
     _password = null;
     _gender = null;
     _imageFile = null;
+    _imageUrl = null;
     notifyListeners();
   }
 }

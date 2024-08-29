@@ -14,17 +14,23 @@ class ImagesContainers {
       height: height,
       child: Stack(
         children: [
-          Image.network(
-            imageUrl,
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+                15), // Ajusta el valor según el radio de borde que desees
+            child: Image.asset(
+              imageUrl,
+              width: width,
+              height: height,
+              fit: BoxFit.cover,
+            ),
           ),
           isDegraded
               ? Container(
                   width: width,
                   height: height,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                        15), // Aplica el mismo radio al degradado
                     gradient: LinearGradient(
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,

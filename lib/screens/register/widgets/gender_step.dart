@@ -3,7 +3,7 @@ import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
 
-class GenderStep extends StatelessWidget {
+class GenderStep extends StatefulWidget {
   const GenderStep({
     super.key,
     required this.gender,
@@ -16,6 +16,26 @@ class GenderStep extends StatelessWidget {
   final ValueChanged<String> onGenderChanged;
 
   @override
+  GenderStepState createState() => GenderStepState();
+}
+
+class GenderStepState extends State<GenderStep> {
+  late String _selectedGender;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedGender = widget.gender;
+  }
+
+  void _updateGender(String gender) {
+    setState(() {
+      _selectedGender = gender;
+    });
+    widget.onGenderChanged(gender);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,13 +45,13 @@ class GenderStep extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                onGenderChanged('Male');
+                _updateGender('Male');
               },
               child: Container(
                 padding: EdgeInsets.all(2 * SizeConfig.widthMultiplier),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: gender == 'Male'
+                    color: _selectedGender == 'Male'
                         ? ColorsPalette.primaryColor
                         : Colors.transparent,
                   ),
@@ -40,14 +60,14 @@ class GenderStep extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Image.network(
-                      'https://img.freepik.com/free-photo/handsome-muscular-guy-with-naked-torso_144627-806.jpg?w=740&t=st=1719243581~exp=1719244181~hmac=0d216dee2003a8b4dcb4cea87768f85ff4c438f053c21ebf724d41ce7315b050',
+                    Image.asset(
+                      'assets/images/male.jpg',
                       width: 15 * SizeConfig.heightMultiplier,
                       fit: BoxFit.contain,
                     ),
-                    texts.normalText(
+                    widget.texts.normalText(
                       text: 'Hombre',
-                      color: gender == 'Male'
+                      color: _selectedGender == 'Male'
                           ? ColorsPalette.primaryColor
                           : Colors.black,
                       fontWeight: FontWeight.w400,
@@ -58,28 +78,29 @@ class GenderStep extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                onGenderChanged('Female');
+                _updateGender('Female');
               },
               child: Container(
                 padding: EdgeInsets.all(2 * SizeConfig.widthMultiplier),
                 decoration: BoxDecoration(
-                    border: Border.all(
-                      color: gender == 'Female'
-                          ? ColorsPalette.primaryColor
-                          : Colors.transparent,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white),
+                  border: Border.all(
+                    color: _selectedGender == 'Female'
+                        ? ColorsPalette.primaryColor
+                        : Colors.transparent,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
                 child: Column(
                   children: [
-                    Image.network(
-                      'https://img.freepik.com/free-photo/lady-demonstrate-exercises-strong-body-figure-isolated_231208-3416.jpg?t=st=1719244130~exp=1719247730~hmac=6a9bf2ff65bb0572743f704a6f59e849ec2374ac536faecf0ed25ae0055a6d03&w=740',
+                    Image.asset(
+                      'assets/images/female.jpg',
                       width: 15 * SizeConfig.heightMultiplier,
                       fit: BoxFit.contain,
                     ),
-                    texts.normalText(
+                    widget.texts.normalText(
                         text: 'Mujer',
-                        color: gender == 'Female'
+                        color: _selectedGender == 'Female'
                             ? ColorsPalette.primaryColor
                             : Colors.black,
                         fontWeight: FontWeight.w400),
@@ -93,7 +114,7 @@ class GenderStep extends StatelessWidget {
         Center(
           child: GestureDetector(
             onTap: () {
-              onGenderChanged('Others');
+              _updateGender('Others');
             },
             child: SizedBox(
               height: 5 * SizeConfig.heightMultiplier,
@@ -101,7 +122,7 @@ class GenderStep extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: gender == 'Others'
+                    color: _selectedGender == 'Others'
                         ? ColorsPalette.primaryColor
                         : Colors.transparent,
                   ),
@@ -109,9 +130,9 @@ class GenderStep extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: Center(
-                  child: texts.normalText(
+                  child: widget.texts.normalText(
                       text: 'Prefiero no contestar',
-                      color: gender == 'Others'
+                      color: _selectedGender == 'Others'
                           ? ColorsPalette.primaryColor
                           : Colors.black,
                       fontWeight: FontWeight.w400),

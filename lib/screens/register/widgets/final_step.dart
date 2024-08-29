@@ -13,13 +13,15 @@ class FinalStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 10 * SizeConfig.heightMultiplier,
+      height: 12 * SizeConfig.heightMultiplier,
+      width: 70 * SizeConfig.widthMultiplier,
       child: Column(
         children: [
           texts.normalText(
-              text: '¡Gracias por registrarte!', fontWeight: FontWeight.w400),
+              text: '¡Has completado la primera parte del registro!',
+              fontWeight: FontWeight.w400),
           texts.normalText(
-              text: 'Ahora puedes empezar a usar la app.',
+              text: 'Ahora puedes seleccionar un plan.',
               fontWeight: FontWeight.w400),
         ],
       ),

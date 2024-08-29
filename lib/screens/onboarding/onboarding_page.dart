@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/screens/onboarding/pages/onboarding_page1.dart';
 import 'package:pilates/screens/onboarding/pages/onboarding_page2.dart';
 import 'package:pilates/screens/onboarding/pages/onboarding_page3.dart';
 import 'package:pilates/screens/onboarding/widgets/stepper_widget.dart';
-import 'package:pilates/screens/subscription/plans_page.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
 import 'package:pilates/theme/widgets/images_containers.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -26,6 +27,8 @@ class OnboardingPageState extends State<OnboardingPage> {
   int currentStep = 0;
 
   void _incrementCounter() {
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
     if (currentStep < 2) {
       setState(() {
         currentStep++;
@@ -35,10 +38,8 @@ class OnboardingPageState extends State<OnboardingPage> {
         curve: Curves.easeInOut,
       );
     } else {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const SubscriptionPage()),
-          (route) => false);
+      registerProvider.clearAll();
+      Navigator.pushNamed(context, '/register');
     }
   }
 

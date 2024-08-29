@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pilates/providers/register_provider.dart';
-import 'package:pilates/screens/dashboard/dashboard_page.dart';
 import 'package:pilates/screens/register/widgets/final_step.dart';
 import 'package:pilates/screens/register/widgets/gender_step.dart';
 import 'package:pilates/screens/register/widgets/personal_information_step.dart';
@@ -25,19 +24,59 @@ class RegisterPage extends StatefulWidget {
 class RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   int _currentStep = 0;
+  bool _isFirstStepComplete = false;
+  bool _isSecondStepComplete = false;
+  bool _isThirdStepComplete = false;
+
   String _gender = '';
   XFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
+
+  // Controladores de texto
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController repeatPasswordController =
+      TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController birthdayController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Limpiar los controladores cuando se destruye el widget para evitar fugas de memoria
+    emailController.dispose();
+    passwordController.dispose();
+    repeatPasswordController.dispose();
+    nameController.dispose();
+    lastNameController.dispose();
+    birthdayController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
 
   Texts texts = Texts();
   Buttons buttons = Buttons();
   TextFormFields textFormFields = TextFormFields();
 
   Future<void> _pickImage(ImageSource source) async {
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
     final XFile? selected = await _picker.pickImage(source: source);
-    setState(() {
-      _imageFile = selected;
-    });
+
+    if (selected == null) {
+      return;
+    } else {
+      registerProvider.setImageFile(selected);
+      setState(() {
+        _imageFile = selected;
+      });
+    }
   }
 
   void _showPicker(context) {
@@ -76,6 +115,65 @@ class RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  bool _validateFirstStep() {
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+    // Verificar si todos los campos del primer paso están llenos
+    if (emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        repeatPasswordController.text.isEmpty ||
+        nameController.text.isEmpty ||
+        lastNameController.text.isEmpty ||
+        birthdayController.text.isEmpty ||
+        phoneController.text.isEmpty) {
+      return false;
+    } else {
+      DateTime normalizedDate = DateTime.parse(birthdayController.text);
+
+      registerProvider.setEmail(emailController.text);
+      registerProvider.setName(nameController.text);
+      registerProvider.setLastname(lastNameController.text);
+      registerProvider.setBirthday(normalizedDate);
+      registerProvider.setPhone(phoneController.text);
+      return true;
+    }
+  }
+
+  bool validatePassword() {
+    if (passwordController.text != repeatPasswordController.text) {
+      return false;
+    }
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+    registerProvider.setPassword(passwordController.text);
+    return true;
+  }
+
+  void saveGender(String newGender) {
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+    registerProvider.setGender(newGender);
+    log(newGender);
+    setState(() {
+      _gender = newGender;
+      log(_gender);
+    });
+  }
+
+  bool _validateSecondStep() {
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+
+    return registerProvider.gender != null;
+  }
+
+  bool _validateThirdStep() {
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+
+    return registerProvider.imageFile != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -100,18 +198,65 @@ class RegisterPageState extends State<RegisterPage> {
           child: Stepper(
             currentStep: _currentStep,
             onStepContinue: () {
+              if (_currentStep == 0) {
+                // Validar el primer paso
+                if (!_validateFirstStep()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Por favor, llena todos los campos.')),
+                  );
+                  return;
+                }
+                if (!validatePassword()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Las contraseñas no coinciden.')),
+                  );
+                  return;
+                }
+                setState(() {
+                  _isFirstStepComplete = true;
+                });
+              }
+
               if (_currentStep < 3) {
+                if (_currentStep == 1 && !_validateSecondStep()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Por favor, seleccione un género.')),
+                  );
+                  return;
+                }
+
+                if (_currentStep == 2 && !_validateThirdStep()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Por favor, seleccione una imagen.')),
+                  );
+                  return;
+                }
+
                 setState(() {
                   _currentStep += 1;
+                  if (_currentStep == 1) {
+                    _isFirstStepComplete = true;
+                  } else if (_currentStep == 2) {
+                    _isFirstStepComplete = true;
+                    _isSecondStepComplete = true;
+                  } else if (_currentStep == 3) {
+                    _isFirstStepComplete = true;
+                    _isSecondStepComplete = true;
+                    _isThirdStepComplete = true;
+                  } else {
+                    _isFirstStepComplete = false;
+                    _isSecondStepComplete = false;
+                    _isThirdStepComplete = false;
+                  }
                 });
               } else {
                 if (_formKey.currentState!.validate()) {
                   log('Formulario completado');
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DashboardPage()),
-                      (route) => false);
+                  Navigator.pushNamed(context, '/plans');
                 }
               }
             },
@@ -153,7 +298,7 @@ class RegisterPageState extends State<RegisterPage> {
                     color: ColorsPalette.primaryColor,
                   ),
                   buttons.standart(
-                      text: 'Finalizar',
+                      text: 'Ver Planes',
                       onPressed: details.onStepContinue!,
                       color: ColorsPalette.primaryColor,
                       width: 10 * SizeConfig.widthMultiplier,
@@ -164,38 +309,46 @@ class RegisterPageState extends State<RegisterPage> {
             steps: [
               Step(
                 title: texts.titleText(
-                    text: _currentStep == 0 ? 'Registro' : 'Completado',
+                    text: !_isFirstStepComplete ? 'Registro' : 'Completado',
                     fontWeight: FontWeight.w500),
                 content: PersonalInformationStep(
                   formKey: _formKey,
                   textFormFields: textFormFields,
                   texts: texts,
+                  emailController: emailController,
+                  passwordController: passwordController,
+                  repeatPasswordController: repeatPasswordController,
+                  nameController: nameController,
+                  lastNameController: lastNameController,
+                  birthdayController: birthdayController,
+                  phoneController: phoneController,
                 ),
                 isActive: _currentStep >= 0,
-                state:
-                    _currentStep >= 1 ? StepState.complete : StepState.indexed,
+                state: _isFirstStepComplete
+                    ? StepState.complete
+                    : StepState.indexed,
               ),
               Step(
                 title: texts.titleText(
-                    text:
-                        _currentStep == 1 ? 'Cuál es tu género?' : 'Completado',
+                    text: !_isSecondStepComplete
+                        ? 'Cuál es tu género?'
+                        : 'Completado',
                     fontWeight: FontWeight.w500),
                 content: GenderStep(
                   gender: _gender,
                   texts: texts,
                   onGenderChanged: (newGender) {
-                    setState(() {
-                      _gender = newGender;
-                    });
+                    saveGender(newGender);
                   },
                 ),
                 isActive: _currentStep >= 1,
-                state:
-                    _currentStep >= 2 ? StepState.complete : StepState.indexed,
+                state: _isSecondStepComplete
+                    ? StepState.complete
+                    : StepState.indexed,
               ),
               Step(
                 title: texts.titleText(
-                    text: _currentStep == 2
+                    text: !_isThirdStepComplete
                         ? 'Sube una foto de perfil'
                         : 'Completado',
                     fontWeight: FontWeight.w500),
@@ -205,8 +358,9 @@ class RegisterPageState extends State<RegisterPage> {
                   buttons: buttons,
                 ),
                 isActive: _currentStep == 2,
-                state:
-                    _currentStep >= 3 ? StepState.complete : StepState.indexed,
+                state: _isThirdStepComplete
+                    ? StepState.complete
+                    : StepState.indexed,
               ),
               Step(
                 title: texts.titleText(

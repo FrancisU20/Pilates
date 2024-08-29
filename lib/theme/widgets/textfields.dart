@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/screens/register/widgets/birthday_picker.dart';
 import 'package:pilates/utils/size_config.dart';
-//import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 enum TextFieldType { phone, email, number, alphanumeric, date, password }
 
@@ -29,12 +28,10 @@ class TextFormFields {
 
     switch (typeTextField) {
       case TextFieldType.phone:
-        controller.text = initialValue ?? '';
-        inputFormatters = [LengthLimitingTextInputFormatter(16)];
+        inputFormatters = [LengthLimitingTextInputFormatter(10)];
         keyboardType = TextInputType.phone;
         break;
       case TextFieldType.date:
-        controller.text = initialValue ?? '';
         inputFormatters = [LengthLimitingTextInputFormatter(10)];
         keyboardType = TextInputType.datetime;
         break;

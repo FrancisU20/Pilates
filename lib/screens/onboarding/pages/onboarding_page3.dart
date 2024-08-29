@@ -22,12 +22,14 @@ class Step3State extends State<Step3> {
       children: [
         // COntenedor de paginas
         imagesContainers.largeImage(
-          'https://www.studio9-pilates.nl/wp-content/uploads/2024/03/Studio-9-Website_722x1088_homepage_20242-679x1024.jpg',
+          'assets/images/onboarding/onboarding3.jpg',
         ),
         SizedBox(height: 3 * SizeConfig.heightMultiplier),
-        texts.titleText(
+        texts.normalText(
             text:
-                'Reserva tu primera clase y comienza tu viaje hacia una vida más saludable y equilibrada.'),
+                'Reserva tu primera clase y comienza tu viaje hacia una vida más saludable y equilibrada.',
+            fontSize: 2.5 * SizeConfig.textMultiplier,
+            fontWeight: FontWeight.w400),
       ],
     );
   }

@@ -5,9 +5,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/screens/appointments/appointments_page.dart';
+import 'package:pilates/screens/contact/contact_us_page.dart';
 import 'package:pilates/screens/dashboard/dashboard_page.dart';
 import 'package:pilates/screens/login/login_page.dart';
-import 'package:pilates/screens/place_location/place_location_page.dart';
+import 'package:pilates/screens/onboarding/onboarding_page.dart';
+import 'package:pilates/screens/plan/plan_page.dart';
+import 'package:pilates/screens/profile/profile_page.dart';
+import 'package:pilates/screens/register/register_page.dart';
 import 'package:pilates/screens/schedule_date/schedule_date_page.dart';
 import 'package:pilates/screens/splash_screen.dart';
 import 'package:pilates/utils/size_config.dart';
@@ -84,7 +88,11 @@ class MyApp extends StatelessWidget {
             '/dashboard': (context) => const DashboardPage(),
             '/schedule_date': (context) => const ScheduleDatePage(),
             '/appointments': (context) => const AppointmentsPage(),
-            '/place_location': (context) => const PlaceLocationPage(),
+            '/contact_us': (context) => const ContactUsPage(),
+            '/profile': (context) => const ProfilePage(),
+            '/plans': (context) => const PlanPage(),
+            '/onboarding': (context) => const OnboardingPage(),
+            '/register': (context) => const RegisterPage(),
           },
         );
       });

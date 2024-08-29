@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/utils/size_config.dart';
 
 class BottomBar extends StatelessWidget {
@@ -23,8 +24,8 @@ class BottomBar extends StatelessWidget {
         children: [
           IconButton(
             icon: ModalRoute.of(context)?.settings.name == '/dashboard'
-                ? const Icon(Icons.home)
-                : const Icon(Icons.home_outlined),
+                ? const Icon(FontAwesomeIcons.grip)
+                : const Icon(FontAwesomeIcons.grip),
             color: ModalRoute.of(context)?.settings.name == '/dashboard'
                 ? Colors.white
                 : Colors.grey,
@@ -34,8 +35,8 @@ class BottomBar extends StatelessWidget {
           ),
           IconButton(
             icon: ModalRoute.of(context)?.settings.name == '/schedule_date'
-                ? const Icon(Icons.calendar_month)
-                : const Icon(Icons.calendar_month_outlined),
+                ? const Icon(FontAwesomeIcons.solidPenToSquare)
+                : const Icon(FontAwesomeIcons.penToSquare),
             color: ModalRoute.of(context)?.settings.name == '/schedule_date'
                 ? Colors.white
                 : Colors.grey,
@@ -44,20 +45,31 @@ class BottomBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: ModalRoute.of(context)?.settings.name == '/place_location'
-                ? const Icon(Icons.map)
-                : const Icon(Icons.map_outlined),
-            color: ModalRoute.of(context)?.settings.name == '/place_location'
+            icon: ModalRoute.of(context)?.settings.name == '/appointments'
+                ? const Icon(Icons.calendar_month)
+                : const Icon(Icons.calendar_month_outlined),
+            color: ModalRoute.of(context)?.settings.name == '/appointments'
                 ? Colors.white
                 : Colors.grey,
             onPressed: () {
-              Navigator.pushNamed(context, '/place_location');
+              Navigator.pushNamed(context, '/appointments');
+            },
+          ),
+          IconButton(
+            icon: ModalRoute.of(context)?.settings.name == '/contact_us'
+                ? const Icon(FontAwesomeIcons.solidAddressBook)
+                : const Icon(FontAwesomeIcons.addressBook),
+            color: ModalRoute.of(context)?.settings.name == '/contact_us'
+                ? Colors.white
+                : Colors.grey,
+            onPressed: () {
+              Navigator.pushNamed(context, '/contact_us');
             },
           ),
           IconButton(
             icon: ModalRoute.of(context)?.settings.name == '/profile'
-                ? const Icon(Icons.person_2)
-                : const Icon(Icons.person_2_outlined),
+                ? const Icon(FontAwesomeIcons.solidAddressCard)
+                : const Icon(FontAwesomeIcons.addressCard),
             color: ModalRoute.of(context)?.settings.name == '/profile'
                 ? Colors.white
                 : Colors.grey,

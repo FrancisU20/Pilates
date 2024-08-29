@@ -14,13 +14,13 @@ class MenuData {
     },
     {
       'image': images.dashboardItem3,
-      'description': 'Cómo llegar?',
-      'route': '/place_location'
+      'description': 'Contáctanos',
+      'route': '/contact_us'
     },
     {
       'image': images.dashboardItem4,
-      'description': 'Contáctanos',
-      'route': '/contact_us'
+      'description': 'Mi Cuenta',
+      'route': '/profile'
     },
   ];
 }

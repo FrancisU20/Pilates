@@ -164,7 +164,7 @@ class DashboardPageState extends State<DashboardPage> {
                           height: 0.5 * SizeConfig.heightMultiplier,
                         ),
                         texts.normalText(
-                            text: 'Clases Agendadas',
+                            text: 'Clases Disponibles',
                             color: const Color.fromARGB(255, 158, 148, 135),
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500,

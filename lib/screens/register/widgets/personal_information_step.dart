@@ -5,102 +5,116 @@ import 'package:pilates/theme/widgets/textfields.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
 
-class PersonalInformationStep extends StatelessWidget {
-  PersonalInformationStep({
+class PersonalInformationStep extends StatefulWidget {
+  const PersonalInformationStep({
     super.key,
     required this.formKey,
     required this.textFormFields,
     required this.texts,
+    required this.emailController,
+    required this.passwordController,
+    required this.repeatPasswordController,
+    required this.nameController,
+    required this.lastNameController,
+    required this.birthdayController,
+    required this.phoneController,
   });
 
   final GlobalKey<FormState> formKey;
   final TextFormFields textFormFields;
   final Texts texts;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController repeatPasswordController;
+  final TextEditingController nameController;
+  final TextEditingController lastNameController;
+  final TextEditingController birthdayController;
+  final TextEditingController phoneController;
 
-  //Controladores de texto
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController repeatPasswordController =
-      TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController birthdayController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  @override
+  PersonalInformationStepState createState() => PersonalInformationStepState();
+}
+
+class PersonalInformationStepState extends State<PersonalInformationStep> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          texts.normalText(
+          widget.texts.normalText(
               text: 'Ingresa tus datos por favor:',
               fontWeight: FontWeight.w400),
           SizedBox(height: 2 * SizeConfig.heightMultiplier),
-          textFormFields.create(
+          widget.textFormFields.create(
             title: 'Correo electrónico',
             labelcolor: ColorsPalette.textColor,
             hintText: 'info@example.com',
             typeTextField: TextFieldType.email,
-            controller: emailController,
+            controller: widget.emailController,
           ),
           SizedBox(height: 1 * SizeConfig.heightMultiplier),
           Row(
             children: [
-              textFormFields.create(
+              widget.textFormFields.create(
                 title: 'Nombre',
                 labelcolor: ColorsPalette.textColor,
                 hintText: 'Escribe tu nombre aquí',
                 typeTextField: TextFieldType.alphanumeric,
                 width: 38.5,
-                controller: nameController,
+                controller: widget.nameController,
               ),
               SizedBox(width: 1 * SizeConfig.widthMultiplier),
-              textFormFields.create(
+              widget.textFormFields.create(
                 title: 'Apellido',
                 labelcolor: ColorsPalette.textColor,
                 hintText: 'Escribe tu apellido aquí',
                 typeTextField: TextFieldType.alphanumeric,
                 width: 38.5,
-                controller: lastNameController,
+                controller: widget.lastNameController,
               ),
             ],
           ),
           SizedBox(height: 1 * SizeConfig.heightMultiplier),
-          textFormFields.create(
+          widget.textFormFields.create(
             title: 'Contraseña',
             labelcolor: ColorsPalette.textColor,
             hintText: '**********',
             typeTextField: TextFieldType.password,
-            controller: passwordController,
+            controller: widget.passwordController,
           ),
           SizedBox(height: 1 * SizeConfig.heightMultiplier),
-          textFormFields.create(
+          widget.textFormFields.create(
             title: 'Repite tu Contraseña',
             labelcolor: ColorsPalette.textColor,
             hintText: '**********',
             typeTextField: TextFieldType.password,
-            controller: repeatPasswordController,
+            controller: widget.repeatPasswordController,
           ),
           SizedBox(height: 1 * SizeConfig.heightMultiplier),
           Row(
             children: [
-              textFormFields.create(
+              widget.textFormFields.create(
                   title: 'Cumpleaños',
                   labelcolor: ColorsPalette.textColor,
                   hintText: '01/01/2000',
                   typeTextField: TextFieldType.date,
                   width: 38.5,
-                  controller: birthdayController),
+                  controller: widget.birthdayController),
               SizedBox(width: 1 * SizeConfig.widthMultiplier),
-              textFormFields.create(
+              widget.textFormFields.create(
                 title: 'Teléfono',
                 labelcolor: ColorsPalette.textColor,
-                hintText: '+593 987 654 321',
+                hintText: '0987654321',
                 typeTextField: TextFieldType.phone,
                 width: 38.5,
-                controller: phoneController,
+                controller: widget.phoneController,
               ),
             ],
           ),

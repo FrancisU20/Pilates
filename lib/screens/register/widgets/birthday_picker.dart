@@ -28,109 +28,109 @@ class BirthdayPicker {
                 // Display texts
                 displayLarge: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 displayMedium: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 displaySmall: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 // Body texts
                 bodyLarge: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 bodyMedium: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 bodySmall: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 // Headlines text
                 headlineLarge: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
 
                 headlineMedium: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
 
                 headlineSmall: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 // Labels text
                 labelLarge: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 labelMedium: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 labelSmall: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 // Title text
                 titleLarge: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 titleMedium: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 titleSmall: GoogleFonts.montserrat(
                   textStyle: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
               ),
-              dialogBackgroundColor: Colors.white),
+              dialogBackgroundColor: Colors.black),
           child: child!,
         );
       },
     );
 
     if (selectedDate != null) {
-      controller.text = DateFormat('dd/MM/yyyy', 'es').format(selectedDate);
+      controller.text = DateFormat('yyyy-MM-dd', 'es').format(selectedDate);
     }
   }
 }
