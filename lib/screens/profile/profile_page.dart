@@ -224,6 +224,64 @@ class ProfilePageState extends State<ProfilePage> {
     return '$day de $monthName de $year';
   }
 
+  void showPaymentInvoice() {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: texts.normalText(
+            text: 'Comprobante de Pago',
+            color: Colors.black,
+            fontSize: 2.5 * SizeConfig.heightMultiplier,
+            fontWeight: FontWeight.w500,
+          ),
+          content: SizedBox(
+            width: 100 * SizeConfig.widthMultiplier,
+            height: 50 * SizeConfig.heightMultiplier,
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                  ),
+                  width: 100 * SizeConfig.widthMultiplier,
+                  height: 45 * SizeConfig.heightMultiplier,
+                  child: InteractiveViewer(
+                    panEnabled: true, // Permite desplazar la imagen
+                    minScale: 0.5,
+                    maxScale: 10,
+                    child: Center(
+                      child: Image.network(
+                        clientClassProvider.currentPlan!.paymentToken,
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5 * SizeConfig.heightMultiplier,
+                  child: IconButton(
+                    icon: const Icon(Icons.close, color: Colors.black),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     ClientClassProvider clientClassProvider =
@@ -322,6 +380,49 @@ class ProfilePageState extends State<ProfilePage> {
                               viewportFraction: 0.4,
                             ),
                             items: [
+                              GestureDetector(
+                                onTap: () {
+                                  showPaymentInvoice();
+                                },
+                                child: Container(
+                                  width: 15 * SizeConfig.heightMultiplier,
+                                  height: 15 * SizeConfig.heightMultiplier,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 5,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        FontAwesomeIcons.fileInvoiceDollar,
+                                        size: 4 * SizeConfig.heightMultiplier,
+                                      ),
+                                      SizedBox(
+                                        height: 1 * SizeConfig.heightMultiplier,
+                                      ),
+                                      texts.normalText(
+                                          text: 'Visualizar Pago',
+                                          color: Colors.black,
+                                          fontSize:
+                                              1.8 * SizeConfig.heightMultiplier,
+                                          fontWeight: FontWeight.w500,
+                                          textAlign: TextAlign.center),
+                                    ],
+                                  ),
+                                ),
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(context, '/plans');
@@ -457,13 +558,106 @@ class ProfilePageState extends State<ProfilePage> {
                             height: 1.5 * SizeConfig.heightMultiplier,
                           ),
                           texts.normalText(
-                              text: 'Mis Clases',
+                              text: 'Detalles:',
                               color: Colors.black,
                               fontSize: 2 * SizeConfig.heightMultiplier,
                               fontWeight: FontWeight.w500,
                               textAlign: TextAlign.left),
                           SizedBox(
                             height: 1 * SizeConfig.heightMultiplier,
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  texts.normalText(
+                                      text: 'Plan Contratado: ',
+                                      color: Colors.black,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.bold),
+                                  SizedBox(
+                                    width: 1 * SizeConfig.widthMultiplier,
+                                  ),
+                                  texts.normalText(
+                                      text: clientClassProvider
+                                              .currentPlan?.planName ??
+                                          'Sin datos para mostrar',
+                                      color: Colors.black,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w400),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  texts.normalText(
+                                      text: 'Descripción: ',
+                                      color: Colors.black,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.bold),
+                                  SizedBox(
+                                    width: 1 * SizeConfig.widthMultiplier,
+                                  ),
+                                  texts.normalText(
+                                      text: clientClassProvider
+                                              .currentPlan?.planDescription ??
+                                          'Sin datos para mostrar',
+                                      color: Colors.black,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w400),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  texts.normalText(
+                                      text: 'Precio: ',
+                                      color: Colors.black,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.bold),
+                                  SizedBox(
+                                    width: 1 * SizeConfig.widthMultiplier,
+                                  ),
+                                  texts.normalText(
+                                      text: clientClassProvider.currentPlan !=
+                                              null
+                                          ? '\$ ${clientClassProvider.currentPlan!.planPrice}'
+                                          : 'Sin datos para mostrar',
+                                      color: Colors.black,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w400),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  texts.normalText(
+                                      text: 'Vigencia: ',
+                                      color: Colors.black,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.bold),
+                                  SizedBox(
+                                    width: 1 * SizeConfig.widthMultiplier,
+                                  ),
+                                  texts.normalText(
+                                      text: clientClassProvider.currentPlan !=
+                                              null
+                                          ? 'Hasta el ${convertDate(clientClassProvider.currentPlan!.planExpiration.toString().substring(0, 10))}'
+                                          : 'Sin datos para mostrar',
+                                      color: Colors.black,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w400),
+                                ],
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.5 * SizeConfig.heightMultiplier,
                           ),
                           Center(
                             child: SizedBox(
@@ -490,7 +684,8 @@ class ProfilePageState extends State<ProfilePage> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             texts.normalText(
-                                                text: '10',
+                                                text:
+                                                    '${clientClassProvider.currentPlan?.numberOfClasses ?? 0}',
                                                 color: Colors.white,
                                                 fontSize: 3.5 *
                                                     SizeConfig.heightMultiplier,
@@ -527,11 +722,13 @@ class ProfilePageState extends State<ProfilePage> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             texts.normalText(
-                                                text: '8',
-                                                color: Colors.white,
-                                                fontSize: 3.5 *
-                                                    SizeConfig.heightMultiplier,
-                                                fontWeight: FontWeight.w600),
+                                              text:
+                                                  '${(clientClassProvider.currentPlan?.numberOfClasses ?? 0) - (clientClassProvider.currentPlan?.attendedClasses ?? 0)}',
+                                              color: Colors.white,
+                                              fontSize: 3.5 *
+                                                  SizeConfig.heightMultiplier,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ],
                                         ),
                                       ),

@@ -2,12 +2,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pilates/controllers/file_manager_controller.dart';
+import 'package:pilates/models/response/upload_profile_photo_response.dart';
 import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/screens/register/widgets/final_step.dart';
 import 'package:pilates/screens/register/widgets/gender_step.dart';
 import 'package:pilates/screens/register/widgets/personal_information_step.dart';
 import 'package:pilates/screens/register/widgets/profile_picture_step.dart';
 import 'package:pilates/theme/colors_palette.dart';
+import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
 import 'package:pilates/theme/widgets/textfields.dart';
 import 'package:pilates/theme/widgets/texts.dart';
@@ -43,6 +46,12 @@ class RegisterPageState extends State<RegisterPage> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController dniController = TextEditingController();
 
+  // Controladores
+  FileManagerController fileManagerController = FileManagerController();
+
+  // Modals
+  final LoadingModal loadingModal = LoadingModal();
+
   @override
   void initState() {
     super.initState();
@@ -69,15 +78,44 @@ class RegisterPageState extends State<RegisterPage> {
   Future<void> _pickImage(ImageSource source) async {
     RegisterProvider registerProvider =
         Provider.of<RegisterProvider>(context, listen: false);
+    loadingModal.showLoadingModal(context);
     final XFile? selected = await _picker.pickImage(source: source);
 
     if (selected == null) {
       return;
     } else {
-      registerProvider.setImageFile(selected);
-      setState(() {
-        _imageFile = selected;
-      });
+      try {
+        UploadS3Response uploadProfilePhotoResponse =
+            await fileManagerController.postS3ProfilePhoto(
+                selected, registerProvider.dni!);
+        log(uploadProfilePhotoResponse.data.location);
+        registerProvider.setImageFile(selected);
+        registerProvider.setImageUrl(uploadProfilePhotoResponse.data.location);
+
+        Future.microtask(() {
+          loadingModal.closeLoadingModal(context);
+        });
+
+        setState(() {
+          _imageFile = selected;
+        });
+      } catch (e) {
+        log(e.toString());
+        setState(() {
+          _imageFile = null;
+        });
+        registerProvider.clearImageFile();
+        registerProvider.clearImageUrl();
+
+        Future.microtask(() {
+          loadingModal.closeLoadingModal(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Hubo un error al subir la imagen.'),
+            ),
+          );
+        });
+      }
     }
   }
 

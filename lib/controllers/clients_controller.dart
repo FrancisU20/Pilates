@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:pilates/models/response/create_client_response.dart';
 import 'package:pilates/models/response/error_response.dart';
 import 'package:pilates/models/response/login_response.dart';
+import 'package:pilates/models/send/create_client_send.dart';
 import 'package:pilates/models/send/login_send.dart';
 import 'package:pilates/services/api_base_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,6 +35,32 @@ class LoginController {
         return loginResponse;
       } else {
         log('Error del servidor en /api/clients/login con código: ${response.statusCode}');
+        throw Exception(response.body);
+      }
+    } catch (e) {
+      log('$e');
+      ErrorResponse errorResponse = ErrorResponse.fromJson(
+          json.decode(e.toString().replaceAll('Exception: ', '')));
+      throw Exception(errorResponse.message);
+    }
+  }
+
+  Future<CreateClientResponse> postClient(
+      CreateClientSend createClientObject) async {
+    try {
+      final apiBase =
+          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+
+      String bodyRequest = jsonEncode(createClientObject.toJson());
+
+      final response =
+          await apiBase.post('/api/clients/create', bodyRequest: bodyRequest);
+      if (response.statusCode == 201) {
+        CreateClientResponse createClientResponse =
+            CreateClientResponse.fromJson(json.decode(response.body));
+        return createClientResponse;
+      } else {
+        log('Error del servidor en /api/clients/create con código: ${response.statusCode}');
         throw Exception(response.body);
       }
     } catch (e) {

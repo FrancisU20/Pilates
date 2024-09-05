@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pilates/controllers/client_plans_controller.dart';
 import 'package:pilates/controllers/plans_controller.dart';
+import 'package:pilates/models/response/available_client_class_response.dart';
 import 'package:pilates/models/response/plans_response.dart';
+import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/theme/appbars/custom_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
@@ -29,6 +32,7 @@ class PlanPageState extends State<PlanPage> {
 
   //Controladores
   PlansController plansController = PlansController();
+  ClientPlansController clientPlansController = ClientPlansController();
 
   // Modals
   final LoadingModal loadingModal = LoadingModal();
@@ -36,13 +40,90 @@ class PlanPageState extends State<PlanPage> {
   @override
   void initState() {
     super.initState();
-    getPlans();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getPlans(); // Llamamos al método asíncrono aquí
+    });
+  }
+
+  Future<bool> getAvailableClientClass(String clientId, String planId) async {
+    try {
+      AvailableClientClassResponse availableClientClassResponse =
+          await clientPlansController.getAvailableClassesByClient(
+              clientId, planId);
+
+      int count = availableClientClassResponse.data.availableClasses;
+
+      if (count > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      log('$e');
+      return false;
+    }
+  }
+
+  Future<bool> clientCanRenew() async {
+    try {
+      ClientClassProvider clientClassesProvider =
+          Provider.of<ClientClassProvider>(context, listen: false);
+
+      RegisterProvider registerProvider =
+          Provider.of<RegisterProvider>(context, listen: false);
+
+      bool canRenew = registerProvider.dni == null
+          ? await getAvailableClientClass(
+              clientClassesProvider.loginResponse!.client.id,
+              clientClassesProvider.currentPlan?.planId ?? '1')
+          : false;
+
+      // Si el cliente tiene clases disponibles, no puede renovar aún
+      if (canRenew) {
+        // Mostrar mensaje y redirigir
+        Future.microtask(() => {
+              Navigator.pop(context),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 5),
+                  content: texts.normalText(
+                      text:
+                          'Aún tienes un plan activo, no puedes renovar hasta que este finalice',
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.start,
+                      fontSize: 16,
+                      color: Colors.white),
+                  backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                ),
+              )
+            });
+        return false; // No puede renovar
+      }
+
+      return true; // Puede renovar
+    } catch (e) {
+      log('Error en clientCanRenew: $e');
+      return false; // En caso de error, retornar false
+    }
   }
 
   void getPlans() async {
     try {
+      RegisterProvider registerProvider =
+          Provider.of<RegisterProvider>(context, listen: false);
       // Mostrar el modal de carga
       Future.microtask(() => {loadingModal.showLoadingModal(context)});
+
+      // Verificar si el cliente puede renovar su plan
+      if (registerProvider.dni == null) {
+        bool canRenew = await clientCanRenew();
+
+        // Si no puede renovar, mostrar el mensaje y salir
+        if (!canRenew) {
+          Future.microtask(() => {loadingModal.closeLoadingModal(context)});
+          return; // Detener ejecución aquí si no puede renovar
+        }
+      }
 
       // Obtener los datos de los planes
       List<PlanResponse> plansResponse = await plansController.getPlans();
@@ -146,6 +227,7 @@ class PlanPageState extends State<PlanPage> {
                       color: ColorsPalette.primaryColor,
                       width: 15 * SizeConfig.widthMultiplier,
                       onPressed: () {
+                        registerProvider.clearTransferImageFile();
                         Navigator.pushNamed(context, '/transfer');
                       },
                     ),

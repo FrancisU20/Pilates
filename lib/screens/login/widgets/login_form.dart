@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/clients_controller.dart';
 import 'package:pilates/models/response/login_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
+import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/snackbars/error_snackbar.dart';
@@ -44,6 +45,10 @@ class LoginFormState extends State<LoginForm> {
       context,
       listen: false,
     );
+    RegisterProvider registerProvider = Provider.of<RegisterProvider>(
+      context,
+      listen: false,
+    );
     try {
       loadingModal.showLoadingModal(context);
       LoginResponse loginResponse =
@@ -51,6 +56,7 @@ class LoginFormState extends State<LoginForm> {
       bool isRegistered = loginResponse.token.isNotEmpty;
       if (isRegistered) {
         clientClassProvider.setLoginResponse(loginResponse);
+        registerProvider.clearAll();
         Future.microtask(
           () => Navigator.pushNamedAndRemoveUntil(
               context, '/dashboard', (route) => false),

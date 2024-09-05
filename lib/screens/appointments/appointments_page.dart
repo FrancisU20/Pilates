@@ -67,6 +67,16 @@ class AppointmentsPageState extends State<AppointmentsPage> {
       // Ordenar las clases por fecha desde la mas cercana a la mas lejana
       clientClassesResponse.sort((a, b) => a.date.compareTo(b.date));
 
+      // si isHistory es true quita todas la proximas citas desde la fecha actual que esten en estado agendada
+      if (isHistory == true) {
+        clientClassesResponse.removeWhere((element) =>
+            element.date.isAfter(DateTime.now()) &&
+            element.statusClass == 'agendada');
+      } else {
+        clientClassesResponse
+            .removeWhere((element) => element.statusClass == 'cancelada');
+      }
+
       // Actualizar el estado con los nuevos datos y cerrar el modal de carga
       setState(() {
         clientClasses = clientClassesResponse;
@@ -441,7 +451,9 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                             height: 2 * SizeConfig.heightMultiplier,
                           ),
                           texts.normalText(
-                            text: 'No tienes citas agendadas',
+                            text: isHistory == false
+                                ? 'No tienes citas agendadas'
+                                : 'No tienes citas en tu historial',
                             color: Colors.black,
                             fontSize: 3 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w600,
@@ -449,12 +461,15 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                           SizedBox(
                             height: 4 * SizeConfig.heightMultiplier,
                           ),
-                          buttons.standart(
-                              text: 'Agendar Cita',
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/schedule_date');
-                              },
-                              color: ColorsPalette.primaryColor)
+                          isHistory == false
+                              ? buttons.standart(
+                                  text: 'Agendar Cita',
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, '/schedule_date');
+                                  },
+                                  color: ColorsPalette.primaryColor)
+                              : const SizedBox.shrink(),
                         ],
                       )
                     : ListView.builder(
@@ -490,9 +505,11 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                 ],
                               ),
                               Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5 * SizeConfig.widthMultiplier,
-                                    vertical: 2 * SizeConfig.heightMultiplier),
+                                padding: EdgeInsets.fromLTRB(
+                                    5 * SizeConfig.widthMultiplier,
+                                    2 * SizeConfig.heightMultiplier,
+                                    0,
+                                    2 * SizeConfig.heightMultiplier),
                                 width: 90 * SizeConfig.widthMultiplier,
                                 height: 20 * SizeConfig.heightMultiplier,
                                 decoration: BoxDecoration(
@@ -552,7 +569,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                       width: 5 * SizeConfig.widthMultiplier,
                                     ),
                                     SizedBox(
-                                      width: 40 * SizeConfig.widthMultiplier,
+                                      width: 33 * SizeConfig.widthMultiplier,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -615,94 +632,152 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 2 * SizeConfig.widthMultiplier,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            double latitude = 0.34291;
-                                            double longitude = -78.1352;
-                                            String name = 'Curve Pilates';
-                                            mapAppLauncher.openMaps(
-                                                latitude: latitude,
-                                                longitude: longitude,
-                                                name: name);
-                                          },
-                                          child: Container(
+                                    isHistory == false
+                                        ? SizedBox(
                                             width:
-                                                10 * SizeConfig.widthMultiplier,
-                                            height:
-                                                10 * SizeConfig.widthMultiplier,
-                                            decoration: BoxDecoration(
-                                                color: const Color(0xFF262626),
-                                                borderRadius:
-                                                    BorderRadius.circular(50)),
-                                            padding: EdgeInsets.all(
-                                                2 * SizeConfig.widthMultiplier),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  FontAwesomeIcons
-                                                      .locationArrow,
-                                                  color: Colors.white,
-                                                  size: 4 *
+                                                2 * SizeConfig.widthMultiplier,
+                                          )
+                                        : const SizedBox.shrink(),
+                                    isHistory == false
+                                        ? Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  double latitude = 0.34291;
+                                                  double longitude = -78.1352;
+                                                  String name = 'Curve Pilates';
+                                                  mapAppLauncher.openMaps(
+                                                      latitude: latitude,
+                                                      longitude: longitude,
+                                                      name: name);
+                                                },
+                                                child: Container(
+                                                  width: 10 *
                                                       SizeConfig
-                                                          .imageSizeMultiplier,
+                                                          .widthMultiplier,
+                                                  height: 10 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  decoration: BoxDecoration(
+                                                      color: const Color(
+                                                          0xFF262626),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50)),
+                                                  padding: EdgeInsets.all(2 *
+                                                      SizeConfig
+                                                          .widthMultiplier),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        FontAwesomeIcons
+                                                            .locationArrow,
+                                                        color: Colors.white,
+                                                        size: 4 *
+                                                            SizeConfig
+                                                                .imageSizeMultiplier,
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ],
+                                              ),
+                                              SizedBox(
+                                                height: 2 *
+                                                    SizeConfig.heightMultiplier,
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  showDeleteConfirm(
+                                                      clientClasses[index].id);
+                                                },
+                                                child: Container(
+                                                  width: 10 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  height: 10 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              175,
+                                                              105,
+                                                              105),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50)),
+                                                  padding: EdgeInsets.all(2 *
+                                                      SizeConfig
+                                                          .widthMultiplier),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        FontAwesomeIcons.xmark,
+                                                        color: Colors.white,
+                                                        size: 4 *
+                                                            SizeConfig
+                                                                .imageSizeMultiplier,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : const SizedBox.shrink(),
+                                    // Agregar letras en direccion vertical con el status de la clase
+                                    isHistory == false
+                                        ? const SizedBox.shrink()
+                                        : Transform.rotate(
+                                            angle: -3.14 / 2,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: clientClasses[index]
+                                                            .statusClass ==
+                                                        'agendada'
+                                                    ? Colors.amber
+                                                    : const Color.fromARGB(
+                                                        255, 175, 105, 105),
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                              ),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 2 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  horizontal: 2 *
+                                                      SizeConfig
+                                                          .widthMultiplier),
+                                              child: texts.normalText(
+                                                text: clientClasses[index]
+                                                            .statusClass ==
+                                                        'agendada'
+                                                    ? 'Terminada'
+                                                    : 'Cancelada',
+                                                color: Colors.white,
+                                                fontSize: 4 *
+                                                    SizeConfig.widthMultiplier,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              2 * SizeConfig.heightMultiplier,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            showDeleteConfirm(
-                                                clientClasses[index].id);
-                                          },
-                                          child: Container(
-                                            width:
-                                                10 * SizeConfig.widthMultiplier,
-                                            height:
-                                                10 * SizeConfig.widthMultiplier,
-                                            decoration: BoxDecoration(
-                                                color: const Color.fromARGB(
-                                                    255, 175, 105, 105),
-                                                borderRadius:
-                                                    BorderRadius.circular(50)),
-                                            padding: EdgeInsets.all(
-                                                2 * SizeConfig.widthMultiplier),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  FontAwesomeIcons.xmark,
-                                                  color: Colors.white,
-                                                  size: 4 *
-                                                      SizeConfig
-                                                          .imageSizeMultiplier,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                                   ],
                                 ),
                               ),

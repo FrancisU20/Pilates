@@ -15,6 +15,8 @@ class RegisterProvider extends ChangeNotifier {
   String? _imageUrl;
   String? _dni;
   PlanResponse? _selectedPlan;
+  XFile? _transferImageFile;
+  String? _transferImageUrl;
 
   //Getters
   String? get name => _name;
@@ -28,6 +30,8 @@ class RegisterProvider extends ChangeNotifier {
   String? get imageUrl => _imageUrl;
   String? get dni => _dni;
   PlanResponse? get selectedPlan => _selectedPlan;
+  XFile? get transferImageFile => _transferImageFile;
+  String? get transferImageUrl => _transferImageUrl;
 
   //Setters
   void setName(String name) {
@@ -82,6 +86,16 @@ class RegisterProvider extends ChangeNotifier {
 
   void setSelectedPlan(PlanResponse selectedPlan) {
     _selectedPlan = selectedPlan;
+    notifyListeners();
+  }
+
+  void setTransferImageFile(XFile transferImageFile) {
+    _transferImageFile = transferImageFile;
+    notifyListeners();
+  }
+
+  void setTransferImageUrl(String transferImageUrl) {
+    _transferImageUrl = transferImageUrl;
     notifyListeners();
   }
 
@@ -141,6 +155,16 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearTransferImageFile() {
+    _transferImageFile = null;
+    notifyListeners();
+  }
+
+  void clearTransferImageUrl() {
+    _transferImageUrl = null;
+    notifyListeners();
+  }
+
   //Clear all
   void clearAll() {
     _name = null;
@@ -154,6 +178,8 @@ class RegisterProvider extends ChangeNotifier {
     _imageUrl = null;
     _dni = null;
     _selectedPlan = null;
+    _transferImageFile = null;
+    _transferImageUrl = null;
     notifyListeners();
   }
 }

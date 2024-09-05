@@ -13,6 +13,7 @@ class ClientClassResponse {
   Schedule schedule;
   List<String> activities;
   int availableClasses;
+  String statusClass;
 
   ClientClassResponse({
     required this.id,
@@ -20,6 +21,7 @@ class ClientClassResponse {
     required this.schedule,
     required this.activities,
     required this.availableClasses,
+    required this.statusClass,
   });
 
   factory ClientClassResponse.fromJson(Map<String, dynamic> json) =>
@@ -29,6 +31,7 @@ class ClientClassResponse {
         schedule: Schedule.fromJson(json["schedule"]),
         activities: List<String>.from(json["activities"].map((x) => x)),
         availableClasses: json["available_classes"],
+        statusClass: json["status_class"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,6 +41,7 @@ class ClientClassResponse {
         "schedule": schedule.toJson(),
         "activities": List<dynamic>.from(activities.map((x) => x)),
         "available_classes": availableClasses,
+        "status_class": statusClass,
       };
 }
 
