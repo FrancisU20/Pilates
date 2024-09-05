@@ -17,7 +17,7 @@ import 'package:pilates/theme/appbars/custom_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
-import 'package:pilates/screens/schedule_date/widgets/date_picker.dart';
+import 'package:pilates/screens/client/schedule_date/widgets/date_picker.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
 import 'package:provider/provider.dart';

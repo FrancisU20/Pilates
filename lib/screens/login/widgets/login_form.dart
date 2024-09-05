@@ -54,12 +54,20 @@ class LoginFormState extends State<LoginForm> {
       LoginResponse loginResponse =
           await loginController.loginProcess(email, password);
       bool isRegistered = loginResponse.token.isNotEmpty;
-      if (isRegistered) {
+      if (isRegistered && loginResponse.client.role == 'client') {
         clientClassProvider.setLoginResponse(loginResponse);
         registerProvider.clearAll();
         Future.microtask(
           () => Navigator.pushNamedAndRemoveUntil(
               context, '/dashboard', (route) => false),
+        );
+      }
+      if (isRegistered && loginResponse.client.role == 'admin') {
+        clientClassProvider.setLoginResponse(loginResponse);
+        registerProvider.clearAll();
+        Future.microtask(
+          () => Navigator.pushNamedAndRemoveUntil(
+              context, '/dashboard_admin', (route) => false),
         );
       }
     } catch (e) {

@@ -4,16 +4,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
-import 'package:pilates/screens/appointments/appointments_page.dart';
-import 'package:pilates/screens/contact/contact_us_page.dart';
-import 'package:pilates/screens/dashboard/dashboard_page.dart';
+import 'package:pilates/screens/admin/dashboard/dashboard_admin_page.dart';
+import 'package:pilates/screens/client/appointments/appointments_page.dart';
+import 'package:pilates/screens/client/contact/contact_us_page.dart';
+import 'package:pilates/screens/client/dashboard/dashboard_page.dart';
 import 'package:pilates/screens/login/login_page.dart';
 import 'package:pilates/screens/onboarding/onboarding_page.dart';
-import 'package:pilates/screens/payment/transfer_method.dart';
-import 'package:pilates/screens/plan/plan_page.dart';
-import 'package:pilates/screens/profile/profile_page.dart';
-import 'package:pilates/screens/register/register_page.dart';
-import 'package:pilates/screens/schedule_date/schedule_date_page.dart';
+import 'package:pilates/screens/client/payment/transfer_method.dart';
+import 'package:pilates/screens/client/plan/plan_page.dart';
+import 'package:pilates/screens/client/profile/profile_page.dart';
+import 'package:pilates/screens/client/register/register_page.dart';
+import 'package:pilates/screens/client/schedule_date/schedule_date_page.dart';
 import 'package:pilates/screens/splash_screen.dart';
 import 'package:pilates/utils/size_config.dart';
 import 'package:provider/provider.dart';
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
           home: const SplashScreenPage(),
           debugShowCheckedModeBanner: false,
           routes: {
+            //Pantallas del cliente
             '/home': (context) => const SplashScreenPage(),
             '/login': (context) => const LoginPage(),
             '/dashboard': (context) => const DashboardPage(),
@@ -95,6 +97,9 @@ class MyApp extends StatelessWidget {
             '/onboarding': (context) => const OnboardingPage(),
             '/register': (context) => const RegisterPage(),
             '/transfer': (context) => const TransferMethodPage(),
+
+            //Pantallas del administrador
+            '/dashboard_admin': (context) => const DashboardAdminPage(),
           },
         );
       });
