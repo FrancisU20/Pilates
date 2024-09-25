@@ -1,13 +1,12 @@
-import 'dart:developer';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/client_plans_controller.dart';
-import 'package:pilates/helpers/data/menu_data.dart';
-import 'package:pilates/models/response/available_client_class_response.dart';
-import 'package:pilates/models/response/client_plans_response.dart';
+import 'package:pilates/models/response/all_client_class_response.dart';
+import 'package:pilates/models/response/most_popular_plan_response.dart';
+import 'package:pilates/models/response/plans_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
-import 'package:pilates/theme/appbars/bottom_bar.dart';
+import 'package:pilates/screens/admin/dashboard/widgets/pie_data_widget.dart';
+import 'package:pilates/theme/appbars/bottom_admin_bar.dart';
 import 'package:pilates/theme/appbars/dashboard_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
@@ -25,72 +24,103 @@ class DashboardAdminPage extends StatefulWidget {
 class DashboardAdminPageState extends State<DashboardAdminPage> {
   Texts texts = Texts();
   final LoadingModal loadingModal = LoadingModal();
-  final activities = MenuData.activities;
+
+  //Controladores
   ClientPlansController clientPlansController = ClientPlansController();
-  bool noPlans = true;
-  bool isNextToExpire = false;
-  ClientPlansResponse? currentClientPlan;
+
+  // Variables de estado
+  bool emptyPlans = true;
+  List<AllClientsPlansResponse>? clientsPlans;
+
+  double totalProfits = 0;
+  int totalClients = 0;
+  int totalActivePlans = 0;
+  int totalInactivePlans = 0;
+  PlanResponse? mostPopularPlan;
+
+  String? currentMonth;
+
+  int touchedIndex = -1;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getPlansByClient();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await getAllClientPlans();
+      calculateStatistics();
     });
   }
 
-  void getPlansByClient() async {
+  Future<void> getAllClientPlans() async {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context, listen: false);
     try {
       loadingModal.showLoadingModal(context);
 
-      List<ClientPlansResponse> clientPlansResponse =
-          await clientPlansController.getPlansByClient(
-              clientClassProvider.loginResponse!.client.id, false);
+      List<AllClientsPlansResponse> allClientsPlansResponse =
+          await clientPlansController.getAllClientsPlans();
 
-      // Eliminar todos los planes que se activa en el futuro
-      clientPlansResponse.removeWhere(
-          (element) => element.planVigency.isAfter(DateTime.now()));
-
-      if (clientPlansResponse.isEmpty) {
-        clientClassProvider.clearCurrentPlan();
+      if (allClientsPlansResponse.isEmpty) {
+        clientClassProvider.clearAllClientsPlansResponse();
         Future.microtask(() => {
               loadingModal.closeLoadingModal(context),
             });
         setState(() {
-          noPlans = true;
+          emptyPlans = true;
         });
         return;
       } else {
-        clientClassProvider.setClientPlans(clientPlansResponse);
+        clientClassProvider.setAllClientsPlansResponse(allClientsPlansResponse);
 
+        // Obtiene el mes actual
         DateTime now = DateTime.now();
+        currentMonth = now.month.toString();
 
-        //Luego determinamos si el plan ya esta expirado
-        final currentPlan = clientPlansResponse
-            .firstWhere((element) => element.planExpiration.isAfter(now));
-
-        // Verificamos si el plan tiene clases disponibles
-        bool getAvailableClasses = await getAvailableClientClass(
-            clientClassProvider.loginResponse!.client.id, currentPlan.planId);
-
-        if (!getAvailableClasses) {
-          clientClassProvider.clearCurrentPlan();
-          Future.microtask(() => {
-                loadingModal.closeLoadingModal(context),
-              });
-          return;
+        // Cambiar el mes a nombre del mes
+        switch (currentMonth) {
+          case '1':
+            currentMonth = 'Enero';
+            break;
+          case '2':
+            currentMonth = 'Febrero';
+            break;
+          case '3':
+            currentMonth = 'Marzo';
+            break;
+          case '4':
+            currentMonth = 'Abril';
+            break;
+          case '5':
+            currentMonth = 'Mayo';
+            break;
+          case '6':
+            currentMonth = 'Junio';
+            break;
+          case '7':
+            currentMonth = 'Julio';
+            break;
+          case '8':
+            currentMonth = 'Agosto';
+            break;
+          case '9':
+            currentMonth = 'Septiembre';
+            break;
+          case '10':
+            currentMonth = 'Octubre';
+            break;
+          case '11':
+            currentMonth = 'Noviembre';
+            break;
+          case '12':
+            currentMonth = 'Diciembre';
+            break;
         }
 
-        clientClassProvider.setCurrentPlan(currentPlan);
         setState(() {
-          noPlans = false;
-          currentClientPlan = currentPlan;
+          emptyPlans = false;
+          clientsPlans = allClientsPlansResponse;
+          currentMonth = currentMonth;
         });
-
-        log('Plan vigente: ${clientClassProvider.currentPlan!.toJson()}');
-
         Future.microtask(() => {
               loadingModal.closeLoadingModal(context),
             });
@@ -102,33 +132,55 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
     }
   }
 
-  Future<bool> getAvailableClientClass(String clientId, String planId) async {
+  void calculateStatistics() async {
     try {
-      AvailableClientClassResponse availableClientClassResponse =
-          await clientPlansController.getAvailableClassesByClient(
-              clientId, planId);
-
-      int count = availableClientClassResponse.data.availableClasses;
-
-      if (count > 0) {
-        return true;
-      } else {
-        return false;
+      loadingModal.showLoadingModal(context);
+      ClientClassProvider clientClassProvider =
+          Provider.of<ClientClassProvider>(context, listen: false);
+      List<AllClientsPlansResponse> allClientsPlansResponse =
+          clientClassProvider.allClientsPlansResponse!;
+      double totalProfits = 0;
+      int totalClients = 0;
+      int totalActivePlans = 0;
+      int totalInactivePlans = 0;
+      PlanResponse? mostPopularPlan;
+      for (AllClientsPlansResponse clientPlan in allClientsPlansResponse) {
+        totalProfits += double.parse(clientPlan.planPrice);
+        totalClients += 1;
+        if (clientPlan.status.contains('inactive')) {
+          totalInactivePlans += 1;
+        } else {
+          totalActivePlans += 1;
+        }
       }
+
+      MostPopularPlanResponse mostPopularPlanResponse =
+          await clientPlansController.getMostPopularPlan();
+
+      String mostPopularPlanId = mostPopularPlanResponse.planId;
+
+      mostPopularPlan =
+          await clientPlansController.getPlanById(mostPopularPlanId);
+
+      Future.microtask(() => {
+            loadingModal.closeLoadingModal(context),
+          });
+
+      setState(() {
+        this.totalProfits = totalProfits;
+        this.totalClients = totalClients;
+        this.totalActivePlans = totalActivePlans;
+        this.totalInactivePlans = totalInactivePlans;
+        this.mostPopularPlan = mostPopularPlan;
+      });
     } catch (e) {
-      log('$e');
-      return false;
+      Future.microtask(() => {
+            loadingModal.closeLoadingModal(context),
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(e.toString()),
+            ))
+          });
     }
-  }
-
-  double calculateProgressClass() {
-    if (currentClientPlan!.numberOfClasses == 0) {
-      return 0.0;
-    }
-
-    return (currentClientPlan!.numberOfClasses -
-            currentClientPlan!.attendedClasses) /
-        currentClientPlan!.numberOfClasses;
   }
 
   @override
@@ -171,85 +223,349 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
               ),
               Row(
                 children: [
-                  texts.normalText(
-                      text: '¿Qué te gustaría hacer hoy?',
-                      color: Colors.grey,
-                      fontSize: 2.5 * SizeConfig.heightMultiplier,
-                      fontWeight: FontWeight.w500),
+                  SizedBox(
+                    width: 90 * SizeConfig.widthMultiplier,
+                    child: texts.normalText(
+                        text:
+                            'Estas son las métricas de Curve del mes de $currentMonth',
+                        color: Colors.grey,
+                        fontSize: 2.5 * SizeConfig.heightMultiplier,
+                        fontWeight: FontWeight.w500,
+                        textAlign: TextAlign.justify),
+                  ),
                 ],
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  /* texts.normalText(
-                      text: 'Mis Actividades',
-                      color: const Color.fromARGB(255, 158, 148, 135),
-                      fontSize: 2.5 * SizeConfig.heightMultiplier,
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.start), */
-                  SizedBox(
-                    height: 2.5 * SizeConfig.heightMultiplier,
-                  ),
-                  CarouselSlider(
-                    options: CarouselOptions(
-                      height: 50 * SizeConfig.heightMultiplier,
-                      enlargeCenterPage: true,
-                      autoPlay: true,
-                      aspectRatio: 16 / 9,
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enableInfiniteScroll: true,
-                      autoPlayAnimationDuration:
-                          const Duration(milliseconds: 1600),
-                      viewportFraction: 0.8,
+              SizedBox(
+                height: 1 * SizeConfig.heightMultiplier,
+              ),
+              SizedBox(
+                height: 2 * SizeConfig.heightMultiplier,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        await getAllClientPlans();
+                        calculateStatistics();
+                      },
+                      child: Icon(
+                        FontAwesomeIcons.arrowRotateLeft,
+                        color: ColorsPalette.primaryColor,
+                        size: 2 * SizeConfig.heightMultiplier,
+                      ),
                     ),
-                    items: activities.map((activitie) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return GestureDetector(
-                            onTap: () => {
-                              clientClassProvider.clearSelectedDate(),
-                              clientClassProvider.clearSelectedHour(),
-                              Navigator.pushNamed(context, activitie['route']!)
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                image: DecorationImage(
-                                  image: AssetImage(activitie['image']!),
-                                  fit: BoxFit.cover,
-                                  colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(0.2),
-                                      BlendMode.darken),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 1 * SizeConfig.heightMultiplier,
+              ),
+              Card(
+                borderOnForeground: true,
+                color: Colors.white,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 5 * SizeConfig.widthMultiplier,
+                      vertical: 2 * SizeConfig.heightMultiplier),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 2 * SizeConfig.heightMultiplier,
+                        width: 90 * SizeConfig.widthMultiplier,
+                        child: texts.normalText(
+                            text: 'Información de contratos ',
+                            color: Colors.grey,
+                            fontSize: 2.5 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        height: 3 * SizeConfig.heightMultiplier,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 3 * SizeConfig.widthMultiplier,
+                                  height: 3 * SizeConfig.heightMultiplier,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorsPalette.primaryColor,
+                                  ),
                                 ),
-                              ),
-                              child: Center(
-                                child: texts.normalText(
-                                    text: activitie['description']!,
-                                    color: Colors.white,
-                                    fontSize: 2.5 * SizeConfig.heightMultiplier,
-                                    fontWeight: FontWeight.w500,
-                                    textAlign: TextAlign.center),
-                              ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                texts.normalText(
+                                    text: 'Activos',
+                                    color: ColorsPalette.primaryColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500),
+                              ],
                             ),
-                          );
-                        },
-                      );
-                    }).toList(),
+                          ),
+                          SizedBox(
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 3 * SizeConfig.widthMultiplier,
+                                  height: 3 * SizeConfig.heightMultiplier,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color.fromARGB(255, 84, 80, 80),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                texts.normalText(
+                                    text: 'Inactivos',
+                                    color:
+                                        const Color.fromARGB(255, 84, 80, 80),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 90 * SizeConfig.widthMultiplier,
+                        height: 15 * SizeConfig.heightMultiplier,
+                        child: PieDataWidget(
+                          totalActivePlans:
+                              totalActivePlans, // Sustituye por tus valores reales
+                          totalInactivePlans:
+                              totalInactivePlans, // Sustituye por tus valores reales
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 2.5 * SizeConfig.heightMultiplier,
+                ),
+              ),
+              SizedBox(
+                height: 2 * SizeConfig.heightMultiplier,
+              ),
+              // Crea una tarjeta que muestre las ganancias totales con un gráfico de barras
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Card(
+                    borderOnForeground: true,
+                    color: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 5 * SizeConfig.widthMultiplier,
+                          vertical: 2 * SizeConfig.heightMultiplier),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 2 * SizeConfig.heightMultiplier,
+                            width: 35 * SizeConfig.widthMultiplier,
+                            child: texts.normalText(
+                                text: 'Ganancias totales',
+                                color: Colors.grey,
+                                fontSize: 2.5 * SizeConfig.heightMultiplier,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            height: 4 * SizeConfig.heightMultiplier,
+                          ),
+                          SizedBox(
+                              width: 30 * SizeConfig.widthMultiplier,
+                              height: 10 * SizeConfig.heightMultiplier,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  texts.normalText(
+                                      text:
+                                          '\$ ${totalProfits.toStringAsFixed(2)}',
+                                      color: ColorsPalette.successColor,
+                                      fontSize:
+                                          2.8 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w500,
+                                      textAlign: TextAlign.center),
+                                ],
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    borderOnForeground: true,
+                    color: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 5 * SizeConfig.widthMultiplier,
+                          vertical: 2 * SizeConfig.heightMultiplier),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 2 * SizeConfig.heightMultiplier,
+                            width: 30 * SizeConfig.widthMultiplier,
+                            child: texts.normalText(
+                                text: 'Total de clientes',
+                                color: Colors.grey,
+                                fontSize: 2.5 * SizeConfig.heightMultiplier,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            height: 4 * SizeConfig.heightMultiplier,
+                          ),
+                          SizedBox(
+                              width: 30 * SizeConfig.widthMultiplier,
+                              height: 10 * SizeConfig.heightMultiplier,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  texts.normalText(
+                                      text: totalClients.toString(),
+                                      color: ColorsPalette.primaryColor,
+                                      fontSize: 8 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w500,
+                                      textAlign: TextAlign.center),
+                                ],
+                              )),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: 2 * SizeConfig.heightMultiplier,
+              ),
+              // Crea una tarjeta con la información del plan más popular
+              Card(
+                borderOnForeground: true,
+                color: Colors.white,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 5 * SizeConfig.widthMultiplier,
+                      vertical: 2 * SizeConfig.heightMultiplier),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 2 * SizeConfig.heightMultiplier,
+                        width: 90 * SizeConfig.widthMultiplier,
+                        child: texts.normalText(
+                            text: 'Plan más popular',
+                            color: Colors.grey,
+                            fontSize: 2.5 * SizeConfig.heightMultiplier,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        height: 3 * SizeConfig.heightMultiplier,
+                      ),
+                      Container(
+                        width: 70 * SizeConfig.widthMultiplier,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFFDDD7C9),
+                              Color(0xFFEEEEEE),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: [
+                              0.5,
+                              0.5
+                            ], // Marca el punto medio donde los colores cambian
+                          ),
+                          borderRadius: BorderRadius.circular(
+                              2 * SizeConfig.heightMultiplier),
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 14 * SizeConfig.heightMultiplier,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 1 * SizeConfig.heightMultiplier,
+                                  ),
+                                  Center(
+                                    child: texts.normalText(
+                                      text: mostPopularPlan != null
+                                          ? mostPopularPlan!.numberOfClasses
+                                              .toString()
+                                          : '',
+                                      color: Colors.black,
+                                      fontSize: 5 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Center(
+                                    child: texts.normalText(
+                                      text: 'clases',
+                                      color: Colors.black,
+                                      fontSize: 2 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 2 * SizeConfig.heightMultiplier,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10 * SizeConfig.heightMultiplier,
+                              child: Column(
+                                children: [
+                                  texts.normalText(
+                                    text: mostPopularPlan != null
+                                        ? mostPopularPlan!.name
+                                        : '',
+                                    color: Colors.black,
+                                    fontSize: 1.5 * SizeConfig.heightMultiplier,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  texts.normalText(
+                                    text: mostPopularPlan != null
+                                        ? '\$ ${mostPopularPlan?.price.toStringAsFixed(2)}/mes'
+                                        : '',
+                                    color: Colors.black,
+                                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  texts.normalText(
+                                    text: mostPopularPlan != null
+                                        ? '\$ ${mostPopularPlan?.classPrice.toStringAsFixed(2)}/mes'
+                                        : '',
+                                    color: Colors.black,
+                                    fontSize: 1.5 * SizeConfig.heightMultiplier,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
-      //bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: const BottomAdminBar(),
     );
   }
 }

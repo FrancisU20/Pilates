@@ -6,6 +6,11 @@ List<PlanResponse> plansResponseFromJson(String str) => List<PlanResponse>.from(
 String plansResponseToJson(List<PlanResponse> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+PlanResponse planResponseFromJson(String str) =>
+    PlanResponse.fromJson(json.decode(str));
+
+String planResponseToJson(PlanResponse data) => json.encode(data.toJson());
+
 class PlanResponse {
   String id;
   DateTime createdAt;

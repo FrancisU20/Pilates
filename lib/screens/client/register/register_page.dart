@@ -88,9 +88,9 @@ class RegisterPageState extends State<RegisterPage> {
         UploadS3Response uploadProfilePhotoResponse =
             await fileManagerController.postS3ProfilePhoto(
                 selected, registerProvider.dni!);
-        log(uploadProfilePhotoResponse.data.location);
+        log(uploadProfilePhotoResponse.fileUrl);
         registerProvider.setImageFile(selected);
-        registerProvider.setImageUrl(uploadProfilePhotoResponse.data.location);
+        registerProvider.setImageUrl(uploadProfilePhotoResponse.fileUrl);
 
         Future.microtask(() {
           loadingModal.closeLoadingModal(context);

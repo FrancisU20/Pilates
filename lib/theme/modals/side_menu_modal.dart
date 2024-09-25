@@ -91,7 +91,7 @@ class SideMenuModalState extends State<SideMenuModal> {
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/login', (route) => false);
 
-                  Future.delayed(const Duration(milliseconds: 300), () {
+                  Future.delayed(const Duration(seconds: 3), () {
                     clientClassProvider.clearAll();
                   });
                 },

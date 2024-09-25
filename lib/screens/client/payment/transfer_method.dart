@@ -115,10 +115,10 @@ class TransferMethodPageState extends State<TransferMethodPage> {
         UploadS3Response uploadProfilePhotoResponse =
             await fileManagerController.postS3TransferVoucher(
                 selected, registerProvider.dni!);
-        log(uploadProfilePhotoResponse.data.location);
+        log(uploadProfilePhotoResponse.fileUrl);
         registerProvider.setTransferImageFile(selected);
         registerProvider
-            .setTransferImageUrl(uploadProfilePhotoResponse.data.location);
+            .setTransferImageUrl(uploadProfilePhotoResponse.fileUrl);
 
         Future.microtask(() {
           loadingModal.closeLoadingModal(context);

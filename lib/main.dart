@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
+import 'package:pilates/screens/admin/clients/clients_page.dart';
 import 'package:pilates/screens/admin/dashboard/dashboard_admin_page.dart';
 import 'package:pilates/screens/client/appointments/appointments_page.dart';
 import 'package:pilates/screens/client/contact/contact_us_page.dart';
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
 
             //Pantallas del administrador
             '/dashboard_admin': (context) => const DashboardAdminPage(),
+            '/clients': (context) => const ClientsPage(),
           },
         );
       });

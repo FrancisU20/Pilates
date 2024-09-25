@@ -25,7 +25,7 @@ class LoginController {
       log('Data enviada: $dataJson');
 
       final response =
-          await apiLoggin.post('/api/clients/login', bodyRequest: dataString);
+          await apiLoggin.post('/api/login', bodyRequest: dataString);
       if (response.statusCode == 200) {
         LoginResponse loginResponse =
             LoginResponse.fromJson(json.decode(response.body));
@@ -34,7 +34,7 @@ class LoginController {
         log('Token: ${loginResponse.token}');
         return loginResponse;
       } else {
-        log('Error del servidor en /api/clients/login con código: ${response.statusCode}');
+        log('Error del servidor en /api/login con código: ${response.statusCode}');
         throw Exception(response.body);
       }
     } catch (e) {

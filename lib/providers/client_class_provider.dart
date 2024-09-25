@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:pilates/models/response/all_client_class_response.dart';
 import 'package:pilates/models/response/client_plans_response.dart';
 import 'package:pilates/models/response/login_response.dart';
 
@@ -10,6 +11,7 @@ class ClientClassProvider extends ChangeNotifier {
   String? _selectedClass;
   List<ClientPlansResponse>? _clientPlans;
   ClientPlansResponse? _currentPlan;
+  List<AllClientsPlansResponse>? _allClientsPlansResponse;
 
   //Getters
   LoginResponse? get loginResponse => _loginResponse;
@@ -18,6 +20,8 @@ class ClientClassProvider extends ChangeNotifier {
   String? get selectedClass => _selectedClass;
   List<ClientPlansResponse>? get clientPlans => _clientPlans;
   ClientPlansResponse? get currentPlan => _currentPlan;
+  List<AllClientsPlansResponse>? get allClientsPlansResponse =>
+      _allClientsPlansResponse;
 
   //Setters
   void setLoginResponse(LoginResponse loginResponse) {
@@ -50,6 +54,12 @@ class ClientClassProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setAllClientsPlansResponse(
+      List<AllClientsPlansResponse> allClientsPlansResponse) {
+    _allClientsPlansResponse = allClientsPlansResponse;
+    notifyListeners();
+  }
+
   //Clear all
   void clearAll() {
     _loginResponse = null;
@@ -58,6 +68,7 @@ class ClientClassProvider extends ChangeNotifier {
     _selectedClass = null;
     _clientPlans = null;
     _currentPlan = null;
+    _allClientsPlansResponse = null;
     notifyListeners();
   }
 
@@ -89,6 +100,11 @@ class ClientClassProvider extends ChangeNotifier {
 
   void clearCurrentPlan() {
     _currentPlan = null;
+    notifyListeners();
+  }
+
+  void clearAllClientsPlansResponse() {
+    _allClientsPlansResponse = null;
     notifyListeners();
   }
 }
