@@ -1,4 +1,4 @@
-package com.pilatesibarra.app.pilates
+package com.codelabs.curvepilates
 
 import io.flutter.embedding.android.FlutterActivity
 

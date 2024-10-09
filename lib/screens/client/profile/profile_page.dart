@@ -30,6 +30,7 @@ class ProfilePageState extends State<ProfilePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: texts.normalText(
               text: 'Próximamente ...',
               color: Colors.black,
@@ -75,7 +76,7 @@ class ProfilePageState extends State<ProfilePage> {
                           child: buttons.standart(
                             text: 'Aceptar',
                             color: ColorsPalette.primaryColor,
-                            width: 8 * SizeConfig.widthMultiplier,
+                            width: 10 * SizeConfig.widthMultiplier,
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -99,6 +100,7 @@ class ProfilePageState extends State<ProfilePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: texts.normalText(
               text: 'Confirmar Cierre de Sesión',
               color: Colors.black,
@@ -159,7 +161,7 @@ class ProfilePageState extends State<ProfilePage> {
               buttons.standart(
                 text: 'Sí',
                 color: ColorsPalette.primaryColor,
-                width: 4 * SizeConfig.widthMultiplier,
+                width: 6 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/login', (route) => false);
@@ -232,6 +234,7 @@ class ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           title: texts.normalText(
             text: 'Comprobante de Pago',
             color: Colors.black,

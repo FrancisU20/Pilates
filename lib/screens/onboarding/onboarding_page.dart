@@ -101,14 +101,13 @@ class OnboardingPageState extends State<OnboardingPage> {
                         onPressed: _decrementCounter,
                         color: ColorsPalette.secondaryColor,
                       )
-                    : const SizedBox.shrink(),
-                buttons.undelineText(
-                    text: 'Ya dispones de una cuenta, Inicia Sesión',
-                    onPressed: () => {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/login', (route) => false)
-                        },
-                    color: ColorsPalette.textColor)
+                    : buttons.undelineText(
+                        text: 'Ya dispones de una cuenta, Inicia Sesión',
+                        onPressed: () => {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/login', (route) => false)
+                            },
+                        color: ColorsPalette.secondaryColor)
               ],
             ),
           ),

@@ -244,6 +244,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: texts.normalText(
               text: 'Confirmar cita',
               color: Colors.black,
@@ -408,7 +409,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
               buttons.standart(
                 text: 'Confirmar',
                 color: ColorsPalette.primaryColor,
-                width: 8 * SizeConfig.widthMultiplier,
+                width: 10 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   log('Confirmando cita ...');
                   createClass(clientClassProvider.selectedClass!);

@@ -345,8 +345,9 @@ class TransferMethodPageState extends State<TransferMethodPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: texts.normalText(
-              text: RegisterProvider().dni != null
+              text: registerProvider.dni != null
                   ? 'Confirmar Registro'
                   : 'Confirmar Renovación',
               color: Colors.black,
@@ -409,7 +410,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
               buttons.standart(
                 text: 'Sí',
                 color: ColorsPalette.primaryColor,
-                width: 4 * SizeConfig.widthMultiplier,
+                width: 6 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   determinateCreateOrRenew();
                 },

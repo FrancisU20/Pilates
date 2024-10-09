@@ -31,7 +31,6 @@ class Texts {
             color: color,
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            decoration: TextDecoration.underline,
             decorationColor: color,
           ),
         ),

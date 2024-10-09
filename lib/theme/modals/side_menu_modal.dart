@@ -26,6 +26,7 @@ class SideMenuModalState extends State<SideMenuModal> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: texts.normalText(
               text: 'Confirmar Cierre de Sesión',
               color: Colors.black,
@@ -86,7 +87,7 @@ class SideMenuModalState extends State<SideMenuModal> {
               buttons.standart(
                 text: 'Sí',
                 color: ColorsPalette.primaryColor,
-                width: 4 * SizeConfig.widthMultiplier,
+                width: 6 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/login', (route) => false);
@@ -109,7 +110,7 @@ class SideMenuModalState extends State<SideMenuModal> {
           Positioned(
             left: 3 * SizeConfig.widthMultiplier,
             top: 0 * SizeConfig.heightMultiplier,
-            width: 55 * SizeConfig.widthMultiplier,
+            width: 60 * SizeConfig.widthMultiplier,
             height: 70 * SizeConfig.heightMultiplier,
             child: Material(
               color: const Color.fromARGB(255, 158, 148, 135),

@@ -256,6 +256,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: texts.normalText(
               text: 'Confirmar cancelación',
               color: Colors.black,
@@ -325,7 +326,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
               buttons.standart(
                 text: 'Confirmar',
                 color: ColorsPalette.primaryColor,
-                width: 8 * SizeConfig.widthMultiplier,
+                width: 10 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   log('Cancelando cita ...');
                   cancelClass(classId);

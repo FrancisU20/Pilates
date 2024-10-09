@@ -78,13 +78,15 @@ class RegisterPageState extends State<RegisterPage> {
   Future<void> _pickImage(ImageSource source) async {
     RegisterProvider registerProvider =
         Provider.of<RegisterProvider>(context, listen: false);
-    loadingModal.showLoadingModal(context);
     final XFile? selected = await _picker.pickImage(source: source);
 
     if (selected == null) {
       return;
     } else {
       try {
+        Future.microtask(() {
+          loadingModal.showLoadingModal(context);
+        });
         UploadS3Response uploadProfilePhotoResponse =
             await fileManagerController.postS3ProfilePhoto(
                 selected, registerProvider.dni!);
@@ -407,7 +409,7 @@ class RegisterPageState extends State<RegisterPage> {
               ),
               Step(
                 title: texts.titleText(
-                    text: 'Registro Exitoso', fontWeight: FontWeight.w500),
+                    text: _currentStep == 3 ? 'Registro Exitoso' : 'Registro en Proceso' , fontWeight: FontWeight.w500),
                 content: FinalStep(texts: texts),
                 state: StepState.complete,
                 isActive: _currentStep == 3,

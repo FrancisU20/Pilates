@@ -1,2 +1,5 @@
-#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
-#include "Generated.xcconfig"
+# Include the CocoaPods configuration
+# This ensures that CocoaPods configurations are considered during the build process
+# Adjust the path if necessary
+include "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig" # para Release
+include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig" # para Debug

@@ -35,6 +35,7 @@ class ApiBaseService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
+    // Configurar el tipo de contenido según el parámetro `type`
     switch (type) {
       case 'json':
         typeHeader = 'application/json';
@@ -53,32 +54,15 @@ class ApiBaseService {
         break;
     }
 
-    switch (isProduction) {
-      case 'dev':
-        if (isLogging) {
-          defaultHeaders['Content-Type'] = typeHeader;
-        } else if (token != null) {
-          defaultHeaders['Authorization'] = 'Bearer $token';
-          defaultHeaders['Content-Type'] = typeHeader;
-        }
-        break;
-      case 'prod':
-        if (isLogging) {
-          defaultHeaders['Content-Type'] = typeHeader;
-        } else if (token != null) {
-          defaultHeaders['Authorization'] = 'Bearer $token';
-          defaultHeaders['Content-Type'] = typeHeader;
-        }
-        break;
-      case 'test':
-        if (isLogging) {
-          defaultHeaders['Content-Type'] = typeHeader;
-        } else if (token != null) {
-          defaultHeaders['Authorization'] = 'Bearer $token';
-          defaultHeaders['Content-Type'] = typeHeader;
-        }
-        break;
+    // Configurar los headers por defecto
+    defaultHeaders['Content-Type'] = typeHeader;
+
+    // Incluir el token si está disponible y `isLogging` es falso
+    if (!isLogging && token != null) {
+      defaultHeaders['Authorization'] = 'Bearer $token';
     }
+
+    log('Default Headers: $defaultHeaders');
   }
 
   // Método para refrescar el token de la API
@@ -132,6 +116,7 @@ class ApiBaseService {
       bool? isLocal}) async {
     final api = isLocal != null && isLocal ? endpointLocal : endpoint;
     final headers = {...defaultHeaders, ...?headersAdditional};
+    log('Headers: $headers');
     return http.post(Uri.parse('$api$microserviceAndParams'),
         headers: headers, body: bodyRequest);
   }

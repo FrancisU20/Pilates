@@ -161,6 +161,7 @@ class PlanPageState extends State<PlanPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: texts.normalText(
               text: 'Seleccione un método de pago',
               color: Colors.black,
@@ -255,6 +256,7 @@ class PlanPageState extends State<PlanPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: texts.normalText(
               text: 'Próximamente ...',
               color: Colors.black,
