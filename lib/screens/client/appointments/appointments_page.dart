@@ -594,7 +594,8 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                   255, 116, 114, 114),
                                               fontSize: 2 *
                                                   SizeConfig.heightMultiplier,
-                                              fontWeight: FontWeight.w400),
+                                              fontWeight: FontWeight.w400,
+                                              textAlign: TextAlign.start),
                                           SizedBox(
                                             height: 0.5 *
                                                 SizeConfig.heightMultiplier,
