@@ -29,12 +29,12 @@ class ClientClassProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedDate(DateTime selectedDate) {
+  void setSelectedDate(DateTime? selectedDate) {
     _selectedDate = selectedDate;
     notifyListeners();
   }
 
-  void setSelectedHour(String selectedHour) {
+  void setSelectedHour(String? selectedHour) {
     _selectedHour = selectedHour;
     notifyListeners();
   }

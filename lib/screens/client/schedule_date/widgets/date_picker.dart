@@ -37,7 +37,8 @@ class DatePickerState extends State<DatePicker> {
   @override
   void initState() {
     super.initState();
-    firstDay = DateTime.now().add(const Duration(days: 2));
+    //firstDay = DateTime.now().add(const Duration(days: 2));
+    firstDay = DateTime.now();
     availableDays = {};
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getAvailableDays();
@@ -75,7 +76,8 @@ class DatePickerState extends State<DatePicker> {
       }
     }
 
-    DateTime now = DateTime.now().add(const Duration(days: 2));
+    //DateTime now = DateTime.now().add(const Duration(days: 2));
+    DateTime now = DateTime.now();
 
     // Normalizar la fecha actual con la hora a 00:00:00
     DateTime normalizedNow = DateTime(

@@ -284,7 +284,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                         height: 2 * SizeConfig.heightMultiplier,
                         width: 90 * SizeConfig.widthMultiplier,
                         child: texts.normalText(
-                            text: 'Información de contratos ',
+                            text: 'Información de planes ',
                             color: ColorsPalette.greyAged,
                             fontSize: 2.5 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500),
@@ -332,7 +332,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                   width: 4,
                                 ),
                                 texts.normalText(
-                                    text: 'Inactivos',
+                                    text: 'Finalizados',
                                     color: ColorsPalette.greyAged,
                                     fontSize: 2.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w500),

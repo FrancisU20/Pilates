@@ -163,6 +163,9 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
         Provider.of<ClientClassProvider>(context, listen: false);
 
     DateTime selectedDate = clientClassProvider.selectedDate!;
+    // Fecha Actual normalizada con hora 00:00:00
+    DateTime currentDate =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
     availableHours = [];
 
@@ -170,7 +173,16 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
       if (pilatesClass.date.day == selectedDate.day &&
           pilatesClass.date.month == selectedDate.month &&
           pilatesClass.date.year == selectedDate.year) {
-        availableHours.add(pilatesClass.schedule.startHour);
+        // Si el horario (fecha y hora) ya pasó, no se muestra
+        if (pilatesClass.date.isAtSameMomentAs(currentDate) &&
+            pilatesClass.schedule.startHour
+                    .substring(0, 2)
+                    .compareTo(DateTime.now().hour.toString()) <
+                0) {
+          continue;
+        } else {
+          availableHours.add(pilatesClass.schedule.startHour);
+        }
       }
     }
 
@@ -439,6 +451,10 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
       CreateClassResponse createClassResponse =
           await clientClassesController.postClass(createClassObject);
 
+      // Limpiar los datos de la clase seleccionada
+      clientClassProvider.setSelectedDate(null);
+      clientClassProvider.setSelectedHour(null);
+
       // Actualizar el estado con los nuevos datos y cerrar el modal de carga
       if (createClassResponse.message
           .contains('Pilates class created successfully')) {
@@ -699,7 +715,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                 SizedBox(
                                   height: 2 * SizeConfig.heightMultiplier,
                                 ),
-                                texts.normalText(text: 'Que vas a hacer?'),
+                                texts.normalText(text: 'Que vas a realizar?'),
                                 SizedBox(
                                   height: 2 * SizeConfig.heightMultiplier,
                                 ),
@@ -861,7 +877,36 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                             ),
                           ],
                         ),
-                      )
+                      ),
+                      Visibility(
+                        visible: availableHours.isEmpty,
+                        child: Container(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10 * SizeConfig.heightMultiplier,
+                              ),
+                              texts.normalText(
+                                text: 'No hay horarios disponibles para esta fecha',
+                                color: ColorsPalette.black,
+                                fontSize: 2 * SizeConfig.heightMultiplier,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              SizedBox(
+                                height: 2 * SizeConfig.heightMultiplier,
+                              ),
+                              buttons.standart(
+                                text: 'Volver',
+                                color: ColorsPalette.greyChocolate,
+                                onPressed: () {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, '/dashboard', (route) => false);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

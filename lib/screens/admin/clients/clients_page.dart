@@ -142,8 +142,17 @@ class ClientsPageState extends State<ClientsPage> {
         .contains('Estado del cliente actualizado correctamente')) {
       setState(() {
         clients[index].statusClient = statusString;
-        // Si se cambió el estado a activo, actualizamos activeClients
-        activeClients = statusString == 'active';
+        // Si el estado cambia a activo me muestra todos los clientes activos
+        if (status == true) {
+          activeClients = true;
+          // Actualizar la lista de clientes
+          getClients();
+        }
+        else{
+          activeClients = false;
+          // Actualizar la lista de clientes
+          getClients();
+        }
       });
 
       String newStatus = status == true ? 'activo' : 'inactivo';
@@ -181,6 +190,66 @@ class ClientsPageState extends State<ClientsPage> {
     }
 
     log('El estado del cliente ha cambiado a: $status');
+  }
+
+  void showPaymentInvoice(String dni) {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: ColorsPalette.white,
+          title: texts.normalText(
+            text: 'Comprobante de Pago',
+            color: ColorsPalette.black,
+            fontSize: 2.5 * SizeConfig.heightMultiplier,
+            fontWeight: FontWeight.w500,
+          ),
+          content: SizedBox(
+            width: 100 * SizeConfig.widthMultiplier,
+            height: 50 * SizeConfig.heightMultiplier,
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: ColorsPalette.white,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                      color: ColorsPalette.black.withOpacity(0.1),
+                    ),
+                  ),
+                  width: 100 * SizeConfig.widthMultiplier,
+                  height: 45 * SizeConfig.heightMultiplier,
+                  child: InteractiveViewer(
+                    panEnabled: true, // Permite desplazar la imagen
+                    minScale: 0.5,
+                    maxScale: 10,
+                    child: Center(
+                      child: Image.network(
+                        clientClassProvider.allClientsPlansResponse!.firstWhere(
+                            (element) => element.clientDniNumber == dni).paymentToken,
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5 * SizeConfig.heightMultiplier,
+                  child: IconButton(
+                    icon: const Icon(Icons.close, color: ColorsPalette.black),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -238,8 +307,16 @@ class ClientsPageState extends State<ClientsPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 7.5 * SizeConfig.widthMultiplier,
+                              vertical: 1.5 * SizeConfig.heightMultiplier),
+                          decoration: BoxDecoration(
+                            color: ColorsPalette.white,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
                           width: 80 * SizeConfig.widthMultiplier,
+                          height: 8.5 * SizeConfig.heightMultiplier,
                           child: textFormFields.create(
                             controller: searchController,
                             title: 'Buscar cliente',
@@ -516,7 +593,11 @@ class ClientsPageState extends State<ClientsPage> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {
+                                            showPaymentInvoice(
+                                                    clients[index].clientDniNumber
+                                                        .toString());
+                                          },
                                           child: Container(
                                             width:
                                                 10 * SizeConfig.widthMultiplier,

@@ -251,7 +251,26 @@ class AppointmentsPageState extends State<AppointmentsPage> {
     }
   }
 
-  void showDeleteConfirm(String classId) {
+  void showDeleteConfirm(String classId, DateTime classDate) {
+    DateTime now = DateTime.now();
+
+    // Si la cita es menor a 24 horas no se puede cancelar
+    if (now.isAfter(classDate.subtract(const Duration(hours: 24)))) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: texts.normalText(
+              text:
+                  'No puedes cancelar una cita que esta a menos de 24 horas de su inicio',
+              fontWeight: FontWeight.w500,
+              textAlign: TextAlign.start,
+              fontSize: 2 * SizeConfig.heightMultiplier,
+              color: ColorsPalette.white),
+          backgroundColor: ColorsPalette.redAged,
+        ),
+      );
+      return;
+    }
+
     showDialog(
         context: context,
         builder: (context) {
@@ -283,15 +302,14 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                   ),
                   SizedBox(
                     width: 100 * SizeConfig.widthMultiplier,
-                    height: 10 * SizeConfig.heightMultiplier,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         texts.normalText(
-                          text: 'Estás seguro de cancelar esta cita?',
+                          text: 'Estás seguro de cancelar la cita?',
                           color: ColorsPalette.black,
-                          fontSize: 2 * SizeConfig.heightMultiplier,
+                          fontSize: 1.8 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400,
                         ),
                         SizedBox(
@@ -301,7 +319,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                           text:
                               'Nota: Una vez cancelada la cita no podrá ser recuperada',
                           color: ColorsPalette.black,
-                          fontSize: 2 * SizeConfig.heightMultiplier,
+                          fontSize: 1.8 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w500,
                           textAlign: TextAlign.start,
                         ),
@@ -516,14 +534,14 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                 decoration: BoxDecoration(
                                     color: ColorsPalette.white,
                                     border: Border.all(
-                                        color: ColorsPalette.white),
+                                        color: ColorsPalette.black.withOpacity(0.1),),
                                     borderRadius: BorderRadius.circular(50),
                                     boxShadow: [
                                       BoxShadow(
                                         color: ColorsPalette.black.withOpacity(0.1),
-                                        spreadRadius: 5,
-                                        blurRadius: 5,
-                                        offset: const Offset(0, 3),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: const Offset(0,1),
                                       ),
                                     ]),
                                 child: Row(
@@ -696,7 +714,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                               GestureDetector(
                                                 onTap: () {
                                                   showDeleteConfirm(
-                                                      clientClasses[index].id);
+                                                      clientClasses[index].id, clientClasses[index].date);
                                                 },
                                                 child: Container(
                                                   width: 10 *

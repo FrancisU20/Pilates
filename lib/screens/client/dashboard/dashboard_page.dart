@@ -146,7 +146,7 @@ class DashboardPageState extends State<DashboardPage> {
           color: ColorsPalette.white,
           padding: EdgeInsets.symmetric(
               horizontal: 5 * SizeConfig.widthMultiplier,
-              vertical: 2 * SizeConfig.heightMultiplier),
+              vertical: 0.5 * SizeConfig.heightMultiplier),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -190,7 +190,7 @@ class DashboardPageState extends State<DashboardPage> {
                   ),
                   CarouselSlider(
                     options: CarouselOptions(
-                      height: 47 * SizeConfig.heightMultiplier,
+                      height: 45 * SizeConfig.heightMultiplier,
                       enlargeCenterPage: true,
                       autoPlay: true,
                       aspectRatio: 16 / 9,
@@ -291,7 +291,7 @@ class DashboardPageState extends State<DashboardPage> {
                                 width: 70 * SizeConfig.widthMultiplier,
                                 child: LinearProgressIndicator(
                                   value: calculateProgressClass(),
-                                  backgroundColor: ColorsPalette.black,
+                                  backgroundColor: ColorsPalette.grey,
                                   valueColor:
                                       const AlwaysStoppedAnimation<Color>(
                                           ColorsPalette.beigeAged,),
