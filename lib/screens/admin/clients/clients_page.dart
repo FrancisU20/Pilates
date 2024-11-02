@@ -154,7 +154,7 @@ class ClientsPageState extends State<ClientsPage> {
                   text: 'El estado del cliente ha cambiado a: $newStatus',
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: 4 * SizeConfig.widthMultiplier,
+                  fontSize: 2 * SizeConfig.widthMultiplier,
                   color: ColorsPalette.white,
                 ),
                 backgroundColor: ColorsPalette.greenAged,
@@ -170,7 +170,7 @@ class ClientsPageState extends State<ClientsPage> {
                   text: response.message,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: 4 * SizeConfig.widthMultiplier,
+                  fontSize: 2 * SizeConfig.widthMultiplier,
                   color: ColorsPalette.white,
                 ),
                 backgroundColor: ColorsPalette.redAged,
@@ -186,6 +186,7 @@ class ClientsPageState extends State<ClientsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsPalette.white,
       appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Container(
         color: ColorsPalette.greyChocolate,

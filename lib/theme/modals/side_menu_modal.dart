@@ -200,7 +200,7 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ),
                       ListTile(
                         leading:  Icon(
-                          FontAwesomeIcons.solidHand,
+                          FontAwesomeIcons.hands,
                           color: ColorsPalette.white,
                           size: 3 * SizeConfig.heightMultiplier,
                         ),

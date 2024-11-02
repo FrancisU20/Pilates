@@ -91,7 +91,7 @@ class PlanPageState extends State<PlanPage> {
                           'Aún tienes un plan activo, no puedes renovar hasta que este finalice',
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
-                      fontSize: 4 * SizeConfig.heightMultiplier,
+                      fontSize: 2 * SizeConfig.heightMultiplier,
                       color: ColorsPalette.white),
                   backgroundColor: ColorsPalette.redAged,
                 ),
@@ -143,7 +143,7 @@ class PlanPageState extends State<PlanPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -205,7 +205,7 @@ class PlanPageState extends State<PlanPage> {
                         ),
                         texts.normalText(
                           text:
-                              'Nota: Una vez realizado el pago, no se aceptan devoluciones.',
+                              'Nota: Una vez realizado el pago, no se aceptan devoluciones',
                           color: ColorsPalette.black,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w500,
@@ -321,6 +321,7 @@ class PlanPageState extends State<PlanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsPalette.white,
       appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Stack(children: [
         Container(
@@ -378,9 +379,10 @@ class PlanPageState extends State<PlanPage> {
                         color: ColorsPalette.white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(25),
-                            topRight: Radius.circular(
-                                25))), 
+                            topRight: Radius.circular(25))),
                     child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      physics: const ClampingScrollPhysics(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -418,7 +420,7 @@ class PlanPageState extends State<PlanPage> {
                                     gradient: const LinearGradient(
                                       colors: [
                                         ColorsPalette.beige,
-                                          ColorsPalette.whiteAlternative,
+                                        ColorsPalette.whiteAlternative,
                                       ],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -442,7 +444,7 @@ class PlanPageState extends State<PlanPage> {
                                               .toString(),
                                           color: ColorsPalette.black,
                                           fontSize:
-                                              5 * SizeConfig.heightMultiplier,
+                                              4.5 * SizeConfig.heightMultiplier,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -456,7 +458,7 @@ class PlanPageState extends State<PlanPage> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 4 * SizeConfig.heightMultiplier,
+                                        height: 1.5 * SizeConfig.heightMultiplier,
                                       ),
                                       Column(
                                         children: [

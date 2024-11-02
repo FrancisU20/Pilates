@@ -140,6 +140,8 @@ class DashboardPageState extends State<DashboardPage> {
       backgroundColor: ColorsPalette.white,
       appBar: const DashboardAppBar(),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: const ClampingScrollPhysics(),
         child: Container(
           color: ColorsPalette.white,
           padding: EdgeInsets.symmetric(
@@ -183,18 +185,12 @@ class DashboardPageState extends State<DashboardPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  /* texts.normalText(
-                      text: 'Mis Actividades',
-                      color: ColorsPalette.black,
-                      fontSize: 2.5 * SizeConfig.heightMultiplier,
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.start), */
                   SizedBox(
                     height: 2.5 * SizeConfig.heightMultiplier,
                   ),
                   CarouselSlider(
                     options: CarouselOptions(
-                      height: 50 * SizeConfig.heightMultiplier,
+                      height: 47 * SizeConfig.heightMultiplier,
                       enlargeCenterPage: true,
                       autoPlay: true,
                       aspectRatio: 16 / 9,
@@ -241,9 +237,6 @@ class DashboardPageState extends State<DashboardPage> {
                       );
                     }).toList(),
                   ),
-                  SizedBox(
-                    height: 2.5 * SizeConfig.heightMultiplier,
-                  ),
                   noPlans == true
                       ? Column(
                           children: [
@@ -260,16 +253,16 @@ class DashboardPageState extends State<DashboardPage> {
                                         text: 'Adquiere un plan',
                                         color: ColorsPalette.redAged,
                                         fontSize:
-                                            3 * SizeConfig.heightMultiplier,
+                                            2.5 * SizeConfig.heightMultiplier,
                                         fontWeight: FontWeight.w500,
                                         textAlign: TextAlign.center),
                                     SizedBox(
-                                      width: 1 * SizeConfig.widthMultiplier,
+                                      width: 1.5 * SizeConfig.widthMultiplier,
                                     ),
                                     Icon(
-                                      FontAwesomeIcons.cartShopping,
+                                      FontAwesomeIcons.arrowUpRightFromSquare,
                                       color: ColorsPalette.redAged,
-                                      size: 3 * SizeConfig.heightMultiplier,
+                                      size: 2 * SizeConfig.heightMultiplier,
                                     )
                                   ],
                                 )),

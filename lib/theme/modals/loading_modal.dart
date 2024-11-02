@@ -41,7 +41,7 @@ class LoadingModal extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               height: 25 * SizeConfig.heightMultiplier,
               child: Image.asset(
-                images.logoSquare,
+                images.logoSquareFill,
                 fit: BoxFit.scaleDown,
               ),
             ),

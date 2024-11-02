@@ -23,7 +23,9 @@ class FileManagerController {
   var result = await FlutterImageCompress.compressAndGetFile(
     file.path,
     targetPath,
-    quality: 70, // Ajusta este valor para cambiar la calidad de la compresión
+    quality: 70,
+    minHeight: 1920,
+    minWidth: 1080,
   );
 
   return XFile(result!.path);

@@ -181,7 +181,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                   text: e.toString().replaceAll('Exception: ', ''),
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: 4 * SizeConfig.widthMultiplier,
+                  fontSize: 2 * SizeConfig.widthMultiplier,
                   color: ColorsPalette.white),
               backgroundColor: ColorsPalette.redAged,
             ))
@@ -197,6 +197,8 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
       backgroundColor: ColorsPalette.white,
       appBar: const DashboardAdminAppBar(),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: const ClampingScrollPhysics(),
         child: Container(
           color: ColorsPalette.white,
           padding: EdgeInsets.symmetric(

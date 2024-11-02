@@ -21,7 +21,7 @@ class FinalStep extends StatelessWidget {
               text: '¡Has completado la primera parte del registro!',
               fontWeight: FontWeight.w400),
           texts.normalText(
-              text: 'Ahora puedes seleccionar un plan.',
+              text: 'Ahora puedes seleccionar un plan',
               fontWeight: FontWeight.w400),
         ],
       ),

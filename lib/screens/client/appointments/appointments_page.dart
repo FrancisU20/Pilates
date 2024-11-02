@@ -92,7 +92,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -223,7 +223,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: 'La cita ha sido cancelada correctamente',
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.greenAged,
               ),
@@ -242,7 +242,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -342,6 +342,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context, listen: false);
     return Scaffold(
+      backgroundColor: ColorsPalette.white,
       appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Container(
         color: ColorsPalette.greyChocolate,

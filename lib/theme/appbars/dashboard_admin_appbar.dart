@@ -15,6 +15,7 @@ class DashboardAdminAppBar extends StatelessWidget implements PreferredSizeWidge
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: ColorsPalette.white,
+      scrolledUnderElevation: 0,
       leading: Builder(
         builder: (context) => IconButton(
           icon: SvgPicture.asset(

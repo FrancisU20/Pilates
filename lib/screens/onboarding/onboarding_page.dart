@@ -58,11 +58,14 @@ class OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsPalette.white,
       appBar: AppBar(
         backgroundColor: ColorsPalette.white,
       ),
       body: Center(
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          physics: const ClampingScrollPhysics(),
           child: Container(
             padding: EdgeInsets.symmetric(
               horizontal: 8 * SizeConfig.widthMultiplier,

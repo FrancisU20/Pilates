@@ -79,7 +79,7 @@ class LoginFormState extends State<LoginForm> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -112,7 +112,7 @@ class LoginFormState extends State<LoginForm> {
           children: [
             Container(
               width: 100 * SizeConfig.widthMultiplier,
-              height: 20 * SizeConfig.heightMultiplier,
+              height: 15 * SizeConfig.heightMultiplier,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/logo/logo_rectangle.png'),
@@ -124,21 +124,21 @@ class LoginFormState extends State<LoginForm> {
               text: 'Bienvenido,',
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.start,
-              fontSize: 32,
+              fontSize: 3 * SizeConfig.heightMultiplier,
             ),
-            SizedBox(height: 2 * SizeConfig.heightMultiplier),
+            SizedBox(height: 1 * SizeConfig.heightMultiplier),
             widget.texts.normalText(
-              text: 'Es un gusto volver a verte.',
+              text: 'Es un gusto volver a verte',
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.start,
-              fontSize: 2.5 * SizeConfig.heightMultiplier,
+              fontSize: 2 * SizeConfig.heightMultiplier,
             ),
             SizedBox(height: 2 * SizeConfig.heightMultiplier),
             widget.textFormFields.create(
               title: 'Usuario',
               labelcolor: ColorsPalette.black,
               hintText: 'Ingrese su correo electrónico',
-              icon: FontAwesomeIcons.user,
+              icon: FontAwesomeIcons.at,
               typeTextField: TextFieldType.email,
               controller: emailController,
             ),
@@ -151,7 +151,7 @@ class LoginFormState extends State<LoginForm> {
               typeTextField: TextFieldType.password,
               controller: passwordController,
             ),
-            SizedBox(height: 4 * SizeConfig.heightMultiplier),
+            SizedBox(height: 2 * SizeConfig.heightMultiplier),
             SizedBox(
               child: Center(
                 child: buttons.standart(
@@ -164,7 +164,7 @@ class LoginFormState extends State<LoginForm> {
                 ),
               ),
             ),
-            SizedBox(height: 2 * SizeConfig.heightMultiplier),
+            SizedBox(height: 1 * SizeConfig.heightMultiplier),
             Center(
               child: widget.texts.underlineText(
                   text: '¿Aún no tiene cuenta? Registrate',

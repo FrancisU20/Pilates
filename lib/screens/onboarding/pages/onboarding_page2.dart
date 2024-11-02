@@ -27,7 +27,7 @@ class Step2State extends State<Step2> {
         SizedBox(height: 3 * SizeConfig.heightMultiplier),
         texts.normalText(
             text:
-                'Descubre cómo nuestras rutinas te ayudarán a aumentar tu flexibilidad y fortaleza.',
+                'Descubre cómo nuestras rutinas te ayudarán a aumentar tu flexibilidad y fortaleza',
             fontSize: 2.5 * SizeConfig.textMultiplier,
             fontWeight: FontWeight.w400),
       ],

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -102,6 +101,10 @@ class TransferMethodPageState extends State<TransferMethodPage> {
   Future<void> _pickImage(ImageSource source) async {
     RegisterProvider registerProvider =
         Provider.of<RegisterProvider>(context, listen: false);
+
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
+
     loadingModal.showLoadingModal(context);
     final XFile? selected = await _picker.pickImage(source: source);
 
@@ -112,9 +115,11 @@ class TransferMethodPageState extends State<TransferMethodPage> {
       return;
     } else {
       try {
+        String dni = registerProvider.dni ??
+            clientClassProvider.loginResponse!.client.dniNumber;
+
         UploadS3Response uploadProfilePhotoResponse =
-            await fileManagerController.postS3TransferVoucher(
-                selected, registerProvider.dni!);
+            await fileManagerController.postS3TransferVoucher(selected, dni);
         log(uploadProfilePhotoResponse.fileUrl);
         registerProvider.setTransferImageFile(selected);
         registerProvider
@@ -143,7 +148,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                   text: e.toString().replaceAll('Exception: ', ''),
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: 4 * SizeConfig.heightMultiplier,
+                  fontSize: 2 * SizeConfig.heightMultiplier,
                   color: ColorsPalette.white),
               backgroundColor: ColorsPalette.redAged,
             ),
@@ -214,7 +219,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                         text: 'Tu cuenta ha sido creada exitosamente',
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.start,
-                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        fontSize: 2 * SizeConfig.heightMultiplier,
                         color: ColorsPalette.white),
                     backgroundColor: ColorsPalette.greenAged,
                   ),
@@ -228,10 +233,10 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                 SnackBar(
                   content: texts.normalText(
                       text:
-                          'El cliente ya se encuentra registrado verifique el email y el número de cédula ingresados.',
+                          'El cliente ya se encuentra registrado verifique el email y el número de cédula ingresados',
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
-                      fontSize: 4 * SizeConfig.heightMultiplier,
+                      fontSize: 2 * SizeConfig.heightMultiplier,
                       color: ColorsPalette.white),
                   backgroundColor: ColorsPalette.redAged,
                 ),
@@ -249,7 +254,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -303,7 +308,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                       text: 'Tu plan ha sido renovado exitosamente',
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
-                      fontSize: 4 * SizeConfig.heightMultiplier,
+                      fontSize: 2 * SizeConfig.heightMultiplier,
                       color: ColorsPalette.white),
                   backgroundColor: ColorsPalette.greenAged,
                 ),
@@ -321,7 +326,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -439,6 +444,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
     DateTime planexpiration =
         now.add(Duration(days: registerProvider.selectedPlan!.classVigency));
     return Scaffold(
+      backgroundColor: ColorsPalette.white,
       appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Stack(children: [
         Container(
@@ -472,7 +478,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                             fontSize: 4 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400),
                         texts.normalText(
-                            text: 'Estás a un paso de comenzar',
+                            text: 'Verifica tu plan a contratar',
                             color: ColorsPalette.white,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
@@ -498,6 +504,8 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                             topLeft: Radius.circular(25),
                             topRight: Radius.circular(25))),
                     child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      physics: const ClampingScrollPhysics(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -515,246 +523,291 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                           ),
                           Container(
                             width: 100 * SizeConfig.widthMultiplier,
-                            height: 50 * SizeConfig.widthMultiplier,
+                            height: 47 * SizeConfig.widthMultiplier,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 5 * SizeConfig.widthMultiplier,
                                 vertical: 2 * SizeConfig.heightMultiplier),
                             decoration: BoxDecoration(
-                                color: ColorsPalette.black,
+                                color: const Color(0xFF262626),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 20 * SizeConfig.widthMultiplier,
-                                      height: 30 * SizeConfig.widthMultiplier,
-                                      decoration: BoxDecoration(
-                                        color: ColorsPalette.white,
-                                        borderRadius: BorderRadius.circular(15),
+                                SizedBox(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: 20 * SizeConfig.widthMultiplier,
+                                        height: 30 * SizeConfig.widthMultiplier,
+                                        decoration: BoxDecoration(
+                                          color: ColorsPalette.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
+                                            clientClassProvider
+                                                .loginResponse!.client.photo,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
                                       ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
-                                        child:
-                                            registerProvider.imageFile != null
-                                                ? Image.file(
-                                                    File(registerProvider
-                                                        .imageFile!.path),
-                                                    fit: BoxFit.cover,
-                                                  )
-                                                : Image.network(
-                                                    clientClassProvider
-                                                        .loginResponse!
-                                                        .client
-                                                        .photo,
-                                                    fit: BoxFit.cover,
+                                      SizedBox(
+                                        width: 5 * SizeConfig.widthMultiplier,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Center(
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  width: 25 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  height: 8 *
+                                                      SizeConfig
+                                                          .widthMultiplier,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                    child: Image.asset(
+                                                      'assets/logo/logo_rectangle_white.png',
+                                                      fit: BoxFit.fitHeight,
+                                                    ),
                                                   ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5 * SizeConfig.widthMultiplier,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Container(
-                                              width: 20 *
-                                                  SizeConfig.widthMultiplier,
-                                              height: 10 *
-                                                  SizeConfig.widthMultiplier,
-                                              decoration: BoxDecoration(
-                                                color: ColorsPalette.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                child: Image.asset(
-                                                  'assets/logo/logo_rectangle.png',
-                                                  fit: BoxFit.fitHeight,
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              1 * SizeConfig.heightMultiplier,
-                                        ),
-                                        texts.normalText(
-                                            text: registerProvider.name != null
-                                                ? '${registerProvider.name} ${registerProvider.lastname}'
-                                                : '${clientClassProvider.loginResponse!.client.name} ${clientClassProvider.loginResponse!.client.lastname}',
-                                            color: ColorsPalette.white,
-                                            fontSize: 1.6 *
-                                                SizeConfig.heightMultiplier,
-                                            fontWeight: FontWeight.w500),
-                                        texts.normalText(
-                                            text: registerProvider.dni != null
-                                                ? registerProvider.dni!
-                                                : clientClassProvider
-                                                    .loginResponse!
-                                                    .client
-                                                    .dniNumber,
-                                            color: ColorsPalette.white,
-                                            fontSize: 1.6 *
-                                                SizeConfig.heightMultiplier,
-                                            fontWeight: FontWeight.w500),
-                                        texts.normalText(
-                                            text: registerProvider.phone != null
-                                                ? 'Celular: ${registerProvider.phone!.replaceAll('+593', '0')}'
-                                                : 'Celular: ${clientClassProvider.loginResponse!.client.phone.replaceAll('+593', '0')}',
-                                            color: ColorsPalette.white,
-                                            fontSize: 1.6 *
-                                                SizeConfig.heightMultiplier,
-                                            fontWeight: FontWeight.w500),
-                                        texts.normalText(
-                                            text: registerProvider.birthday !=
-                                                    null
-                                                ? 'Cumpleaños: ${registerProvider.birthday.toString().substring(0, 10)}'
-                                                : 'Cumpleaños: ${clientClassProvider.loginResponse!.client.birthdate.toString().substring(0, 10)}',
-                                            color: ColorsPalette.white,
-                                            fontSize: 1.6 *
-                                                SizeConfig.heightMultiplier,
-                                            fontWeight: FontWeight.w500),
-                                      ],
-                                    ),
-                                  ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                                1 * SizeConfig.heightMultiplier,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              texts.normalText(
+                                                  text: registerProvider.name !=
+                                                          null
+                                                      ? '${registerProvider.name} ${registerProvider.lastname}'
+                                                      : '${clientClassProvider.loginResponse!.client.name} ${clientClassProvider.loginResponse!.client.lastname}',
+                                                  color: ColorsPalette.white,
+                                                  fontSize: 1.6 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                  fontWeight: FontWeight.w500,
+                                                  textAlign: TextAlign.left),
+                                              texts.normalText(
+                                                  text: registerProvider.dni !=
+                                                          null
+                                                      ? registerProvider.dni!
+                                                      : clientClassProvider
+                                                          .loginResponse!
+                                                          .client
+                                                          .dniNumber,
+                                                  color: ColorsPalette.white,
+                                                  fontSize: 1.6 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                  fontWeight: FontWeight.w500,
+                                                  textAlign: TextAlign.left),
+                                              texts.normalText(
+                                                  text: registerProvider
+                                                              .phone !=
+                                                          null
+                                                      ? 'Celular: ${registerProvider.phone!.replaceAll('+593', '0')}'
+                                                      : 'Celular: ${clientClassProvider.loginResponse!.client.phone.replaceAll('+593', '0')}',
+                                                  color: ColorsPalette.white,
+                                                  fontSize: 1.6 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                  fontWeight: FontWeight.w500,
+                                                  textAlign: TextAlign.left),
+                                              texts.normalText(
+                                                  text: registerProvider
+                                                              .birthday !=
+                                                          null
+                                                      ? 'Cumpleaños: ${registerProvider.birthday.toString().substring(0, 10).replaceAll('-', '/')}'
+                                                      : 'Cumpleaños: ${clientClassProvider.loginResponse!.client.birthdate.toString().substring(0, 10).replaceAll('-', '/')}',
+                                                  color: ColorsPalette.white,
+                                                  fontSize: 1.6 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                  fontWeight: FontWeight.w500,
+                                                  textAlign: TextAlign.left),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
-                                  height: 2 * SizeConfig.heightMultiplier,
+                                  height: 1.5 * SizeConfig.heightMultiplier,
                                 ),
-                                texts.normalText(
-                                    text: registerProvider.dni != null
-                                        ? 'Miembro desde el ${convertDate(DateTime.now().toString().substring(0, 10))}'
-                                        : 'Miembro desde el ${convertDate(clientClassProvider.loginResponse!.client.createdAt.toString().substring(0, 10))}',
-                                    color: ColorsPalette.white,
-                                    fontSize: 1.6 * SizeConfig.heightMultiplier,
-                                    fontWeight: FontWeight.w500),
+                                Center(
+                                  child: texts.normalText(
+                                      text: registerProvider.dni != null
+                                          ? 'Miembro desde el ${convertDate(DateTime.now().toString().substring(0, 10))}'
+                                          : 'Miembro desde el ${convertDate(clientClassProvider.loginResponse!.client.createdAt.toString().substring(0, 10))}',
+                                      color: ColorsPalette.white,
+                                      fontSize: 1.6 * SizeConfig.heightMultiplier,
+                                      fontWeight: FontWeight.w500),
+                                ),
                               ],
                             ),
                           ),
                           SizedBox(
                             height: 2 * SizeConfig.heightMultiplier,
                           ),
-                          texts.normalText(
-                              text: 'Datos del plan contratado:',
-                              color: ColorsPalette.black,
-                              fontSize: 2.5 * SizeConfig.heightMultiplier,
-                              fontWeight: FontWeight.w400),
-                          SizedBox(
-                            height: 2 * SizeConfig.heightMultiplier,
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  texts.normalText(
-                                      text: 'Plan:',
-                                      color: ColorsPalette.black,
-                                      fontSize: 2 * SizeConfig.heightMultiplier,
-                                      fontWeight: FontWeight.w600),
-                                  SizedBox(
-                                    width: 2 * SizeConfig.widthMultiplier,
-                                  ),
-                                  texts.normalText(
-                                      text:
-                                          '${registerProvider.selectedPlan!.name} - ${registerProvider.selectedPlan!.description}',
-                                      color: ColorsPalette.black,
-                                      fontSize: 2 * SizeConfig.heightMultiplier,
-                                      fontWeight: FontWeight.w400),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 1 * SizeConfig.heightMultiplier,
-                              ),
-                              Row(
-                                children: [
-                                  texts.normalText(
-                                      text: 'Vigencia desde:',
-                                      color: ColorsPalette.black,
-                                      fontSize: 2 * SizeConfig.heightMultiplier,
-                                      fontWeight: FontWeight.w600),
-                                  SizedBox(
-                                    width: 2 * SizeConfig.widthMultiplier,
-                                  ),
-                                  texts.normalText(
-                                      text: convertDate(planvigency
-                                          .toString()
-                                          .substring(0, 10)),
-                                      color: ColorsPalette.black,
-                                      fontSize: 2 * SizeConfig.heightMultiplier,
-                                      fontWeight: FontWeight.w400),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 1 * SizeConfig.heightMultiplier,
-                              ),
-                              Row(
-                                children: [
-                                  texts.normalText(
-                                      text: 'Vigencia hasta:',
-                                      color: ColorsPalette.black,
-                                      fontSize: 2 * SizeConfig.heightMultiplier,
-                                      fontWeight: FontWeight.w600),
-                                  SizedBox(
-                                    width: 2 * SizeConfig.widthMultiplier,
-                                  ),
-                                  texts.normalText(
-                                      text: convertDate(planexpiration
-                                          .toString()
-                                          .substring(0, 10)),
-                                      color: ColorsPalette.black,
-                                      fontSize: 2 * SizeConfig.heightMultiplier,
-                                      fontWeight: FontWeight.w400),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 1 * SizeConfig.heightMultiplier,
-                              ),
-                              Row(
-                                children: [
-                                  texts.normalText(
-                                      text: 'Precio:',
-                                      color: ColorsPalette.black,
-                                      fontSize: 2 * SizeConfig.heightMultiplier,
-                                      fontWeight: FontWeight.w600),
-                                  SizedBox(
-                                    width: 2 * SizeConfig.widthMultiplier,
-                                  ),
-                                  texts.normalText(
-                                      text:
-                                          '\$ ${registerProvider.selectedPlan!.price.toStringAsFixed(2)}',
-                                      color: ColorsPalette.black,
-                                      fontSize: 2 * SizeConfig.heightMultiplier,
-                                      fontWeight: FontWeight.w400),
-                                ],
-                              ),
-                            ],
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5 * SizeConfig.widthMultiplier,
+                                vertical: 2 * SizeConfig.heightMultiplier),
+                            decoration: BoxDecoration(
+                                color: ColorsPalette.beige,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Column(
+                              children: [
+                                texts.normalText(
+                                    text: 'Datos del plan contratado:',
+                                    color: ColorsPalette.black,
+                                    fontSize: 2 * SizeConfig.heightMultiplier,
+                                    fontWeight: FontWeight.w500),
+                                SizedBox(
+                                  height: 1.5 * SizeConfig.heightMultiplier,
+                                ),
+                                Row(
+                                  children: [
+                                    texts.normalText(
+                                        text: 'Plan:',
+                                        color: ColorsPalette.black,
+                                        fontSize:
+                                            1.5 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: 2 * SizeConfig.widthMultiplier,
+                                    ),
+                                    texts.normalText(
+                                        text:
+                                            '${registerProvider.selectedPlan!.name} - ${registerProvider.selectedPlan!.description}',
+                                        color: ColorsPalette.black,
+                                        fontSize:
+                                            1.5 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w400),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 0.5 * SizeConfig.heightMultiplier,
+                                ),
+                                Row(
+                                  children: [
+                                    texts.normalText(
+                                        text: 'Vigencia desde:',
+                                        color: ColorsPalette.black,
+                                        fontSize:
+                                            1.5 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: 2 * SizeConfig.widthMultiplier,
+                                    ),
+                                    texts.normalText(
+                                        text: convertDate(planvigency
+                                            .toString()
+                                            .substring(0, 10)),
+                                        color: ColorsPalette.black,
+                                        fontSize:
+                                            1.5 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w400),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 0.5 * SizeConfig.heightMultiplier,
+                                ),
+                                Row(
+                                  children: [
+                                    texts.normalText(
+                                        text: 'Vigencia hasta:',
+                                        color: ColorsPalette.black,
+                                        fontSize:
+                                            1.5 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: 2 * SizeConfig.widthMultiplier,
+                                    ),
+                                    texts.normalText(
+                                        text: convertDate(planexpiration
+                                            .toString()
+                                            .substring(0, 10)),
+                                        color: ColorsPalette.black,
+                                        fontSize:
+                                            1.5 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w400),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 0.5 * SizeConfig.heightMultiplier,
+                                ),
+                                Row(
+                                  children: [
+                                    texts.normalText(
+                                        text: 'Precio:',
+                                        color: ColorsPalette.black,
+                                        fontSize:
+                                            1.5 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: 2 * SizeConfig.widthMultiplier,
+                                    ),
+                                    texts.normalText(
+                                        text:
+                                            '\$ ${registerProvider.selectedPlan!.price.toStringAsFixed(2)}',
+                                        color: ColorsPalette.black,
+                                        fontSize:
+                                            1.5 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w400),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 2.5 * SizeConfig.heightMultiplier,
                           ),
                           Visibility(
                             visible: _imageFile == null,
-                            child: SizedBox(
+                            child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5 * SizeConfig.widthMultiplier,
+                                    vertical: 2 * SizeConfig.heightMultiplier),
+                                decoration: BoxDecoration(
+                                    color: ColorsPalette.greenAged,
+                                    borderRadius: BorderRadius.circular(15)),
                                 width: 100 * SizeConfig.widthMultiplier,
                                 child: Column(
                                   children: [
                                     texts.normalText(
                                         text: 'Datos de la cuenta:',
-                                        color: ColorsPalette.black,
+                                        color: ColorsPalette.whiteAlternative,
                                         fontSize:
-                                            2.5 * SizeConfig.heightMultiplier,
-                                        fontWeight: FontWeight.w400),
+                                            2 * SizeConfig.heightMultiplier,
+                                        fontWeight: FontWeight.w500),
                                     SizedBox(
-                                      height: 2 * SizeConfig.heightMultiplier,
+                                      height: 1.5 * SizeConfig.heightMultiplier,
                                     ),
                                     Column(
                                       children: [
@@ -762,8 +815,9 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                           children: [
                                             texts.normalText(
                                                 text: 'Banco:',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w600),
                                             SizedBox(
@@ -773,22 +827,24 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                             texts.normalText(
                                                 text:
                                                     'Produbanco Cuenta de Corriente',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w400),
                                           ],
                                         ),
                                         SizedBox(
                                           height:
-                                              1 * SizeConfig.heightMultiplier,
+                                              0.5 * SizeConfig.heightMultiplier,
                                         ),
                                         Row(
                                           children: [
                                             texts.normalText(
                                                 text: 'Cuenta:',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w600),
                                             SizedBox(
@@ -813,7 +869,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                                             FontWeight.w500,
                                                         textAlign:
                                                             TextAlign.start,
-                                                        fontSize: 4 *
+                                                        fontSize: 2 *
                                                             SizeConfig
                                                                 .heightMultiplier,
                                                         color: ColorsPalette
@@ -825,8 +881,9 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                               },
                                               child: texts.normalText(
                                                   text: '02005333063',
-                                                  color: ColorsPalette.black,
-                                                  fontSize: 2 *
+                                                  color: ColorsPalette
+                                                      .whiteAlternative,
+                                                  fontSize: 1.5 *
                                                       SizeConfig
                                                           .heightMultiplier,
                                                   fontWeight: FontWeight.bold),
@@ -835,14 +892,15 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                         ),
                                         SizedBox(
                                           height:
-                                              1 * SizeConfig.heightMultiplier,
+                                              0.5 * SizeConfig.heightMultiplier,
                                         ),
                                         Row(
                                           children: [
                                             texts.normalText(
                                                 text: 'Razón Social:',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w600),
                                             SizedBox(
@@ -850,23 +908,25 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                                   SizeConfig.widthMultiplier,
                                             ),
                                             texts.normalText(
-                                                text: 'Curve Experienc S.A.S.',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                text: 'Curve Experience S.A.S.',
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w400),
                                           ],
                                         ),
                                         SizedBox(
                                           height:
-                                              1 * SizeConfig.heightMultiplier,
+                                              0.5 * SizeConfig.heightMultiplier,
                                         ),
                                         Row(
                                           children: [
                                             texts.normalText(
                                                 text: 'Identificación:',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w600),
                                             SizedBox(
@@ -885,12 +945,13 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                                     .showSnackBar(
                                                   SnackBar(
                                                     content: texts.normalText(
-                                                        text: 'RUC copiado al portapapeles',
+                                                        text:
+                                                            'RUC copiado al portapapeles',
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         textAlign:
                                                             TextAlign.start,
-                                                        fontSize: 4 *
+                                                        fontSize: 2 *
                                                             SizeConfig
                                                                 .heightMultiplier,
                                                         color: ColorsPalette
@@ -902,8 +963,9 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                               },
                                               child: texts.normalText(
                                                 text: '1091798469001',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -912,14 +974,15 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                         ),
                                         SizedBox(
                                           height:
-                                              1 * SizeConfig.heightMultiplier,
+                                              0.5 * SizeConfig.heightMultiplier,
                                         ),
                                         Row(
                                           children: [
                                             texts.normalText(
                                                 text: 'Teléfono:',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w600),
                                             SizedBox(
@@ -928,22 +991,24 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                             ),
                                             texts.normalText(
                                                 text: '0958983470',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w400),
                                           ],
                                         ),
                                         SizedBox(
                                           height:
-                                              1 * SizeConfig.heightMultiplier,
+                                              0.5 * SizeConfig.heightMultiplier,
                                         ),
                                         Row(
                                           children: [
                                             texts.normalText(
                                                 text: 'Email:',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w600),
                                             SizedBox(
@@ -953,8 +1018,9 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                             texts.normalText(
                                                 text:
                                                     'curvexperiencegomlop@gmail.com',
-                                                color: ColorsPalette.black,
-                                                fontSize: 2 *
+                                                color: ColorsPalette
+                                                    .whiteAlternative,
+                                                fontSize: 1.5 *
                                                     SizeConfig.heightMultiplier,
                                                 fontWeight: FontWeight.w400),
                                           ],
@@ -964,22 +1030,53 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                   ],
                                 )),
                           ),
-                          SizedBox(
-                            height: 2 * SizeConfig.heightMultiplier,
-                          ),
-                          Center(
-                            child: _imageFile == null
-                                ? const SizedBox.shrink()
-                                : Center(
-                                    child: texts.normalText(
-                                        text: 'Comprobante adjuntado',
+                          _imageFile == null
+                              ? const SizedBox.shrink()
+                              : Center(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      showCreateConfirmModal();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              5 * SizeConfig.widthMultiplier,
+                                          vertical:
+                                              2 * SizeConfig.heightMultiplier),
+                                      width: 60 * SizeConfig.widthMultiplier,
+                                      height: 15 * SizeConfig.heightMultiplier,
+                                      decoration: BoxDecoration(
                                         color: ColorsPalette.greenAged,
-                                        fontSize:
-                                            3 * SizeConfig.heightMultiplier,
-                                        fontWeight: FontWeight.bold,
-                                        textAlign: TextAlign.center),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            FontAwesomeIcons.circleCheck,
+                                            color: ColorsPalette.white,
+                                            size:
+                                                5 * SizeConfig.heightMultiplier,
+                                          ),
+                                          SizedBox(
+                                            height:
+                                                1 * SizeConfig.heightMultiplier,
+                                          ),
+                                          texts.normalText(
+                                              text: 'Comprobante adjuntado',
+                                              color: ColorsPalette.white,
+                                              fontSize: 1.8 *
+                                                  SizeConfig.heightMultiplier,
+                                              fontWeight: FontWeight.w600,
+                                              textAlign: TextAlign.center),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                          ),
+                                ),
                         ],
                       ),
                     )),
@@ -989,16 +1086,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
         ),
       ]),
       floatingActionButton: _imageFile != null
-          ? FloatingActionButton(
-              onPressed: () {
-                showCreateConfirmModal();
-              },
-              backgroundColor: ColorsPalette.greenAged,
-              child: const Icon(
-                FontAwesomeIcons.check,
-                color: ColorsPalette.white,
-              ),
-            )
+          ? null
           : FloatingActionButton(
               onPressed: () {
                 _pickImage(ImageSource.gallery);

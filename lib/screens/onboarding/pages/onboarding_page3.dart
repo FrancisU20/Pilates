@@ -27,7 +27,7 @@ class Step3State extends State<Step3> {
         SizedBox(height: 3 * SizeConfig.heightMultiplier),
         texts.normalText(
             text:
-                'Reserva tu primera clase y comienza tu viaje hacia una vida más saludable y equilibrada.',
+                'Reserva tu primera clase y comienza tu viaje hacia una vida más saludable y equilibrada',
             fontSize: 2.5 * SizeConfig.textMultiplier,
             fontWeight: FontWeight.w400),
       ],

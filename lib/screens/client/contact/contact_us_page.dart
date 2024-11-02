@@ -29,6 +29,7 @@ class ContactUsPageState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsPalette.white,
       appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

@@ -117,7 +117,7 @@ class RegisterPageState extends State<RegisterPage> {
                   text: e.toString().replaceAll('Exception: ', ''),
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: 4 * SizeConfig.heightMultiplier,
+                  fontSize: 2 * SizeConfig.heightMultiplier,
                   color: ColorsPalette.white),
               backgroundColor: ColorsPalette.redAged,
             ),
@@ -229,6 +229,7 @@ class RegisterPageState extends State<RegisterPage> {
     return ChangeNotifierProvider(
       create: (_) => RegisterProvider(),
       child: Scaffold(
+        backgroundColor: ColorsPalette.white,
         appBar: AppBar(
           backgroundColor: ColorsPalette.white,
           elevation: 0,
@@ -253,10 +254,10 @@ class RegisterPageState extends State<RegisterPage> {
                 if (!_validateFirstStep()) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: texts.normalText(
-                        text: 'Por favor, complete todos los campos.',
+                        text: 'Por favor, complete todos los campos',
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.start,
-                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        fontSize: 2 * SizeConfig.heightMultiplier,
                         color: ColorsPalette.white),
                     backgroundColor: ColorsPalette.black,
                   ));
@@ -265,10 +266,10 @@ class RegisterPageState extends State<RegisterPage> {
                 if (!validatePassword()) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: texts.normalText(
-                        text: 'Las contraseñas no coinciden.',
+                        text: 'Las contraseñas no coinciden',
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.start,
-                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        fontSize: 2 * SizeConfig.heightMultiplier,
                         color: ColorsPalette.white),
                     backgroundColor: ColorsPalette.black,
                   ));
@@ -284,10 +285,10 @@ class RegisterPageState extends State<RegisterPage> {
                 if (_currentStep == 1 && !_validateSecondStep()) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: texts.normalText(
-                        text: 'Por favor, seleccione un género.',
+                        text: 'Por favor, seleccione un género',
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.start,
-                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        fontSize: 2 * SizeConfig.heightMultiplier,
                         color: ColorsPalette.white),
                     backgroundColor: ColorsPalette.black,
                   ));
@@ -298,10 +299,10 @@ class RegisterPageState extends State<RegisterPage> {
                 if (_currentStep == 2 && !_validateThirdStep()) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: texts.normalText(
-                        text: 'Por favor, complete todos los campos.',
+                        text: 'Por favor, complete todos los campos',
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.start,
-                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        fontSize: 2 * SizeConfig.heightMultiplier,
                         color: ColorsPalette.white),
                     backgroundColor: ColorsPalette.black,
                   ));

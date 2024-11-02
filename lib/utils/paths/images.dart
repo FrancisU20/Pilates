@@ -3,6 +3,8 @@ class Images {
   final String backgroundLogin = 'assets/images/background_login.jpg';
   final String logoSquare = 'assets/logo/logo_square.png';
   final String logoRectangle = 'assets/logo/logo_rectangle.png';
+  final String logoSquareFill= 'assets/logo/logo_square.jpg';
+  final String logoRectangleFill = 'assets/logo/logo_rectangle.jpg';
 
   // Dashboard
   final String dashboardItem1 = 'assets/images/menu/item_1.jpg';

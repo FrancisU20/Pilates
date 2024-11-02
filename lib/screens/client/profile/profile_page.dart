@@ -359,12 +359,12 @@ class ProfilePageState extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 12 * SizeConfig.heightMultiplier,
+                        height: 10 * SizeConfig.heightMultiplier,
                       ),
                       Center(
                         child: texts.normalText(
                             text:
-                                'Bienvenido ${clientClassProvider.loginResponse!.client.name} 👋',
+                                'Hola, ${clientClassProvider.loginResponse!.client.name} 👋',
                             color: ColorsPalette.black,
                             fontSize: 2.5 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400),
@@ -401,34 +401,30 @@ class ProfilePageState extends State<ProfilePage> {
                                   color: ColorsPalette.white,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: ColorsPalette.black
-                                          .withOpacity(0.1),
+                                      color:
+                                          ColorsPalette.black.withOpacity(0.1),
                                       spreadRadius: 5,
                                       blurRadius: 5,
                                       offset: const Offset(0, 3),
                                     ),
                                   ],
-                                  borderRadius:
-                                      BorderRadius.circular(15)),
+                                  borderRadius: BorderRadius.circular(15)),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    FontAwesomeIcons.fileInvoiceDollar,
+                                    FontAwesomeIcons.circleDollarToSlot,
                                     size: 4 * SizeConfig.heightMultiplier,
                                   ),
                                   SizedBox(
-                                    height:
-                                        1 * SizeConfig.heightMultiplier,
+                                    height: 1 * SizeConfig.heightMultiplier,
                                   ),
                                   texts.normalText(
                                       text: 'Visualizar Pago',
                                       color: ColorsPalette.black,
-                                      fontSize: 1.8 *
-                                          SizeConfig.heightMultiplier,
+                                      fontSize:
+                                          1.6 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.center),
                                 ],
@@ -448,34 +444,30 @@ class ProfilePageState extends State<ProfilePage> {
                                   color: ColorsPalette.white,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: ColorsPalette.black
-                                          .withOpacity(0.1),
+                                      color:
+                                          ColorsPalette.black.withOpacity(0.1),
                                       spreadRadius: 5,
                                       blurRadius: 5,
                                       offset: const Offset(0, 3),
                                     ),
                                   ],
-                                  borderRadius:
-                                      BorderRadius.circular(15)),
+                                  borderRadius: BorderRadius.circular(15)),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
                                     FontAwesomeIcons.idCardClip,
                                     size: 4 * SizeConfig.heightMultiplier,
                                   ),
                                   SizedBox(
-                                    height:
-                                        1 * SizeConfig.heightMultiplier,
+                                    height: 1 * SizeConfig.heightMultiplier,
                                   ),
                                   texts.normalText(
                                       text: 'Renovar Plan',
                                       color: ColorsPalette.black,
-                                      fontSize: 1.8 *
-                                          SizeConfig.heightMultiplier,
+                                      fontSize:
+                                          1.6 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.center),
                                 ],
@@ -495,34 +487,30 @@ class ProfilePageState extends State<ProfilePage> {
                                   color: ColorsPalette.white,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: ColorsPalette.black
-                                          .withOpacity(0.1),
+                                      color:
+                                          ColorsPalette.black.withOpacity(0.1),
                                       spreadRadius: 5,
                                       blurRadius: 5,
                                       offset: const Offset(0, 3),
                                     ),
                                   ],
-                                  borderRadius:
-                                      BorderRadius.circular(15)),
+                                  borderRadius: BorderRadius.circular(15)),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
                                     FontAwesomeIcons.circleInfo,
                                     size: 4 * SizeConfig.heightMultiplier,
                                   ),
                                   SizedBox(
-                                    height:
-                                        1 * SizeConfig.heightMultiplier,
+                                    height: 1 * SizeConfig.heightMultiplier,
                                   ),
                                   texts.normalText(
-                                      text: 'Actualizar información',
+                                      text: 'Ficha Nutricional',
                                       color: ColorsPalette.black,
-                                      fontSize: 1.8 *
-                                          SizeConfig.heightMultiplier,
+                                      fontSize:
+                                          1.6 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.center),
                                 ],
@@ -542,34 +530,30 @@ class ProfilePageState extends State<ProfilePage> {
                                   color: ColorsPalette.white,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: ColorsPalette.black
-                                          .withOpacity(0.1),
+                                      color:
+                                          ColorsPalette.black.withOpacity(0.1),
                                       spreadRadius: 5,
                                       blurRadius: 5,
                                       offset: const Offset(0, 3),
                                     ),
                                   ],
-                                  borderRadius:
-                                      BorderRadius.circular(15)),
+                                  borderRadius: BorderRadius.circular(15)),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    FontAwesomeIcons.rightFromBracket,
+                                    FontAwesomeIcons.hands,
                                     size: 4 * SizeConfig.heightMultiplier,
                                   ),
                                   SizedBox(
-                                    height:
-                                        1 * SizeConfig.heightMultiplier,
+                                    height: 1 * SizeConfig.heightMultiplier,
                                   ),
                                   texts.normalText(
                                       text: 'Cerrar Sesión',
                                       color: ColorsPalette.black,
-                                      fontSize: 1.8 *
-                                          SizeConfig.heightMultiplier,
+                                      fontSize:
+                                          1.6 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.center),
                                 ],
@@ -597,8 +581,7 @@ class ProfilePageState extends State<ProfilePage> {
                               texts.normalText(
                                   text: 'Plan Contratado: ',
                                   color: ColorsPalette.black,
-                                  fontSize:
-                                      1.5 * SizeConfig.heightMultiplier,
+                                  fontSize: 1.5 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.bold),
                               SizedBox(
                                 width: 1 * SizeConfig.widthMultiplier,
@@ -608,8 +591,7 @@ class ProfilePageState extends State<ProfilePage> {
                                           .currentPlan?.planName ??
                                       'Sin datos para mostrar',
                                   color: ColorsPalette.black,
-                                  fontSize:
-                                      1.5 * SizeConfig.heightMultiplier,
+                                  fontSize: 1.5 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w400),
                             ],
                           ),
@@ -618,8 +600,7 @@ class ProfilePageState extends State<ProfilePage> {
                               texts.normalText(
                                   text: 'Descripción: ',
                                   color: ColorsPalette.black,
-                                  fontSize:
-                                      1.5 * SizeConfig.heightMultiplier,
+                                  fontSize: 1.5 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.bold),
                               SizedBox(
                                 width: 1 * SizeConfig.widthMultiplier,
@@ -629,8 +610,7 @@ class ProfilePageState extends State<ProfilePage> {
                                           .currentPlan?.planDescription ??
                                       'Sin datos para mostrar',
                                   color: ColorsPalette.black,
-                                  fontSize:
-                                      1.5 * SizeConfig.heightMultiplier,
+                                  fontSize: 1.5 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w400),
                             ],
                           ),
@@ -639,20 +619,17 @@ class ProfilePageState extends State<ProfilePage> {
                               texts.normalText(
                                   text: 'Precio: ',
                                   color: ColorsPalette.black,
-                                  fontSize:
-                                      1.5 * SizeConfig.heightMultiplier,
+                                  fontSize: 1.5 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.bold),
                               SizedBox(
                                 width: 1 * SizeConfig.widthMultiplier,
                               ),
                               texts.normalText(
-                                  text: clientClassProvider.currentPlan !=
-                                          null
+                                  text: clientClassProvider.currentPlan != null
                                       ? '\$ ${clientClassProvider.currentPlan!.planPrice}'
                                       : 'Sin datos para mostrar',
                                   color: ColorsPalette.black,
-                                  fontSize:
-                                      1.5 * SizeConfig.heightMultiplier,
+                                  fontSize: 1.5 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w400),
                             ],
                           ),
@@ -661,20 +638,17 @@ class ProfilePageState extends State<ProfilePage> {
                               texts.normalText(
                                   text: 'Vigencia: ',
                                   color: ColorsPalette.black,
-                                  fontSize:
-                                      1.5 * SizeConfig.heightMultiplier,
+                                  fontSize: 1.5 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.bold),
                               SizedBox(
                                 width: 1 * SizeConfig.widthMultiplier,
                               ),
                               texts.normalText(
-                                  text: clientClassProvider.currentPlan !=
-                                          null
+                                  text: clientClassProvider.currentPlan != null
                                       ? 'Hasta el ${convertDate(clientClassProvider.currentPlan!.planExpiration.toString().substring(0, 10))}'
                                       : 'Sin datos para mostrar',
                                   color: ColorsPalette.black,
-                                  fontSize:
-                                      1.5 * SizeConfig.heightMultiplier,
+                                  fontSize: 1.5 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w400),
                             ],
                           )
@@ -687,16 +661,13 @@ class ProfilePageState extends State<ProfilePage> {
                         child: SizedBox(
                           width: 60 * SizeConfig.widthMultiplier,
                           child: Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 children: [
                                   Container(
-                                    width:
-                                        15 * SizeConfig.widthMultiplier,
-                                    height:
-                                        15 * SizeConfig.widthMultiplier,
+                                    width: 15 * SizeConfig.widthMultiplier,
+                                    height: 15 * SizeConfig.widthMultiplier,
                                     decoration: BoxDecoration(
                                         color: ColorsPalette.black,
                                         borderRadius:
@@ -714,31 +685,27 @@ class ProfilePageState extends State<ProfilePage> {
                                                 '${clientClassProvider.currentPlan?.numberOfClasses ?? 0}',
                                             color: ColorsPalette.white,
                                             fontSize: 3.5 *
-                                                SizeConfig
-                                                    .heightMultiplier,
+                                                SizeConfig.heightMultiplier,
                                             fontWeight: FontWeight.w600),
                                       ],
                                     ),
                                   ),
                                   SizedBox(
-                                    height:
-                                        1 * SizeConfig.heightMultiplier,
+                                    height: 1 * SizeConfig.heightMultiplier,
                                   ),
                                   texts.normalText(
                                       text: 'Clases contratadas',
                                       color: ColorsPalette.black,
-                                      fontSize: 1.5 *
-                                          SizeConfig.heightMultiplier,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w400),
                                 ],
                               ),
                               Column(
                                 children: [
                                   Container(
-                                    width:
-                                        15 * SizeConfig.widthMultiplier,
-                                    height:
-                                        15 * SizeConfig.widthMultiplier,
+                                    width: 15 * SizeConfig.widthMultiplier,
+                                    height: 15 * SizeConfig.widthMultiplier,
                                     decoration: BoxDecoration(
                                         color: ColorsPalette.beigeAged,
                                         borderRadius:
@@ -755,22 +722,21 @@ class ProfilePageState extends State<ProfilePage> {
                                           text:
                                               '${(clientClassProvider.currentPlan?.numberOfClasses ?? 0) - (clientClassProvider.currentPlan?.attendedClasses ?? 0)}',
                                           color: ColorsPalette.white,
-                                          fontSize: 3.5 *
-                                              SizeConfig.heightMultiplier,
+                                          fontSize:
+                                              3.5 * SizeConfig.heightMultiplier,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ],
                                     ),
                                   ),
                                   SizedBox(
-                                    height:
-                                        1 * SizeConfig.heightMultiplier,
+                                    height: 1 * SizeConfig.heightMultiplier,
                                   ),
                                   texts.normalText(
                                       text: 'Clases restantes',
                                       color: ColorsPalette.black,
-                                      fontSize: 1.5 *
-                                          SizeConfig.heightMultiplier,
+                                      fontSize:
+                                          1.5 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w400),
                                 ],
                               ),
@@ -788,7 +754,7 @@ class ProfilePageState extends State<ProfilePage> {
             right: 8 * SizeConfig.widthMultiplier,
             child: Container(
               width: 100 * SizeConfig.widthMultiplier,
-              height: 45 * SizeConfig.widthMultiplier,
+              height: 47 * SizeConfig.widthMultiplier,
               padding: EdgeInsets.symmetric(
                   horizontal: 5 * SizeConfig.widthMultiplier,
                   vertical: 2 * SizeConfig.heightMultiplier),
@@ -796,88 +762,102 @@ class ProfilePageState extends State<ProfilePage> {
                   color: const Color(0xFF262626),
                   borderRadius: BorderRadius.circular(15)),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 20 * SizeConfig.widthMultiplier,
-                        height: 30 * SizeConfig.widthMultiplier,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.network(
-                            clientClassProvider.loginResponse!.client.photo,
-                            fit: BoxFit.cover,
+                  SizedBox(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 20 * SizeConfig.widthMultiplier,
+                          height: 30 * SizeConfig.widthMultiplier,
+                          decoration: BoxDecoration(
+                            color: ColorsPalette.white,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image.network(
+                              clientClassProvider.loginResponse!.client.photo,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 5 * SizeConfig.widthMultiplier,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 20 * SizeConfig.widthMultiplier,
-                                height: 10 * SizeConfig.widthMultiplier,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.asset(
-                                    'assets/logo/logo_rectangle.png',
-                                    fit: BoxFit.fitHeight,
+                        SizedBox(
+                          width: 5 * SizeConfig.widthMultiplier,
+                        ),
+                        Column(
+                          children: [
+                            Center(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 25 * SizeConfig.widthMultiplier,
+                                    height: 8 * SizeConfig.widthMultiplier,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.asset(
+                                        'assets/logo/logo_rectangle_white.png',
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1 * SizeConfig.heightMultiplier,
-                          ),
-                          texts.normalText(
-                              text:
-                                  '${clientClassProvider.loginResponse!.client.name} ${clientClassProvider.loginResponse!.client.lastname}',
-                              color: Colors.white,
-                              fontSize: 1.6 * SizeConfig.heightMultiplier,
-                              fontWeight: FontWeight.w500),
-                          texts.normalText(
-                              text: clientClassProvider
-                                  .loginResponse!.client.dniNumber,
-                              color: Colors.white,
-                              fontSize: 1.6 * SizeConfig.heightMultiplier,
-                              fontWeight: FontWeight.w500),
-                          texts.normalText(
-                              text:
-                                  'Celular: ${clientClassProvider.loginResponse!.client.phone.replaceAll('+593', '0')}',
-                              color: Colors.white,
-                              fontSize: 1.6 * SizeConfig.heightMultiplier,
-                              fontWeight: FontWeight.w500),
-                          texts.normalText(
-                              text:
-                                  'Cumpleaños: ${clientClassProvider.loginResponse!.client.birthdate.toString().substring(0, 10).replaceAll('-', ' / ')}',
-                              color: Colors.white,
-                              fontSize: 1.6 * SizeConfig.heightMultiplier,
-                              fontWeight: FontWeight.w500),
-                        ],
-                      ),
-                    ],
+                            ),
+                            SizedBox(
+                              height: 1 * SizeConfig.heightMultiplier,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                texts.normalText(
+                                    text:
+                                        '${clientClassProvider.loginResponse!.client.name} ${clientClassProvider.loginResponse!.client.lastname}',
+                                    color: ColorsPalette.white,
+                                    fontSize: 1.6 * SizeConfig.heightMultiplier,
+                                    fontWeight: FontWeight.w500,
+                                    textAlign: TextAlign.left),
+                                texts.normalText(
+                                    text: clientClassProvider
+                                        .loginResponse!.client.dniNumber,
+                                    color: ColorsPalette.white,
+                                    fontSize: 1.6 * SizeConfig.heightMultiplier,
+                                    fontWeight: FontWeight.w500,
+                                    textAlign: TextAlign.left),
+                                texts.normalText(
+                                    text:
+                                        'Celular: ${clientClassProvider.loginResponse!.client.phone.replaceAll('+593', '0')}',
+                                    color: ColorsPalette.white,
+                                    fontSize: 1.6 * SizeConfig.heightMultiplier,
+                                    fontWeight: FontWeight.w500,
+                                    textAlign: TextAlign.left),
+                                texts.normalText(
+                                    text:
+                                        'Cumpleaños: ${clientClassProvider.loginResponse!.client.birthdate.toString().substring(0, 10).replaceAll('-', ' / ')}',
+                                    color: ColorsPalette.white,
+                                    fontSize: 1.6 * SizeConfig.heightMultiplier,
+                                    fontWeight: FontWeight.w500,
+                                    textAlign: TextAlign.left),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
-                    height: 2 * SizeConfig.heightMultiplier,
+                    height: 1.5 * SizeConfig.heightMultiplier,
                   ),
                   texts.normalText(
                       text:
                           'Miembro desde el ${convertDate(clientClassProvider.loginResponse!.client.createdAt.toString().substring(0, 10))}',
-                      color: Colors.white,
+                      color: ColorsPalette.white,
                       fontSize: 1.6 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w500),
                 ],

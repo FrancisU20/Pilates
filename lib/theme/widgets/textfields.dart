@@ -83,7 +83,7 @@ class TextFormFields {
                   labelStyle: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                       color: ColorsPalette.greyAged,
-                      fontSize: 2.5 * SizeConfig.textMultiplier,
+                      fontSize: 2 * SizeConfig.textMultiplier,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -102,7 +102,7 @@ class TextFormFields {
                       ? Icon(
                           icon,
                           color: ColorsPalette.greyAged,
-                          size: 3 * SizeConfig.heightMultiplier,
+                          size: 2 * SizeConfig.heightMultiplier,
                         )
                       : null,
                   focusedBorder: UnderlineInputBorder(
@@ -118,7 +118,7 @@ class TextFormFields {
                                 ? FontAwesomeIcons.eye
                                 : FontAwesomeIcons.eyeSlash,
                             color: ColorsPalette.greyAged,
-                            size: 3 * SizeConfig.heightMultiplier,
+                            size: 2 * SizeConfig.heightMultiplier,
                           ),
                           onPressed: () {
                             setState(() {

@@ -13,7 +13,7 @@ class ErrorSnackBar {
           text: message.replaceAll('Exception: ', ''),
           fontWeight: FontWeight.w500,
           textAlign: TextAlign.start,
-          fontSize: 4 * SizeConfig.heightMultiplier,
+          fontSize: 2 * SizeConfig.heightMultiplier,
           color: ColorsPalette.white,
         ),
         backgroundColor: ColorsPalette.redAged,

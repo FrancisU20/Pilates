@@ -109,10 +109,10 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                 SnackBar(
                   content: texts.normalText(
                     text:
-                        'No tienes clases disponibles para agendar. Por favor adquiere un plan de pilates.',
+                        'No tienes clases disponibles para agendar. Por favor adquiere un plan de pilates',
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white,
                   ),
                   backgroundColor: ColorsPalette.redAged,
@@ -148,7 +148,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                   text: e.toString().replaceAll('Exception: ', ''),
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: 4 * SizeConfig.heightMultiplier,
+                  fontSize: 2 * SizeConfig.heightMultiplier,
                   color: ColorsPalette.white,
                 ),
                 backgroundColor: ColorsPalette.redAged,
@@ -209,7 +209,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                         'Por favor selecciona una fecha y hora antes de continuar',
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -453,7 +453,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                       text: 'Cita agendada correctamente',
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
-                      fontSize: 4 * SizeConfig.heightMultiplier,
+                      fontSize: 2 * SizeConfig.heightMultiplier,
                       color: ColorsPalette.white),
                   backgroundColor: ColorsPalette.greenAged,
                 ),
@@ -471,7 +471,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.heightMultiplier,
+                    fontSize: 2 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -485,6 +485,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context);
     return Scaffold(
+      backgroundColor: ColorsPalette.white,
       appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Container(
         color: ColorsPalette.greyChocolate,
@@ -540,9 +541,10 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                     color: ColorsPalette.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
-                        topRight: Radius.circular(
-                            50))), 
+                        topRight: Radius.circular(50))),
                 child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  physics: const ClampingScrollPhysics(),
                   child: Column(
                     children: [
                       SizedBox(
@@ -608,7 +610,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                       width: 50 * SizeConfig.widthMultiplier,
                                       child: texts.normalText(
                                           text:
-                                              'Es probable que no haya horarios disponibles. Por favor intenta más tarde.',
+                                              'Es probable que no haya horarios disponibles. Por favor intenta más tarde',
                                           color: ColorsPalette.black,
                                           fontSize:
                                               2 * SizeConfig.heightMultiplier,
@@ -658,7 +660,8 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                     color: isSelected
                                                         ? ColorsPalette
                                                             .chocolate
-                                                        : ColorsPalette.greyAged,
+                                                        : ColorsPalette
+                                                            .greyAged,
                                                     width: isSelected ? 2 : 1,
                                                   ),
                                                 ),
@@ -678,8 +681,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                     .toString()
                                                     .substring(0, 5),
                                                 color: isSelected
-                                                    ? ColorsPalette
-                                                        .chocolate
+                                                    ? ColorsPalette.chocolate
                                                     : ColorsPalette.greyAged,
                                               ),
                                             ),
@@ -777,7 +779,8 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                           text: activitiesData[
                                                                   index]
                                                               ['description']!,
-                                                          color: ColorsPalette.black,
+                                                          color: ColorsPalette
+                                                              .black,
                                                           fontSize: 1.9 *
                                                               SizeConfig
                                                                   .heightMultiplier,
@@ -805,7 +808,8 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                                         .moon
                                                                     : FontAwesomeIcons
                                                                         .sun,
-                                                            color: ColorsPalette.greyAged,
+                                                            color: ColorsPalette
+                                                                .greyAged,
                                                             size: 2 *
                                                                 SizeConfig
                                                                     .heightMultiplier,
@@ -818,7 +822,8 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                           texts.normalText(
                                                             text:
                                                                 'Actividad ${index + 1}',
-                                                            color: ColorsPalette.greyAged,
+                                                            color: ColorsPalette
+                                                                .greyAged,
                                                             fontSize: 1.6 *
                                                                 SizeConfig
                                                                     .heightMultiplier,

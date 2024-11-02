@@ -27,8 +27,10 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsPalette.white,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
+        physics: const ClampingScrollPhysics(),
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
