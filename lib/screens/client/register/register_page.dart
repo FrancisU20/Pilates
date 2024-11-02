@@ -318,33 +318,33 @@ class RegisterPageState extends State<RegisterPage> {
                   buttons.standart(
                       text: 'Siguiente',
                       onPressed: details.onStepContinue!,
-                      color: ColorsPalette.beigeAged,
+                      color: ColorsPalette.greyChocolate,
                       width: 10 * SizeConfig.widthMultiplier,
                       height: 0.6 * SizeConfig.heightMultiplier),
                 if (_currentStep > 0 && _currentStep < 3) ...[
-                  buttons.undelineText(
+                  buttons.underlineText(
                     text: 'Anterior',
                     onPressed: details.onStepCancel!,
-                    color: ColorsPalette.beigeAged,
+                    color: ColorsPalette.greyChocolate,
                   ),
                   buttons.standart(
                       text: 'Siguiente',
                       onPressed: details.onStepContinue!,
-                      color: ColorsPalette.beigeAged,
+                      color: ColorsPalette.greyChocolate,
                       width: 10 * SizeConfig.widthMultiplier,
                       height: 0.6 * SizeConfig.heightMultiplier),
                 ],
                 if (_currentStep == 3) ...[
                   SizedBox(width: 2 * SizeConfig.widthMultiplier),
-                  buttons.undelineText(
+                  buttons.underlineText(
                     text: 'Anterior',
                     onPressed: details.onStepCancel!,
-                    color: ColorsPalette.beigeAged,
+                    color: ColorsPalette.greyChocolate,
                   ),
                   buttons.standart(
                       text: 'Ver Planes',
                       onPressed: details.onStepContinue!,
-                      color: ColorsPalette.beigeAged,
+                      color: ColorsPalette.greyChocolate,
                       width: 10 * SizeConfig.widthMultiplier,
                       height: 0.6 * SizeConfig.heightMultiplier),
                 ],

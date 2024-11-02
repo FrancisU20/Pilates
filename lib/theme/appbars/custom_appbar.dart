@@ -17,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: backgroundColor,
+      scrolledUnderElevation: 0,
       leading: Builder(
         builder: (context) => IconButton(
           icon: Icon(FontAwesomeIcons.chevronLeft,

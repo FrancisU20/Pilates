@@ -94,9 +94,9 @@ class ClientsPageState extends State<ClientsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Container(
-        color: ColorsPalette.chocolate,
+        color: ColorsPalette.greyChocolate,
         child: Column(
           children: [
             Container(

@@ -367,7 +367,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                     height: 20 * SizeConfig.heightMultiplier,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        image: AssetImage('assets/logo/logo_rectangle.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -402,14 +402,14 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                 },
                 child: texts.normalText(
                   text: 'No',
-                  color: ColorsPalette.beigeAged,
+                  color: ColorsPalette.greyChocolate,
                   fontSize: 2 * SizeConfig.heightMultiplier,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               buttons.standart(
                 text: 'Sí',
-                color: ColorsPalette.beigeAged,
+                color: ColorsPalette.greyChocolate,
                 width: 6 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   determinateCreateOrRenew();
@@ -433,10 +433,10 @@ class TransferMethodPageState extends State<TransferMethodPage> {
     DateTime planexpiration =
         now.add(Duration(days: registerProvider.selectedPlan!.classVigency));
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Stack(children: [
         Container(
-          color: ColorsPalette.chocolate,
+          color: ColorsPalette.greyChocolate,
           child: Column(
             children: [
               Container(
@@ -571,7 +571,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                                 borderRadius:
                                                     BorderRadius.circular(15),
                                                 child: Image.asset(
-                                                  'assets/logo/logo_rectangle.jpg',
+                                                  'assets/logo/logo_rectangle.png',
                                                   fit: BoxFit.fitHeight,
                                                 ),
                                               ),

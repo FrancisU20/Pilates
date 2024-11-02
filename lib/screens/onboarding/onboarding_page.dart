@@ -93,21 +93,21 @@ class OnboardingPageState extends State<OnboardingPage> {
                 buttons.standart(
                   text: 'Siguiente',
                   onPressed: _incrementCounter,
-                  color: ColorsPalette.beigeAged,
+                  color: ColorsPalette.greyChocolate,
                 ),
                 currentStep != 0
-                    ? buttons.undelineText(
+                    ? buttons.underlineText(
                         text: 'Regresar',
                         onPressed: _decrementCounter,
-                        color: ColorsPalette.chocolate,
+                        color: ColorsPalette.greyChocolate,
                       )
-                    : buttons.undelineText(
+                    : buttons.underlineText(
                         text: 'Ya dispones de una cuenta, Inicia Sesión',
                         onPressed: () => {
                               Navigator.pushNamedAndRemoveUntil(
                                   context, '/login', (route) => false)
                             },
-                        color: ColorsPalette.chocolate)
+                        color: ColorsPalette.greyChocolate)
               ],
             ),
           ),

@@ -115,7 +115,7 @@ class LoginFormState extends State<LoginForm> {
               height: 20 * SizeConfig.heightMultiplier,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                  image: AssetImage('assets/logo/logo_rectangle.png'),
                   fit: BoxFit.contain,
                 ),
               ),
@@ -156,7 +156,7 @@ class LoginFormState extends State<LoginForm> {
               child: Center(
                 child: buttons.standart(
                   text: 'Iniciar Sesión',
-                  color: ColorsPalette.beigeAged,
+                  color: ColorsPalette.greyChocolate,
                   onPressed: () async {
                     _loginProcess(
                         emailController.text, passwordController.text, context);
@@ -171,7 +171,7 @@ class LoginFormState extends State<LoginForm> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/onboarding');
                   },
-                  color: ColorsPalette.beigeAged),
+                  color: ColorsPalette.greyChocolate),
             )
           ],
         ),

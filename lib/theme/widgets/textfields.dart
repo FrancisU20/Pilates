@@ -20,7 +20,7 @@ class TextFormFields {
     Color? fillColor = ColorsPalette.white,
     bool? isActive = true,
     double width = 90,
-    double height = 7,
+    double height = 8,
   }) {
     List<TextInputFormatter> inputFormatters = [];
     TextInputType keyboardType;
@@ -82,7 +82,7 @@ class TextFormFields {
                   labelText: title,
                   labelStyle: GoogleFonts.montserrat(
                     textStyle: TextStyle(
-                      color: ColorsPalette.beigeAged,
+                      color: ColorsPalette.greyAged,
                       fontSize: 2.5 * SizeConfig.textMultiplier,
                       fontWeight: FontWeight.w400,
                     ),
@@ -101,12 +101,13 @@ class TextFormFields {
                   prefixIcon: icon != null
                       ? Icon(
                           icon,
-                          color: ColorsPalette.beigeAged,
+                          color: ColorsPalette.greyAged,
+                          size: 3 * SizeConfig.heightMultiplier,
                         )
                       : null,
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: ColorsPalette.beigeAged,
+                      color: ColorsPalette.greyAged,
                       width: 0.2 * SizeConfig.widthMultiplier,
                     ),
                   ),
@@ -116,7 +117,8 @@ class TextFormFields {
                             obscureText
                                 ? FontAwesomeIcons.eye
                                 : FontAwesomeIcons.eyeSlash,
-                            color: ColorsPalette.beigeAged,
+                            color: ColorsPalette.greyAged,
+                            size: 3 * SizeConfig.heightMultiplier,
                           ),
                           onPressed: () {
                             setState(() {
@@ -134,7 +136,7 @@ class TextFormFields {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                cursorColor: ColorsPalette.beigeAged,
+                cursorColor: ColorsPalette.greyAged,
                 cursorWidth: 0.2 * SizeConfig.widthMultiplier,
               ),
             ),

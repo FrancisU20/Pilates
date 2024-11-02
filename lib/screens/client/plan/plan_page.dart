@@ -181,7 +181,7 @@ class PlanPageState extends State<PlanPage> {
                     height: 20 * SizeConfig.heightMultiplier,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        image: AssetImage('assets/logo/logo_rectangle.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -225,7 +225,7 @@ class PlanPageState extends State<PlanPage> {
                   children: [
                     buttons.standart(
                       text: 'Transferencia',
-                      color: ColorsPalette.beigeAged,
+                      color: ColorsPalette.greyChocolate,
                       width: 15 * SizeConfig.widthMultiplier,
                       onPressed: () {
                         registerProvider.clearTransferImageFile();
@@ -237,7 +237,7 @@ class PlanPageState extends State<PlanPage> {
                     ),
                     buttons.standart(
                       text: 'Tarjeta de Crédito',
-                      color: ColorsPalette.beigeAged,
+                      color: ColorsPalette.greyChocolate,
                       width: 15 * SizeConfig.widthMultiplier,
                       onPressed: () {
                         showCommingSoonDialog();
@@ -276,7 +276,7 @@ class PlanPageState extends State<PlanPage> {
                     height: 20 * SizeConfig.heightMultiplier,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        image: AssetImage('assets/logo/logo_rectangle.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -301,7 +301,7 @@ class PlanPageState extends State<PlanPage> {
                         Center(
                           child: buttons.standart(
                             text: 'Aceptar',
-                            color: ColorsPalette.beigeAged,
+                            color: ColorsPalette.greyChocolate,
                             width: 8 * SizeConfig.widthMultiplier,
                             onPressed: () {
                               Navigator.pop(context);
@@ -321,10 +321,10 @@ class PlanPageState extends State<PlanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Stack(children: [
         Container(
-          color: ColorsPalette.beigeAged,
+          color: ColorsPalette.greyChocolate,
           child: Column(
             children: [
               Container(

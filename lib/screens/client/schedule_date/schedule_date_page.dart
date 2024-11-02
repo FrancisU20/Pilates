@@ -262,7 +262,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                     height: 20 * SizeConfig.heightMultiplier,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        image: AssetImage('assets/logo/logo_rectangle.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -401,14 +401,14 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                 },
                 child: texts.normalText(
                   text: 'Cancelar',
-                  color: ColorsPalette.beigeAged,
+                  color: ColorsPalette.greyChocolate,
                   fontSize: 2 * SizeConfig.heightMultiplier,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               buttons.standart(
                 text: 'Confirmar',
-                color: ColorsPalette.beigeAged,
+                color: ColorsPalette.greyChocolate,
                 width: 10 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   log('Confirmando cita ...');
@@ -485,9 +485,9 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context);
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: Container(
-        color: ColorsPalette.chocolate,
+        color: ColorsPalette.greyChocolate,
         child: Column(
           children: [
             Container(
@@ -849,7 +849,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                             ),
                             buttons.standart(
                               text: 'Continuar',
-                              color: ColorsPalette.beigeAged,
+                              color: ColorsPalette.greyChocolate,
                               onPressed: () {
                                 searchScheduleId();
                               },

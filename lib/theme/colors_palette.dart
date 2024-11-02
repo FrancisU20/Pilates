@@ -10,7 +10,7 @@ class ColorsPalette {
   static const beigeAged = Color(0xFFCAB49F);
   static const chocolate = Color(0xFFAE977E);
   static const grey = Color(0xFFD2D0C8);
-  static const greyChocolate = Color(0xFF9E948D);
+  static const greyChocolate = Color.fromARGB(255, 160, 145, 125);
   static const greyAged = Color(0xFF56514B);
   static const black = Color(0xFF313031);
   static const greenAged = Color(0xFF687664);

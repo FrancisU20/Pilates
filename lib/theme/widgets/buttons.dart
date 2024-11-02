@@ -106,7 +106,7 @@ class Buttons {
   }
 
   // Crea un undeline text button
-  Widget undelineText({
+  Widget underlineText({
     required String text,
     required VoidCallback onPressed,
     required Color color,

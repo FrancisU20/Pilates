@@ -50,7 +50,7 @@ class ProfilePageState extends State<ProfilePage> {
                     height: 20 * SizeConfig.heightMultiplier,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        image: AssetImage('assets/logo/logo_rectangle.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -75,7 +75,7 @@ class ProfilePageState extends State<ProfilePage> {
                         Center(
                           child: buttons.standart(
                             text: 'Aceptar',
-                            color: ColorsPalette.beigeAged,
+                            color: ColorsPalette.greyChocolate,
                             width: 10 * SizeConfig.widthMultiplier,
                             onPressed: () {
                               Navigator.pop(context);
@@ -120,7 +120,7 @@ class ProfilePageState extends State<ProfilePage> {
                     height: 20 * SizeConfig.heightMultiplier,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        image: AssetImage('assets/logo/logo_rectangle.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -160,7 +160,7 @@ class ProfilePageState extends State<ProfilePage> {
               ),
               buttons.standart(
                 text: 'Sí',
-                color: ColorsPalette.beigeAged,
+                color: ColorsPalette.greyChocolate,
                 width: 6 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
@@ -291,7 +291,7 @@ class ProfilePageState extends State<ProfilePage> {
         Provider.of<ClientClassProvider>(context);
     return Scaffold(
       backgroundColor: ColorsPalette.white,
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         physics: const ClampingScrollPhysics(),
@@ -299,7 +299,7 @@ class ProfilePageState extends State<ProfilePage> {
           Column(
             children: [
               Container(
-                color: ColorsPalette.chocolate,
+                color: ColorsPalette.greyChocolate,
                 child: Column(
                   children: [
                     Container(
@@ -833,7 +833,7 @@ class ProfilePageState extends State<ProfilePage> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: Image.asset(
-                                    'assets/logo/logo_rectangle.jpg',
+                                    'assets/logo/logo_rectangle.png',
                                     fit: BoxFit.fitHeight,
                                   ),
                                 ),

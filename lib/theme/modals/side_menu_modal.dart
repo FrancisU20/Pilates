@@ -46,7 +46,7 @@ class SideMenuModalState extends State<SideMenuModal> {
                     height: 20 * SizeConfig.heightMultiplier,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.jpg'),
+                        image: AssetImage('assets/logo/logo_rectangle.png'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -86,7 +86,7 @@ class SideMenuModalState extends State<SideMenuModal> {
               ),
               buttons.standart(
                 text: 'Sí',
-                color: ColorsPalette.beigeAged,
+                color: ColorsPalette.greyChocolate,
                 width: 6 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
@@ -113,7 +113,7 @@ class SideMenuModalState extends State<SideMenuModal> {
             width: 60 * SizeConfig.widthMultiplier,
             height: 70 * SizeConfig.heightMultiplier,
             child: Material(
-              color: ColorsPalette.beigeAged,
+              color: ColorsPalette.greyChocolate,
               elevation: 8.0,
               borderRadius: BorderRadius.circular(70.0),
               child: Align(
@@ -124,9 +124,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                     shrinkWrap: true,
                     children: <Widget>[
                       ListTile(
-                        leading: const Icon(
+                        leading:  Icon(
                           FontAwesomeIcons.grip,
                           color: ColorsPalette.white,
+                          size: 3 * SizeConfig.heightMultiplier,
                         ),
                         title: const Text('Dashboard'),
                         textColor: ColorsPalette.white,
@@ -138,9 +139,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                         height: 2.5 * SizeConfig.heightMultiplier,
                       ),
                       ListTile(
-                        leading: const Icon(
+                        leading:  Icon(
                           FontAwesomeIcons.solidPenToSquare,
                           color: ColorsPalette.white,
+                          size: 3 * SizeConfig.heightMultiplier,
                         ),
                         title: const Text('Agendar Cita'),
                         textColor: ColorsPalette.white,
@@ -152,9 +154,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                         height: 2.5 * SizeConfig.heightMultiplier,
                       ),
                       ListTile(
-                        leading: const Icon(
+                        leading:  Icon(
                           Icons.calendar_month,
                           color: ColorsPalette.white,
+                          size: 3 * SizeConfig.heightMultiplier,
                         ),
                         title: const Text('Citas Agendadas'),
                         textColor: ColorsPalette.white,
@@ -166,9 +169,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                         height: 2.5 * SizeConfig.heightMultiplier,
                       ),
                       ListTile(
-                        leading: const Icon(
+                        leading:  Icon(
                           FontAwesomeIcons.solidAddressBook,
                           color: ColorsPalette.white,
+                          size: 3 * SizeConfig.heightMultiplier,
                         ),
                         title: const Text('Contáctanos'),
                         textColor: ColorsPalette.white,
@@ -180,9 +184,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                         height: 2.5 * SizeConfig.heightMultiplier,
                       ),
                       ListTile(
-                        leading: const Icon(
+                        leading:  Icon(
                           FontAwesomeIcons.solidAddressCard,
                           color: ColorsPalette.white,
+                          size: 3 * SizeConfig.heightMultiplier,
                         ),
                         title: const Text('Mi Cuenta'),
                         textColor: ColorsPalette.white,
@@ -194,9 +199,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                         height: 2.5 * SizeConfig.heightMultiplier,
                       ),
                       ListTile(
-                        leading: const Icon(
+                        leading:  Icon(
                           FontAwesomeIcons.arrowRightFromBracket,
                           color: ColorsPalette.white,
+                          size: 3 * SizeConfig.heightMultiplier,
                         ),
                         title: const Text('Cerrar Sesión'),
                         textColor: ColorsPalette.white,

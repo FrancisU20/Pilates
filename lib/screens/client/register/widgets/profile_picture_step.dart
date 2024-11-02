@@ -44,10 +44,10 @@ class ProfilePictureStep extends StatelessWidget {
                     color: ColorsPalette.white,
                   ),
           ),
-          buttons.undelineText(
+          buttons.underlineText(
             text: 'Subir una foto',
             onPressed: onShowPicker,
-            color: ColorsPalette.beigeAged,
+            color: ColorsPalette.greyChocolate,
           ),
         ],
       ),
