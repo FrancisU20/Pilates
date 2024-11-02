@@ -56,7 +56,7 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
           SizedBox(height: 2 * SizeConfig.heightMultiplier),
           widget.textFormFields.create(
             title: 'Correo electrónico',
-            labelcolor: ColorsPalette.textColor,
+            labelcolor: ColorsPalette.black,
             hintText: 'info@example.com',
             typeTextField: TextFieldType.email,
             controller: widget.emailController,
@@ -64,7 +64,7 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
           SizedBox(height: 1 * SizeConfig.heightMultiplier),
           widget.textFormFields.create(
             title: 'Cédula de identidad',
-            labelcolor: ColorsPalette.textColor,
+            labelcolor: ColorsPalette.black,
             hintText: '1003368724',
             typeTextField: TextFieldType.dni,
             controller: widget.dniController,
@@ -74,7 +74,7 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
             children: [
               widget.textFormFields.create(
                 title: 'Nombre',
-                labelcolor: ColorsPalette.textColor,
+                labelcolor: ColorsPalette.black,
                 hintText: 'Escribe tu nombre aquí',
                 typeTextField: TextFieldType.alphanumeric,
                 width: 38.5,
@@ -83,7 +83,7 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
               SizedBox(width: 1 * SizeConfig.widthMultiplier),
               widget.textFormFields.create(
                 title: 'Apellido',
-                labelcolor: ColorsPalette.textColor,
+                labelcolor: ColorsPalette.black,
                 hintText: 'Escribe tu apellido aquí',
                 typeTextField: TextFieldType.alphanumeric,
                 width: 38.5,
@@ -94,7 +94,7 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
           SizedBox(height: 1 * SizeConfig.heightMultiplier),
           widget.textFormFields.create(
             title: 'Contraseña',
-            labelcolor: ColorsPalette.textColor,
+            labelcolor: ColorsPalette.black,
             hintText: '**********',
             typeTextField: TextFieldType.password,
             controller: widget.passwordController,
@@ -102,7 +102,7 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
           SizedBox(height: 1 * SizeConfig.heightMultiplier),
           widget.textFormFields.create(
             title: 'Repite tu Contraseña',
-            labelcolor: ColorsPalette.textColor,
+            labelcolor: ColorsPalette.black,
             hintText: '**********',
             typeTextField: TextFieldType.password,
             controller: widget.repeatPasswordController,
@@ -112,7 +112,7 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
             children: [
               widget.textFormFields.create(
                   title: 'Cumpleaños',
-                  labelcolor: ColorsPalette.textColor,
+                  labelcolor: ColorsPalette.black,
                   hintText: '01/01/2000',
                   typeTextField: TextFieldType.date,
                   width: 38.5,
@@ -120,7 +120,7 @@ class PersonalInformationStepState extends State<PersonalInformationStep> {
               SizedBox(width: 1 * SizeConfig.widthMultiplier),
               widget.textFormFields.create(
                 title: 'Teléfono',
-                labelcolor: ColorsPalette.textColor,
+                labelcolor: ColorsPalette.black,
                 hintText: '0987654321',
                 typeTextField: TextFieldType.phone,
                 width: 38.5,

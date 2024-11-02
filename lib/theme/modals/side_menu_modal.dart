@@ -26,10 +26,10 @@ class SideMenuModalState extends State<SideMenuModal> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: ColorsPalette.white,
             title: texts.normalText(
               text: 'Confirmar Cierre de Sesión',
-              color: Colors.black,
+              color: ColorsPalette.black,
               fontSize: 2.5 * SizeConfig.heightMultiplier,
               fontWeight: FontWeight.w500,
             ),
@@ -61,7 +61,7 @@ class SideMenuModalState extends State<SideMenuModal> {
                         children: [
                           texts.normalText(
                             text: 'Estás seguro que deseas cerrar sesión?',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
                           ),
@@ -79,14 +79,14 @@ class SideMenuModalState extends State<SideMenuModal> {
                 },
                 child: texts.normalText(
                   text: 'No',
-                  color: ColorsPalette.primaryColor,
+                  color: ColorsPalette.beigeAged,
                   fontSize: 2 * SizeConfig.heightMultiplier,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               buttons.standart(
                 text: 'Sí',
-                color: ColorsPalette.primaryColor,
+                color: ColorsPalette.beigeAged,
                 width: 6 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
@@ -113,7 +113,7 @@ class SideMenuModalState extends State<SideMenuModal> {
             width: 60 * SizeConfig.widthMultiplier,
             height: 70 * SizeConfig.heightMultiplier,
             child: Material(
-              color: const Color.fromARGB(255, 158, 148, 135),
+              color: ColorsPalette.beigeAged,
               elevation: 8.0,
               borderRadius: BorderRadius.circular(70.0),
               child: Align(
@@ -126,10 +126,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ListTile(
                         leading: const Icon(
                           FontAwesomeIcons.grip,
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                         ),
                         title: const Text('Dashboard'),
-                        textColor: Colors.white,
+                        textColor: ColorsPalette.white,
                         onTap: () {
                           Navigator.pushNamed(context, '/dashboard');
                         },
@@ -140,10 +140,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ListTile(
                         leading: const Icon(
                           FontAwesomeIcons.solidPenToSquare,
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                         ),
                         title: const Text('Agendar Cita'),
-                        textColor: Colors.white,
+                        textColor: ColorsPalette.white,
                         onTap: () {
                           Navigator.pushNamed(context, '/schedule_date');
                         },
@@ -154,10 +154,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ListTile(
                         leading: const Icon(
                           Icons.calendar_month,
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                         ),
                         title: const Text('Citas Agendadas'),
-                        textColor: Colors.white,
+                        textColor: ColorsPalette.white,
                         onTap: () {
                           Navigator.pushNamed(context, '/appointments');
                         },
@@ -168,10 +168,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ListTile(
                         leading: const Icon(
                           FontAwesomeIcons.solidAddressBook,
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                         ),
                         title: const Text('Contáctanos'),
-                        textColor: Colors.white,
+                        textColor: ColorsPalette.white,
                         onTap: () {
                           Navigator.pushNamed(context, '/contact_us');
                         },
@@ -182,10 +182,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ListTile(
                         leading: const Icon(
                           FontAwesomeIcons.solidAddressCard,
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                         ),
                         title: const Text('Mi Cuenta'),
-                        textColor: Colors.white,
+                        textColor: ColorsPalette.white,
                         onTap: () {
                           Navigator.pushNamed(context, '/profile');
                         },
@@ -196,10 +196,10 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ListTile(
                         leading: const Icon(
                           FontAwesomeIcons.arrowRightFromBracket,
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                         ),
                         title: const Text('Cerrar Sesión'),
-                        textColor: Colors.white,
+                        textColor: ColorsPalette.white,
                         onTap: () {
                           showLogOutConfirm();
                         },

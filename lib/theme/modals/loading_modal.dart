@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/paths/images.dart';
 import 'package:pilates/utils/size_config.dart';
@@ -46,7 +47,7 @@ class LoadingModal extends StatelessWidget {
             ),
             SizedBox(height: 5 * SizeConfig.heightMultiplier),
             LoadingAnimationWidget.staggeredDotsWave(
-                color: Colors.white, size: 7.5 * SizeConfig.heightMultiplier),
+                color: ColorsPalette.white, size: 7.5 * SizeConfig.heightMultiplier),
           ],
         ),
       ),

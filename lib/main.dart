@@ -17,6 +17,7 @@ import 'package:pilates/screens/client/profile/profile_page.dart';
 import 'package:pilates/screens/client/register/register_page.dart';
 import 'package:pilates/screens/client/schedule_date/schedule_date_page.dart';
 import 'package:pilates/screens/splash_screen.dart';
+import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/utils/size_config.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -80,7 +81,7 @@ class MyApp extends StatelessWidget {
             );
           },
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: ColorsPalette.beigeAged),
             useMaterial3: true,
           ),
           home: const SplashScreenPage(),

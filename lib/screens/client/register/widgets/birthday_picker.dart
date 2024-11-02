@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:pilates/theme/colors_palette.dart';
+import 'package:pilates/utils/size_config.dart';
 
 class BirthdayPicker {
   static Future<void> selectBirthday(
@@ -19,111 +20,111 @@ class BirthdayPicker {
         return Theme(
           data: ThemeData.light().copyWith(
               primaryColor:
-                  ColorsPalette.secondaryColor, // Color del encabezado
+                  ColorsPalette.chocolate, // Color del encabezado
               colorScheme: const ColorScheme.light(
-                  primary: ColorsPalette.secondaryColor),
+                  primary: ColorsPalette.chocolate),
               buttonTheme:
                   const ButtonThemeData(textTheme: ButtonTextTheme.primary),
               textTheme: TextTheme(
                 // Display texts
                 displayLarge: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 16,
+                  textStyle:  TextStyle(
+                      fontSize: 2.5 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 displayMedium: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 14,
+                  textStyle:  TextStyle(
+                      fontSize: 2 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 displaySmall: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 12,
+                  textStyle:  TextStyle(
+                      fontSize: 1.8 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 // Body texts
                 bodyLarge: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 16,
+                  textStyle:  TextStyle(
+                      fontSize: 2.5 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 bodyMedium: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 14,
+                  textStyle:  TextStyle(
+                      fontSize: 1.8 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 bodySmall: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 12,
+                  textStyle:  TextStyle(
+                      fontSize: 1.6 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 // Headlines text
                 headlineLarge: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 24,
+                  textStyle:   TextStyle(
+                      fontSize: 3.2 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
 
                 headlineMedium: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 20,
+                  textStyle:  TextStyle(
+                      fontSize: 3 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
 
                 headlineSmall: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 16,
+                  textStyle:  TextStyle(
+                      fontSize: 2.5 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 // Labels text
                 labelLarge: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 16,
+                  textStyle:  TextStyle(
+                      fontSize: 2.5 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 labelMedium: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 14,
+                  textStyle:  TextStyle(
+                      fontSize: 1.8 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 labelSmall: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 12,
+                  textStyle:  TextStyle(
+                      fontSize: 1.6 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 // Title text
                 titleLarge: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 16,
+                  textStyle:  TextStyle(
+                      fontSize: 2.5 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 titleMedium: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 14,
+                  textStyle:  TextStyle(
+                      fontSize: 1.8 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
                 titleSmall: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                      fontSize: 12,
+                  textStyle:  TextStyle(
+                      fontSize: 1.6 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                      color: ColorsPalette.black),
                 ),
               ),
-              dialogBackgroundColor: Colors.black),
+              dialogBackgroundColor: ColorsPalette.black),
           child: child!,
         );
       },

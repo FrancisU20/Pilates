@@ -60,12 +60,14 @@ class ClientsPageState extends State<ClientsPage> {
       List<AllClientsPlansResponse> allClients =
           clientClassProvider.allClientsPlansResponse ?? [];
 
-      if (activeClients == true) {
-        //Filtar los clientes activos
-        allClients.where((element) => element.status.contains('active'));
-      } else {
-        allClients.where((element) => element.status.contains('inactive'));
-      }
+      // Filtrar los clientes según su estado
+      allClients = activeClients
+          ? allClients
+              .where((element) => element.statusClient == 'active')
+              .toList()
+          : allClients
+              .where((element) => element.statusClient == 'inactive')
+              .toList();
 
       // Actualizar el estado con los nuevos datos y cerrar el modal de carga
       setState(() {
@@ -80,9 +82,9 @@ class ClientsPageState extends State<ClientsPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white),
-                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                    fontSize: 2 * SizeConfig.widthMultiplier,
+                    color: ColorsPalette.white),
+                backgroundColor: ColorsPalette.redAged,
               ),
             ),
           });
@@ -92,9 +94,9 @@ class ClientsPageState extends State<ClientsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.primaryColor),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
       body: Container(
-        color: ColorsPalette.primaryColor,
+        color: ColorsPalette.chocolate,
         child: Column(
           children: [
             Container(
@@ -105,11 +107,11 @@ class ClientsPageState extends State<ClientsPage> {
                 children: [
                   CircleAvatar(
                     radius: 8 * SizeConfig.imageSizeMultiplier,
-                    backgroundColor: Colors.white,
+                    backgroundColor: ColorsPalette.white,
                     child: Icon(
                       FontAwesomeIcons.user,
                       size: 8 * SizeConfig.imageSizeMultiplier,
-                      color: Colors.black,
+                      color: ColorsPalette.black,
                     ),
                   ),
                   SizedBox(
@@ -120,12 +122,12 @@ class ClientsPageState extends State<ClientsPage> {
                     children: [
                       texts.normalText(
                           text: 'Clientes',
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                           fontSize: 4 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400),
                       texts.normalText(
                           text: 'Revisa el estado de tus clientes',
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400),
                     ],
@@ -138,7 +140,7 @@ class ClientsPageState extends State<ClientsPage> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: const Color(0xFF262626),
+                  color: ColorsPalette.black,
                   borderRadius: BorderRadius.circular(20)),
               width: 90 * SizeConfig.widthMultiplier,
               height: 8 * SizeConfig.heightMultiplier,
@@ -155,8 +157,8 @@ class ClientsPageState extends State<ClientsPage> {
                         });
                       },
                       color: activeClients == false
-                          ? Colors.white
-                          : const Color.fromARGB(255, 165, 160, 105)),
+                          ? ColorsPalette.white
+                          : ColorsPalette.gold),
                   buttons.iconTextUnderline(
                       icon: FontAwesomeIcons.circleXmark,
                       text: 'Inactivos',
@@ -167,8 +169,8 @@ class ClientsPageState extends State<ClientsPage> {
                         });
                       },
                       color: activeClients == false
-                          ? const Color.fromARGB(255, 165, 160, 105)
-                          : Colors.white),
+                          ? ColorsPalette.gold
+                          : ColorsPalette.white),
                 ],
               ),
             ),
@@ -183,11 +185,11 @@ class ClientsPageState extends State<ClientsPage> {
                     horizontal: 5 * SizeConfig.widthMultiplier,
                     vertical: 2 * SizeConfig.heightMultiplier),
                 decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: ColorsPalette.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(
-                            50))), //Color.fromARGB(255, 87, 136, 120)
+                            50))),
                 child: clients.isEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -198,7 +200,7 @@ class ClientsPageState extends State<ClientsPage> {
                                 ? FontAwesomeIcons.circleCheck
                                 : FontAwesomeIcons.circleXmark,
                             size: 20 * SizeConfig.imageSizeMultiplier,
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                           ),
                           SizedBox(
                             height: 2 * SizeConfig.heightMultiplier,
@@ -207,7 +209,7 @@ class ClientsPageState extends State<ClientsPage> {
                             text: activeClients == true
                                 ? 'No dispones de clientes activos'
                                 : 'No dispones de clientes inactivos',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 3 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w600,
                           ),
@@ -227,7 +229,7 @@ class ClientsPageState extends State<ClientsPage> {
                                   texts.normalText(
                                     text:
                                         '${clients[index].clientName} ${clients[index].clientLastname}',
-                                    color: Colors.black,
+                                    color: ColorsPalette.black,
                                     fontSize: 2.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -238,8 +240,7 @@ class ClientsPageState extends State<ClientsPage> {
                                     text: clients[index]
                                         .clientDniNumber
                                         .toString(),
-                                    color: const Color.fromARGB(
-                                        255, 116, 114, 114),
+                                    color: ColorsPalette.greenAged,
                                     fontSize: 1.7 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -254,13 +255,13 @@ class ClientsPageState extends State<ClientsPage> {
                                 width: 90 * SizeConfig.widthMultiplier,
                                 height: 20 * SizeConfig.heightMultiplier,
                                 decoration: BoxDecoration(
-                                    color: const Color(0xFFEEEEEE),
+                                    color: ColorsPalette.white,
                                     border: Border.all(
-                                        color: const Color(0xFFEEEEEE)),
+                                        color: ColorsPalette.beige.withOpacity(0.1),),
                                     borderRadius: BorderRadius.circular(50),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color: ColorsPalette.black.withOpacity(0.1),
                                         spreadRadius: 5,
                                         blurRadius: 5,
                                         offset: const Offset(0, 3),
@@ -278,7 +279,7 @@ class ClientsPageState extends State<ClientsPage> {
                                         children: [
                                           texts.normalText(
                                               text: 'Información',
-                                              color: Colors.black,
+                                              color: ColorsPalette.black,
                                               fontSize: 2.5 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w600),
@@ -289,8 +290,7 @@ class ClientsPageState extends State<ClientsPage> {
                                           texts.normalText(
                                               text:
                                                   'Celular: ${clients[index].clientPhone}',
-                                              color: const Color.fromARGB(
-                                                  255, 116, 114, 114),
+                                              color: ColorsPalette.greyAged,
                                               fontSize: 2 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w400),
@@ -304,8 +304,7 @@ class ClientsPageState extends State<ClientsPage> {
                                                       .contains('bank transfer')
                                                   ? 'Pago: Tranferencia'
                                                   : 'Pago: Efectivo',
-                                              color: const Color.fromARGB(
-                                                  255, 116, 114, 114),
+                                              color: ColorsPalette.greyAged,
                                               fontSize: 2 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w400,
@@ -317,8 +316,7 @@ class ClientsPageState extends State<ClientsPage> {
                                           texts.normalText(
                                               text:
                                                   'Plan: ${clients[index].planDescription}',
-                                              color: const Color.fromARGB(
-                                                  255, 116, 114, 114),
+                                              color: ColorsPalette.greyAged,
                                               fontSize: 2 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w400,
@@ -326,123 +324,93 @@ class ClientsPageState extends State<ClientsPage> {
                                         ],
                                       ),
                                     ),
-                                    activeClients == true
-                                        ? SizedBox(
+                                    SizedBox(
+                                      width: 2 * SizeConfig.widthMultiplier,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            
+                                          },
+                                          child: Container(
                                             width:
-                                                2 * SizeConfig.widthMultiplier,
-                                          )
-                                        : const SizedBox.shrink(),
-                                    activeClients == true
-                                        ? Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  double latitude = 0.34291;
-                                                  double longitude = -78.1352;
-                                                  String name = 'Curve Pilates';
-                                                  mapAppLauncher.openMaps(
-                                                      latitude: latitude,
-                                                      longitude: longitude,
-                                                      name: name);
-                                                },
-                                                child: Container(
-                                                  width: 10 *
+                                                10 * SizeConfig.widthMultiplier,
+                                            height:
+                                                10 * SizeConfig.widthMultiplier,
+                                            decoration: BoxDecoration(
+                                                color: ColorsPalette.chocolate,
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                            padding: EdgeInsets.all(
+                                                2 * SizeConfig.widthMultiplier),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  FontAwesomeIcons
+                                                      .fileInvoiceDollar,
+                                                  color: ColorsPalette.white,
+                                                  size: 4 *
                                                       SizeConfig
-                                                          .widthMultiplier,
-                                                  height: 10 *
-                                                      SizeConfig
-                                                          .widthMultiplier,
-                                                  decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xFF262626),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                  padding: EdgeInsets.all(2 *
-                                                      SizeConfig
-                                                          .widthMultiplier),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        FontAwesomeIcons
-                                                            .locationArrow,
-                                                        color: Colors.white,
-                                                        size: 4 *
-                                                            SizeConfig
-                                                                .imageSizeMultiplier,
-                                                      ),
-                                                    ],
-                                                  ),
+                                                          .imageSizeMultiplier,
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 2 *
-                                                    SizeConfig.heightMultiplier,
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {},
-                                                child: Container(
-                                                  width: 10 *
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              2 * SizeConfig.heightMultiplier,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {},
+                                          child: Container(
+                                            width:
+                                                10 * SizeConfig.widthMultiplier,
+                                            height:
+                                                10 * SizeConfig.widthMultiplier,
+                                            decoration: BoxDecoration(
+                                                color: ColorsPalette.greyAged,
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                            padding: EdgeInsets.all(
+                                                2 * SizeConfig.widthMultiplier),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  FontAwesomeIcons.key,
+                                                  color: ColorsPalette.white,
+                                                  size: 4 *
                                                       SizeConfig
-                                                          .widthMultiplier,
-                                                  height: 10 *
-                                                      SizeConfig
-                                                          .widthMultiplier,
-                                                  decoration: BoxDecoration(
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              175,
-                                                              105,
-                                                              105),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                  padding: EdgeInsets.all(2 *
-                                                      SizeConfig
-                                                          .widthMultiplier),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        FontAwesomeIcons.xmark,
-                                                        color: Colors.white,
-                                                        size: 4 *
-                                                            SizeConfig
-                                                                .imageSizeMultiplier,
-                                                      ),
-                                                    ],
-                                                  ),
+                                                          .imageSizeMultiplier,
                                                 ),
-                                              ),
-                                            ],
-                                          )
-                                        : const SizedBox.shrink(),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     // Agregar letras en direccion vertical con el status de la clase
                                     Transform.rotate(
                                       angle: -3.14 / 2,
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          color:
-                                              clients[index].status == 'active'
-                                                  ? ColorsPalette.successColor
-                                                  : const Color.fromARGB(
-                                                      255, 175, 105, 105),
+                                          color: clients[index].statusClient ==
+                                                  'active'
+                                              ? ColorsPalette.greenAged
+                                              : ColorsPalette.redAged,
                                           borderRadius:
                                               BorderRadius.circular(50),
                                         ),
@@ -452,11 +420,11 @@ class ClientsPageState extends State<ClientsPage> {
                                             horizontal:
                                                 2 * SizeConfig.widthMultiplier),
                                         child: texts.normalText(
-                                          text:
-                                              clients[index].status == 'active'
-                                                  ? 'Activo'
-                                                  : 'Inactivo',
-                                          color: Colors.white,
+                                          text: clients[index].statusClient ==
+                                                  'active'
+                                              ? 'Activo'
+                                              : 'Inactivo',
+                                          color: ColorsPalette.white,
                                           fontSize:
                                               4 * SizeConfig.widthMultiplier,
                                           fontWeight: FontWeight.bold,

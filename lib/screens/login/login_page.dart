@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pilates/screens/login/widgets/login_form.dart';
+import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
 import 'package:pilates/theme/widgets/textfields.dart';
 import 'package:pilates/theme/widgets/texts.dart';
@@ -36,7 +37,7 @@ class LoginPageState extends State<LoginPage> {
               image: AssetImage(images.backgroundLogin),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.8), BlendMode.dstATop),
+                  ColorsPalette.black.withOpacity(0.8), BlendMode.dstATop),
             ),
           ),
           child: Center(

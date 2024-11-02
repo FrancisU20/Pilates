@@ -17,7 +17,7 @@ class TextFormFields {
     required TextEditingController controller,
     IconData? icon,
     String? initialValue,
-    Color? fillColor = const Color.fromARGB(255, 255, 255, 255),
+    Color? fillColor = ColorsPalette.white,
     bool? isActive = true,
     double width = 90,
     double height = 7,
@@ -81,18 +81,18 @@ class TextFormFields {
                 decoration: InputDecoration(
                   labelText: title,
                   labelStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: ColorsPalette.primaryColor,
-                      fontSize: 18,
+                    textStyle: TextStyle(
+                      color: ColorsPalette.beigeAged,
+                      fontSize: 2.5 * SizeConfig.textMultiplier,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
                   alignLabelWithHint: true,
                   hintText: hintText,
                   hintStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: ColorsPalette.grayTextColor,
-                      fontSize: 16,
+                    textStyle: TextStyle(
+                      color: ColorsPalette.greyAged,
+                      fontSize: 2 * SizeConfig.textMultiplier,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -101,12 +101,12 @@ class TextFormFields {
                   prefixIcon: icon != null
                       ? Icon(
                           icon,
-                          color: ColorsPalette.primaryColor,
+                          color: ColorsPalette.beigeAged,
                         )
                       : null,
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: ColorsPalette.primaryColor,
+                      color: ColorsPalette.beigeAged,
                       width: 0.2 * SizeConfig.widthMultiplier,
                     ),
                   ),
@@ -116,7 +116,7 @@ class TextFormFields {
                             obscureText
                                 ? FontAwesomeIcons.eye
                                 : FontAwesomeIcons.eyeSlash,
-                            color: ColorsPalette.primaryColor,
+                            color: ColorsPalette.beigeAged,
                           ),
                           onPressed: () {
                             setState(() {
@@ -128,13 +128,13 @@ class TextFormFields {
                 ),
                 enabled: isActive,
                 style: GoogleFonts.montserrat(
-                  textStyle: const TextStyle(
-                    color: ColorsPalette.textColor,
-                    fontSize: 16,
+                  textStyle: TextStyle(
+                    color: ColorsPalette.black,
+                    fontSize: 2 * SizeConfig.textMultiplier,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                cursorColor: ColorsPalette.primaryColor,
+                cursorColor: ColorsPalette.beigeAged,
                 cursorWidth: 0.2 * SizeConfig.widthMultiplier,
               ),
             ),

@@ -29,9 +29,9 @@ class ContactUsPageState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.primaryColor),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
       body: Container(
-        color: ColorsPalette.primaryColor,
+        color: ColorsPalette.chocolate,
         child: Column(
           children: [
             Container(
@@ -42,11 +42,11 @@ class ContactUsPageState extends State<ContactUsPage> {
                 children: [
                   CircleAvatar(
                     radius: 8 * SizeConfig.imageSizeMultiplier,
-                    backgroundColor: Colors.white,
+                    backgroundColor: ColorsPalette.white,
                     child: Icon(
                       FontAwesomeIcons.addressBook,
                       size: 8 * SizeConfig.imageSizeMultiplier,
-                      color: Colors.black,
+                      color: ColorsPalette.black,
                     ),
                   ),
                   SizedBox(
@@ -57,12 +57,12 @@ class ContactUsPageState extends State<ContactUsPage> {
                     children: [
                       texts.normalText(
                           text: 'Contáctanos',
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                           fontSize: 4 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400),
                       texts.normalText(
                           text: 'Cerca de ti, para tu comodidad',
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400,
                           textAlign: TextAlign.left),
@@ -82,11 +82,11 @@ class ContactUsPageState extends State<ContactUsPage> {
                       horizontal: 5 * SizeConfig.widthMultiplier,
                       vertical: 2 * SizeConfig.heightMultiplier),
                   decoration: const BoxDecoration(
-                      color: Colors.white,
+                      color: ColorsPalette.white,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(50),
                           topRight: Radius.circular(
-                              50))), //Color.fromARGB(255, 87, 136, 120)
+                              50))), 
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +117,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                               width: 22 * SizeConfig.widthMultiplier,
                               child: texts.normalText(
                                   text: 'Dirección: \n',
-                                  color: Colors.black,
+                                  color: ColorsPalette.black,
                                   fontSize: 2 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.left),
@@ -130,7 +130,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                               child: texts.normalText(
                                   text:
                                       'Galo Plaza Lasso 675 y Judith Granda Almeida',
-                                  color: Colors.black,
+                                  color: ColorsPalette.black,
                                   fontSize: 2 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w400,
                                   textAlign: TextAlign.left),
@@ -146,7 +146,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                               width: 22 * SizeConfig.widthMultiplier,
                               child: texts.normalText(
                                   text: 'Horarios: \n',
-                                  color: Colors.black,
+                                  color: ColorsPalette.black,
                                   fontSize: 2 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.left),
@@ -159,7 +159,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                               child: texts.normalText(
                                   text:
                                       'Lunes a viernes de 06:00 a 21:00, Sábados de 08:00 a 11:00',
-                                  color: Colors.black,
+                                  color: ColorsPalette.black,
                                   fontSize: 2 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w400,
                                   textAlign: TextAlign.left),
@@ -191,7 +191,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                                     width: 7 * SizeConfig.heightMultiplier,
                                     height: 7 * SizeConfig.heightMultiplier,
                                     decoration: BoxDecoration(
-                                        color: const Color(0xFF262626),
+                                        color: ColorsPalette.black,
                                         borderRadius:
                                             BorderRadius.circular(50)),
                                     padding: EdgeInsets.all(
@@ -204,7 +204,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                                       children: [
                                         Icon(
                                           FontAwesomeIcons.locationArrow,
-                                          color: Colors.white,
+                                          color: ColorsPalette.white,
                                           size: 7 *
                                               SizeConfig.imageSizeMultiplier,
                                         ),
@@ -221,7 +221,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                                     width: 7 * SizeConfig.heightMultiplier,
                                     height: 7 * SizeConfig.heightMultiplier,
                                     decoration: BoxDecoration(
-                                        color: const Color(0xFF262626),
+                                        color: ColorsPalette.black,
                                         borderRadius:
                                             BorderRadius.circular(50)),
                                     padding: EdgeInsets.all(
@@ -234,7 +234,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                                       children: [
                                         Icon(
                                           FontAwesomeIcons.instagram,
-                                          color: Colors.white,
+                                          color: ColorsPalette.white,
                                           size: 7 *
                                               SizeConfig.imageSizeMultiplier,
                                         ),
@@ -253,7 +253,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                                     width: 7 * SizeConfig.heightMultiplier,
                                     height: 7 * SizeConfig.heightMultiplier,
                                     decoration: BoxDecoration(
-                                        color: const Color(0xFF262626),
+                                        color: ColorsPalette.black,
                                         borderRadius:
                                             BorderRadius.circular(50)),
                                     padding: EdgeInsets.all(
@@ -266,7 +266,7 @@ class ContactUsPageState extends State<ContactUsPage> {
                                       children: [
                                         Icon(
                                           FontAwesomeIcons.whatsapp,
-                                          color: Colors.white,
+                                          color: ColorsPalette.white,
                                           size: 7 *
                                               SizeConfig.imageSizeMultiplier,
                                         ),

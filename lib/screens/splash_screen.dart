@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pilates/screens/login/login_page.dart';
 import 'package:pilates/screens/onboarding/onboarding_page.dart';
+import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/paths/images.dart';
 import 'package:pilates/utils/size_config.dart';
@@ -60,7 +61,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      backgroundColor: Colors.white,
+      backgroundColor: ColorsPalette.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,7 +81,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             ),
             SizedBox(height: 1 * SizeConfig.heightMultiplier),
             LoadingAnimationWidget.beat(
-                color: const Color(0xFF1D1D1B),
+                color: ColorsPalette.black,
                 size: 5 * SizeConfig.heightMultiplier),
           ],
         ),

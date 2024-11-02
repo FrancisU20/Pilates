@@ -79,9 +79,9 @@ class LoginFormState extends State<LoginForm> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white),
-                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    color: ColorsPalette.white),
+                backgroundColor: ColorsPalette.redAged,
               ),
             ),
           });
@@ -92,11 +92,11 @@ class LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorsPalette.backgroundColor,
+        color: ColorsPalette.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: ColorsPalette.black.withOpacity(0.2),
             spreadRadius: 5,
             blurRadius: 7,
             offset: const Offset(0, 3),
@@ -131,12 +131,12 @@ class LoginFormState extends State<LoginForm> {
               text: 'Es un gusto volver a verte.',
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.start,
-              fontSize: 16,
+              fontSize: 2.5 * SizeConfig.heightMultiplier,
             ),
             SizedBox(height: 2 * SizeConfig.heightMultiplier),
             widget.textFormFields.create(
               title: 'Usuario',
-              labelcolor: ColorsPalette.textColor,
+              labelcolor: ColorsPalette.black,
               hintText: 'Ingrese su correo electrónico',
               icon: FontAwesomeIcons.user,
               typeTextField: TextFieldType.email,
@@ -145,7 +145,7 @@ class LoginFormState extends State<LoginForm> {
             SizedBox(height: 2 * SizeConfig.heightMultiplier),
             widget.textFormFields.create(
               title: 'Contraseña',
-              labelcolor: ColorsPalette.textColor,
+              labelcolor: ColorsPalette.black,
               hintText: 'Ingrese su contraseña',
               icon: Icons.password_outlined,
               typeTextField: TextFieldType.password,
@@ -156,7 +156,7 @@ class LoginFormState extends State<LoginForm> {
               child: Center(
                 child: buttons.standart(
                   text: 'Iniciar Sesión',
-                  color: ColorsPalette.primaryColor,
+                  color: ColorsPalette.beigeAged,
                   onPressed: () async {
                     _loginProcess(
                         emailController.text, passwordController.text, context);
@@ -171,7 +171,7 @@ class LoginFormState extends State<LoginForm> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/onboarding');
                   },
-                  color: ColorsPalette.primaryColor),
+                  color: ColorsPalette.beigeAged),
             )
           ],
         ),

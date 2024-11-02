@@ -57,7 +57,7 @@ class Buttons {
       height: 5 * SizeConfig.heightMultiplier,
       child: TextButton.icon(
         onPressed: isActive ? onPressed : null,
-        icon: Icon(icon, color: ColorsPalette.textButtonColor),
+        icon: Icon(icon, color: ColorsPalette.white),
         label: texts.buttonText(text),
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all<Color>(color),
@@ -98,7 +98,7 @@ class Buttons {
           children: [
             texts.buttonText(text),
             const SizedBox(width: 8), // Espacio entre el texto y el ícono
-            Icon(icon, color: ColorsPalette.textButtonColor),
+            Icon(icon, color: ColorsPalette.white),
           ],
         ),
       ),

@@ -92,9 +92,9 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white),
-                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    color: ColorsPalette.white),
+                backgroundColor: ColorsPalette.redAged,
               ),
             ),
           });
@@ -223,9 +223,9 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: 'La cita ha sido cancelada correctamente',
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white),
-                backgroundColor: ColorsPalette.successColor,
+                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    color: ColorsPalette.white),
+                backgroundColor: ColorsPalette.greenAged,
               ),
             ),
           });
@@ -242,9 +242,9 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white),
-                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    color: ColorsPalette.white),
+                backgroundColor: ColorsPalette.redAged,
               ),
             ),
           });
@@ -256,10 +256,10 @@ class AppointmentsPageState extends State<AppointmentsPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: ColorsPalette.white,
             title: texts.normalText(
               text: 'Confirmar cancelación',
-              color: Colors.black,
+              color: ColorsPalette.black,
               fontSize: 2.5 * SizeConfig.heightMultiplier,
               fontWeight: FontWeight.w500,
             ),
@@ -290,7 +290,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                       children: [
                         texts.normalText(
                           text: 'Estás seguro de cancelar esta cita?',
-                          color: Colors.black,
+                          color: ColorsPalette.black,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400,
                         ),
@@ -300,7 +300,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                         texts.normalText(
                           text:
                               'Nota: Una vez cancelada la cita no podrá ser recuperada',
-                          color: Colors.black,
+                          color: ColorsPalette.black,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w500,
                           textAlign: TextAlign.start,
@@ -318,14 +318,14 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                 },
                 child: texts.normalText(
                   text: 'Regresar',
-                  color: ColorsPalette.primaryColor,
+                  color: ColorsPalette.beigeAged,
                   fontSize: 2 * SizeConfig.heightMultiplier,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               buttons.standart(
                 text: 'Confirmar',
-                color: ColorsPalette.primaryColor,
+                color: ColorsPalette.beigeAged,
                 width: 10 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   log('Cancelando cita ...');
@@ -342,9 +342,9 @@ class AppointmentsPageState extends State<AppointmentsPage> {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context, listen: false);
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.primaryColor),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
       body: Container(
-        color: ColorsPalette.primaryColor,
+        color: ColorsPalette.chocolate,
         child: Column(
           children: [
             Container(
@@ -355,11 +355,11 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                 children: [
                   CircleAvatar(
                     radius: 8 * SizeConfig.imageSizeMultiplier,
-                    backgroundColor: Colors.white,
+                    backgroundColor: ColorsPalette.white,
                     child: Icon(
                       FontAwesomeIcons.calendarCheck,
                       size: 8 * SizeConfig.imageSizeMultiplier,
-                      color: Colors.black,
+                      color: ColorsPalette.black,
                     ),
                   ),
                   SizedBox(
@@ -370,12 +370,12 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     children: [
                       texts.normalText(
                           text: 'Citas Agendadas',
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                           fontSize: 4 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400),
                       texts.normalText(
                           text: 'Qué tenemos para ti hoy?',
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400),
                     ],
@@ -388,7 +388,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: const Color(0xFF262626),
+                  color: ColorsPalette.black,  
                   borderRadius: BorderRadius.circular(20)),
               width: 90 * SizeConfig.widthMultiplier,
               height: 8 * SizeConfig.heightMultiplier,
@@ -405,8 +405,8 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                         });
                       },
                       color: isHistory
-                          ? Colors.white
-                          : const Color.fromARGB(255, 165, 160, 105)),
+                          ? ColorsPalette.white
+                          : ColorsPalette.gold),
                   buttons.iconTextUnderline(
                       icon: FontAwesomeIcons.clockRotateLeft,
                       text: 'Historial de Citas',
@@ -417,8 +417,8 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                         });
                       },
                       color: isHistory
-                          ? const Color.fromARGB(255, 165, 160, 105)
-                          : Colors.white),
+                          ? ColorsPalette.gold
+                          : ColorsPalette.white),
                 ],
               ),
             ),
@@ -433,11 +433,11 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     horizontal: 5 * SizeConfig.widthMultiplier,
                     vertical: 2 * SizeConfig.heightMultiplier),
                 decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: ColorsPalette.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(
-                            50))), //Color.fromARGB(255, 87, 136, 120)
+                            50))),
                 child: clientClasses.isEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -446,7 +446,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                           Icon(
                             FontAwesomeIcons.calendarXmark,
                             size: 20 * SizeConfig.imageSizeMultiplier,
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                           ),
                           SizedBox(
                             height: 2 * SizeConfig.heightMultiplier,
@@ -455,7 +455,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                             text: isHistory == false
                                 ? 'No tienes citas agendadas'
                                 : 'No tienes citas en tu historial',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 3 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w600,
                           ),
@@ -469,7 +469,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                     Navigator.pushNamed(
                                         context, '/schedule_date');
                                   },
-                                  color: ColorsPalette.primaryColor)
+                                  color: ColorsPalette.greyChocolate)
                               : const SizedBox.shrink(),
                         ],
                       )
@@ -489,7 +489,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                         '${clientClasses[index].schedule.startHour.substring(0, 5)} ${determinteAMFM(
                                       clientClasses[index].schedule.startHour,
                                     )}',
-                                    color: Colors.black,
+                                    color: ColorsPalette.black,
                                     fontSize: 3 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -498,8 +498,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                   ),
                                   texts.normalText(
                                     text: '50 min',
-                                    color: const Color.fromARGB(
-                                        255, 116, 114, 114),
+                                    color: ColorsPalette.greenAged,
                                     fontSize: 1.8 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -514,13 +513,13 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                 width: 90 * SizeConfig.widthMultiplier,
                                 height: 20 * SizeConfig.heightMultiplier,
                                 decoration: BoxDecoration(
-                                    color: const Color(0xFFEEEEEE),
+                                    color: ColorsPalette.white,
                                     border: Border.all(
-                                        color: const Color(0xFFEEEEEE)),
+                                        color: ColorsPalette.white),
                                     borderRadius: BorderRadius.circular(50),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color: ColorsPalette.black.withOpacity(0.1),
                                         spreadRadius: 5,
                                         blurRadius: 5,
                                         offset: const Offset(0, 3),
@@ -532,7 +531,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                       width: 21 * SizeConfig.widthMultiplier,
                                       height: 21 * SizeConfig.widthMultiplier,
                                       decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          color: ColorsPalette.white,
                                           borderRadius:
                                               BorderRadius.circular(50)),
                                       padding: EdgeInsets.all(
@@ -548,7 +547,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                   .date
                                                   .day
                                                   .toString(),
-                                              color: Colors.black,
+                                              color: ColorsPalette.black,
                                               fontSize: 4 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w600),
@@ -559,7 +558,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                           texts.normalText(
                                               text: getStringMonth(
                                                   clientClasses[index].date),
-                                              color: Colors.black,
+                                              color: ColorsPalette.black,
                                               fontSize: 1.5 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w400),
@@ -579,7 +578,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                         children: [
                                           texts.normalText(
                                               text: 'Datos:',
-                                              color: Colors.black,
+                                              color: ColorsPalette.black,
                                               fontSize: 2.5 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w600),
@@ -590,8 +589,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                           texts.normalText(
                                               text:
                                                   '${clientClassProvider.loginResponse!.client.name} ${clientClassProvider.loginResponse!.client.lastname}',
-                                              color: const Color.fromARGB(
-                                                  255, 116, 114, 114),
+                                              color: ColorsPalette.greenAged,
                                               fontSize: 2 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w400,
@@ -608,8 +606,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                       'male'
                                                   ? 'Hombre'
                                                   : 'Mujer',
-                                              color: const Color.fromARGB(
-                                                  255, 116, 114, 114),
+                                              color: ColorsPalette.greenAged,
                                               fontSize: 2 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w400,
@@ -625,8 +622,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                   .birthdate
                                                   .toString()
                                                   .substring(0, 10),
-                                              color: const Color.fromARGB(
-                                                  255, 116, 114, 114),
+                                              color: ColorsPalette.greenAged,
                                               fontSize: 2 *
                                                   SizeConfig.heightMultiplier,
                                               fontWeight: FontWeight.w400,
@@ -665,8 +661,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                       SizeConfig
                                                           .widthMultiplier,
                                                   decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xFF262626),
+                                                      color: ColorsPalette.black,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               50)),
@@ -684,7 +679,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                       Icon(
                                                         FontAwesomeIcons
                                                             .locationArrow,
-                                                        color: Colors.white,
+                                                        color: ColorsPalette.white,
                                                         size: 4 *
                                                             SizeConfig
                                                                 .imageSizeMultiplier,
@@ -711,11 +706,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                           .widthMultiplier,
                                                   decoration: BoxDecoration(
                                                       color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              175,
-                                                              105,
-                                                              105),
+                                                          ColorsPalette.redAged,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               50)),
@@ -732,7 +723,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                     children: [
                                                       Icon(
                                                         FontAwesomeIcons.xmark,
-                                                        color: Colors.white,
+                                                        color: ColorsPalette.white,
                                                         size: 4 *
                                                             SizeConfig
                                                                 .imageSizeMultiplier,
@@ -754,9 +745,8 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                 color: clientClasses[index]
                                                             .statusClass ==
                                                         'agendada'
-                                                    ? Colors.amber
-                                                    : const Color.fromARGB(
-                                                        255, 175, 105, 105),
+                                                    ? ColorsPalette.greenAged
+                                                    :  ColorsPalette.redAged,
                                                 borderRadius:
                                                     BorderRadius.circular(50),
                                               ),
@@ -773,7 +763,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                                                         'agendada'
                                                     ? 'Terminada'
                                                     : 'Cancelada',
-                                                color: Colors.white,
+                                                color: ColorsPalette.white,
                                                 fontSize: 4 *
                                                     SizeConfig.widthMultiplier,
                                                 fontWeight: FontWeight.bold,

@@ -52,11 +52,11 @@ class GenderStepState extends State<GenderStep> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: _selectedGender == 'Male'
-                        ? ColorsPalette.primaryColor
+                        ? ColorsPalette.beigeAged
                         : Colors.transparent,
                   ),
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
+                  color: ColorsPalette.white,
                 ),
                 child: Column(
                   children: [
@@ -68,8 +68,8 @@ class GenderStepState extends State<GenderStep> {
                     widget.texts.normalText(
                       text: 'Hombre',
                       color: _selectedGender == 'Male'
-                          ? ColorsPalette.primaryColor
-                          : Colors.black,
+                          ? ColorsPalette.beigeAged
+                          : ColorsPalette.black,
                       fontWeight: FontWeight.w400,
                     ),
                   ],
@@ -85,11 +85,11 @@ class GenderStepState extends State<GenderStep> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: _selectedGender == 'Female'
-                        ? ColorsPalette.primaryColor
+                        ? ColorsPalette.beigeAged
                         : Colors.transparent,
                   ),
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
+                  color: ColorsPalette.white,
                 ),
                 child: Column(
                   children: [
@@ -101,8 +101,8 @@ class GenderStepState extends State<GenderStep> {
                     widget.texts.normalText(
                         text: 'Mujer',
                         color: _selectedGender == 'Female'
-                            ? ColorsPalette.primaryColor
-                            : Colors.black,
+                            ? ColorsPalette.beigeAged
+                            : ColorsPalette.black,
                         fontWeight: FontWeight.w400),
                   ],
                 ),
@@ -123,18 +123,18 @@ class GenderStepState extends State<GenderStep> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: _selectedGender == 'Others'
-                        ? ColorsPalette.primaryColor
+                        ? ColorsPalette.beigeAged
                         : Colors.transparent,
                   ),
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
+                  color: ColorsPalette.white,
                 ),
                 child: Center(
                   child: widget.texts.normalText(
                       text: 'Prefiero no contestar',
                       color: _selectedGender == 'Others'
-                          ? ColorsPalette.primaryColor
-                          : Colors.black,
+                          ? ColorsPalette.beigeAged
+                          : ColorsPalette.black,
                       fontWeight: FontWeight.w400),
                 ),
               ),

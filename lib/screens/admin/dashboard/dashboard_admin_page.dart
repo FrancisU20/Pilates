@@ -147,7 +147,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
       for (AllClientsPlansResponse clientPlan in allClientsPlansResponse) {
         totalProfits += double.parse(clientPlan.planPrice);
         totalClients += 1;
-        if (clientPlan.status.contains('inactive')) {
+        if (clientPlan.statusPlan.contains('inactive')) {
           totalInactivePlans += 1;
         } else {
           totalActivePlans += 1;
@@ -188,11 +188,11 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context);
     return Scaffold(
-      backgroundColor: ColorsPalette.backgroundColor,
+      backgroundColor: ColorsPalette.white,
       appBar: const DashboardAppBar(),
       body: SingleChildScrollView(
         child: Container(
-          color: ColorsPalette.backgroundColor,
+          color: ColorsPalette.white,
           padding: EdgeInsets.symmetric(
               horizontal: 5 * SizeConfig.widthMultiplier,
               vertical: 2 * SizeConfig.heightMultiplier),
@@ -204,7 +204,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                 children: [
                   texts.normalText(
                       text: 'Hola,',
-                      color: Colors.grey,
+                      color: ColorsPalette.greyAged,
                       fontSize: 4 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400),
                   SizedBox(
@@ -213,7 +213,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                   texts.normalText(
                       text:
                           '${clientClassProvider.loginResponse!.client.name}!',
-                      color: Colors.black,
+                      color: ColorsPalette.black,
                       fontSize: 4 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400),
                 ],
@@ -228,7 +228,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                     child: texts.normalText(
                         text:
                             'Estas son las métricas de Curve del mes de $currentMonth',
-                        color: Colors.grey,
+                        color: ColorsPalette.greyAged,
                         fontSize: 2.5 * SizeConfig.heightMultiplier,
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.justify),
@@ -250,7 +250,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                       },
                       child: Icon(
                         FontAwesomeIcons.arrowRotateLeft,
-                        color: ColorsPalette.primaryColor,
+                        color: ColorsPalette.beigeAged,
                         size: 2 * SizeConfig.heightMultiplier,
                       ),
                     ),
@@ -262,7 +262,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
               ),
               Card(
                 borderOnForeground: true,
-                color: Colors.white,
+                color: ColorsPalette.white,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -277,7 +277,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                         width: 90 * SizeConfig.widthMultiplier,
                         child: texts.normalText(
                             text: 'Información de contratos ',
-                            color: Colors.grey,
+                            color: ColorsPalette.greyAged,
                             fontSize: 2.5 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500),
                       ),
@@ -295,7 +295,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                   height: 3 * SizeConfig.heightMultiplier,
                                   decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: ColorsPalette.primaryColor,
+                                    color: ColorsPalette.beigeAged,
                                   ),
                                 ),
                                 const SizedBox(
@@ -303,8 +303,8 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                 ),
                                 texts.normalText(
                                     text: 'Activos',
-                                    color: ColorsPalette.primaryColor,
-                                    fontSize: 16,
+                                    color: ColorsPalette.beigeAged,
+                                    fontSize: 2.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w500),
                               ],
                             ),
@@ -317,7 +317,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                   height: 3 * SizeConfig.heightMultiplier,
                                   decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Color.fromARGB(255, 84, 80, 80),
+                                    color: ColorsPalette.greyAged,
                                   ),
                                 ),
                                 const SizedBox(
@@ -326,8 +326,8 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                 texts.normalText(
                                     text: 'Inactivos',
                                     color:
-                                        const Color.fromARGB(255, 84, 80, 80),
-                                    fontSize: 16,
+                                        ColorsPalette.greyAged,
+                                    fontSize: 2.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w500),
                               ],
                             ),
@@ -357,7 +357,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                 children: [
                   Card(
                     borderOnForeground: true,
-                    color: Colors.white,
+                    color: ColorsPalette.white,
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
@@ -372,7 +372,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                             width: 35 * SizeConfig.widthMultiplier,
                             child: texts.normalText(
                                 text: 'Ganancias totales',
-                                color: Colors.grey,
+                                color: ColorsPalette.greyAged,
                                 fontSize: 2.5 * SizeConfig.heightMultiplier,
                                 fontWeight: FontWeight.w500),
                           ),
@@ -388,7 +388,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                   texts.normalText(
                                       text:
                                           '\$ ${totalProfits.toStringAsFixed(2)}',
-                                      color: ColorsPalette.successColor,
+                                      color: ColorsPalette.greenAged,
                                       fontSize:
                                           2.8 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w500,
@@ -401,7 +401,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                   ),
                   Card(
                     borderOnForeground: true,
-                    color: Colors.white,
+                    color: ColorsPalette.white,
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
@@ -416,7 +416,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                             width: 30 * SizeConfig.widthMultiplier,
                             child: texts.normalText(
                                 text: 'Total de clientes',
-                                color: Colors.grey,
+                                color: ColorsPalette.greyAged,
                                 fontSize: 2.5 * SizeConfig.heightMultiplier,
                                 fontWeight: FontWeight.w500),
                           ),
@@ -431,7 +431,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                 children: [
                                   texts.normalText(
                                       text: totalClients.toString(),
-                                      color: ColorsPalette.primaryColor,
+                                      color: ColorsPalette.beigeAged,
                                       fontSize: 8 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.center),
@@ -449,7 +449,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
               // Crea una tarjeta con la información del plan más popular
               Card(
                 borderOnForeground: true,
-                color: Colors.white,
+                color: ColorsPalette.white,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -464,7 +464,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                         width: 90 * SizeConfig.widthMultiplier,
                         child: texts.normalText(
                             text: 'Plan más popular',
-                            color: Colors.grey,
+                            color: ColorsPalette.greyAged,
                             fontSize: 2.5 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500),
                       ),
@@ -476,8 +476,8 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
                             colors: [
-                              Color(0xFFDDD7C9),
-                              Color(0xFFEEEEEE),
+                              ColorsPalette.beige,
+                              ColorsPalette.whiteAlternative,
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
@@ -504,7 +504,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                           ? mostPopularPlan!.numberOfClasses
                                               .toString()
                                           : '',
-                                      color: Colors.black,
+                                      color: ColorsPalette.black,
                                       fontSize: 5 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -512,7 +512,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                   Center(
                                     child: texts.normalText(
                                       text: 'clases',
-                                      color: Colors.black,
+                                      color: ColorsPalette.black,
                                       fontSize: 2 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -531,7 +531,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                     text: mostPopularPlan != null
                                         ? mostPopularPlan!.name
                                         : '',
-                                    color: Colors.black,
+                                    color: ColorsPalette.black,
                                     fontSize: 1.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -539,7 +539,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                     text: mostPopularPlan != null
                                         ? '\$ ${mostPopularPlan?.price.toStringAsFixed(2)}/mes'
                                         : '',
-                                    color: Colors.black,
+                                    color: ColorsPalette.black,
                                     fontSize: 2.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -547,7 +547,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                     text: mostPopularPlan != null
                                         ? '\$ ${mostPopularPlan?.classPrice.toStringAsFixed(2)}/mes'
                                         : '',
-                                    color: Colors.black,
+                                    color: ColorsPalette.black,
                                     fontSize: 1.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w400,
                                   ),

@@ -137,11 +137,11 @@ class DashboardPageState extends State<DashboardPage> {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context);
     return Scaffold(
-      backgroundColor: ColorsPalette.backgroundColor,
+      backgroundColor: ColorsPalette.white,
       appBar: const DashboardAppBar(),
       body: SingleChildScrollView(
         child: Container(
-          color: ColorsPalette.backgroundColor,
+          color: ColorsPalette.white,
           padding: EdgeInsets.symmetric(
               horizontal: 5 * SizeConfig.widthMultiplier,
               vertical: 2 * SizeConfig.heightMultiplier),
@@ -153,7 +153,7 @@ class DashboardPageState extends State<DashboardPage> {
                 children: [
                   texts.normalText(
                       text: 'Hola,',
-                      color: Colors.grey,
+                      color: ColorsPalette.greyAged,
                       fontSize: 4 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400),
                   SizedBox(
@@ -162,7 +162,7 @@ class DashboardPageState extends State<DashboardPage> {
                   texts.normalText(
                       text:
                           '${clientClassProvider.loginResponse!.client.name}!',
-                      color: Colors.black,
+                      color: ColorsPalette.black,
                       fontSize: 4 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400),
                 ],
@@ -174,7 +174,7 @@ class DashboardPageState extends State<DashboardPage> {
                 children: [
                   texts.normalText(
                       text: '¿Qué te gustaría hacer hoy?',
-                      color: Colors.grey,
+                      color: ColorsPalette.greyAged,
                       fontSize: 2.5 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w500),
                 ],
@@ -185,7 +185,7 @@ class DashboardPageState extends State<DashboardPage> {
                 children: [
                   /* texts.normalText(
                       text: 'Mis Actividades',
-                      color: const Color.fromARGB(255, 158, 148, 135),
+                      color: ColorsPalette.black,
                       fontSize: 2.5 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start), */
@@ -223,14 +223,14 @@ class DashboardPageState extends State<DashboardPage> {
                                   image: AssetImage(activitie['image']!),
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(0.2),
+                                      ColorsPalette.black.withOpacity(0.2),
                                       BlendMode.darken),
                                 ),
                               ),
                               child: Center(
                                 child: texts.normalText(
                                     text: activitie['description']!,
-                                    color: Colors.white,
+                                    color: ColorsPalette.white,
                                     fontSize: 2.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w500,
                                     textAlign: TextAlign.center),
@@ -258,8 +258,7 @@ class DashboardPageState extends State<DashboardPage> {
                                   children: [
                                     texts.normalText(
                                         text: 'Adquiere un plan',
-                                        color: const Color.fromARGB(
-                                            255, 207, 117, 117),
+                                        color: ColorsPalette.redAged,
                                         fontSize:
                                             3 * SizeConfig.heightMultiplier,
                                         fontWeight: FontWeight.w500,
@@ -269,8 +268,7 @@ class DashboardPageState extends State<DashboardPage> {
                                     ),
                                     Icon(
                                       FontAwesomeIcons.cartShopping,
-                                      color: const Color.fromARGB(
-                                          255, 207, 117, 117),
+                                      color: ColorsPalette.redAged,
                                       size: 3 * SizeConfig.heightMultiplier,
                                     )
                                   ],
@@ -290,7 +288,7 @@ class DashboardPageState extends State<DashboardPage> {
                               texts.normalText(
                                   text:
                                       '${currentClientPlan!.numberOfClasses - currentClientPlan!.attendedClasses} de ${currentClientPlan!.numberOfClasses}',
-                                  color: Colors.grey,
+                                  color: ColorsPalette.greyAged,
                                   fontSize: 2 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w500),
                               SizedBox(
@@ -300,10 +298,10 @@ class DashboardPageState extends State<DashboardPage> {
                                 width: 70 * SizeConfig.widthMultiplier,
                                 child: LinearProgressIndicator(
                                   value: calculateProgressClass(),
-                                  backgroundColor: Colors.black26,
+                                  backgroundColor: ColorsPalette.black,
                                   valueColor:
                                       const AlwaysStoppedAnimation<Color>(
-                                          Color.fromARGB(255, 192, 161, 116)),
+                                          ColorsPalette.beigeAged,),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(15)),
                                   minHeight: 1 * SizeConfig.heightMultiplier,
@@ -315,7 +313,7 @@ class DashboardPageState extends State<DashboardPage> {
                               texts.normalText(
                                   text: 'Clases Disponibles',
                                   color:
-                                      const Color.fromARGB(255, 158, 148, 135),
+                                      ColorsPalette.greyAged,
                                   fontSize: 2 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.start),

@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppBar({
     super.key,
-    this.backgroundColor = ColorsPalette.backgroundColor, // Valor por defecto
+    this.backgroundColor = ColorsPalette.white, // Valor por defecto
   });
 
   @override
@@ -16,13 +16,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: backgroundColor, // Utiliza el color proporcionado
+      backgroundColor: backgroundColor,
       leading: Builder(
         builder: (context) => IconButton(
           icon: Icon(FontAwesomeIcons.chevronLeft,
-              color: backgroundColor == ColorsPalette.backgroundColor
-                  ? Colors.black
-                  : Colors.white),
+              color: backgroundColor == ColorsPalette.white
+                  ? ColorsPalette.black
+                  : ColorsPalette.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),

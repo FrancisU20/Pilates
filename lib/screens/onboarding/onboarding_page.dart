@@ -59,7 +59,7 @@ class OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorsPalette.backgroundColor,
+        backgroundColor: ColorsPalette.white,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -67,7 +67,7 @@ class OnboardingPageState extends State<OnboardingPage> {
             padding: EdgeInsets.symmetric(
               horizontal: 8 * SizeConfig.widthMultiplier,
             ),
-            color: ColorsPalette.backgroundColor,
+            color: ColorsPalette.white,
             height: 100 * SizeConfig.heightMultiplier,
             width: 100 * SizeConfig.widthMultiplier,
             child: Column(
@@ -93,13 +93,13 @@ class OnboardingPageState extends State<OnboardingPage> {
                 buttons.standart(
                   text: 'Siguiente',
                   onPressed: _incrementCounter,
-                  color: ColorsPalette.primaryColor,
+                  color: ColorsPalette.beigeAged,
                 ),
                 currentStep != 0
                     ? buttons.undelineText(
                         text: 'Regresar',
                         onPressed: _decrementCounter,
-                        color: ColorsPalette.secondaryColor,
+                        color: ColorsPalette.chocolate,
                       )
                     : buttons.undelineText(
                         text: 'Ya dispones de una cuenta, Inicia Sesión',
@@ -107,7 +107,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                               Navigator.pushNamedAndRemoveUntil(
                                   context, '/login', (route) => false)
                             },
-                        color: ColorsPalette.secondaryColor)
+                        color: ColorsPalette.chocolate)
               ],
             ),
           ),

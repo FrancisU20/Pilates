@@ -32,8 +32,8 @@ class StepperWidget extends StatelessWidget {
             height: 4,
             decoration: BoxDecoration(
               color: stepIndex == currentStep
-                  ? ColorsPalette.secondaryColor
-                  : Colors.grey,
+                  ? ColorsPalette.chocolate
+                  : ColorsPalette.greyAged,
               borderRadius: BorderRadius.circular(2),
             ),
           );

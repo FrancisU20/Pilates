@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/models/response/pilates_classes_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
+import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
 import 'package:provider/provider.dart';
@@ -148,47 +149,47 @@ class DatePickerState extends State<DatePicker> {
                 },
                 calendarStyle: CalendarStyle(
                   todayDecoration: const BoxDecoration(
-                    color: Colors.indigo,
+                    color: ColorsPalette.beigeAged,
                     shape: BoxShape.circle,
                   ),
                   selectedDecoration: const BoxDecoration(
-                    color: Colors.black, // Cambia el color según prefieras
+                    color: ColorsPalette.black, // Cambia el color según prefieras
                     shape: BoxShape.circle,
                   ),
                   defaultDecoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   selectedTextStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+                    textStyle:  TextStyle(
+                      color: ColorsPalette.white,
+                      fontSize: 3 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
                     ),
                   ),
                   defaultTextStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
+                    textStyle:  TextStyle(
+                      color: ColorsPalette.black,
+                      fontSize: 3 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
                     ),
                   ),
                   disabledTextStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20,
+                    textStyle:  TextStyle(
+                      color: ColorsPalette.greyAged,
+                      fontSize: 3 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
                     ),
                   ),
                   weekendTextStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
+                    textStyle:  TextStyle(
+                      color: ColorsPalette.black,
+                      fontSize: 3 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
@@ -200,9 +201,9 @@ class DatePickerState extends State<DatePicker> {
                   titleCentered: true,
                   formatButtonVisible: false,
                   titleTextStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
+                    textStyle:  TextStyle(
+                      color: ColorsPalette.black,
+                      fontSize: 3.2 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
@@ -211,18 +212,18 @@ class DatePickerState extends State<DatePicker> {
                 ),
                 daysOfWeekStyle: DaysOfWeekStyle(
                   weekdayStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
+                    textStyle:  TextStyle(
+                      color: ColorsPalette.black,
+                      fontSize: 3 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
                     ),
                   ),
                   weekendStyle: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
+                    textStyle:  TextStyle(
+                      color: ColorsPalette.black,
+                      fontSize: 3 * SizeConfig.widthMultiplier,
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
@@ -249,15 +250,15 @@ class DatePickerState extends State<DatePicker> {
                           height: 35,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.green),
+                            border: Border.all(color: ColorsPalette.greenAged),
                           ),
                           child: Center(
                             child: Text(
                               '${day.day}',
                               style: GoogleFonts.montserrat(
-                                textStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
+                                textStyle:  TextStyle(
+                                  color: ColorsPalette.black,
+                                  fontSize: 3 * SizeConfig.widthMultiplier,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: -0.5,
                                   height: 0.9,
@@ -280,15 +281,15 @@ class DatePickerState extends State<DatePicker> {
                         height: 35,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.black,
+                          color: ColorsPalette.black,
                         ),
                         child: Center(
                           child: Text(
                             '${day.day}',
                             style: GoogleFonts.montserrat(
-                              textStyle: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
+                              textStyle:  TextStyle(
+                                color: ColorsPalette.white,
+                                fontSize: 3 * SizeConfig.widthMultiplier,
                                 fontWeight: FontWeight.w500,
                                 letterSpacing: -0.5,
                                 height: 0.9,

@@ -91,9 +91,9 @@ class PlanPageState extends State<PlanPage> {
                           'Aún tienes un plan activo, no puedes renovar hasta que este finalice',
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
-                      fontSize: 16,
-                      color: Colors.white),
-                  backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                      fontSize: 2.5 * SizeConfig.heightMultiplier,
+                      color: ColorsPalette.white),
+                  backgroundColor: ColorsPalette.redAged,
                 ),
               )
             });
@@ -143,9 +143,9 @@ class PlanPageState extends State<PlanPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white),
-                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    color: ColorsPalette.white),
+                backgroundColor: ColorsPalette.redAged,
               ),
             ),
           });
@@ -161,10 +161,10 @@ class PlanPageState extends State<PlanPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: ColorsPalette.white,
             title: texts.normalText(
               text: 'Seleccione un método de pago',
-              color: Colors.black,
+              color: ColorsPalette.black,
               fontSize: 2.5 * SizeConfig.heightMultiplier,
               fontWeight: FontWeight.w500,
             ),
@@ -196,7 +196,7 @@ class PlanPageState extends State<PlanPage> {
                         texts.normalText(
                           text:
                               'Usted ha seleccionado el plan ${selectedPlan.name}',
-                          color: Colors.black,
+                          color: ColorsPalette.black,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400,
                         ),
@@ -206,7 +206,7 @@ class PlanPageState extends State<PlanPage> {
                         texts.normalText(
                           text:
                               'Nota: Una vez realizado el pago, no se aceptan devoluciones.',
-                          color: Colors.black,
+                          color: ColorsPalette.black,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w500,
                           textAlign: TextAlign.start,
@@ -225,7 +225,7 @@ class PlanPageState extends State<PlanPage> {
                   children: [
                     buttons.standart(
                       text: 'Transferencia',
-                      color: ColorsPalette.primaryColor,
+                      color: ColorsPalette.beigeAged,
                       width: 15 * SizeConfig.widthMultiplier,
                       onPressed: () {
                         registerProvider.clearTransferImageFile();
@@ -237,7 +237,7 @@ class PlanPageState extends State<PlanPage> {
                     ),
                     buttons.standart(
                       text: 'Tarjeta de Crédito',
-                      color: ColorsPalette.primaryColor,
+                      color: ColorsPalette.beigeAged,
                       width: 15 * SizeConfig.widthMultiplier,
                       onPressed: () {
                         showCommingSoonDialog();
@@ -256,10 +256,10 @@ class PlanPageState extends State<PlanPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: ColorsPalette.white,
             title: texts.normalText(
               text: 'Próximamente ...',
-              color: Colors.black,
+              color: ColorsPalette.black,
               fontSize: 2.5 * SizeConfig.heightMultiplier,
               fontWeight: FontWeight.w500,
             ),
@@ -291,7 +291,7 @@ class PlanPageState extends State<PlanPage> {
                         texts.normalText(
                           text:
                               'El módulo estará disponible en la próxima actualización',
-                          color: Colors.black,
+                          color: ColorsPalette.black,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400,
                         ),
@@ -301,7 +301,7 @@ class PlanPageState extends State<PlanPage> {
                         Center(
                           child: buttons.standart(
                             text: 'Aceptar',
-                            color: ColorsPalette.primaryColor,
+                            color: ColorsPalette.beigeAged,
                             width: 8 * SizeConfig.widthMultiplier,
                             onPressed: () {
                               Navigator.pop(context);
@@ -321,10 +321,10 @@ class PlanPageState extends State<PlanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.primaryColor),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
       body: Stack(children: [
         Container(
-          color: ColorsPalette.primaryColor,
+          color: ColorsPalette.beigeAged,
           child: Column(
             children: [
               Container(
@@ -335,11 +335,11 @@ class PlanPageState extends State<PlanPage> {
                   children: [
                     CircleAvatar(
                       radius: 8 * SizeConfig.imageSizeMultiplier,
-                      backgroundColor: Colors.white,
+                      backgroundColor: ColorsPalette.white,
                       child: Icon(
                         FontAwesomeIcons.boxesStacked,
                         size: 8 * SizeConfig.imageSizeMultiplier,
-                        color: Colors.black,
+                        color: ColorsPalette.black,
                       ),
                     ),
                     SizedBox(
@@ -350,12 +350,12 @@ class PlanPageState extends State<PlanPage> {
                       children: [
                         texts.normalText(
                             text: 'Planes',
-                            color: Colors.white,
+                            color: ColorsPalette.white,
                             fontSize: 4 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400),
                         texts.normalText(
                             text: 'Conoce nuestros planes',
-                            color: Colors.white,
+                            color: ColorsPalette.white,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
                             textAlign: TextAlign.left),
@@ -375,11 +375,11 @@ class PlanPageState extends State<PlanPage> {
                         horizontal: 5 * SizeConfig.widthMultiplier,
                         vertical: 2 * SizeConfig.heightMultiplier),
                     decoration: const BoxDecoration(
-                        color: Colors.white,
+                        color: ColorsPalette.white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(25),
                             topRight: Radius.circular(
-                                25))), //Color.fromARGB(255, 87, 136, 120)
+                                25))), 
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -390,7 +390,7 @@ class PlanPageState extends State<PlanPage> {
                           Center(
                             child: texts.normalText(
                                 text: 'Hola 👋, selecciona un plan:',
-                                color: Colors.black,
+                                color: ColorsPalette.black,
                                 fontSize: 2.5 * SizeConfig.heightMultiplier,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -417,8 +417,8 @@ class PlanPageState extends State<PlanPage> {
                                   decoration: BoxDecoration(
                                     gradient: const LinearGradient(
                                       colors: [
-                                        Color(0xFFDDD7C9),
-                                        Color(0xFFEEEEEE),
+                                        ColorsPalette.beige,
+                                          ColorsPalette.whiteAlternative,
                                       ],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -440,7 +440,7 @@ class PlanPageState extends State<PlanPage> {
                                           text: listPlans[index]
                                               .numberOfClasses
                                               .toString(),
-                                          color: Colors.black,
+                                          color: ColorsPalette.black,
                                           fontSize:
                                               5 * SizeConfig.heightMultiplier,
                                           fontWeight: FontWeight.w500,
@@ -449,20 +449,20 @@ class PlanPageState extends State<PlanPage> {
                                       Center(
                                         child: texts.normalText(
                                           text: 'clases',
-                                          color: Colors.black,
+                                          color: ColorsPalette.black,
                                           fontSize:
                                               2 * SizeConfig.heightMultiplier,
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 2 * SizeConfig.heightMultiplier,
+                                        height: 4 * SizeConfig.heightMultiplier,
                                       ),
                                       Column(
                                         children: [
                                           texts.normalText(
                                             text: listPlans[index].name,
-                                            color: Colors.black,
+                                            color: ColorsPalette.black,
                                             fontSize: 1.5 *
                                                 SizeConfig.heightMultiplier,
                                             fontWeight: FontWeight.w400,
@@ -470,7 +470,7 @@ class PlanPageState extends State<PlanPage> {
                                           texts.normalText(
                                             text:
                                                 '\$ ${listPlans[index].price.toStringAsFixed(2)}/mes',
-                                            color: Colors.black,
+                                            color: ColorsPalette.black,
                                             fontSize: 2.5 *
                                                 SizeConfig.heightMultiplier,
                                             fontWeight: FontWeight.w600,
@@ -478,7 +478,7 @@ class PlanPageState extends State<PlanPage> {
                                           texts.normalText(
                                             text:
                                                 '\$ ${listPlans[index].classPrice.toStringAsFixed(2)}/por clase',
-                                            color: Colors.black,
+                                            color: ColorsPalette.black,
                                             fontSize: 1.5 *
                                                 SizeConfig.heightMultiplier,
                                             fontWeight: FontWeight.w400,

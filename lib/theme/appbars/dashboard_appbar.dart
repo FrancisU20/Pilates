@@ -14,7 +14,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorsPalette.backgroundColor,
+      backgroundColor: ColorsPalette.white,
       leading: Builder(
         builder: (context) => IconButton(
           icon: SvgPicture.asset(

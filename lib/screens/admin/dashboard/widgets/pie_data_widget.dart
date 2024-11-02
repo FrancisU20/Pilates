@@ -47,25 +47,25 @@ class PieDataWidgetState extends State<PieDataWidget> {
           centerSpaceRadius: 0,
           sections: [
             PieChartSectionData(
-              color: ColorsPalette.primaryColor,
+              color: ColorsPalette.beigeAged,
               value: widget.totalActivePlans.toDouble(),
               title: widget.totalActivePlans.toString(),
               radius: 50,
-              titleStyle: const TextStyle(
-                fontSize: 16,
+              titleStyle:  TextStyle(
+                fontSize: 2.5 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold,
-                color: Color(0xffffffff),
+                color: ColorsPalette.white,
               ),
             ),
             PieChartSectionData(
-              color: const Color.fromARGB(255, 84, 80, 80),
+              color: ColorsPalette.greyAged,
               value: widget.totalInactivePlans.toDouble(),
               title: widget.totalInactivePlans.toString(),
               radius: 50,
-              titleStyle: const TextStyle(
-                fontSize: 16,
+              titleStyle:  TextStyle(
+                fontSize: 2.5 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold,
-                color: Color(0xffffffff),
+                color: ColorsPalette.white,
               ),
             ),
           ],

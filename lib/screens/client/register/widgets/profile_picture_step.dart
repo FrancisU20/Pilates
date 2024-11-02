@@ -27,7 +27,7 @@ class ProfilePictureStep extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25 * SizeConfig.imageSizeMultiplier,
-            backgroundColor: Colors.grey,
+            backgroundColor: ColorsPalette.greyAged,
             child: imageFile != null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(100),
@@ -41,13 +41,13 @@ class ProfilePictureStep extends StatelessWidget {
                 : Icon(
                     FontAwesomeIcons.cameraRetro,
                     size: 10 * SizeConfig.heightMultiplier,
-                    color: Colors.white,
+                    color: ColorsPalette.white,
                   ),
           ),
           buttons.undelineText(
             text: 'Subir una foto',
             onPressed: onShowPicker,
-            color: ColorsPalette.primaryColor,
+            color: ColorsPalette.beigeAged,
           ),
         ],
       ),

@@ -35,7 +35,7 @@ class ImagesContainers {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: [
-                        ColorsPalette.backgroundColor.withOpacity(1),
+                        ColorsPalette.white.withOpacity(1),
                         Colors.transparent,
                       ],
                       stops: const [0.5, 1],

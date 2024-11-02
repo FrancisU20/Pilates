@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/texts.dart';
+import 'package:pilates/utils/size_config.dart';
 
 class ErrorSnackBar {
   final Texts texts = Texts();
@@ -11,10 +13,10 @@ class ErrorSnackBar {
           text: message.replaceAll('Exception: ', ''),
           fontWeight: FontWeight.w500,
           textAlign: TextAlign.start,
-          fontSize: 16,
-          color: Colors.white,
+          fontSize: 2.5 * SizeConfig.heightMultiplier,
+          color: ColorsPalette.white,
         ),
-        backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+        backgroundColor: ColorsPalette.redAged,
       ),
     );
   }

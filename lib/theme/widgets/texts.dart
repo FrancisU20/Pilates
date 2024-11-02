@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/theme/colors_palette.dart';
+import 'package:pilates/utils/size_config.dart';
 
 class Texts {
   Widget buttonText(String text) {
     return Text(
       text,
       style: GoogleFonts.montserrat(
-        textStyle: const TextStyle(
-          color: ColorsPalette.textButtonColor,
-          fontSize: 16,
+        textStyle:  TextStyle(
+          color: ColorsPalette.white,
+          fontSize: 2.5 * SizeConfig.heightMultiplier,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -29,7 +30,7 @@ class Texts {
         style: GoogleFonts.montserrat(
           textStyle: TextStyle(
             color: color,
-            fontSize: 12,
+            fontSize: 1.6 * SizeConfig.heightMultiplier,
             fontWeight: FontWeight.w600,
             decorationColor: color,
           ),
@@ -40,7 +41,7 @@ class Texts {
 
   Widget titleText(
       {required String text,
-      Color color = ColorsPalette.textColor,
+      Color color = ColorsPalette.black,
       double fontSize = 24,
       TextAlign textAlign = TextAlign.center,
       FontWeight fontWeight = FontWeight.bold}) {
@@ -59,24 +60,24 @@ class Texts {
   }
 
   Widget normalText(
-      {required String text,
-      Color color = ColorsPalette.textColor,
-      double fontSize = 16,
-      TextAlign textAlign = TextAlign.center,
-      FontWeight fontWeight = FontWeight.bold}) {
-    return Text(
-      text,
-      style: GoogleFonts.montserrat(
-        textStyle: TextStyle(
-          color: color,
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-        ),
+    {required String text,
+    Color color = ColorsPalette.black,
+    double? fontSize,
+    TextAlign textAlign = TextAlign.center,
+    FontWeight fontWeight = FontWeight.bold}) {
+  return Text(
+    text,
+    style: GoogleFonts.montserrat(
+      textStyle: TextStyle(
+        color: color,
+        fontSize: fontSize ?? 2 * SizeConfig.heightMultiplier, 
+        fontWeight: fontWeight,
       ),
-      textAlign: textAlign,
-      softWrap: true, // Permite que el texto se ajuste a la siguiente línea
-      overflow:
-          TextOverflow.visible, // Asegura que el texto no se corte abruptamente
-    );
-  }
+    ),
+    textAlign: textAlign,
+    softWrap: true,
+    overflow: TextOverflow.visible,
+  );
+}
+
 }

@@ -112,10 +112,10 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                         'No tienes clases disponibles para agendar. Por favor adquiere un plan de pilates.',
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white,
+                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    color: ColorsPalette.white,
                   ),
-                  backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                  backgroundColor: ColorsPalette.redAged,
                 ),
               )
             });
@@ -148,10 +148,10 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                   text: e.toString().replaceAll('Exception: ', ''),
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: 16,
-                  color: Colors.white,
+                  fontSize: 2.5 * SizeConfig.heightMultiplier,
+                  color: ColorsPalette.white,
                 ),
-                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                backgroundColor: ColorsPalette.redAged,
               ),
             )
           });
@@ -209,9 +209,9 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                         'Por favor selecciona una fecha y hora antes de continuar',
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white),
-                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    color: ColorsPalette.white),
+                backgroundColor: ColorsPalette.redAged,
               ),
             ),
           });
@@ -244,10 +244,10 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: ColorsPalette.white,
             title: texts.normalText(
               text: 'Confirmar cita',
-              color: Colors.black,
+              color: ColorsPalette.black,
               fontSize: 2.5 * SizeConfig.heightMultiplier,
               fontWeight: FontWeight.w500,
             ),
@@ -275,7 +275,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                         children: [
                           texts.normalText(
                             text: 'Nombre:',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500,
                           ),
@@ -284,7 +284,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           ),
                           texts.normalText(
                             text: 'Apellido:',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500,
                           ),
@@ -293,7 +293,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           ),
                           texts.normalText(
                             text: 'Fecha:',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500,
                           ),
@@ -302,7 +302,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           ),
                           texts.normalText(
                             text: 'Hora de inicio:',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500,
                           ),
@@ -311,7 +311,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           ),
                           texts.normalText(
                             text: 'Hora de fin:',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500,
                           ),
@@ -320,7 +320,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           ),
                           texts.normalText(
                             text: 'Duración:',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w500,
                           ),
@@ -336,7 +336,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           texts.normalText(
                             text:
                                 clientClassProvider.loginResponse!.client.name,
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
                           ),
@@ -346,7 +346,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           texts.normalText(
                             text: clientClassProvider
                                 .loginResponse!.client.lastname,
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
                           ),
@@ -356,7 +356,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           texts.normalText(
                             text:
                                 '${clientClassProvider.selectedDate!.day}/${clientClassProvider.selectedDate!.month}/${clientClassProvider.selectedDate!.year}',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
                           ),
@@ -365,7 +365,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           ),
                           texts.normalText(
                             text: '$startHour:00 hrs',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
                           ),
@@ -374,7 +374,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           ),
                           texts.normalText(
                             text: '$endHour:00 hrs',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
                           ),
@@ -383,7 +383,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                           ),
                           texts.normalText(
                             text: '50 min',
-                            color: Colors.black,
+                            color: ColorsPalette.black,
                             fontSize: 2 * SizeConfig.heightMultiplier,
                             fontWeight: FontWeight.w400,
                           ),
@@ -401,14 +401,14 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                 },
                 child: texts.normalText(
                   text: 'Cancelar',
-                  color: ColorsPalette.primaryColor,
+                  color: ColorsPalette.beigeAged,
                   fontSize: 2 * SizeConfig.heightMultiplier,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               buttons.standart(
                 text: 'Confirmar',
-                color: ColorsPalette.primaryColor,
+                color: ColorsPalette.beigeAged,
                 width: 10 * SizeConfig.widthMultiplier,
                 onPressed: () {
                   log('Confirmando cita ...');
@@ -453,9 +453,9 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                       text: 'Cita agendada correctamente',
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
-                      fontSize: 16,
-                      color: Colors.white),
-                  backgroundColor: ColorsPalette.successColor,
+                      fontSize: 2.5 * SizeConfig.heightMultiplier,
+                      color: ColorsPalette.white),
+                  backgroundColor: ColorsPalette.greenAged,
                 ),
               ),
             });
@@ -471,9 +471,9 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 16,
-                    color: Colors.white),
-                backgroundColor: const Color.fromARGB(255, 207, 117, 117),
+                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    color: ColorsPalette.white),
+                backgroundColor: ColorsPalette.redAged,
               ),
             ),
           });
@@ -485,9 +485,9 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context);
     return Scaffold(
-      appBar: const CustomAppBar(backgroundColor: ColorsPalette.primaryColor),
+      appBar: const CustomAppBar(backgroundColor: ColorsPalette.chocolate),
       body: Container(
-        color: ColorsPalette.primaryColor,
+        color: ColorsPalette.chocolate,
         child: Column(
           children: [
             Container(
@@ -498,11 +498,11 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                 children: [
                   CircleAvatar(
                     radius: 8 * SizeConfig.imageSizeMultiplier,
-                    backgroundColor: Colors.white,
+                    backgroundColor: ColorsPalette.white,
                     child: Icon(
                       FontAwesomeIcons.calendar,
                       size: 8 * SizeConfig.imageSizeMultiplier,
-                      color: Colors.black,
+                      color: ColorsPalette.black,
                     ),
                   ),
                   SizedBox(
@@ -513,12 +513,12 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                     children: [
                       texts.normalText(
                           text: 'Agendar Cita',
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                           fontSize: 4 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400),
                       texts.normalText(
                           text: 'Selecciona la fecha y hora',
-                          color: Colors.white,
+                          color: ColorsPalette.white,
                           fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.w400),
                     ],
@@ -537,11 +537,11 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                     horizontal: 5 * SizeConfig.widthMultiplier,
                     vertical: 2 * SizeConfig.heightMultiplier),
                 decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: ColorsPalette.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(
-                            50))), //Color.fromARGB(255, 87, 136, 120)
+                            50))), 
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -571,7 +571,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                     _calendarFormat == CalendarFormat.week
                                         ? FontAwesomeIcons.toggleOff
                                         : FontAwesomeIcons.toggleOn,
-                                    color: Colors.black,
+                                    color: ColorsPalette.black,
                                   ),
                                 ],
                               ),
@@ -597,7 +597,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                       width: 20 * SizeConfig.widthMultiplier,
                                       child: LoadingAnimationWidget
                                           .staggeredDotsWave(
-                                              color: Colors.black,
+                                              color: ColorsPalette.black,
                                               size: 10 *
                                                   SizeConfig.heightMultiplier),
                                     ),
@@ -609,7 +609,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                       child: texts.normalText(
                                           text:
                                               'Es probable que no haya horarios disponibles. Por favor intenta más tarde.',
-                                          color: Colors.black,
+                                          color: ColorsPalette.black,
                                           fontSize:
                                               2 * SizeConfig.heightMultiplier,
                                           fontWeight: FontWeight.w500),
@@ -637,7 +637,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                   ),
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                      color: ColorsPalette.primaryColor,
+                                      color: ColorsPalette.beigeAged,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -657,8 +657,8 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                   bottom: BorderSide(
                                                     color: isSelected
                                                         ? ColorsPalette
-                                                            .secondaryColor
-                                                        : Colors.grey,
+                                                            .chocolate
+                                                        : ColorsPalette.greyAged,
                                                     width: isSelected ? 2 : 1,
                                                   ),
                                                 ),
@@ -679,8 +679,8 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                     .substring(0, 5),
                                                 color: isSelected
                                                     ? ColorsPalette
-                                                        .secondaryColor
-                                                    : Colors.grey,
+                                                        .chocolate
+                                                    : ColorsPalette.greyAged,
                                               ),
                                             ),
                                           ),
@@ -759,7 +759,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                           .heightMultiplier,
                                                   decoration:
                                                       const BoxDecoration(
-                                                    color: Colors.white,
+                                                    color: ColorsPalette.white,
                                                     borderRadius:
                                                         BorderRadius.only(
                                                       topLeft:
@@ -777,7 +777,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                           text: activitiesData[
                                                                   index]
                                                               ['description']!,
-                                                          color: Colors.black,
+                                                          color: ColorsPalette.black,
                                                           fontSize: 1.9 *
                                                               SizeConfig
                                                                   .heightMultiplier,
@@ -805,7 +805,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                                         .moon
                                                                     : FontAwesomeIcons
                                                                         .sun,
-                                                            color: Colors.grey,
+                                                            color: ColorsPalette.greyAged,
                                                             size: 2 *
                                                                 SizeConfig
                                                                     .heightMultiplier,
@@ -818,7 +818,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                                                           texts.normalText(
                                                             text:
                                                                 'Actividad ${index + 1}',
-                                                            color: Colors.grey,
+                                                            color: ColorsPalette.greyAged,
                                                             fontSize: 1.6 *
                                                                 SizeConfig
                                                                     .heightMultiplier,
@@ -849,7 +849,7 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                             ),
                             buttons.standart(
                               text: 'Continuar',
-                              color: ColorsPalette.primaryColor,
+                              color: ColorsPalette.beigeAged,
                               onPressed: () {
                                 searchScheduleId();
                               },

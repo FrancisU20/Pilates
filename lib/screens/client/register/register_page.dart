@@ -224,10 +224,10 @@ class RegisterPageState extends State<RegisterPage> {
       create: (_) => RegisterProvider(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: ColorsPalette.backgroundColor,
+          backgroundColor: ColorsPalette.white,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+            icon: const Icon(Icons.arrow_back_ios, color: ColorsPalette.black),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -235,7 +235,7 @@ class RegisterPageState extends State<RegisterPage> {
         ),
         body: Container(
           decoration: const BoxDecoration(
-            color: ColorsPalette.backgroundColor,
+            color: ColorsPalette.white,
           ),
           width: double.infinity,
           height: double.infinity,
@@ -311,26 +311,26 @@ class RegisterPageState extends State<RegisterPage> {
                 });
               }
             },
-            connectorColor: WidgetStateProperty.all(ColorsPalette.primaryColor),
+            connectorColor: WidgetStateProperty.all(ColorsPalette.beigeAged),
             controlsBuilder: (context, details) => Row(
               children: [
                 if (_currentStep < 1)
                   buttons.standart(
                       text: 'Siguiente',
                       onPressed: details.onStepContinue!,
-                      color: ColorsPalette.primaryColor,
+                      color: ColorsPalette.beigeAged,
                       width: 10 * SizeConfig.widthMultiplier,
                       height: 0.6 * SizeConfig.heightMultiplier),
                 if (_currentStep > 0 && _currentStep < 3) ...[
                   buttons.undelineText(
                     text: 'Anterior',
                     onPressed: details.onStepCancel!,
-                    color: ColorsPalette.primaryColor,
+                    color: ColorsPalette.beigeAged,
                   ),
                   buttons.standart(
                       text: 'Siguiente',
                       onPressed: details.onStepContinue!,
-                      color: ColorsPalette.primaryColor,
+                      color: ColorsPalette.beigeAged,
                       width: 10 * SizeConfig.widthMultiplier,
                       height: 0.6 * SizeConfig.heightMultiplier),
                 ],
@@ -339,12 +339,12 @@ class RegisterPageState extends State<RegisterPage> {
                   buttons.undelineText(
                     text: 'Anterior',
                     onPressed: details.onStepCancel!,
-                    color: ColorsPalette.primaryColor,
+                    color: ColorsPalette.beigeAged,
                   ),
                   buttons.standart(
                       text: 'Ver Planes',
                       onPressed: details.onStepContinue!,
-                      color: ColorsPalette.primaryColor,
+                      color: ColorsPalette.beigeAged,
                       width: 10 * SizeConfig.widthMultiplier,
                       height: 0.6 * SizeConfig.heightMultiplier),
                 ],

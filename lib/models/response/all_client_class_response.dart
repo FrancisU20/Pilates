@@ -27,7 +27,8 @@ class AllClientsPlansResponse {
   DateTime planExpiration;
   String paymentMethod;
   String paymentToken;
-  String status;
+  String statusPlan;
+  String statusClient;
 
   AllClientsPlansResponse({
     required this.id,
@@ -49,7 +50,8 @@ class AllClientsPlansResponse {
     required this.planExpiration,
     required this.paymentMethod,
     required this.paymentToken,
-    required this.status,
+    required this.statusPlan,
+    required this.statusClient,
   });
 
   factory AllClientsPlansResponse.fromJson(Map<String, dynamic> json) =>
@@ -73,7 +75,8 @@ class AllClientsPlansResponse {
         planExpiration: DateTime.parse(json["plan_expiration"]),
         paymentMethod: json["payment_method"],
         paymentToken: json["payment_token"],
-        status: json["status"],
+        statusPlan: json["status_plan"],
+        statusClient: json["status_client"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -99,6 +102,7 @@ class AllClientsPlansResponse {
             "${planExpiration.year.toString().padLeft(4, '0')}-${planExpiration.month.toString().padLeft(2, '0')}-${planExpiration.day.toString().padLeft(2, '0')}",
         "payment_method": paymentMethod,
         "payment_token": paymentToken,
-        "status": status,
+        "statusPlan": statusPlan,
+        "statusClient": statusClient,
       };
 }
