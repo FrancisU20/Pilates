@@ -552,8 +552,10 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                           borderRadius:
                                               BorderRadius.circular(15),
                                           child: Image.network(
-                                            clientClassProvider
-                                                .loginResponse!.client.photo,
+                                            registerProvider.imageUrl != null
+                                                ? registerProvider.imageUrl!
+                                                : clientClassProvider
+                                                    .loginResponse!.client.photo,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -665,7 +667,8 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                           ? 'Miembro desde el ${convertDate(DateTime.now().toString().substring(0, 10))}'
                                           : 'Miembro desde el ${convertDate(clientClassProvider.loginResponse!.client.createdAt.toString().substring(0, 10))}',
                                       color: ColorsPalette.white,
-                                      fontSize: 1.6 * SizeConfig.heightMultiplier,
+                                      fontSize:
+                                          1.6 * SizeConfig.heightMultiplier,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ],

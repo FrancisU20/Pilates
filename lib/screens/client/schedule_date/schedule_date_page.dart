@@ -880,31 +880,29 @@ class ScheduleDatePageState extends State<ScheduleDatePage> {
                       ),
                       Visibility(
                         visible: availableHours.isEmpty,
-                        child: Container(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10 * SizeConfig.heightMultiplier,
-                              ),
-                              texts.normalText(
-                                text: 'No hay horarios disponibles para esta fecha',
-                                color: ColorsPalette.black,
-                                fontSize: 2 * SizeConfig.heightMultiplier,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              SizedBox(
-                                height: 2 * SizeConfig.heightMultiplier,
-                              ),
-                              buttons.standart(
-                                text: 'Volver',
-                                color: ColorsPalette.greyChocolate,
-                                onPressed: () {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, '/dashboard', (route) => false);
-                                },
-                              ),
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 10 * SizeConfig.heightMultiplier,
+                            ),
+                            texts.normalText(
+                              text: 'No hay horarios disponibles para esta fecha',
+                              color: ColorsPalette.black,
+                              fontSize: 2 * SizeConfig.heightMultiplier,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            SizedBox(
+                              height: 2 * SizeConfig.heightMultiplier,
+                            ),
+                            buttons.standart(
+                              text: 'Volver',
+                              color: ColorsPalette.greyChocolate,
+                              onPressed: () {
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, '/dashboard', (route) => false);
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],
