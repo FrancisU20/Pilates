@@ -79,7 +79,7 @@ class LoginFormState extends State<LoginForm> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    fontSize: 4 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),

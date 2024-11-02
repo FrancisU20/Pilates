@@ -20,8 +20,8 @@ class BottomAdminBar extends StatelessWidget {
         children: [
           IconButton(
             icon: ModalRoute.of(context)?.settings.name == '/dashboard_admin'
-                ? const Icon(FontAwesomeIcons.grip)
-                : const Icon(FontAwesomeIcons.grip),
+                ? const Icon(FontAwesomeIcons.chartPie)
+                : const Icon(FontAwesomeIcons.chartPie),
             color: ModalRoute.of(context)?.settings.name == '/dashboard_admin'
                 ? ColorsPalette.white
                 : ColorsPalette.greyAged,
@@ -41,25 +41,14 @@ class BottomAdminBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: ModalRoute.of(context)?.settings.name == '/contact_us'
-                ? const Icon(FontAwesomeIcons.solidAddressBook)
-                : const Icon(FontAwesomeIcons.addressBook),
-            color: ModalRoute.of(context)?.settings.name == '/contact_us'
+            icon: ModalRoute.of(context)?.settings.name == '/clients'
+                ? const Icon(FontAwesomeIcons.chartSimple)
+                : const Icon(FontAwesomeIcons.chartSimple),
+            color: ModalRoute.of(context)?.settings.name == '/clients'
                 ? ColorsPalette.white
                 : ColorsPalette.greyAged,
             onPressed: () {
-              Navigator.pushNamed(context, '/contact_us');
-            },
-          ),
-          IconButton(
-            icon: ModalRoute.of(context)?.settings.name == '/profile'
-                ? const Icon(FontAwesomeIcons.solidAddressCard)
-                : const Icon(FontAwesomeIcons.addressCard),
-            color: ModalRoute.of(context)?.settings.name == '/profile'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
-            onPressed: () {
-              Navigator.pushNamed(context, '/profile');
+              Navigator.pushNamed(context, '/clients');
             },
           ),
         ],

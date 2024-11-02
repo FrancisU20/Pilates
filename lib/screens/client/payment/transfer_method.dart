@@ -138,8 +138,14 @@ class TransferMethodPageState extends State<TransferMethodPage> {
         Future.microtask(() {
           loadingModal.closeLoadingModal(context);
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Hubo un error al subir la imagen.'),
+            SnackBar(
+              content: texts.normalText(
+                  text: e.toString().replaceAll('Exception: ', ''),
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: 4 * SizeConfig.heightMultiplier,
+                  color: ColorsPalette.white),
+              backgroundColor: ColorsPalette.redAged,
             ),
           );
         });
@@ -208,7 +214,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                         text: 'Tu cuenta ha sido creada exitosamente',
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.start,
-                        fontSize: 2.5 * SizeConfig.heightMultiplier,
+                        fontSize: 4 * SizeConfig.heightMultiplier,
                         color: ColorsPalette.white),
                     backgroundColor: ColorsPalette.greenAged,
                   ),
@@ -225,7 +231,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                           'El cliente ya se encuentra registrado verifique el email y el número de cédula ingresados.',
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
-                      fontSize: 2.5 * SizeConfig.heightMultiplier,
+                      fontSize: 4 * SizeConfig.heightMultiplier,
                       color: ColorsPalette.white),
                   backgroundColor: ColorsPalette.redAged,
                 ),
@@ -243,7 +249,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    fontSize: 4 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -297,7 +303,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                       text: 'Tu plan ha sido renovado exitosamente',
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
-                      fontSize: 2.5 * SizeConfig.heightMultiplier,
+                      fontSize: 4 * SizeConfig.heightMultiplier,
                       color: ColorsPalette.white),
                   backgroundColor: ColorsPalette.greenAged,
                 ),
@@ -315,7 +321,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    fontSize: 4 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -490,8 +496,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                         color: ColorsPalette.white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(25),
-                            topRight: Radius.circular(
-                                25))), 
+                            topRight: Radius.circular(25))),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -800,9 +805,21 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                                 // Mostrar un SnackBar o algún otro indicador para confirmar que se copió
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
-                                                  const SnackBar(
-                                                    content: Text(
-                                                        'Número de cuenta copiado al portapapeles'),
+                                                  SnackBar(
+                                                    content: texts.normalText(
+                                                        text:
+                                                            'Cuenta copiada al portapapeles',
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        fontSize: 4 *
+                                                            SizeConfig
+                                                                .heightMultiplier,
+                                                        color: ColorsPalette
+                                                            .white),
+                                                    backgroundColor:
+                                                        ColorsPalette.black,
                                                   ),
                                                 );
                                               },
@@ -866,9 +883,20 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                                 // Mostrar un SnackBar o algún otro indicador para confirmar que se copió
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
-                                                  const SnackBar(
-                                                    content: Text(
-                                                        'Identificación copiada al portapapeles'),
+                                                  SnackBar(
+                                                    content: texts.normalText(
+                                                        text: 'RUC copiado al portapapeles',
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        fontSize: 4 *
+                                                            SizeConfig
+                                                                .heightMultiplier,
+                                                        color: ColorsPalette
+                                                            .white),
+                                                    backgroundColor:
+                                                        ColorsPalette.black,
                                                   ),
                                                 );
                                               },

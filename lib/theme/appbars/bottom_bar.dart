@@ -53,8 +53,8 @@ class BottomBar extends StatelessWidget {
           ),
           IconButton(
             icon: ModalRoute.of(context)?.settings.name == '/contact_us'
-                ? const Icon(FontAwesomeIcons.solidAddressBook)
-                : const Icon(FontAwesomeIcons.addressBook),
+                ? const Icon(FontAwesomeIcons.solidComment)
+                : const Icon(FontAwesomeIcons.comment),
             color: ModalRoute.of(context)?.settings.name == '/contact_us'
                 ? ColorsPalette.white
                 : ColorsPalette.greyAged,

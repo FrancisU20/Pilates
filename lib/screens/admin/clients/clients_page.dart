@@ -3,14 +3,18 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/client_classes_controller.dart';
+import 'package:pilates/controllers/clients_controller.dart';
 import 'package:pilates/helpers/launchers/maps_launcher.dart';
 import 'package:pilates/models/response/all_client_class_response.dart';
+import 'package:pilates/models/response/update_status_response.dart';
+import 'package:pilates/models/send/update_status_send.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/theme/appbars/bottom_admin_bar.dart';
 import 'package:pilates/theme/appbars/custom_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
+import 'package:pilates/theme/widgets/textfields.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +29,7 @@ class ClientsPage extends StatefulWidget {
 class ClientsPageState extends State<ClientsPage> {
   Texts texts = Texts();
   Buttons buttons = Buttons();
+  TextFormFields textFormFields = TextFormFields();
   MapAppLauncher mapAppLauncher = MapAppLauncher();
 
   // Modals
@@ -33,6 +38,10 @@ class ClientsPageState extends State<ClientsPage> {
   //Controlador
   final ClientClassesController clientClassesController =
       ClientClassesController();
+
+  final LoginController loginController = LoginController();
+
+  final TextEditingController searchController = TextEditingController();
 
   //Variables
   List<AllClientsPlansResponse> clients = [];
@@ -44,11 +53,41 @@ class ClientsPageState extends State<ClientsPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getClients();
     });
+    searchController.addListener(_onSearchChanged);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    searchController.removeListener(_onSearchChanged);
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged() {
+    if (searchController.text.isEmpty) {
+      getClients();
+      return;
+    }
+
+    List<AllClientsPlansResponse> filteredClients = clients
+        .where((element) =>
+            element.clientName
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase()) ||
+            element.clientLastname
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase()) ||
+            element.clientDniNumber.toString().contains(searchController.text))
+        .toList();
+
+    setState(() {
+      clients = filteredClients;
+    });
   }
 
   void getClients() async {
@@ -82,13 +121,71 @@ class ClientsPageState extends State<ClientsPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 2 * SizeConfig.widthMultiplier,
+                    fontSize: 4 * SizeConfig.widthMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
             ),
           });
     }
+  }
+
+  void updateClientStatus(int index, BuildContext context) async {
+    bool status = clients[index].statusClient == 'active' ? false : true;
+    String statusString = status == true ? 'active' : 'inactive';
+
+    UpdateStatusSend updateStatusSend =
+        UpdateStatusSend(statusClient: statusString);
+
+    // Cambiar el estado del cliente
+    UpdateStatusResponse response = await loginController.updateStatusClient(
+      updateStatusSend,
+      clients[index].clientDniNumber,
+    );
+
+    if (response.message
+        .contains('Estado del cliente actualizado correctamente')) {
+      setState(() {
+        clients[index].statusClient = statusString;
+        // Si se cambió el estado a activo, actualizamos activeClients
+        activeClients = statusString == 'active';
+      });
+
+      String newStatus = status == true ? 'activo' : 'inactivo';
+      Future.microtask(() => {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: texts.normalText(
+                  text: 'El estado del cliente ha cambiado a: $newStatus',
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: 4 * SizeConfig.widthMultiplier,
+                  color: ColorsPalette.white,
+                ),
+                backgroundColor: ColorsPalette.greenAged,
+                duration: const Duration(seconds: 1),
+              ),
+            )
+          });
+    } else {
+      Future.microtask(() => {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: texts.normalText(
+                  text: response.message,
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: 4 * SizeConfig.widthMultiplier,
+                  color: ColorsPalette.white,
+                ),
+                backgroundColor: ColorsPalette.redAged,
+                duration: const Duration(seconds: 1),
+              ),
+            )
+          });
+    }
+
+    log('El estado del cliente ha cambiado a: $status');
   }
 
   @override
@@ -138,41 +235,81 @@ class ClientsPageState extends State<ClientsPage> {
             SizedBox(
               height: 2 * SizeConfig.heightMultiplier,
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: ColorsPalette.black,
-                  borderRadius: BorderRadius.circular(20)),
-              width: 90 * SizeConfig.widthMultiplier,
-              height: 8 * SizeConfig.heightMultiplier,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  buttons.iconTextUnderline(
-                      icon: FontAwesomeIcons.circleCheck,
-                      text: 'Activos',
-                      onPressed: () {
-                        setState(() {
-                          activeClients = true;
-                          getClients();
-                        });
-                      },
-                      color: activeClients == false
-                          ? ColorsPalette.white
-                          : ColorsPalette.gold),
-                  buttons.iconTextUnderline(
-                      icon: FontAwesomeIcons.circleXmark,
-                      text: 'Inactivos',
-                      onPressed: () {
-                        setState(() {
-                          activeClients = false;
-                          getClients();
-                        });
-                      },
-                      color: activeClients == false
-                          ? ColorsPalette.gold
-                          : ColorsPalette.white),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: ColorsPalette.black,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  width: 95 * SizeConfig.widthMultiplier,
+                  height: 10 * SizeConfig.heightMultiplier,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .start, // Alinea los elementos al inicio
+                    children: [
+                      SizedBox(
+                        width: 35 * SizeConfig.widthMultiplier,
+                        child: buttons.iconTextUnderline(
+                          icon: FontAwesomeIcons.circleCheck,
+                          text: 'Activos',
+                          onPressed: () {
+                            setState(() {
+                              activeClients = true;
+                              getClients();
+                            });
+                          },
+                          color: activeClients == false
+                              ? ColorsPalette.white
+                              : ColorsPalette.gold,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 35 * SizeConfig.widthMultiplier,
+                        child: buttons.iconTextUnderline(
+                          icon: FontAwesomeIcons.circleXmark,
+                          text: 'Inactivos',
+                          onPressed: () {
+                            setState(() {
+                              activeClients = false;
+                              getClients();
+                            });
+                          },
+                          color: activeClients == false
+                              ? ColorsPalette.gold
+                              : ColorsPalette.white,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 3.5 * SizeConfig.widthMultiplier,
+                      ),
+                      Container(
+                        width: 0.25 * SizeConfig.widthMultiplier,
+                        height: 4 * SizeConfig.heightMultiplier,
+                        color: ColorsPalette.white,
+                      ),
+                      SizedBox(
+                        width: 2.75 * SizeConfig.widthMultiplier,
+                      ),
+                      SizedBox(
+                        width: 15 * SizeConfig.widthMultiplier,
+                        child: GestureDetector(
+                          child: Icon(
+                            FontAwesomeIcons.magnifyingGlassChart,
+                            color: ColorsPalette.white,
+                            size: 6.5 * SizeConfig.imageSizeMultiplier,
+                          ),
+                          onTap: () {
+                            
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
+              ],
             ),
             SizedBox(
               height: 2 * SizeConfig.heightMultiplier,
@@ -180,7 +317,6 @@ class ClientsPageState extends State<ClientsPage> {
             Flexible(
               child: Container(
                 width: 100 * SizeConfig.widthMultiplier,
-                height: 58 * SizeConfig.heightMultiplier,
                 padding: EdgeInsets.symmetric(
                     horizontal: 5 * SizeConfig.widthMultiplier,
                     vertical: 2 * SizeConfig.heightMultiplier),
@@ -188,8 +324,7 @@ class ClientsPageState extends State<ClientsPage> {
                     color: ColorsPalette.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
-                        topRight: Radius.circular(
-                            50))),
+                        topRight: Radius.circular(50))),
                 child: clients.isEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -257,11 +392,14 @@ class ClientsPageState extends State<ClientsPage> {
                                 decoration: BoxDecoration(
                                     color: ColorsPalette.white,
                                     border: Border.all(
-                                        color: ColorsPalette.beige.withOpacity(0.1),),
+                                      color:
+                                          ColorsPalette.beige.withOpacity(0.1),
+                                    ),
                                     borderRadius: BorderRadius.circular(50),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: ColorsPalette.black.withOpacity(0.1),
+                                        color: ColorsPalette.black
+                                            .withOpacity(0.1),
                                         spreadRadius: 5,
                                         blurRadius: 5,
                                         offset: const Offset(0, 3),
@@ -334,9 +472,7 @@ class ClientsPageState extends State<ClientsPage> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         GestureDetector(
-                                          onTap: () {
-                                            
-                                          },
+                                          onTap: () {},
                                           child: Container(
                                             width:
                                                 10 * SizeConfig.widthMultiplier,
@@ -405,29 +541,35 @@ class ClientsPageState extends State<ClientsPage> {
                                     // Agregar letras en direccion vertical con el status de la clase
                                     Transform.rotate(
                                       angle: -3.14 / 2,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: clients[index].statusClient ==
-                                                  'active'
-                                              ? ColorsPalette.greenAged
-                                              : ColorsPalette.redAged,
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            vertical:
-                                                2 * SizeConfig.widthMultiplier,
-                                            horizontal:
-                                                2 * SizeConfig.widthMultiplier),
-                                        child: texts.normalText(
-                                          text: clients[index].statusClient ==
-                                                  'active'
-                                              ? 'Activo'
-                                              : 'Inactivo',
-                                          color: ColorsPalette.white,
-                                          fontSize:
-                                              4 * SizeConfig.widthMultiplier,
-                                          fontWeight: FontWeight.bold,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          updateClientStatus(index, context);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color:
+                                                clients[index].statusClient ==
+                                                        'active'
+                                                    ? ColorsPalette.greenAged
+                                                    : ColorsPalette.redAged,
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 2 *
+                                                  SizeConfig.widthMultiplier,
+                                              horizontal: 2 *
+                                                  SizeConfig.widthMultiplier),
+                                          child: texts.normalText(
+                                            text: clients[index].statusClient ==
+                                                    'active'
+                                                ? 'Activo'
+                                                : 'Inactivo',
+                                            color: ColorsPalette.white,
+                                            fontSize:
+                                                4 * SizeConfig.widthMultiplier,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),

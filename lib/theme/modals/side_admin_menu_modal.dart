@@ -7,14 +7,14 @@ import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
 import 'package:provider/provider.dart';
 
-class SideMenuModal extends StatefulWidget {
-  const SideMenuModal({super.key});
+class SideAdminMenuModal extends StatefulWidget {
+  const SideAdminMenuModal({super.key});
 
   @override
-  SideMenuModalState createState() => SideMenuModalState();
+  SideAdminMenuModalState createState() => SideAdminMenuModalState();
 }
 
-class SideMenuModalState extends State<SideMenuModal> {
+class SideAdminMenuModalState extends State<SideAdminMenuModal> {
   Texts texts = Texts();
   Buttons buttons = Buttons();
 
@@ -111,7 +111,7 @@ class SideMenuModalState extends State<SideMenuModal> {
             left: 3 * SizeConfig.widthMultiplier,
             top: 0 * SizeConfig.heightMultiplier,
             width: 55 * SizeConfig.widthMultiplier,
-            height: 70 * SizeConfig.heightMultiplier,
+            height: 60 * SizeConfig.heightMultiplier,
             child: Material(
               color: ColorsPalette.greyChocolate,
               elevation: 8.0,
@@ -125,14 +125,14 @@ class SideMenuModalState extends State<SideMenuModal> {
                     children: <Widget>[
                       ListTile(
                         leading:  Icon(
-                          FontAwesomeIcons.grip,
+                          FontAwesomeIcons.chartPie,
                           color: ColorsPalette.white,
                           size: 3 * SizeConfig.heightMultiplier,
                         ),
                         title: const Text('Dashboard'),
                         textColor: ColorsPalette.white,
                         onTap: () {
-                          Navigator.pushNamed(context, '/dashboard');
+                          Navigator.pushNamed(context, '/dashboard_admin');
                         },
                       ),
                       SizedBox(
@@ -140,14 +140,14 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ),
                       ListTile(
                         leading:  Icon(
-                          FontAwesomeIcons.calendarDays,
+                          FontAwesomeIcons.solidAddressBook,
                           color: ColorsPalette.white,
                           size: 3 * SizeConfig.heightMultiplier,
                         ),
-                        title: const Text('Agendar Cita'),
+                        title: const Text('Clientes'),
                         textColor: ColorsPalette.white,
                         onTap: () {
-                          Navigator.pushNamed(context, '/schedule_date');
+                          Navigator.pushNamed(context, '/clients');
                         },
                       ),
                       SizedBox(
@@ -155,44 +155,14 @@ class SideMenuModalState extends State<SideMenuModal> {
                       ),
                       ListTile(
                         leading:  Icon(
-                          FontAwesomeIcons.solidCalendarCheck,
+                          FontAwesomeIcons.chartSimple,
                           color: ColorsPalette.white,
                           size: 3 * SizeConfig.heightMultiplier,
                         ),
-                        title: const Text('Citas Agendadas'),
+                        title: const Text('Reportes'),
                         textColor: ColorsPalette.white,
                         onTap: () {
-                          Navigator.pushNamed(context, '/appointments');
-                        },
-                      ),
-                      SizedBox(
-                        height: 2.5 * SizeConfig.heightMultiplier,
-                      ),
-                      ListTile(
-                        leading:  Icon(
-                          FontAwesomeIcons.solidComment,
-                          color: ColorsPalette.white,
-                          size: 3 * SizeConfig.heightMultiplier,
-                        ),
-                        title: const Text('Contáctanos'),
-                        textColor: ColorsPalette.white,
-                        onTap: () {
-                          Navigator.pushNamed(context, '/contact_us');
-                        },
-                      ),
-                      SizedBox(
-                        height: 2.5 * SizeConfig.heightMultiplier,
-                      ),
-                      ListTile(
-                        leading:  Icon(
-                          FontAwesomeIcons.solidAddressCard,
-                          color: ColorsPalette.white,
-                          size: 3 * SizeConfig.heightMultiplier,
-                        ),
-                        title: const Text('Mi Cuenta'),
-                        textColor: ColorsPalette.white,
-                        onTap: () {
-                          Navigator.pushNamed(context, '/profile');
+                          Navigator.pushNamed(context, '/clients');
                         },
                       ),
                       SizedBox(

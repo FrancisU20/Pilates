@@ -92,7 +92,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    fontSize: 4 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -223,7 +223,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: 'La cita ha sido cancelada correctamente',
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    fontSize: 4 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.greenAged,
               ),
@@ -242,7 +242,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
                     text: e.toString().replaceAll('Exception: ', ''),
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.start,
-                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                    fontSize: 4 * SizeConfig.heightMultiplier,
                     color: ColorsPalette.white),
                 backgroundColor: ColorsPalette.redAged,
               ),
@@ -428,7 +428,7 @@ class AppointmentsPageState extends State<AppointmentsPage> {
             Flexible(
               child: Container(
                 width: 100 * SizeConfig.widthMultiplier,
-                height: 58 * SizeConfig.heightMultiplier,
+                
                 padding: EdgeInsets.symmetric(
                     horizontal: 5 * SizeConfig.widthMultiplier,
                     vertical: 2 * SizeConfig.heightMultiplier),

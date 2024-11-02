@@ -7,7 +7,7 @@ import 'package:pilates/models/response/plans_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/screens/admin/dashboard/widgets/pie_data_widget.dart';
 import 'package:pilates/theme/appbars/bottom_admin_bar.dart';
-import 'package:pilates/theme/appbars/dashboard_appbar.dart';
+import 'package:pilates/theme/appbars/dashboard_admin_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/widgets/texts.dart';
@@ -177,7 +177,13 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
       Future.microtask(() => {
             loadingModal.closeLoadingModal(context),
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(e.toString()),
+              content: texts.normalText(
+                  text: e.toString().replaceAll('Exception: ', ''),
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: 4 * SizeConfig.widthMultiplier,
+                  color: ColorsPalette.white),
+              backgroundColor: ColorsPalette.redAged,
             ))
           });
     }
@@ -189,7 +195,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
         Provider.of<ClientClassProvider>(context);
     return Scaffold(
       backgroundColor: ColorsPalette.white,
-      appBar: const DashboardAppBar(),
+      appBar: const DashboardAdminAppBar(),
       body: SingleChildScrollView(
         child: Container(
           color: ColorsPalette.white,
@@ -325,8 +331,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                 ),
                                 texts.normalText(
                                     text: 'Inactivos',
-                                    color:
-                                        ColorsPalette.greyAged,
+                                    color: ColorsPalette.greyAged,
                                     fontSize: 2.5 * SizeConfig.heightMultiplier,
                                     fontWeight: FontWeight.w500),
                               ],

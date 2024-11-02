@@ -112,8 +112,14 @@ class RegisterPageState extends State<RegisterPage> {
         Future.microtask(() {
           loadingModal.closeLoadingModal(context);
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Hubo un error al subir la imagen.'),
+            SnackBar(
+              content: texts.normalText(
+                  text: e.toString().replaceAll('Exception: ', ''),
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: 4 * SizeConfig.heightMultiplier,
+                  color: ColorsPalette.white),
+              backgroundColor: ColorsPalette.redAged,
             ),
           );
         });
@@ -245,17 +251,28 @@ class RegisterPageState extends State<RegisterPage> {
               if (_currentStep == 0) {
                 // Validar el primer paso
                 if (!_validateFirstStep()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Por favor, llena todos los campos.')),
-                  );
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: texts.normalText(
+                        text: 'Por favor, complete todos los campos.',
+                        fontWeight: FontWeight.w500,
+                        textAlign: TextAlign.start,
+                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        color: ColorsPalette.white),
+                    backgroundColor: ColorsPalette.black,
+                  ));
                   return;
                 }
                 if (!validatePassword()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Las contraseñas no coinciden.')),
-                  );
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: texts.normalText(
+                        text: 'Las contraseñas no coinciden.',
+                        fontWeight: FontWeight.w500,
+                        textAlign: TextAlign.start,
+                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        color: ColorsPalette.white),
+                    backgroundColor: ColorsPalette.black,
+                  ));
+
                   return;
                 }
                 setState(() {
@@ -265,18 +282,30 @@ class RegisterPageState extends State<RegisterPage> {
 
               if (_currentStep < 3) {
                 if (_currentStep == 1 && !_validateSecondStep()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Por favor, seleccione un género.')),
-                  );
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: texts.normalText(
+                        text: 'Por favor, seleccione un género.',
+                        fontWeight: FontWeight.w500,
+                        textAlign: TextAlign.start,
+                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        color: ColorsPalette.white),
+                    backgroundColor: ColorsPalette.black,
+                  ));
+
                   return;
                 }
 
                 if (_currentStep == 2 && !_validateThirdStep()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Por favor, seleccione una imagen.')),
-                  );
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: texts.normalText(
+                        text: 'Por favor, complete todos los campos.',
+                        fontWeight: FontWeight.w500,
+                        textAlign: TextAlign.start,
+                        fontSize: 4 * SizeConfig.heightMultiplier,
+                        color: ColorsPalette.white),
+                    backgroundColor: ColorsPalette.black,
+                  ));
+
                   return;
                 }
 
@@ -409,7 +438,10 @@ class RegisterPageState extends State<RegisterPage> {
               ),
               Step(
                 title: texts.titleText(
-                    text: _currentStep == 3 ? 'Registro Exitoso' : 'Registro en Proceso' , fontWeight: FontWeight.w500),
+                    text: _currentStep == 3
+                        ? 'Registro Exitoso'
+                        : 'Registro en Proceso',
+                    fontWeight: FontWeight.w500),
                 content: FinalStep(texts: texts),
                 state: StepState.complete,
                 isActive: _currentStep == 3,
