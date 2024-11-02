@@ -45,7 +45,10 @@ class ClientsPageState extends State<ClientsPage> {
 
   //Variables
   List<AllClientsPlansResponse> clients = [];
+  List<AllClientsPlansResponse> allClients = []; // Nueva variable
+
   bool activeClients = true;
+  bool isSearchMode = false;
 
   @override
   void initState() {
@@ -69,66 +72,58 @@ class ClientsPageState extends State<ClientsPage> {
   }
 
   void _onSearchChanged() {
-    if (searchController.text.isEmpty) {
-      getClients();
-      return;
-    }
+  String query = searchController.text.toLowerCase();
 
-    List<AllClientsPlansResponse> filteredClients = clients
-        .where((element) =>
-            element.clientName
-                .toLowerCase()
-                .contains(searchController.text.toLowerCase()) ||
-            element.clientLastname
-                .toLowerCase()
-                .contains(searchController.text.toLowerCase()) ||
-            element.clientDniNumber.toString().contains(searchController.text))
-        .toList();
-
+  if (query.isEmpty) {
+    // Si el campo de búsqueda está vacío, mostramos todos los clientes
     setState(() {
-      clients = filteredClients;
+      clients = List.from(allClients);
     });
+    return;
   }
+
+  List<AllClientsPlansResponse> filteredClients = allClients.where((element) {
+    String name = element.clientName.toLowerCase();
+    String lastname = element.clientLastname.toLowerCase();
+    String dni = element.clientDniNumber.toString();
+
+    return name.contains(query) || lastname.contains(query) || dni.contains(query);
+  }).toList();
+
+  setState(() {
+    clients = filteredClients;
+  });
+}
+
 
   void getClients() async {
-    try {
-      ClientClassProvider clientClassProvider =
-          Provider.of<ClientClassProvider>(context, listen: false);
+  try {
+    ClientClassProvider clientClassProvider =
+        Provider.of<ClientClassProvider>(context, listen: false);
 
-      // Obtener los clientes desde el provider
-      List<AllClientsPlansResponse> allClients =
-          clientClassProvider.allClientsPlansResponse ?? [];
+    // Obtener los clientes desde el provider
+    List<AllClientsPlansResponse> fetchedClients =
+        clientClassProvider.allClientsPlansResponse ?? [];
 
-      // Filtrar los clientes según su estado
-      allClients = activeClients
-          ? allClients
-              .where((element) => element.statusClient == 'active')
-              .toList()
-          : allClients
-              .where((element) => element.statusClient == 'inactive')
-              .toList();
+    // Filtrar los clientes según su estado
+    fetchedClients = activeClients
+        ? fetchedClients
+            .where((element) => element.statusClient == 'active')
+            .toList()
+        : fetchedClients
+            .where((element) => element.statusClient == 'inactive')
+            .toList();
 
-      // Actualizar el estado con los nuevos datos y cerrar el modal de carga
-      setState(() {
-        clients = allClients;
-      });
-    } catch (e) {
-      log('Error: $e');
-      Future.microtask(() => {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: texts.normalText(
-                    text: e.toString().replaceAll('Exception: ', ''),
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.start,
-                    fontSize: 4 * SizeConfig.widthMultiplier,
-                    color: ColorsPalette.white),
-                backgroundColor: ColorsPalette.redAged,
-              ),
-            ),
-          });
-    }
+    // Actualizar allClients y clients
+    setState(() {
+      allClients = fetchedClients; // Asigna la lista completa filtrada por estado
+      clients = List.from(allClients); // Copia de allClients para mostrar
+    });
+  } catch (e) {
+    // Manejo de errores
   }
+}
+
 
   void updateClientStatus(int index, BuildContext context) async {
     bool status = clients[index].statusClient == 'active' ? false : true;
@@ -235,82 +230,130 @@ class ClientsPageState extends State<ClientsPage> {
             SizedBox(
               height: 2 * SizeConfig.heightMultiplier,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: ColorsPalette.black,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  width: 95 * SizeConfig.widthMultiplier,
-                  height: 10 * SizeConfig.heightMultiplier,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment
-                        .start, // Alinea los elementos al inicio
-                    children: [
-                      SizedBox(
-                        width: 35 * SizeConfig.widthMultiplier,
-                        child: buttons.iconTextUnderline(
-                          icon: FontAwesomeIcons.circleCheck,
-                          text: 'Activos',
-                          onPressed: () {
-                            setState(() {
-                              activeClients = true;
-                              getClients();
-                            });
-                          },
-                          color: activeClients == false
-                              ? ColorsPalette.white
-                              : ColorsPalette.gold,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 35 * SizeConfig.widthMultiplier,
-                        child: buttons.iconTextUnderline(
-                          icon: FontAwesomeIcons.circleXmark,
-                          text: 'Inactivos',
-                          onPressed: () {
-                            setState(() {
-                              activeClients = false;
-                              getClients();
-                            });
-                          },
-                          color: activeClients == false
-                              ? ColorsPalette.gold
-                              : ColorsPalette.white,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 3.5 * SizeConfig.widthMultiplier,
-                      ),
-                      Container(
-                        width: 0.25 * SizeConfig.widthMultiplier,
-                        height: 4 * SizeConfig.heightMultiplier,
-                        color: ColorsPalette.white,
-                      ),
-                      SizedBox(
-                        width: 2.75 * SizeConfig.widthMultiplier,
-                      ),
-                      SizedBox(
-                        width: 15 * SizeConfig.widthMultiplier,
-                        child: GestureDetector(
-                          child: Icon(
-                            FontAwesomeIcons.magnifyingGlassChart,
-                            color: ColorsPalette.white,
-                            size: 6.5 * SizeConfig.imageSizeMultiplier,
+            isSearchMode
+                ? SizedBox(
+                    width: 95 * SizeConfig.widthMultiplier,
+                    height: 10 * SizeConfig.heightMultiplier,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 80 * SizeConfig.widthMultiplier,
+                          child: textFormFields.create(
+                            controller: searchController,
+                            title: 'Buscar cliente',
+                            hintText: 'Nombre, apellido o cédula',
+                            fillColor: ColorsPalette.white,
+                            typeTextField: TextFieldType.alphanumeric,
+                            labelcolor: ColorsPalette.black,
                           ),
-                          onTap: () {
-                            
-                          },
+                        ),
+                        SizedBox(
+                          width: 2 * SizeConfig.widthMultiplier,
+                        ),
+                        Container(
+                          width: 10 * SizeConfig.widthMultiplier,
+                          height: 10 * SizeConfig.widthMultiplier,
+                          decoration: BoxDecoration(
+                            color: ColorsPalette.black,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isSearchMode = !isSearchMode;
+                                searchController.clear();
+                              });
+                            },
+                            child: Icon(
+                              FontAwesomeIcons.xmark,
+                              color: ColorsPalette.white,
+                              size: 6 * SizeConfig.imageSizeMultiplier,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: ColorsPalette.black,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        width: 95 * SizeConfig.widthMultiplier,
+                        height: 10 * SizeConfig.heightMultiplier,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .start, // Alinea los elementos al inicio
+                          children: [
+                            SizedBox(
+                              width: 35 * SizeConfig.widthMultiplier,
+                              child: buttons.iconTextUnderline(
+                                icon: FontAwesomeIcons.circleCheck,
+                                text: 'Activos',
+                                onPressed: () {
+                                  setState(() {
+                                    activeClients = true;
+                                    searchController.clear();
+                                    getClients();
+                                  });
+                                },
+                                color: activeClients == false
+                                    ? ColorsPalette.white
+                                    : ColorsPalette.gold,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 35 * SizeConfig.widthMultiplier,
+                              child: buttons.iconTextUnderline(
+                                icon: FontAwesomeIcons.circleXmark,
+                                text: 'Inactivos',
+                                onPressed: () {
+                                  setState(() {
+                                    activeClients = false;
+                                    searchController.clear();
+                                    getClients();
+                                  });
+                                },
+                                color: activeClients == false
+                                    ? ColorsPalette.gold
+                                    : ColorsPalette.white,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3.5 * SizeConfig.widthMultiplier,
+                            ),
+                            Container(
+                              width: 0.25 * SizeConfig.widthMultiplier,
+                              height: 4 * SizeConfig.heightMultiplier,
+                              color: ColorsPalette.white,
+                            ),
+                            SizedBox(
+                              width: 2.75 * SizeConfig.widthMultiplier,
+                            ),
+                            SizedBox(
+                              width: 15 * SizeConfig.widthMultiplier,
+                              child: GestureDetector(
+                                child: Icon(
+                                  FontAwesomeIcons.magnifyingGlassChart,
+                                  color: ColorsPalette.white,
+                                  size: 6.5 * SizeConfig.imageSizeMultiplier,
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    isSearchMode = !isSearchMode;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
-                
-              ],
-            ),
             SizedBox(
               height: 2 * SizeConfig.heightMultiplier,
             ),
