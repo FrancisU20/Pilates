@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/widgets/buttons.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/widgets/custom_button.dart';
+import 'package:pilates/config/size_config.dart';
 
 class ProfilePictureStep extends StatelessWidget {
   const ProfilePictureStep({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pilates/theme/widgets/buttons.dart';
+import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/images_containers.dart';
-import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/widgets/custom_text.dart';
+import 'package:pilates/config/size_config.dart';
 
 class Step3 extends StatefulWidget {
   const Step3({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pilates/screens/login/widgets/login_form.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/widgets/buttons.dart';
-import 'package:pilates/theme/widgets/textfields.dart';
-import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/images_paths.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/widgets/custom_button.dart';
+import 'package:pilates/theme/widgets/custom_text_field.dart';
+import 'package:pilates/theme/widgets/custom_text.dart';
+import 'package:pilates/config/images_paths.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

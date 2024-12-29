@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/models/response/pilates_classes_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/widgets/custom_text.dart';
+import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 

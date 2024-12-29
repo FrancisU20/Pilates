@@ -4,13 +4,13 @@ import 'package:pilates/controllers/clients_controller.dart';
 import 'package:pilates/models/response/login_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/modals/loading_modal.dart';
-import 'package:pilates/theme/snackbars/error_snackbar.dart';
-import 'package:pilates/theme/widgets/buttons.dart';
-import 'package:pilates/theme/widgets/textfields.dart';
-import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/components/app_loading.dart';
+import 'package:pilates/theme/widgets/custom_snack_bar.dart';
+import 'package:pilates/theme/widgets/custom_button.dart';
+import 'package:pilates/theme/widgets/custom_text_field.dart';
+import 'package:pilates/theme/widgets/custom_text.dart';
+import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {

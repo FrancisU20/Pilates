@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/config/size_config.dart';
 
-class BottomBar extends StatelessWidget {
-  const BottomBar({super.key});
+class ClientNavBar extends StatelessWidget {
+  const ClientNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(2 * SizeConfig.heightMultiplier),
+      margin: EdgeInsets.all(SizeConfig.scaleHeight(2)),
       decoration: BoxDecoration(
-        color: ColorsPalette.black,
+        color: AppColors.black100,
         borderRadius: BorderRadius.circular(50),
       ),
-      height: 10 * SizeConfig.heightMultiplier,
+      height: SizeConfig.scaleHeight(10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -23,8 +23,8 @@ class BottomBar extends StatelessWidget {
                 ? const Icon(FontAwesomeIcons.grip)
                 : const Icon(FontAwesomeIcons.grip),
             color: ModalRoute.of(context)?.settings.name == '/dashboard'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
+                ? AppColors.white100
+                : AppColors.grey300,
             onPressed: () {
               Navigator.pushNamed(context, '/dashboard');
             },
@@ -34,8 +34,8 @@ class BottomBar extends StatelessWidget {
                 ? const Icon(FontAwesomeIcons.solidPenToSquare)
                 : const Icon(FontAwesomeIcons.penToSquare),
             color: ModalRoute.of(context)?.settings.name == '/schedule_date'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
+                ? AppColors.white100
+                : AppColors.grey300,
             onPressed: () {
               Navigator.pushNamed(context, '/schedule_date');
             },
@@ -45,8 +45,8 @@ class BottomBar extends StatelessWidget {
                 ? const Icon(Icons.calendar_month)
                 : const Icon(Icons.calendar_month_outlined),
             color: ModalRoute.of(context)?.settings.name == '/appointments'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
+                ? AppColors.white100
+                : AppColors.grey300,
             onPressed: () {
               Navigator.pushNamed(context, '/appointments');
             },
@@ -56,8 +56,8 @@ class BottomBar extends StatelessWidget {
                 ? const Icon(FontAwesomeIcons.solidComment)
                 : const Icon(FontAwesomeIcons.comment),
             color: ModalRoute.of(context)?.settings.name == '/contact_us'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
+                ? AppColors.white100
+                : AppColors.grey300,
             onPressed: () {
               Navigator.pushNamed(context, '/contact_us');
             },
@@ -67,8 +67,8 @@ class BottomBar extends StatelessWidget {
                 ? const Icon(FontAwesomeIcons.solidAddressCard)
                 : const Icon(FontAwesomeIcons.addressCard),
             color: ModalRoute.of(context)?.settings.name == '/profile'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
+                ? AppColors.white100
+                : AppColors.grey300,
             onPressed: () {
               Navigator.pushNamed(context, '/profile');
             },

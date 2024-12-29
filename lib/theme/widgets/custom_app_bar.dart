@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pilates/theme/colors_palette.dart';
+import 'package:pilates/theme/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
 
   const CustomAppBar({
     super.key,
-    this.backgroundColor = ColorsPalette.white, // Valor por defecto
+    this.backgroundColor = AppColors.white100, // Valor por defecto
   });
 
   @override
@@ -21,9 +21,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Builder(
         builder: (context) => IconButton(
           icon: Icon(FontAwesomeIcons.chevronLeft,
-              color: backgroundColor == ColorsPalette.white
-                  ? ColorsPalette.black
-                  : ColorsPalette.white),
+              color: backgroundColor == AppColors.white100
+                  ? AppColors.black100
+                  : AppColors.white100),
           onPressed: () => Navigator.pop(context),
         ),
       ),

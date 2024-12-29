@@ -6,12 +6,12 @@ import 'package:pilates/models/response/most_popular_plan_response.dart';
 import 'package:pilates/models/response/plans_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/screens/admin/dashboard/widgets/pie_data_widget.dart';
-import 'package:pilates/theme/appbars/bottom_admin_bar.dart';
-import 'package:pilates/theme/appbars/dashboard_admin_appbar.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/modals/loading_modal.dart';
-import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/components/admin/admin_nav_bar.dart';
+import 'package:pilates/theme/components/admin/admin_home_bar.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/components/app_loading.dart';
+import 'package:pilates/theme/widgets/custom_text.dart';
+import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
 
 class DashboardAdminPage extends StatefulWidget {

@@ -61,7 +61,7 @@ class ClientClassProvider extends ChangeNotifier {
   }
 
   //Clear all
-  void clearAll() {
+  void clearAll() async {
     _loginResponse = null;
     _selectedDate = null;
     _selectedHour = null;

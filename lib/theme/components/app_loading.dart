@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/images_paths.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/config/images_paths.dart';
+import 'package:pilates/config/size_config.dart';
 
-class LoadingModal extends StatelessWidget {
-  final Texts texts = Texts();
+class AppLoading extends StatelessWidget {
 
-  LoadingModal({super.key});
+  const AppLoading({super.key});
 
-  void showLoadingModal(BuildContext context) {
+  void showAppLoading(BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return LoadingModal();
+        return const AppLoading();
       },
     );
   }
 
-  void closeLoadingModal(BuildContext context) {
+  void closeAppLoading(BuildContext context) {
     Navigator.of(context).pop();
   }
 
@@ -36,18 +34,18 @@ class LoadingModal extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius:
-                    BorderRadius.circular(25 * SizeConfig.heightMultiplier),
+                    BorderRadius.circular(SizeConfig.scaleHeight(25)),
               ),
               clipBehavior: Clip.hardEdge,
-              height: 25 * SizeConfig.heightMultiplier,
+              height: SizeConfig.scaleHeight(25),
               child: Image.asset(
                 imagesPaths.logoSquareFill,
                 fit: BoxFit.scaleDown,
               ),
             ),
-            SizedBox(height: 5 * SizeConfig.heightMultiplier),
+            SizedBox(height: SizeConfig.scaleHeight(5)),
             LoadingAnimationWidget.staggeredDotsWave(
-                color: ColorsPalette.white, size: 7.5 * SizeConfig.heightMultiplier),
+                color: AppColors.white100, size: SizeConfig.scaleHeight(7.5)),
           ],
         ),
       ),

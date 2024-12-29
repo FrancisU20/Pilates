@@ -4,16 +4,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/client_plans_controller.dart';
-import 'package:pilates/helpers/data/menu_data.dart';
+import 'package:pilates/data/menu_data.dart';
 import 'package:pilates/models/response/available_client_class_response.dart';
 import 'package:pilates/models/response/client_plans_response.dart';
 import 'package:pilates/providers/client_class_provider.dart';
-import 'package:pilates/theme/appbars/bottom_bar.dart';
-import 'package:pilates/theme/appbars/dashboard_appbar.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/modals/loading_modal.dart';
-import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/components/client/client_nav_bar.dart';
+import 'package:pilates/theme/components/client/client_home_bar.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/components/app_loading.dart';
+import 'package:pilates/theme/widgets/custom_text.dart';
+import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pilates/helpers/launchers/instagram_launcher.dart';
-import 'package:pilates/helpers/launchers/maps_launcher.dart';
-import 'package:pilates/helpers/launchers/whatsapp_launcher.dart';
-import 'package:pilates/theme/appbars/bottom_bar.dart';
-import 'package:pilates/theme/appbars/custom_appbar.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/theme/widgets/buttons.dart';
+import 'package:pilates/integrations/instagram_launcher.dart';
+import 'package:pilates/integrations/maps_launcher.dart';
+import 'package:pilates/integrations/whatsapp_launcher.dart';
+import 'package:pilates/theme/components/client/client_nav_bar.dart';
+import 'package:pilates/theme/widgets/custom_app_bar.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/images_containers.dart';
-import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/widgets/custom_text.dart';
+import 'package:pilates/config/size_config.dart';
 
 class ContactUsPage extends StatefulWidget {
   const ContactUsPage({super.key});

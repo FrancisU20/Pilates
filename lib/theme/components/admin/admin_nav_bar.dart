@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pilates/theme/colors_palette.dart';
-import 'package:pilates/utils/size_config.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/config/size_config.dart';
 
-class BottomAdminBar extends StatelessWidget {
-  const BottomAdminBar({super.key});
+class AdminNavBar extends StatelessWidget {
+  const AdminNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(2 * SizeConfig.heightMultiplier),
+      margin: EdgeInsets.all(SizeConfig.scaleHeight(2)),
       decoration: BoxDecoration(
-        color: ColorsPalette.black,
+        color: AppColors.black100,
         borderRadius: BorderRadius.circular(50),
       ),
-      height: 10 * SizeConfig.heightMultiplier,
+      height: SizeConfig.scaleHeight(10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -23,8 +23,8 @@ class BottomAdminBar extends StatelessWidget {
                 ? const Icon(FontAwesomeIcons.chartPie)
                 : const Icon(FontAwesomeIcons.chartPie),
             color: ModalRoute.of(context)?.settings.name == '/dashboard_admin'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
+                ? AppColors.white100
+                : AppColors.grey300,
             onPressed: () {
               Navigator.pushNamed(context, '/dashboard_admin');
             },
@@ -34,8 +34,8 @@ class BottomAdminBar extends StatelessWidget {
                 ? const Icon(FontAwesomeIcons.solidAddressBook)
                 : const Icon(FontAwesomeIcons.addressBook),
             color: ModalRoute.of(context)?.settings.name == '/clients'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
+                ? AppColors.white100
+                : AppColors.grey300,
             onPressed: () {
               Navigator.pushNamed(context, '/clients');
             },
@@ -45,8 +45,8 @@ class BottomAdminBar extends StatelessWidget {
                 ? const Icon(FontAwesomeIcons.chartSimple)
                 : const Icon(FontAwesomeIcons.chartSimple),
             color: ModalRoute.of(context)?.settings.name == '/clients'
-                ? ColorsPalette.white
-                : ColorsPalette.greyAged,
+                ? AppColors.white100
+                : AppColors.grey300,
             onPressed: () {
               Navigator.pushNamed(context, '/clients');
             },

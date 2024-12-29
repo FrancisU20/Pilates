@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pilates/theme/colors_palette.dart';
+import 'package:pilates/theme/app_colors.dart';
 
 class StepperWidget extends StatelessWidget {
   final int currentStep;
