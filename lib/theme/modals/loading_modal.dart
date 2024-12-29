@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/paths/images_paths.dart';
+import 'package:pilates/utils/images_paths.dart';
 import 'package:pilates/utils/size_config.dart';
 
 class LoadingModal extends StatelessWidget {

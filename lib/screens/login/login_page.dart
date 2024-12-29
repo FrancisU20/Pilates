@@ -4,7 +4,7 @@ import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
 import 'package:pilates/theme/widgets/textfields.dart';
 import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/paths/images_paths.dart';
+import 'package:pilates/utils/images_paths.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

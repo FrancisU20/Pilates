@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/modals/side_admin_menu_modal.dart';
-import 'package:pilates/utils/paths/icons.dart';
+import 'package:pilates/utils/icons_paths.dart';
 import 'package:pilates/utils/size_config.dart';
 
 class DashboardAdminAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -19,7 +19,7 @@ class DashboardAdminAppBar extends StatelessWidget implements PreferredSizeWidge
       leading: Builder(
         builder: (context) => IconButton(
           icon: SvgPicture.asset(
-            icons.menu,
+            iconsPaths.menu,
             width: 10 * SizeConfig.widthMultiplier,
           ),
           onPressed: () => showDialog(

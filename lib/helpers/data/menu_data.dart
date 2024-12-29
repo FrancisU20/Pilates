@@ -1,4 +1,4 @@
-import 'package:pilates/utils/paths/images_paths.dart';
+import 'package:pilates/utils/images_paths.dart';
 
 class MenuData {
   static List<Map<String, String>> activities = [
