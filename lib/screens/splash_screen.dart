@@ -5,7 +5,7 @@ import 'package:pilates/screens/login/login_page.dart';
 import 'package:pilates/screens/onboarding/onboarding_page.dart';
 import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/paths/images.dart';
+import 'package:pilates/utils/paths/images_paths.dart';
 import 'package:pilates/utils/size_config.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -75,7 +75,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
               clipBehavior: Clip.hardEdge,
               height: 20 * SizeConfig.heightMultiplier,
               child: Image.asset(
-                images.logoRectangle,
+                imagesPaths.logoRectangle,
                 fit: BoxFit.scaleDown,
               ),
             ),

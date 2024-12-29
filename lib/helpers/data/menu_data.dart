@@ -1,24 +1,24 @@
-import 'package:pilates/utils/paths/images.dart';
+import 'package:pilates/utils/paths/images_paths.dart';
 
 class MenuData {
   static List<Map<String, String>> activities = [
     {
-      'image': images.dashboardItem1,
+      'image': imagesPaths.dashboardItem1,
       'description': 'Agendar Cita',
       'route': '/schedule_date'
     },
     {
-      'image': images.dashboardItem2,
+      'image': imagesPaths.dashboardItem2,
       'description': 'Clases Agendadas',
       'route': '/appointments'
     },
     {
-      'image': images.dashboardItem3,
+      'image': imagesPaths.dashboardItem3,
       'description': 'Contáctanos',
       'route': '/contact_us'
     },
     {
-      'image': images.dashboardItem4,
+      'image': imagesPaths.dashboardItem4,
       'description': 'Mi Cuenta',
       'route': '/profile'
     },

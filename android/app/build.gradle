@@ -51,7 +51,7 @@ android {
     signingConfigs {
         release {
             // Aquí defines la ruta a tu archivo de keystore y las contraseñas
-            storeFile file('/Users/panchoulloateran/Documents/Codelabs/Proyectos/Pilates/curvepilateskey.jks') // Ruta hacia tu keystore
+            storeFile file('/Users/panchoulloateran/Documents/Codelabs/Proyectos/Pilates/keys/curvepilateskey.jks') // Ruta hacia tu keystore
             storePassword 'Studiopilates2024' // Contraseña del keystore
             keyAlias 'curvepilateskey' // Alias de la clave
             keyPassword 'Studiopilates2024' // Contraseña de la clave

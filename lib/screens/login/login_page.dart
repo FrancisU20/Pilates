@@ -4,7 +4,7 @@ import 'package:pilates/theme/colors_palette.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
 import 'package:pilates/theme/widgets/textfields.dart';
 import 'package:pilates/theme/widgets/texts.dart';
-import 'package:pilates/utils/paths/images.dart';
+import 'package:pilates/utils/paths/images_paths.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -36,7 +36,7 @@ class LoginPageState extends State<LoginPage> {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(images.backgroundLogin),
+              image: AssetImage(imagesPaths.backgroundLogin),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                   ColorsPalette.black.withOpacity(0.8), BlendMode.dstATop),

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pilates/models/response/plans_response.dart';
+import 'package:pilates/models/plans/plan_response.dart';
 
 class RegisterProvider extends ChangeNotifier {
   //Variables de registro

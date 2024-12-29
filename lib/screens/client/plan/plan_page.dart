@@ -1,18 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pilates/controllers/client_plans_controller.dart';
 import 'package:pilates/controllers/plans_controller.dart';
-import 'package:pilates/models/response/available_client_class_response.dart';
-import 'package:pilates/models/response/plans_response.dart';
-import 'package:pilates/providers/client_class_provider.dart';
+import 'package:pilates/models/plans/plan_response.dart';
 import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/theme/appbars/custom_appbar.dart';
 import 'package:pilates/theme/colors_palette.dart';
+import 'package:pilates/theme/common/dialogs.dart';
 import 'package:pilates/theme/modals/loading_modal.dart';
 import 'package:pilates/theme/widgets/buttons.dart';
-import 'package:pilates/theme/widgets/images_containers.dart';
 import 'package:pilates/theme/widgets/texts.dart';
 import 'package:pilates/utils/size_config.dart';
 import 'package:provider/provider.dart';
@@ -26,13 +21,11 @@ class PlanPage extends StatefulWidget {
 
 class PlanPageState extends State<PlanPage> {
   Texts texts = Texts();
-  ImagesContainers imagesContainers = ImagesContainers();
   Buttons buttons = Buttons();
-  List<PlanResponse> listPlans = [];
+  List<PlanResponse> plansList = [];
 
   //Controladores
-  PlansController plansController = PlansController();
-  ClientPlansController clientPlansController = ClientPlansController();
+  PlanController planController = PlanController();
 
   // Modals
   final LoadingModal loadingModal = LoadingModal();
@@ -41,70 +34,8 @@ class PlanPageState extends State<PlanPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      getPlans(); // Llamamos al método asíncrono aquí
+      getPlans();
     });
-  }
-
-  Future<bool> getAvailableClientClass(String clientId, String planId) async {
-    try {
-      AvailableClientClassResponse availableClientClassResponse =
-          await clientPlansController.getAvailableClassesByClient(
-              clientId, planId);
-
-      int count = availableClientClassResponse.data.availableClasses;
-
-      if (count > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      log('$e');
-      return false;
-    }
-  }
-
-  Future<bool> clientCanRenew() async {
-    try {
-      ClientClassProvider clientClassesProvider =
-          Provider.of<ClientClassProvider>(context, listen: false);
-
-      RegisterProvider registerProvider =
-          Provider.of<RegisterProvider>(context, listen: false);
-
-      bool canRenew = registerProvider.dni == null
-          ? await getAvailableClientClass(
-              clientClassesProvider.loginResponse!.client.id,
-              clientClassesProvider.currentPlan?.planId ?? '1')
-          : false;
-
-      // Si el cliente tiene clases disponibles, no puede renovar aún
-      if (canRenew) {
-        // Mostrar mensaje y redirigir
-        Future.microtask(() => {
-              Navigator.pop(context),
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  duration: const Duration(seconds: 5),
-                  content: texts.normalText(
-                      text:
-                          'Aún tienes un plan activo, no puedes renovar hasta que este finalice',
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.start,
-                      fontSize: 2 * SizeConfig.heightMultiplier,
-                      color: ColorsPalette.white),
-                  backgroundColor: ColorsPalette.redAged,
-                ),
-              )
-            });
-        return false; // No puede renovar
-      }
-
-      return true; // Puede renovar
-    } catch (e) {
-      log('Error en clientCanRenew: $e');
-      return false; // En caso de error, retornar false
-    }
   }
 
   void getPlans() async {
@@ -116,25 +47,18 @@ class PlanPageState extends State<PlanPage> {
 
       // Verificar si el cliente puede renovar su plan
       if (registerProvider.dni == null) {
-        bool canRenew = await clientCanRenew();
-
-        // Si no puede renovar, mostrar el mensaje y salir
-        if (!canRenew) {
-          Future.microtask(() => {loadingModal.closeLoadingModal(context)});
-          return; // Detener ejecución aquí si no puede renovar
-        }
+        
       }
 
       // Obtener los datos de los planes
-      List<PlanResponse> plansResponse = await plansController.getPlans();
+      List<PlanResponse> plansResponse = await planController.getPlans();
 
       // Actualizar el estado con los nuevos datos y cerrar el modal de carga
       setState(() {
-        listPlans = plansResponse;
+        plansList = plansResponse;
         loadingModal.closeLoadingModal(context);
       });
     } catch (e) {
-      log('Error: $e');
       Future.microtask(() => {
             loadingModal.closeLoadingModal(context),
             ScaffoldMessenger.of(context).showSnackBar(
@@ -150,172 +74,6 @@ class PlanPageState extends State<PlanPage> {
             ),
           });
     }
-  }
-
-  void showSelectedPlanAndPay(PlanResponse selectedPlan) {
-    RegisterProvider registerProvider =
-        Provider.of<RegisterProvider>(context, listen: false);
-    log('Plan seleccionado: ${selectedPlan.name}');
-    registerProvider.setSelectedPlan(selectedPlan);
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: ColorsPalette.white,
-            title: texts.normalText(
-              text: 'Seleccione un método de pago',
-              color: ColorsPalette.black,
-              fontSize: 2.5 * SizeConfig.heightMultiplier,
-              fontWeight: FontWeight.w500,
-            ),
-            content: SizedBox(
-              width: 100 * SizeConfig.widthMultiplier,
-              height: 35 * SizeConfig.heightMultiplier,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Logotipo de Curves
-                  Container(
-                    width: 100 * SizeConfig.widthMultiplier,
-                    height: 20 * SizeConfig.heightMultiplier,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.png'),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 100 * SizeConfig.widthMultiplier,
-                    height: 15 * SizeConfig.heightMultiplier,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        texts.normalText(
-                          text:
-                              'Usted ha seleccionado el plan ${selectedPlan.name}',
-                          color: ColorsPalette.black,
-                          fontSize: 2 * SizeConfig.heightMultiplier,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        SizedBox(
-                          height: 2 * SizeConfig.heightMultiplier,
-                        ),
-                        texts.normalText(
-                          text:
-                              'Nota: Una vez realizado el pago, no se aceptan devoluciones',
-                          color: ColorsPalette.black,
-                          fontSize: 2 * SizeConfig.heightMultiplier,
-                          fontWeight: FontWeight.w500,
-                          textAlign: TextAlign.start,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    buttons.standart(
-                      text: 'Transferencia',
-                      color: ColorsPalette.greyChocolate,
-                      width: 15 * SizeConfig.widthMultiplier,
-                      onPressed: () {
-                        registerProvider.clearTransferImageFile();
-                        Navigator.pushNamed(context, '/transfer');
-                      },
-                    ),
-                    SizedBox(
-                      height: 2 * SizeConfig.heightMultiplier,
-                    ),
-                    buttons.standart(
-                      text: 'Tarjeta de Crédito',
-                      color: ColorsPalette.greyChocolate,
-                      width: 15 * SizeConfig.widthMultiplier,
-                      onPressed: () {
-                        showCommingSoonDialog();
-                      },
-                    ),
-                  ],
-                ),
-              )
-            ],
-          );
-        });
-  }
-
-  void showCommingSoonDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: ColorsPalette.white,
-            title: texts.normalText(
-              text: 'Próximamente ...',
-              color: ColorsPalette.black,
-              fontSize: 2.5 * SizeConfig.heightMultiplier,
-              fontWeight: FontWeight.w500,
-            ),
-            content: SizedBox(
-              width: 100 * SizeConfig.widthMultiplier,
-              height: 35 * SizeConfig.heightMultiplier,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Logotipo de Curves
-                  Container(
-                    width: 100 * SizeConfig.widthMultiplier,
-                    height: 20 * SizeConfig.heightMultiplier,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/logo/logo_rectangle.png'),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 100 * SizeConfig.widthMultiplier,
-                    height: 15 * SizeConfig.heightMultiplier,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        texts.normalText(
-                          text:
-                              'El módulo estará disponible en la próxima actualización',
-                          color: ColorsPalette.black,
-                          fontSize: 2 * SizeConfig.heightMultiplier,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        SizedBox(
-                          height: 2 * SizeConfig.heightMultiplier,
-                        ),
-                        Center(
-                          child: buttons.standart(
-                            text: 'Aceptar',
-                            color: ColorsPalette.greyChocolate,
-                            width: 8 * SizeConfig.widthMultiplier,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
   }
 
   @override
@@ -409,11 +167,11 @@ class PlanPageState extends State<PlanPage> {
                               mainAxisSpacing: 10.0,
                               childAspectRatio: 1 / 1,
                             ),
-                            itemCount: listPlans.length,
+                            itemCount: plansList.length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  showSelectedPlanAndPay(listPlans[index]);
+                                  showPaymentMethodDialog(context: context, selectedPlan: plansList[index]);
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -439,8 +197,8 @@ class PlanPageState extends State<PlanPage> {
                                       ),
                                       Center(
                                         child: texts.normalText(
-                                          text: listPlans[index]
-                                              .numberOfClasses
+                                          text: plansList[index]
+                                              .classesCount
                                               .toString(),
                                           color: ColorsPalette.black,
                                           fontSize:
@@ -463,7 +221,7 @@ class PlanPageState extends State<PlanPage> {
                                       Column(
                                         children: [
                                           texts.normalText(
-                                            text: listPlans[index].name,
+                                            text: plansList[index].name,
                                             color: ColorsPalette.black,
                                             fontSize: 1.5 *
                                                 SizeConfig.heightMultiplier,
@@ -471,7 +229,7 @@ class PlanPageState extends State<PlanPage> {
                                           ),
                                           texts.normalText(
                                             text:
-                                                '\$ ${listPlans[index].price.toStringAsFixed(2)}/mes',
+                                                '\$ ${plansList[index].basePrice}/mes',
                                             color: ColorsPalette.black,
                                             fontSize: 2.5 *
                                                 SizeConfig.heightMultiplier,
@@ -479,7 +237,7 @@ class PlanPageState extends State<PlanPage> {
                                           ),
                                           texts.normalText(
                                             text:
-                                                '\$ ${listPlans[index].classPrice.toStringAsFixed(2)}/por clase',
+                                                '\$ ${plansList[index].pricePerClass}/por clase',
                                             color: ColorsPalette.black,
                                             fontSize: 1.5 *
                                                 SizeConfig.heightMultiplier,

@@ -9,7 +9,7 @@ class PilatesClassesController {
   Future<List<PilatesClassesResponse>> getSchedules(bool? isMonth) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       final response = await apiBase.get(
         '/api/pilates_classes?fullMonth=$isMonth',

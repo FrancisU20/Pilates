@@ -13,7 +13,7 @@ class ClientClassesController {
       CreateClassSend createClassObject) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create(contentType: 'json');
 
       String bodyRequest = json.encode(createClassObject.toJson());
 
@@ -41,7 +41,7 @@ class ClientClassesController {
       String userId, isHistory) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       DateTime now = DateTime.now();
 
@@ -70,7 +70,7 @@ class ClientClassesController {
   Future<CancelClassResponse> deleteClass(String classId) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       final response =
           await apiBase.delete('/api/client_classes/cancel/$classId');

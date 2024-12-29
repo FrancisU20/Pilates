@@ -12,10 +12,12 @@ class BirthdayPicker {
 
     DateTime? selectedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: DateTime.now().subtract(const Duration(days: 365 * 18)),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
       locale: const Locale('es', 'ES'),
+      cancelText: 'Cancelar',
+      confirmText: 'Seleccionar',
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
@@ -48,7 +50,7 @@ class BirthdayPicker {
                 // Body texts
                 bodyLarge: GoogleFonts.montserrat(
                   textStyle:  TextStyle(
-                      fontSize: 2.5 * SizeConfig.heightMultiplier,
+                      fontSize: 2 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.w400,
                       color: ColorsPalette.black),
                 ),
@@ -67,14 +69,14 @@ class BirthdayPicker {
                 // Headlines text
                 headlineLarge: GoogleFonts.montserrat(
                   textStyle:   TextStyle(
-                      fontSize: 3.2 * SizeConfig.widthMultiplier,
+                      fontSize: 3 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.bold,
                       color: ColorsPalette.black),
                 ),
 
                 headlineMedium: GoogleFonts.montserrat(
                   textStyle:  TextStyle(
-                      fontSize: 3 * SizeConfig.widthMultiplier,
+                      fontSize: 2.8 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.bold,
                       color: ColorsPalette.black),
                 ),
@@ -88,8 +90,8 @@ class BirthdayPicker {
                 // Labels text
                 labelLarge: GoogleFonts.montserrat(
                   textStyle:  TextStyle(
-                      fontSize: 2.5 * SizeConfig.heightMultiplier,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 2 * SizeConfig.heightMultiplier,
+                      fontWeight: FontWeight.normal,
                       color: ColorsPalette.black),
                 ),
                 labelMedium: GoogleFonts.montserrat(

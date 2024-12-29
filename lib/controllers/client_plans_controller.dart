@@ -15,7 +15,7 @@ class ClientPlansController {
       String userId, isInactive) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       String url = isInactive
           ? '/api/client_plans/$userId?status=inactive'
@@ -43,7 +43,7 @@ class ClientPlansController {
       String userId, String planId) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       final response = await apiBase
           .get('/api/client_plans/available-classes/$userId/$planId');
@@ -68,7 +68,7 @@ class ClientPlansController {
       CreateClientPlanSend clientPlanObject) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       String bodyRequest = json.encode(clientPlanObject.toJson());
 
@@ -94,7 +94,7 @@ class ClientPlansController {
   Future<List<AllClientsPlansResponse>> getAllClientsPlans() async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       final response = await apiBase.get('/api/client_plans/all');
       if (response.statusCode == 200) {
@@ -114,16 +114,16 @@ class ClientPlansController {
     }
   }
 
-  Future<PlanResponse> getPlanById(String planId) async {
+  Future<PlanInfo> getPlanById(String planId) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       final response = await apiBase.get('/api/plans/$planId');
       if (response.statusCode == 200) {
-        PlanResponse planResponse = planResponseFromJson(response.body);
+        PlansResponse planResponse = plansResponseFromJson(response.body);
         log('Se obtuvo el plan correctamente');
-        return planResponse;
+        return planResponse.data[0];
       } else {
         log('Error del servidor en /api/plans con código: ${response.statusCode}');
         throw Exception(response.body);
@@ -139,7 +139,7 @@ class ClientPlansController {
   Future<MostPopularPlanResponse> getMostPopularPlan() async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       final response = await apiBase.get('/api/client_plans/popular-plan');
       if (response.statusCode == 200) {

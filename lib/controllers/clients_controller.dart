@@ -15,7 +15,7 @@ class LoginController {
   Future<LoginResponse> loginProcess(String email, String password) async {
     try {
       final apiLoggin =
-          await ApiBaseService.create(isLogging: true, typeHeader: 'json');
+          await ApiBaseService.create(contentType: 'json');
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
       LoginSend userData = LoginSend(email: email, password: password);
@@ -51,7 +51,7 @@ class LoginController {
       CreateClientSend createClientObject) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       String bodyRequest = jsonEncode(createClientObject.toJson());
 
@@ -77,7 +77,7 @@ class LoginController {
       UpdateStatusSend updateStatusSend, String dni) async {
     try {
       final apiBase =
-          await ApiBaseService.create(isLogging: false, typeHeader: 'json');
+          await ApiBaseService.create( contentType: 'json');
 
       String bodyRequest = jsonEncode(updateStatusSend);
 

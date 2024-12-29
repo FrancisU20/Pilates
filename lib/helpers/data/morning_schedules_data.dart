@@ -1,4 +1,4 @@
-import 'package:pilates/utils/paths/images.dart';
+import 'package:pilates/utils/paths/images_paths.dart';
 
 class ActivitiesData {
   static List<Map<String, String>> activities = [
@@ -10,7 +10,7 @@ class ActivitiesData {
       'description': 'Yoga al aire libre',
       'time-start': '6:00 am',
       'time-end': '7:00 am',
-      'image': images.yoga,
+      'image': imagesPaths.yoga,
     },
     {
       'id': '2',
@@ -18,7 +18,7 @@ class ActivitiesData {
       'description': 'Clase de Pilates',
       'time-start': '6:00 am',
       'time-end': '7:00 am',
-      'image': images.pilates,
+      'image': imagesPaths.pilates,
     },
     {
       'id': '3',
@@ -26,7 +26,7 @@ class ActivitiesData {
       'description': 'Rutina de relajación',
       'time-start': '6:00 am',
       'time-end': '7:00 am',
-      'image': images.relaxation,
+      'image': imagesPaths.relaxation,
     },
 
     // Segunda Hora
@@ -36,7 +36,7 @@ class ActivitiesData {
       'description': 'Clase de Pilates',
       'time-start': '7:00 am',
       'time-end': '8:00 am',
-      'image': images.pilates,
+      'image': imagesPaths.pilates,
     },
     {
       'id': '5',
@@ -44,7 +44,7 @@ class ActivitiesData {
       'description': 'Yoga al aire libre',
       'time-start': '7:00 am',
       'time-end': '8:00 am',
-      'image': images.yoga,
+      'image': imagesPaths.yoga,
     },
     {
       'id': '6',
@@ -52,7 +52,7 @@ class ActivitiesData {
       'description': 'Rutina de relajación',
       'time-start': '7:00 am',
       'time-end': '8:00 am',
-      'image': images.relaxation,
+      'image': imagesPaths.relaxation,
     },
 
     // Tercera Hora
@@ -62,7 +62,7 @@ class ActivitiesData {
       'description': 'Rutina de relajación',
       'time-start': '8:00 am',
       'time-end': '9:00 am',
-      'image': images.relaxation,
+      'image': imagesPaths.relaxation,
     },
     {
       'id': '8',
@@ -70,7 +70,7 @@ class ActivitiesData {
       'description': 'Yoga al aire libre',
       'time-start': '8:00 am',
       'time-end': '9:00 am',
-      'image': images.yoga,
+      'image': imagesPaths.yoga,
     },
     {
       'id': '9',
@@ -78,7 +78,7 @@ class ActivitiesData {
       'description': 'Clase de Pilates',
       'time-start': '8:00 am',
       'time-end': '9:00 am',
-      'image': images.pilates,
+      'image': imagesPaths.pilates,
     },
 
     // Cuarta Hora
@@ -88,7 +88,7 @@ class ActivitiesData {
       'description': 'Clase de Pilates',
       'time-start': '9:00 am',
       'time-end': '10:00 am',
-      'image': images.pilates,
+      'image': imagesPaths.pilates,
     },
     {
       'id': '11',
@@ -96,7 +96,7 @@ class ActivitiesData {
       'description': 'Rutina de relajación',
       'time-start': '9:00 am',
       'time-end': '10:00 am',
-      'image': images.relaxation,
+      'image': imagesPaths.relaxation,
     },
     {
       'id': '12',
@@ -104,7 +104,7 @@ class ActivitiesData {
       'description': 'Yoga al aire libre',
       'time-start': '9:00 am',
       'time-end': '10:00 am',
-      'image': images.yoga,
+      'image': imagesPaths.yoga,
     },
 
     // Quinta Hora
@@ -114,7 +114,7 @@ class ActivitiesData {
       'description': 'Yoga al aire libre',
       'time-start': '10:00 am',
       'time-end': '11:00 am',
-      'image': images.yoga,
+      'image': imagesPaths.yoga,
     },
     {
       'id': '14',
@@ -122,7 +122,7 @@ class ActivitiesData {
       'description': 'Clase de Pilates',
       'time-start': '10:00 am',
       'time-end': '11:00 am',
-      'image': images.pilates,
+      'image': imagesPaths.pilates,
     },
     {
       'id': '15',
@@ -130,7 +130,7 @@ class ActivitiesData {
       'description': 'Rutina de relajación',
       'time-start': '10:00 am',
       'time-end': '11:00 am',
-      'image': images.relaxation,
+      'image': imagesPaths.relaxation,
     },
 
     // Sexta Hora
@@ -140,7 +140,7 @@ class ActivitiesData {
       'description': 'Rutina de relajación',
       'time-start': '11:00 am',
       'time-end': '12:00 pm',
-      'image': images.relaxation,
+      'image': imagesPaths.relaxation,
     },
     {
       'id': '17',
@@ -148,7 +148,7 @@ class ActivitiesData {
       'description': 'Yoga al aire libre',
       'time-start': '11:00 am',
       'time-end': '12:00 pm',
-      'image': images.yoga,
+      'image': imagesPaths.yoga,
     },
     {
       'id': '18',
@@ -156,7 +156,7 @@ class ActivitiesData {
       'description': 'Clase de Pilates',
       'time-start': '11:00 am',
       'time-end': '12:00 pm',
-      'image': images.pilates,
+      'image': imagesPaths.pilates,
     },
   ];
 }

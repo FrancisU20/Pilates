@@ -10,7 +10,7 @@ class Texts {
       style: GoogleFonts.montserrat(
         textStyle:  TextStyle(
           color: ColorsPalette.white,
-          fontSize: 2.3 * SizeConfig.heightMultiplier,
+          fontSize: 2 * SizeConfig.heightMultiplier,
           fontWeight: FontWeight.w500,
         ),
       ),

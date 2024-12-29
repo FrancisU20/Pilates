@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pilates/controllers/file_manager_controller.dart';
+import 'package:pilates/controllers/file_asset_controller.dart';
 import 'package:pilates/models/response/upload_profile_photo_response.dart';
 import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/screens/client/register/widgets/final_step.dart';
@@ -47,7 +47,7 @@ class RegisterPageState extends State<RegisterPage> {
   final TextEditingController dniController = TextEditingController();
 
   // Controladores
-  FileManagerController fileManagerController = FileManagerController();
+  FileAssetController fileAssetController = FileAssetController();
 
   // Modals
   final LoadingModal loadingModal = LoadingModal();
@@ -88,11 +88,11 @@ class RegisterPageState extends State<RegisterPage> {
           loadingModal.showLoadingModal(context);
         });
         UploadS3Response uploadProfilePhotoResponse =
-            await fileManagerController.postS3ProfilePhoto(
-                selected, registerProvider.dni!);
-        log(uploadProfilePhotoResponse.fileUrl);
+            await fileAssetController.postS3File(
+                selected, registerProvider.dni!, 'clients-photos');
+        log(uploadProfilePhotoResponse.data.path);
         registerProvider.setImageFile(selected);
-        registerProvider.setImageUrl(uploadProfilePhotoResponse.fileUrl);
+        registerProvider.setImageUrl(uploadProfilePhotoResponse.data.path);
 
         Future.microtask(() {
           loadingModal.closeLoadingModal(context);

@@ -1,4 +1,4 @@
-class Images {
+class ImagesPaths {
   final String login = 'assets/images/login_image.png';
   final String backgroundLogin = 'assets/images/background_login.jpg';
   final String logoSquare = 'assets/logo/logo_square.png';
@@ -18,4 +18,4 @@ class Images {
   final String relaxation = 'assets/images/activities/relaxation.jpg';
 }
 
-Images images = Images();
+ImagesPaths imagesPaths = ImagesPaths();

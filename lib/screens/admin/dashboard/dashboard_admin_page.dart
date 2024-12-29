@@ -36,7 +36,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
   int totalClients = 0;
   int totalActivePlans = 0;
   int totalInactivePlans = 0;
-  PlanResponse? mostPopularPlan;
+  PlanInfo? mostPopularPlan;
 
   String? currentMonth;
 
@@ -143,7 +143,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
       int totalClients = 0;
       int totalActivePlans = 0;
       int totalInactivePlans = 0;
-      PlanResponse? mostPopularPlan;
+      PlanInfo? mostPopularPlan;
       for (AllClientsPlansResponse clientPlan in allClientsPlansResponse) {
         totalProfits += double.parse(clientPlan.planPrice);
         totalClients += 1;
@@ -508,7 +508,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                   Center(
                                     child: texts.normalText(
                                       text: mostPopularPlan != null
-                                          ? mostPopularPlan!.numberOfClasses
+                                          ? mostPopularPlan!.classesCount
                                               .toString()
                                           : '',
                                       color: ColorsPalette.black,
@@ -544,7 +544,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                   ),
                                   texts.normalText(
                                     text: mostPopularPlan != null
-                                        ? '\$ ${mostPopularPlan?.price.toStringAsFixed(2)}/mes'
+                                        ? '\$ ${mostPopularPlan?.basePrice}/mes'
                                         : '',
                                     color: ColorsPalette.black,
                                     fontSize: 2.5 * SizeConfig.heightMultiplier,
@@ -552,7 +552,7 @@ class DashboardAdminPageState extends State<DashboardAdminPage> {
                                   ),
                                   texts.normalText(
                                     text: mostPopularPlan != null
-                                        ? '\$ ${mostPopularPlan?.classPrice.toStringAsFixed(2)}/mes'
+                                        ? '\$ ${mostPopularPlan?.pricePerClass}/mes'
                                         : '',
                                     color: ColorsPalette.black,
                                     fontSize: 1.5 * SizeConfig.heightMultiplier,

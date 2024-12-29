@@ -8,61 +8,54 @@ import 'package:pilates/models/send/login_send.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiBaseService {
-  bool isLogging;
-  String isProduction = dotenv.env['ENV']!;
-  String typeHeader;
-  final endpoint = dotenv.env['API']!;
-  final endpointLocal = dotenv.env['API_LOCAL']!;
-  late Map<String, String> defaultHeaders = {};
+  late Map<String, String> customHeaders = {};
+  String contentType;
+  final String uri = dotenv.env['API']!, uriLocal = dotenv.env['API_LOCAL']!;
 
   ApiBaseService._internal({
-    required this.isLogging,
-    required this.typeHeader,
+    required this.contentType,
   });
 
   static Future<ApiBaseService> create({
-    required bool isLogging,
-    required String typeHeader,
+    required String contentType,
   }) async {
-    final api =
-        ApiBaseService._internal(isLogging: isLogging, typeHeader: typeHeader);
-    await api.setHeader(isLogging, api.isProduction, typeHeader);
+    final api = ApiBaseService._internal(contentType: contentType);
+    await api.setHeader(contentType);
     return api;
   }
 
-  Future<void> setHeader(
-      bool isLogging, String isProduction, String type) async {
+  Future<void> setHeader(String type) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
     // Configurar el tipo de contenido según el parámetro `type`
     switch (type) {
       case 'json':
-        typeHeader = 'application/json';
+        contentType = 'application/json';
         break;
       case 'urlencoded':
-        typeHeader = 'application/x-www-form-urlencoded';
+        contentType = 'application/x-www-form-urlencoded';
         break;
       case 'formdata':
-        typeHeader = 'multipart/form-data';
+        contentType = 'multipart/form-data';
         break;
       case 'text':
-        typeHeader = 'text/plain';
+        contentType = 'text/plain';
         break;
       default:
-        typeHeader = 'application/json';
+        contentType = 'application/json';
         break;
     }
 
     // Configurar los headers por defecto
-    defaultHeaders['Content-Type'] = typeHeader;
+    customHeaders['Content-Type'] = contentType;
 
-    // Incluir el token si está disponible y `isLogging` es falso
-    if (!isLogging && token != null) {
-      defaultHeaders['Authorization'] = 'Bearer $token';
+    // Incluir el token si está disponible y `authApi` es falso
+    if (token != null) {
+      customHeaders['Authorization'] = 'Bearer $token';
     }
 
-    log('Default Headers: $defaultHeaders');
+    log('Default Headers: $customHeaders');
   }
 
   // Método para refrescar el token de la API
@@ -105,8 +98,8 @@ class ApiBaseService {
 
   Future<http.Response> get(String microserviceAndParams,
       {Map<String, String>? headersAdditional, bool? isLocal}) async {
-    final api = isLocal != null && isLocal ? endpointLocal : endpoint;
-    final headers = {...defaultHeaders, ...?headersAdditional};
+    final api = isLocal != null && isLocal ? uriLocal : uri;
+    final headers = {...customHeaders, ...?headersAdditional};
     return http.get(Uri.parse('$api$microserviceAndParams'), headers: headers);
   }
 
@@ -114,8 +107,8 @@ class ApiBaseService {
       {Map<String, String>? headersAdditional,
       String? bodyRequest,
       bool? isLocal}) async {
-    final api = isLocal != null && isLocal ? endpointLocal : endpoint;
-    final headers = {...defaultHeaders, ...?headersAdditional};
+    final api = isLocal != null && isLocal ? uriLocal : uri;
+    final headers = {...customHeaders, ...?headersAdditional};
     log('Headers: $headers');
     return http.post(Uri.parse('$api$microserviceAndParams'),
         headers: headers, body: bodyRequest);
@@ -126,14 +119,14 @@ class ApiBaseService {
       required List<http.MultipartFile> files,
       String? bodyRequest,
       bool? isLocal}) async {
-    final api = isLocal != null && isLocal ? endpointLocal : endpoint;
-    final headers = {...defaultHeaders, ...?headersAdditional};
+    final api = isLocal != null && isLocal ? uriLocal : uri;
+    final headers = {...customHeaders, ...?headersAdditional};
     http.MultipartRequest request =
         http.MultipartRequest('POST', Uri.parse('$api$microserviceAndParams'));
 
     request.headers.addAll(headers);
     if (bodyRequest != null) {
-      request.fields['bodyAuthorizations'] = bodyRequest;
+      request.fields['data'] = bodyRequest;
     }
     request.files.addAll(files);
 
@@ -144,8 +137,8 @@ class ApiBaseService {
       {Map<String, String>? headersAdditional,
       String? bodyRequest,
       bool? isLocal}) async {
-    final api = isLocal != null && isLocal ? endpointLocal : endpoint;
-    final headers = {...defaultHeaders, ...?headersAdditional};
+    final api = isLocal != null && isLocal ? uriLocal : uri;
+    final headers = {...customHeaders, ...?headersAdditional};
     return http.put(Uri.parse('$api$microserviceAndParams'),
         headers: headers, body: bodyRequest);
   }
@@ -154,8 +147,8 @@ class ApiBaseService {
       {Map<String, String>? headersAdditional,
       String? bodyRequest,
       bool? isLocal}) async {
-    final api = isLocal != null && isLocal ? endpointLocal : endpoint;
-    final headers = {...defaultHeaders, ...?headersAdditional};
+    final api = isLocal != null && isLocal ? uriLocal : uri;
+    final headers = {...customHeaders, ...?headersAdditional};
     return http.delete(Uri.parse('$api$microserviceAndParams'),
         headers: headers, body: bodyRequest);
   }

@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pilates/controllers/client_plans_controller.dart';
 import 'package:pilates/controllers/clients_controller.dart';
-import 'package:pilates/controllers/file_manager_controller.dart';
+import 'package:pilates/controllers/file_asset_controller.dart';
 import 'package:pilates/models/response/create_client_plan_response.dart';
 import 'package:pilates/models/response/create_client_response.dart';
 import 'package:pilates/models/response/upload_profile_photo_response.dart';
@@ -38,7 +38,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
   //Controladores
   ClientPlansController clientPlansController = ClientPlansController();
   LoginController loginController = LoginController();
-  FileManagerController fileManagerController = FileManagerController();
+  FileAssetController fileAssetController = FileAssetController();
 
   // Modals
   final LoadingModal loadingModal = LoadingModal();
@@ -119,11 +119,11 @@ class TransferMethodPageState extends State<TransferMethodPage> {
             clientClassProvider.loginResponse!.client.dniNumber;
 
         UploadS3Response uploadProfilePhotoResponse =
-            await fileManagerController.postS3TransferVoucher(selected, dni);
-        log(uploadProfilePhotoResponse.fileUrl);
+            await fileAssetController.postS3File(selected, '', dni);
+        log(uploadProfilePhotoResponse.data.path);
         registerProvider.setTransferImageFile(selected);
         registerProvider
-            .setTransferImageUrl(uploadProfilePhotoResponse.fileUrl);
+            .setTransferImageUrl(uploadProfilePhotoResponse.data.path);
 
         Future.microtask(() {
           loadingModal.closeLoadingModal(context);
@@ -187,7 +187,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
 
         DateTime planvigency = now;
         DateTime planexpiration = now
-            .add(Duration(days: registerProvider.selectedPlan!.classVigency));
+            .add(Duration(days: registerProvider.selectedPlan!.classesValidityPeriod));
 
         CreateClientPlanSend createClientPlanObject = CreateClientPlanSend(
           clientId: createClientResponse.data.id,
@@ -278,7 +278,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
 
       DateTime planvigency = now;
       DateTime planexpiration =
-          now.add(Duration(days: registerProvider.selectedPlan!.classVigency));
+          now.add(Duration(days: registerProvider.selectedPlan!.classesValidityPeriod));
 
       CreateClientPlanSend createClientPlanObject = CreateClientPlanSend(
           clientId: clientClassesProvider.loginResponse!.client.id,
@@ -442,7 +442,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
     DateTime now = DateTime.now();
     DateTime planvigency = now;
     DateTime planexpiration =
-        now.add(Duration(days: registerProvider.selectedPlan!.classVigency));
+        now.add(Duration(days: registerProvider.selectedPlan!.classesValidityPeriod));
     return Scaffold(
       backgroundColor: ColorsPalette.white,
       appBar: const CustomAppBar(backgroundColor: ColorsPalette.greyChocolate),
@@ -778,7 +778,7 @@ class TransferMethodPageState extends State<TransferMethodPage> {
                                     ),
                                     texts.normalText(
                                         text:
-                                            '\$ ${registerProvider.selectedPlan!.price.toStringAsFixed(2)}',
+                                            '\$ ${registerProvider.selectedPlan!.basePrice}',
                                         color: ColorsPalette.black,
                                         fontSize:
                                             1.5 * SizeConfig.heightMultiplier,
