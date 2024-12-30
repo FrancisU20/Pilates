@@ -3,50 +3,12 @@ import 'dart:developer';
 
 import 'package:pilates/models/response/create_client_response.dart';
 import 'package:pilates/models/response/error_response.dart';
-import 'package:pilates/models/response/login_response.dart';
 import 'package:pilates/models/response/update_status_response.dart';
 import 'package:pilates/models/send/create_client_send.dart';
-import 'package:pilates/models/send/login_send.dart';
 import 'package:pilates/models/send/update_status_send.dart';
 import 'package:pilates/services/api_base_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginController {
-  Future<LoginResponse> loginProcess(String email, String password) async {
-    try {
-      final apiLoggin =
-          await ApiBaseService.create(contentType: 'json');
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-
-      LoginSend userData = LoginSend(email: email, password: password);
-
-      // Se prepara el objeto para ser enviado
-      Map<String, dynamic> dataJson = userData.toJson();
-      String dataString = jsonEncode(dataJson);
-
-      log('Data enviada: $dataJson');
-
-      final response =
-          await apiLoggin.post('/api/login', bodyRequest: dataString);
-      if (response.statusCode == 200) {
-        LoginResponse loginResponse =
-            LoginResponse.fromJson(json.decode(response.body));
-        prefs.setString('token', loginResponse.token);
-        log('Login Exitoso');
-        log('Token: ${loginResponse.token}');
-        return loginResponse;
-      } else {
-        log('Error del servidor en /api/login con código: ${response.statusCode}');
-        throw Exception(response.body);
-      }
-    } catch (e) {
-      log('$e');
-      ErrorResponse errorResponse = ErrorResponse.fromJson(
-          json.decode(e.toString().replaceAll('Exception: ', '')));
-      throw Exception(errorResponse.message);
-    }
-  }
-
+class ClientController {
   Future<CreateClientResponse> postClient(
       CreateClientSend createClientObject) async {
     try {

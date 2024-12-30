@@ -6,8 +6,6 @@ import 'package:pilates/screens/onboarding/pages/onboarding_page3.dart';
 import 'package:pilates/screens/onboarding/widgets/stepper_widget.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
-import 'package:pilates/theme/widgets/images_containers.dart';
-import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +18,6 @@ class OnboardingPage extends StatefulWidget {
 
 class OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
-  Buttons buttons = Buttons();
-  Texts texts = Texts();
-  ImagesContainers imagesContainers = ImagesContainers();
 
   int currentStep = 0;
 
@@ -58,9 +53,9 @@ class OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsPalette.white,
+      backgroundColor: AppColors.white100,
       appBar: AppBar(
-        backgroundColor: ColorsPalette.white,
+        backgroundColor: AppColors.white100,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -68,15 +63,15 @@ class OnboardingPageState extends State<OnboardingPage> {
           physics: const ClampingScrollPhysics(),
           child: Container(
             padding: EdgeInsets.symmetric(
-              horizontal: 8 * SizeConfig.widthMultiplier,
+              horizontal: SizeConfig.scaleWidth(8),
             ),
-            color: ColorsPalette.white,
-            height: 100 * SizeConfig.heightMultiplier,
-            width: 100 * SizeConfig.widthMultiplier,
+            color: AppColors.white100,
+            height: SizeConfig.scaleHeight(100),
+            width: SizeConfig.scaleWidth(100),
             child: Column(
               children: [
                 SizedBox(
-                  height: 65 * SizeConfig.heightMultiplier,
+                  height: SizeConfig.scaleHeight(65),
                   child: PageView(
                     controller: _pageController,
                     onPageChanged: (int index) {
@@ -92,25 +87,30 @@ class OnboardingPageState extends State<OnboardingPage> {
                   ),
                 ),
                 StepperWidget(currentStep: currentStep, totalSteps: 3),
-                SizedBox(height: 4 * SizeConfig.heightMultiplier),
-                buttons.standart(
+                SizedBox(
+                  height: SizeConfig.scaleHeight(4),
+                ),
+                CustomButton(
                   text: 'Siguiente',
                   onPressed: _incrementCounter,
-                  color: ColorsPalette.greyChocolate,
+                  color: AppColors.grey300,
                 ),
                 currentStep != 0
-                    ? buttons.underlineText(
+                    ? CustomButton(
                         text: 'Regresar',
                         onPressed: _decrementCounter,
-                        color: ColorsPalette.greyChocolate,
+                        color: AppColors.grey300,
+                        buttonStyle: ButtonStyleType.outlinedText,
                       )
-                    : buttons.underlineText(
+                    : CustomButton(
                         text: 'Ya dispones de una cuenta, Inicia Sesión',
                         onPressed: () => {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/login', (route) => false)
-                            },
-                        color: ColorsPalette.greyChocolate)
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/login', (route) => false)
+                        },
+                        color: AppColors.grey300,
+                        buttonStyle: ButtonStyleType.outlinedText,
+                      )
               ],
             ),
           ),

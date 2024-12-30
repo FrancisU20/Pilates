@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:pilates/controllers/common/logger.dart';
 import 'package:pilates/models/common/standard_response.dart';
-import 'package:pilates/models/plans/plan_response.dart';
+import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/services/api_base_service.dart';
 
 class PlanController {
-  Future<List<PlanResponse>> getPlans() async {
+  Future<List<PlanModel>> getPlans() async {
     try {
       final apiBase = await ApiBaseService.create(contentType: 'json');
 
@@ -19,12 +19,12 @@ class PlanController {
         Logger.logServerSuccess(serverJson);
       }
 
-      final planListResponse = StandardResponse<List<PlanResponse>>.fromJson(
+      final planListResponse = StandardResponse<List<PlanModel>>.fromJson(
         serverJson,
-        (data) => PlanResponse.listFromJson(data),
+        (data) => PlanModel.listFromJson(data),
       );
 
-      List<PlanResponse> planList = planListResponse.data!;
+      List<PlanModel> planList = planListResponse.data!;
 
       return planList;
     } catch (e) {
@@ -32,7 +32,7 @@ class PlanController {
     }
   }
 
-  Future<PlanResponse> getPlanById(String id) async {
+  Future<PlanModel> getPlanById(String id) async {
     try {
       final apiBase = await ApiBaseService.create(contentType: 'json');
 
@@ -46,12 +46,12 @@ class PlanController {
         Logger.logServerSuccess(serverJson);
       }
 
-      final planResponse = StandardResponse<PlanResponse>.fromJson(
+      final planResponse = StandardResponse<PlanModel>.fromJson(
         serverJson,
-        (data) => PlanResponse.fromJson(data),
+        (data) => PlanModel.fromJson(data),
       );
 
-      PlanResponse plan = planResponse.data!;
+      PlanModel plan = planResponse.data!;
 
       return plan;
     } catch (e) {

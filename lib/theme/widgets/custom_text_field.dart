@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/screens/client/register/widgets/birthday_picker.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/components/app_birthday_picker.dart';
 
 enum TextFieldType { phone, email, number, alphanumeric, date, password, dni }
 
@@ -94,7 +94,7 @@ class CustomTextFieldState extends State<CustomTextField> {
       height: SizeConfig.scaleHeight(widget.height),
       child: GestureDetector(
         onTap: widget.typeTextField == TextFieldType.date
-            ? () => BirthdayPicker.selectBirthday(context, widget.controller)
+            ? () => AppBirthdayPicker.selectBirthday(context, widget.controller)
             : null,
         child: AbsorbPointer(
           absorbing: widget.typeTextField == TextFieldType.date,

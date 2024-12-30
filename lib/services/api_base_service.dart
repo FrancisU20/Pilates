@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:pilates/models/response/login_response.dart';
-import 'package:pilates/models/send/login_send.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiBaseService {
@@ -56,44 +53,6 @@ class ApiBaseService {
     }
 
     log('Default Headers: $customHeaders');
-  }
-
-  // Método para refrescar el token de la API
-  Future<String> refreshToken() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      // Obtener las credenciales de las preferencias
-      final email = prefs.getString('loginUser') ?? '';
-      final password = prefs.getString('loginPassword') ?? '';
-
-      LoginSend userData = LoginSend(
-        email: email,
-        password: password,
-      );
-
-      // Se prepara el objeto para ser enviado
-      Map<String, dynamic> dataJson = userData.toJson();
-      String dataString = jsonEncode(dataJson);
-
-      log('Data enviada: $dataJson');
-
-      final response =
-          await post('/api/clients/login', bodyRequest: dataString);
-
-      if (response.statusCode == 200) {
-        LoginResponse loginResponse =
-            LoginResponse.fromJson(json.decode(response.body));
-        final token = loginResponse.token;
-        prefs.setString('token', token);
-        return token;
-      } else {
-        log(response.body);
-        throw Exception('Error al refrescar el token');
-      }
-    } catch (e) {
-      log(e.toString());
-      throw Exception('Error al refrescar el token');
-    }
   }
 
   Future<http.Response> get(String microserviceAndParams,

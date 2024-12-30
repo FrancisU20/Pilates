@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:pilates/models/login/login_model.dart';
 import 'package:pilates/models/response/all_client_class_response.dart';
 import 'package:pilates/models/response/client_plans_response.dart';
-import 'package:pilates/models/response/login_response.dart';
 
 class ClientClassProvider extends ChangeNotifier {
   //Variables de registro
-  LoginResponse? _loginResponse;
+  LoginModel? _loginResponse;
   DateTime? _selectedDate;
   String? _selectedHour;
   String? _selectedClass;
@@ -14,7 +14,7 @@ class ClientClassProvider extends ChangeNotifier {
   List<AllClientsPlansResponse>? _allClientsPlansResponse;
 
   //Getters
-  LoginResponse? get loginResponse => _loginResponse;
+  LoginModel? get loginResponse => _loginResponse;
   DateTime? get selectedDate => _selectedDate;
   String? get selectedHour => _selectedHour;
   String? get selectedClass => _selectedClass;
@@ -24,7 +24,7 @@ class ClientClassProvider extends ChangeNotifier {
       _allClientsPlansResponse;
 
   //Setters
-  void setLoginResponse(LoginResponse loginResponse) {
+  void setLoginModel(LoginModel loginResponse) {
     _loginResponse = loginResponse;
     notifyListeners();
   }
@@ -73,7 +73,7 @@ class ClientClassProvider extends ChangeNotifier {
   }
 
   //Clear Individual
-  void clearLoginResponse() {
+  void clearLoginModel() {
     _loginResponse = null;
     notifyListeners();
   }

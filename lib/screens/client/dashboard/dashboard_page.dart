@@ -1,17 +1,13 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/client_plans_controller.dart';
 import 'package:pilates/data/menu_data.dart';
-import 'package:pilates/models/response/available_client_class_response.dart';
 import 'package:pilates/models/response/client_plans_response.dart';
-import 'package:pilates/providers/client_class_provider.dart';
-import 'package:pilates/theme/components/client/client_nav_bar.dart';
-import 'package:pilates/theme/components/client/client_home_bar.dart';
+import 'package:pilates/providers/client_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/components/app_loading.dart';
+import 'package:pilates/theme/components/client/client_home_bar.dart';
+import 'package:pilates/theme/components/client/client_nav_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
@@ -24,9 +20,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class DashboardPageState extends State<DashboardPage> {
-  Texts texts = Texts();
-  final LoadingModal loadingModal = LoadingModal();
-  final activities = MenuData.activities;
+  final menuItems = MenuData.menuItems;
   ClientPlansController clientPlansController = ClientPlansController();
   bool noPlans = true;
   bool isNextToExpire = false;
@@ -35,12 +29,9 @@ class DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getPlansByClient();
-    });
   }
 
-  void getPlansByClient() async {
+  /* void getPlansByClient() async {
     ClientClassProvider clientClassProvider =
         Provider.of<ClientClassProvider>(context, listen: false);
     try {
@@ -130,54 +121,54 @@ class DashboardPageState extends State<DashboardPage> {
     return (currentClientPlan!.numberOfClasses -
             currentClientPlan!.attendedClasses) /
         currentClientPlan!.numberOfClasses;
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
-    ClientClassProvider clientClassProvider =
-        Provider.of<ClientClassProvider>(context);
+    ClientProvider clientProvider =
+        Provider.of<ClientProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: ColorsPalette.white,
-      appBar: const DashboardAppBar(),
+      backgroundColor: AppColors.white100,
+      appBar: const ClientHomeBar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         physics: const ClampingScrollPhysics(),
         child: Container(
-          color: ColorsPalette.white,
+          color: AppColors.white100,
           padding: EdgeInsets.symmetric(
-              horizontal: 5 * SizeConfig.widthMultiplier,
-              vertical: 0.5 * SizeConfig.heightMultiplier),
+              horizontal: SizeConfig.scaleWidth(5),
+              vertical: SizeConfig.scaleHeight(0.5)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  texts.normalText(
+                  CustomText(
                       text: 'Hola,',
-                      color: ColorsPalette.greyAged,
-                      fontSize: 4 * SizeConfig.heightMultiplier,
+                      color: AppColors.grey300,
+                      fontSize: SizeConfig.scaleHeight(4),
                       fontWeight: FontWeight.w400),
                   SizedBox(
-                    width: 3 * SizeConfig.widthMultiplier,
+                    width: SizeConfig.scaleWidth(3),
                   ),
-                  texts.normalText(
+                  CustomText(
                       text:
-                          '${clientClassProvider.loginResponse!.client.name}!',
-                      color: ColorsPalette.black,
-                      fontSize: 4 * SizeConfig.heightMultiplier,
+                          '${clientProvider.user!.name}!',
+                      color: AppColors.black100,
+                      fontSize: SizeConfig.scaleHeight(4),
                       fontWeight: FontWeight.w400),
                 ],
               ),
               SizedBox(
-                height: 0.5 * SizeConfig.heightMultiplier,
+                height: SizeConfig.scaleHeight(0.5),
               ),
               Row(
                 children: [
-                  texts.normalText(
+                  CustomText(
                       text: '¿Qué te gustaría hacer hoy?',
-                      color: ColorsPalette.greyAged,
-                      fontSize: 2.5 * SizeConfig.heightMultiplier,
+                      color: AppColors.grey300,
+                      fontSize: SizeConfig.scaleHeight(2.5),
                       fontWeight: FontWeight.w500),
                 ],
               ),
@@ -186,11 +177,11 @@ class DashboardPageState extends State<DashboardPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 2.5 * SizeConfig.heightMultiplier,
+                    height: SizeConfig.scaleHeight(2.5),
                   ),
                   CarouselSlider(
                     options: CarouselOptions(
-                      height: 45 * SizeConfig.heightMultiplier,
+                      height: SizeConfig.scaleHeight(45),
                       enlargeCenterPage: true,
                       autoPlay: true,
                       aspectRatio: 16 / 9,
@@ -200,13 +191,11 @@ class DashboardPageState extends State<DashboardPage> {
                           const Duration(milliseconds: 1600),
                       viewportFraction: 0.8,
                     ),
-                    items: activities.map((activitie) {
+                    items: menuItems.map((activitie) {
                       return Builder(
                         builder: (BuildContext context) {
                           return GestureDetector(
                             onTap: () => {
-                              clientClassProvider.clearSelectedDate(),
-                              clientClassProvider.clearSelectedHour(),
                               Navigator.pushNamed(context, activitie['route']!)
                             },
                             child: Container(
@@ -219,15 +208,15 @@ class DashboardPageState extends State<DashboardPage> {
                                   image: AssetImage(activitie['image']!),
                                   fit: BoxFit.cover,
                                   colorFilter: ColorFilter.mode(
-                                      ColorsPalette.black.withOpacity(0.2),
+                                      AppColors.black100.withOpacity(0.2),
                                       BlendMode.darken),
                                 ),
                               ),
                               child: Center(
-                                child: texts.normalText(
+                                child: CustomText(
                                     text: activitie['description']!,
-                                    color: ColorsPalette.white,
-                                    fontSize: 2.5 * SizeConfig.heightMultiplier,
+                                    color: AppColors.white100,
+                                    fontSize: SizeConfig.scaleHeight(2.5),
                                     fontWeight: FontWeight.w500,
                                     textAlign: TextAlign.center),
                               ),
@@ -241,7 +230,7 @@ class DashboardPageState extends State<DashboardPage> {
                       ? Column(
                           children: [
                             SizedBox(
-                              height: 2.5 * SizeConfig.heightMultiplier,
+                              height: SizeConfig.scaleHeight(2.5),
                             ),
                             GestureDetector(
                                 onTap: () =>
@@ -249,65 +238,65 @@ class DashboardPageState extends State<DashboardPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    texts.normalText(
+                                    CustomText(
                                         text: 'Adquiere un plan',
-                                        color: ColorsPalette.redAged,
+                                        color: AppColors.red300,
                                         fontSize:
-                                            2.5 * SizeConfig.heightMultiplier,
+                                            SizeConfig.scaleHeight(2.5),
                                         fontWeight: FontWeight.w500,
                                         textAlign: TextAlign.center),
                                     SizedBox(
-                                      width: 1.5 * SizeConfig.widthMultiplier,
+                                      width: SizeConfig.scaleWidth(1.5),
                                     ),
                                     Icon(
                                       FontAwesomeIcons.arrowUpRightFromSquare,
-                                      color: ColorsPalette.redAged,
-                                      size: 2 * SizeConfig.heightMultiplier,
+                                      color: AppColors.red300,
+                                      size: SizeConfig.scaleHeight(2),
                                     )
                                   ],
                                 )),
                             SizedBox(
-                              height: 2.5 * SizeConfig.heightMultiplier,
+                              height: SizeConfig.scaleHeight(2.5),
                             ),
                           ],
                         )
                       : SizedBox(
-                          height: 15 * SizeConfig.heightMultiplier,
+                          height: SizeConfig.scaleHeight(15),
                           width: double.infinity,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              texts.normalText(
+                              CustomText(
                                   text:
                                       '${currentClientPlan!.numberOfClasses - currentClientPlan!.attendedClasses} de ${currentClientPlan!.numberOfClasses}',
-                                  color: ColorsPalette.greyAged,
-                                  fontSize: 2 * SizeConfig.heightMultiplier,
+                                  color: AppColors.grey300,
+                                  fontSize: SizeConfig.scaleHeight(2),
                                   fontWeight: FontWeight.w500),
                               SizedBox(
-                                height: 1.5 * SizeConfig.heightMultiplier,
+                                height: SizeConfig.scaleHeight(1.5),
                               ),
                               SizedBox(
-                                width: 70 * SizeConfig.widthMultiplier,
+                                width: SizeConfig.scaleWidth(70),
                                 child: LinearProgressIndicator(
-                                  value: calculateProgressClass(),
-                                  backgroundColor: ColorsPalette.grey,
+                                  value: 0,
+                                  backgroundColor: AppColors.grey300,
                                   valueColor:
                                       const AlwaysStoppedAnimation<Color>(
-                                          ColorsPalette.beigeAged,),
+                                          AppColors.beige100,),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(15)),
-                                  minHeight: 1 * SizeConfig.heightMultiplier,
+                                  minHeight: SizeConfig.scaleHeight(1),
                                 ),
                               ),
                               SizedBox(
-                                height: 0.5 * SizeConfig.heightMultiplier,
+                                height: SizeConfig.scaleHeight(0.5),
                               ),
-                              texts.normalText(
+                              CustomText(
                                   text: 'Clases Disponibles',
                                   color:
-                                      ColorsPalette.greyAged,
-                                  fontSize: 2 * SizeConfig.heightMultiplier,
+                                      AppColors.grey300,
+                                  fontSize: SizeConfig.scaleHeight(2),
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.start),
                             ],
@@ -319,7 +308,7 @@ class DashboardPageState extends State<DashboardPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomBar(),
+      bottomNavigationBar: const ClientNavBar(),
     );
   }
 }

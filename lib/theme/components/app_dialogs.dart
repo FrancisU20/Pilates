@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pilates/models/plans/plan_response.dart';
+import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
@@ -89,7 +89,7 @@ class AppDialogs {
   /// Diálogo para seleccionar método de pago
   static Future<void> showPaymentMethod({
     required BuildContext context,
-    required PlanResponse selectedPlan,
+    required PlanModel selectedPlan,
   }) async {
     final registerProvider =
         Provider.of<RegisterProvider>(context, listen: false);

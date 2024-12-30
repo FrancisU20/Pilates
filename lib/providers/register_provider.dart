@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pilates/models/plans/plan_response.dart';
+import 'package:pilates/models/plan/plan_model.dart';
 
 class RegisterProvider extends ChangeNotifier {
   //Variables de registro
@@ -14,7 +14,7 @@ class RegisterProvider extends ChangeNotifier {
   XFile? _imageFile;
   String? _imageUrl;
   String? _dni;
-  PlanResponse? _selectedPlan;
+  PlanModel? _selectedPlan;
   XFile? _transferImageFile;
   String? _transferImageUrl;
 
@@ -29,7 +29,7 @@ class RegisterProvider extends ChangeNotifier {
   XFile? get imageFile => _imageFile;
   String? get imageUrl => _imageUrl;
   String? get dni => _dni;
-  PlanResponse? get selectedPlan => _selectedPlan;
+  PlanModel? get selectedPlan => _selectedPlan;
   XFile? get transferImageFile => _transferImageFile;
   String? get transferImageUrl => _transferImageUrl;
 
@@ -84,7 +84,7 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedPlan(PlanResponse selectedPlan) {
+  void setSelectedPlan(PlanModel selectedPlan) {
     _selectedPlan = selectedPlan;
     notifyListeners();
   }

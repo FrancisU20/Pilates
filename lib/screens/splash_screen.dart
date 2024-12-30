@@ -4,7 +4,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pilates/screens/login/login_page.dart';
 import 'package:pilates/screens/onboarding/onboarding_page.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/config/size_config.dart';
 
@@ -16,7 +15,6 @@ class SplashScreenPage extends StatefulWidget {
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
   final _globalKey = GlobalKey<ScaffoldState>();
-  Texts texts = Texts();
   @override
   void initState() {
     super.initState();
@@ -61,7 +59,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      backgroundColor: ColorsPalette.white,
+      backgroundColor: AppColors.white100,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -70,19 +68,19 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             Container(
               decoration: BoxDecoration(
                 borderRadius:
-                    BorderRadius.circular(25 * SizeConfig.heightMultiplier),
+                    BorderRadius.circular(SizeConfig.scaleHeight(25)),
               ),
               clipBehavior: Clip.hardEdge,
-              height: 20 * SizeConfig.heightMultiplier,
+              height: SizeConfig.scaleHeight(20),
               child: Image.asset(
                 imagesPaths.logoRectangle,
                 fit: BoxFit.scaleDown,
               ),
             ),
-            SizedBox(height: 1 * SizeConfig.heightMultiplier),
+            SizedBox(height: SizeConfig.scaleHeight(1)),
             LoadingAnimationWidget.beat(
-                color: ColorsPalette.black,
-                size: 5 * SizeConfig.heightMultiplier),
+                color: AppColors.black100,
+                size: SizeConfig.scaleHeight(5)),
           ],
         ),
       ),

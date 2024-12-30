@@ -1,7 +1,7 @@
 import 'package:pilates/config/images_paths.dart';
 
 class MenuData {
-  static List<Map<String, String>> activities = [
+  static List<Map<String, String>> menuItems = [
     {
       'image': imagesPaths.dashboardItem1,
       'description': 'Agendar Cita',
