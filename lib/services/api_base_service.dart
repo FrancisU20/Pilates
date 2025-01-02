@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,8 +50,6 @@ class ApiBaseService {
     if (token != null) {
       customHeaders['Authorization'] = 'Bearer $token';
     }
-
-    log('Default Headers: $customHeaders');
   }
 
   Future<http.Response> get(String microserviceAndParams,
@@ -68,7 +65,6 @@ class ApiBaseService {
       bool? isLocal}) async {
     final api = isLocal != null && isLocal ? uriLocal : uri;
     final headers = {...customHeaders, ...?headersAdditional};
-    log('Headers: $headers');
     return http.post(Uri.parse('$api$microserviceAndParams'),
         headers: headers, body: bodyRequest);
   }

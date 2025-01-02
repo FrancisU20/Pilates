@@ -5,32 +5,27 @@ import 'package:pilates/config/size_config.dart';
 
 enum SnackBarType { error, success, informative }
 
-class CustomSnackBar extends StatelessWidget {
-  final String message;
-  final SnackBarType type;
-
-  const CustomSnackBar({
-    super.key,
-    required this.message,
-    required this.type,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SnackBar(
+class CustomSnackBar {
+  /// Método para mostrar el SnackBar
+  static void show(BuildContext context, String message, SnackBarType type) {
+    final snackBar = SnackBar(
       content: CustomText(
         text: message.replaceAll('Exception: ', ''),
         fontWeight: FontWeight.w500,
         textAlign: TextAlign.start,
         fontSize: SizeConfig.scaleText(2),
         color: AppColors.white100,
+        maxLines: 2,
       ),
-      backgroundColor: _getBackgroundColor(),
+      backgroundColor: _getBackgroundColor(type),
+      duration: const Duration(seconds: 3), // Duración predeterminada
     );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   /// Determina el color de fondo basado en el tipo de SnackBar
-  Color _getBackgroundColor() {
+  static Color _getBackgroundColor(SnackBarType type) {
     switch (type) {
       case SnackBarType.error:
         return AppColors.red300;

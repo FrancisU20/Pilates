@@ -78,7 +78,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
               ),
             ),
             SizedBox(height: SizeConfig.scaleHeight(1)),
-            LoadingAnimationWidget.beat(
+            LoadingAnimationWidget.staggeredDotsWave(
                 color: AppColors.black100,
                 size: SizeConfig.scaleHeight(5)),
           ],

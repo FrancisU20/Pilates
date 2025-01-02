@@ -7,6 +7,7 @@ import 'package:pilates/screens/onboarding/widgets/stepper_widget.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -96,20 +97,18 @@ class OnboardingPageState extends State<OnboardingPage> {
                   color: AppColors.grey300,
                 ),
                 currentStep != 0
-                    ? CustomButton(
+                    ? CustomTextButton(
                         text: 'Regresar',
                         onPressed: _decrementCounter,
                         color: AppColors.grey300,
-                        buttonStyle: ButtonStyleType.outlinedText,
                       )
-                    : CustomButton(
+                    : CustomTextButton(
                         text: 'Ya dispones de una cuenta, Inicia Sesión',
                         onPressed: () => {
                           Navigator.pushNamedAndRemoveUntil(
                               context, '/login', (route) => false)
                         },
                         color: AppColors.grey300,
-                        buttonStyle: ButtonStyleType.outlinedText,
                       )
               ],
             ),

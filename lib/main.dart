@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pilates/providers/client_class_provider.dart';
+import 'package:pilates/providers/client_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
 //import 'package:pilates/screens/admin/clients/clients_page.dart';
 //import 'package:pilates/screens/admin/dashboard/dashboard_admin_page.dart';
@@ -48,6 +49,7 @@ Future<void> main() async {
     providers: [
       ChangeNotifierProvider<RegisterProvider>(
           create: (_) => RegisterProvider()),
+      ChangeNotifierProvider<ClientProvider>(create: (_) => ClientProvider()),
       ChangeNotifierProvider<ClientClassProvider>(
           create: (_) => ClientClassProvider()),
     ],

@@ -41,8 +41,8 @@ class CustomTextField extends StatefulWidget {
 }
 
 class CustomTextFieldState extends State<CustomTextField> {
-  late List<TextInputFormatter> inputFormatters;
   late TextInputType keyboardType;
+  List<TextInputFormatter> inputFormatters = [];
   bool obscureText = false;
 
   @override

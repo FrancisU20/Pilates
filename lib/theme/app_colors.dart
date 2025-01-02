@@ -13,7 +13,7 @@ class AppColors {
 
   // Marrones
   static const brown100 = Color(0xFFD2D0C8); 
-  static const brown200 = Color.fromARGB(255, 160, 145, 125);
+  static const brown200 = Color(0xFFA0917D);
 
   // Grises
   static const grey300 = Color(0xFF56514B); 
@@ -28,7 +28,7 @@ class AppColors {
   static const orange300 = Color(0xFFF3AF45); 
   
   // Rojos
-  static const red300 = Color(0xFF8F3A3D);
+  static const red300 = Color(0xFFAA5558);
 
   // Oro
   static const gold100 = Color(0xFFBDAA70);

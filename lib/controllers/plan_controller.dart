@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:pilates/controllers/common/logger.dart';
+import 'package:pilates/common/logger.dart';
 import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/services/api_base_service.dart';

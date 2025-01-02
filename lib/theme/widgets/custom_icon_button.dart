@@ -3,9 +3,11 @@ import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomIconButton extends StatelessWidget {
   final String? text;
-  final IconData? icon;
+  final double? fontSize;
+  final IconData icon;
+  final double? iconSize;
   final VoidCallback onPressed;
   final Color color;
   final Color textColor;
@@ -13,15 +15,17 @@ class CustomButton extends StatelessWidget {
   final double height;
   final bool isActive;
 
-  const CustomButton({
+  const CustomIconButton({
     super.key,
     this.text,
-    this.icon,
+    this.fontSize = 2,
+    required this.icon,
+    this.iconSize = 2,
     required this.onPressed,
     this.color = AppColors.brown200,
     this.textColor = AppColors.white100,
-    this.width = 60,
-    this.height = 5,
+    this.width = 30,
+    this.height = 15,
     this.isActive = true,
   });
 
@@ -57,35 +61,24 @@ class CustomButton extends StatelessWidget {
   /// Construye el contenido del botón basado en su tipo
   Widget _buildContent() {
     final hasText = text != null;
-    final hasIcon = icon != null;
 
-    if (hasText && hasIcon) {
-      return Row(
+    if (hasText) {
+      return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon,
-              color: textColor, size: SizeConfig.scaleHeight(2)),
-          SizedBox(width: SizeConfig.scaleWidth(2)),
+          Icon(icon, color: textColor, size: SizeConfig.scaleHeight(iconSize!)),
           CustomText(
             text: text!,
             color: textColor,
-            fontSize: SizeConfig.scaleText(2),
+            fontSize: SizeConfig.scaleText(fontSize!),
             fontWeight: FontWeight.w500,
+            maxLines: 2,
           ),
         ],
       );
-    } else if (hasText) {
-      return CustomText(
-        text: text!,
-        color: textColor,
-        fontSize: SizeConfig.scaleText(2),
-        fontWeight: FontWeight.w500,
-      );
-    } else if (hasIcon) {
+    } else {
       return Icon(icon,
-          color: textColor, size: SizeConfig.scaleHeight(2));
+          color: textColor, size: SizeConfig.scaleHeight(iconSize!));
     }
-
-    throw Exception('El botón debe tener texto o icono');
   }
 }

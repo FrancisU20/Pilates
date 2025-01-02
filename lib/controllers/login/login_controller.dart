@@ -1,18 +1,18 @@
 import 'dart:convert';
-import 'package:pilates/controllers/common/logger.dart';
+import 'package:pilates/common/logger.dart';
 import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/login/login_model.dart';
 import 'package:pilates/models/user/user_model.dart';
 import 'package:pilates/services/api_base_service.dart';
 
 class LoginController {
-  Future<UserModel> signIn(String email, String password) async {
+  Future<UserModel> login(String email, String password) async {
     try {
       final apiBase = await ApiBaseService.create(contentType: 'json');
       LoginModel loginModel = LoginModel(email: email, password: password);
       
       String dataJson = jsonEncode(loginModel.toJson());
-      Logger.logSendData(jsonEncode(loginModel.toJson));
+      Logger.logSendData(dataJson);
 
       final response = await apiBase.post('/users/login', bodyRequest: dataJson);
       final serverJson = json.decode(response.body);
