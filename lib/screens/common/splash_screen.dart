@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:pilates/screens/login/login_page.dart';
-import 'package:pilates/screens/onboarding/onboarding_page.dart';
+import 'package:pilates/screens/common/login_page.dart';
+import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/config/size_config.dart';

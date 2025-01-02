@@ -4,7 +4,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/login/login_controller.dart';
 import 'package:pilates/models/user/user_model.dart';
-import 'package:pilates/providers/register_provider.dart';
+import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +19,6 @@ class LoginProvider extends ChangeNotifier {
   String email = '';
   String password = '';
 
-  bool isLoading = false;
   bool canCheckBiometric = false;
 
   //? Setters Variables
@@ -60,6 +59,9 @@ class LoginProvider extends ChangeNotifier {
 
   //****************************************/
   //? Reutilizables
+  bool isLoading = false;
+
+  //? Setters Reutilizables
   void showLoading() {
     isLoading = true;
     notifyListeners();
@@ -89,7 +91,7 @@ class LoginProvider extends ChangeNotifier {
       context,
       listen: false,
     );
-    registerProvider.clearAll();
+    registerProvider.clearData();
     try {
       showLoading();
       SharedPreferences prefs = await SharedPreferences.getInstance();

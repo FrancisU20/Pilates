@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/providers/login_provider.dart';
+import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/theme/components/app_loading.dart';
@@ -27,6 +27,13 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override

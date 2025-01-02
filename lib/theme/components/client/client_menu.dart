@@ -118,7 +118,7 @@ class ClientMenuState extends State<ClientMenu> {
                         title: const Text('Cerrar Sesión'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          AppDialogs.showLogoutModal(context);
+                          AppDialogs.showLogout(context);
                         },
                       ),
                     ],
