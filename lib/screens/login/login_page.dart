@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/providers/client_provider.dart';
+import 'package:pilates/providers/login_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/theme/components/app_loading.dart';
@@ -31,8 +31,8 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    ClientProvider clientProvider =
-        Provider.of<ClientProvider>(context, listen: false);
+    LoginProvider clientProvider =
+        Provider.of<LoginProvider>(context, listen: false);
     clientProvider.canUseBiometrics(context);
     clientProvider.getAvailableBiometrics(context);
     clientProvider.getSharedPreferences(context);
@@ -73,7 +73,7 @@ class LoginPageState extends State<LoginPage> {
                       ),
                       width: SizeConfig.scaleWidth(90),
                       padding: const EdgeInsets.all(25),
-                      child: Consumer<ClientProvider>(
+                      child: Consumer<LoginProvider>(
                         builder: (context, clientProvider, child) {
                           return Form(
                             child: Column(
@@ -104,7 +104,7 @@ class LoginPageState extends State<LoginPage> {
                                   fontSize: SizeConfig.scaleHeight(2),
                                 ),
                                 SizedBox(height: SizeConfig.scaleHeight(2)),
-                                Consumer<ClientProvider>(
+                                Consumer<LoginProvider>(
                                   builder: (context, clientProvider, child) {
                                     if (clientProvider.canCheckBiometric &&
                                         clientProvider
@@ -240,7 +240,7 @@ class LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-        Consumer<ClientProvider>(
+        Consumer<LoginProvider>(
           builder: (context, clientProvider, child) {
             if (clientProvider.isLoading) {
               return const AppLoading();

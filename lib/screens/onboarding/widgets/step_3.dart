@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/widgets/custom_image_asset.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 
@@ -15,17 +17,21 @@ class Step3State extends State<Step3> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // COntenedor de paginas
-        Image.asset(
-          'assets/images/onboarding/onboarding3.jpg',
-          height: SizeConfig.scaleHeight(40),
+        CustomImageAsset(
+          imagePath: 'assets/images/onboarding/onboarding3.jpg',
+          height: SizeConfig.scaleHeight(50),
+          borderRadius: 15.0,
+          errorBackgroundColor: AppColors.white200,
+          errorIconColor: AppColors.red300,
+          errorIconSize: SizeConfig.scaleHeight(20),
         ),
         SizedBox(height: SizeConfig.scaleHeight(3)),
         CustomText(
             text:
                 'Reserva tu primera clase y comienza tu viaje hacia una vida más saludable y equilibrada',
             fontSize: SizeConfig.scaleText(2.5),
-            fontWeight: FontWeight.w400),
+            fontWeight: FontWeight.w400,
+            maxLines: 3,),
       ],
     );
   }

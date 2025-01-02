@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/controllers/client_plans_controller.dart';
 import 'package:pilates/data/menu_data.dart';
 import 'package:pilates/models/response/client_plans_response.dart';
-import 'package:pilates/providers/client_provider.dart';
+import 'package:pilates/providers/login_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/client/client_home_bar.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
@@ -125,8 +125,8 @@ class DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    ClientProvider clientProvider =
-        Provider.of<ClientProvider>(context, listen: false);
+    LoginProvider clientProvider =
+        Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: AppColors.white100,
       appBar: const ClientHomeBar(),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pilates/providers/register_provider.dart';
-import 'package:pilates/screens/onboarding/pages/onboarding_page1.dart';
-import 'package:pilates/screens/onboarding/pages/onboarding_page2.dart';
-import 'package:pilates/screens/onboarding/pages/onboarding_page3.dart';
-import 'package:pilates/screens/onboarding/widgets/stepper_widget.dart';
+import 'package:pilates/screens/onboarding/widgets/step_1.dart';
+import 'package:pilates/screens/onboarding/widgets/step_2.dart';
+import 'package:pilates/screens/onboarding/widgets/step_3.dart';
+import 'package:pilates/theme/widgets/custom_stepper_widget.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/config/size_config.dart';
@@ -87,7 +87,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                     ],
                   ),
                 ),
-                StepperWidget(currentStep: currentStep, totalSteps: 3),
+                CustomStepperWidget(currentStep: currentStep, totalSteps: 3),
                 SizedBox(
                   height: SizeConfig.scaleHeight(4),
                 ),

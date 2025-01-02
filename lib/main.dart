@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pilates/providers/client_class_provider.dart';
-import 'package:pilates/providers/client_provider.dart';
+import 'package:pilates/providers/login_provider.dart';
 import 'package:pilates/providers/register_provider.dart';
 //import 'package:pilates/screens/admin/clients/clients_page.dart';
 //import 'package:pilates/screens/admin/dashboard/dashboard_admin_page.dart';
@@ -11,6 +11,7 @@ import 'package:pilates/providers/register_provider.dart';
 //import 'package:pilates/screens/client/contact/contact_us_page.dart';
 import 'package:pilates/screens/client/dashboard/dashboard_page.dart';
 import 'package:pilates/screens/login/login_page.dart';
+import 'package:pilates/screens/onboarding/onboarding_page.dart';
 //import 'package:pilates/screens/onboarding/onboarding_page.dart';
 //import 'package:pilates/screens/client/payment/transfer_method.dart';
 //import 'package:pilates/screens/client/plan/plan_page.dart';
@@ -49,7 +50,7 @@ Future<void> main() async {
     providers: [
       ChangeNotifierProvider<RegisterProvider>(
           create: (_) => RegisterProvider()),
-      ChangeNotifierProvider<ClientProvider>(create: (_) => ClientProvider()),
+      ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
       ChangeNotifierProvider<ClientClassProvider>(
           create: (_) => ClientClassProvider()),
     ],
@@ -91,6 +92,7 @@ class MyApp extends StatelessWidget {
           routes: {
             //Pantallas del cliente
             '/home': (context) => const SplashScreenPage(),
+            '/onboarding': (context) => const OnboardingPage(),
             '/login': (context) => const LoginPage(),
             '/dashboard': (context) => const DashboardPage(),
             //'/schedule_date': (context) => const ScheduleDatePage(),
@@ -98,7 +100,6 @@ class MyApp extends StatelessWidget {
             //'/contact_us': (context) => const ContactUsPage(),
             //'/profile': (context) => const ProfilePage(),
             //'/plans': (context) => const PlanPage(),
-            //'/onboarding': (context) => const OnboardingPage(),
             //'/register': (context) => const RegisterPage(),
             //'/transfer': (context) => const TransferMethodPage(),
 

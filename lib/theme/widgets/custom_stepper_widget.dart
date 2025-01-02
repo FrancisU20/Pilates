@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pilates/theme/app_colors.dart';
 
-class StepperWidget extends StatelessWidget {
+class CustomStepperWidget extends StatelessWidget {
   final int currentStep;
   final int totalSteps;
 
-  const StepperWidget({
+  const CustomStepperWidget({
     super.key,
     required this.currentStep,
     required this.totalSteps,

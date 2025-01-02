@@ -9,35 +9,12 @@ import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ClientProvider extends ChangeNotifier {
-  // * Variables en Memoria * //
-  //? Objetos de la clase
-  UserModel? user;
-
-  //? Getters
-  UserModel? get getUser => user;
-
-  //? Setters
-  void setUser(UserModel user) {
-    this.user = user;
-    notifyListeners();
-  }
-
-  //? Clean
-  void clearUser() {
-    user = null;
-    notifyListeners();
-  }
-
-  //? Clean All
-  void clearAll() {
-    user = null;
-    notifyListeners();
-  }
-
-  // * Funciones de la clase * //
+class LoginProvider extends ChangeNotifier {
+  //****************************************/
+  //? Controllers
   final LoginController loginController = LoginController();
 
+  //****************************************/
   //? Variables
   String email = '';
   String password = '';
@@ -45,9 +22,7 @@ class ClientProvider extends ChangeNotifier {
   bool isLoading = false;
   bool canCheckBiometric = false;
 
-  List<BiometricType> listBiometrics = [];
-
-  //? Setters
+  //? Setters Variables
   void setEmail(String email) {
     this.email = email;
     notifyListeners();
@@ -63,11 +38,27 @@ class ClientProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //****************************************/
+  //? Objetos
+  UserModel? user;
+
+  //? Setters Objetos
+  void setUser(UserModel user) {
+    this.user = user;
+    notifyListeners();
+  }
+
+  //****************************************/
+  //? Listas
+  List<BiometricType> listBiometrics = [];
+
+  //? Setters Listas
   void setListBiometrics(List<BiometricType> listBiometrics) {
     this.listBiometrics = listBiometrics;
     notifyListeners();
   }
 
+  //****************************************/
   //? Reutilizables
   void showLoading() {
     isLoading = true;
@@ -78,16 +69,18 @@ class ClientProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
-
+  //****************************************/
+  //***************FUNCIONES****************/
+  //****************************************/
   //? SHARED PREFERENCES
   Future<void> getSharedPreferences(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String email = prefs.getString('email') ?? '';
     String password = prefs.getString('password') ?? '';
-    
+
     setEmail(email);
     setPassword(password);
-  } 
+  }
 
   //? LOGIN
   Future<void> login(
