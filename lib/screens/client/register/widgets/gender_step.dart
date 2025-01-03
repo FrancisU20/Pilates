@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/widgets/custom_image_asset.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,7 @@ class GenderStepState extends State<GenderStep> {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: registerProvider.gender == 'M'
-                            ? AppColors.beige100
+                            ? AppColors.brown200
                             : Colors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -47,15 +48,14 @@ class GenderStepState extends State<GenderStep> {
                     ),
                     child: Column(
                       children: [
-                        Image.asset(
-                          'assets/images/male.jpg',
-                          width: SizeConfig.scaleHeight(15),
-                          fit: BoxFit.contain,
-                        ),
+                        CustomImageAsset(
+                            imagePath: 'assets/images/male.jpg',
+                            height: SizeConfig.scaleHeight(23),
+                            fit: BoxFit.contain),
                         CustomText(
                           text: 'Hombre',
                           color: registerProvider.gender == 'M'
-                              ? AppColors.beige100
+                              ? AppColors.brown200
                               : AppColors.black100,
                           fontWeight: FontWeight.w400,
                           fontSize: SizeConfig.scaleText(2),
@@ -73,7 +73,7 @@ class GenderStepState extends State<GenderStep> {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: registerProvider.gender == 'F'
-                            ? AppColors.beige100
+                            ? AppColors.brown200
                             : Colors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -81,15 +81,14 @@ class GenderStepState extends State<GenderStep> {
                     ),
                     child: Column(
                       children: [
-                        Image.asset(
-                          'assets/images/female.jpg',
-                          width: SizeConfig.scaleHeight(15),
-                          fit: BoxFit.contain,
-                        ),
+                        CustomImageAsset(
+                            imagePath: 'assets/images/female.jpg',
+                            height: SizeConfig.scaleHeight(23),
+                            fit: BoxFit.contain),
                         CustomText(
                             text: 'Mujer',
                             color: registerProvider.gender == 'F'
-                                ? AppColors.beige100
+                                ? AppColors.brown200
                                 : AppColors.black100,
                             fontWeight: FontWeight.w400,
                             fontSize: SizeConfig.scaleText(2)),
@@ -103,7 +102,7 @@ class GenderStepState extends State<GenderStep> {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  registerProvider.setGender('LGBTQ+');
+                  registerProvider.setGender('X');
                 },
                 child: SizedBox(
                   height: SizeConfig.scaleHeight(5),
@@ -111,8 +110,8 @@ class GenderStepState extends State<GenderStep> {
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: registerProvider.gender == 'LGBTQ+'
-                            ? AppColors.beige100
+                        color: registerProvider.gender == 'X'
+                            ? AppColors.brown200
                             : Colors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -121,8 +120,8 @@ class GenderStepState extends State<GenderStep> {
                     child: Center(
                       child: CustomText(
                           text: 'Prefiero no contestar',
-                          color: registerProvider.gender == 'LGBTQ+'
-                              ? AppColors.beige100
+                          color: registerProvider.gender == 'X'
+                              ? AppColors.brown200
                               : AppColors.black100,
                           fontWeight: FontWeight.w400,
                           fontSize: SizeConfig.scaleText(2)),

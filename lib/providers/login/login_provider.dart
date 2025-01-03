@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/login/login_controller.dart';
+import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/user/user_model.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
@@ -95,8 +96,11 @@ class LoginProvider extends ChangeNotifier {
     try {
       showLoading();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      UserModel user = await loginController.login(email, password);
-      setUser(user);
+      StandardResponse<UserModel> loginResponse = await loginController.login(email, password);
+
+      UserModel loggingInUser = loginResponse.data!;
+
+      setUser(loggingInUser);
 
       if (!context.mounted) return;
 
@@ -106,9 +110,9 @@ class LoginProvider extends ChangeNotifier {
       Navigator.of(context).pushNamed('/dashboard');
       CustomSnackBar.show(
         context,
-        user.gender == 'F'
+        loggingInUser.gender == 'F'
             ? 'Bienvenida nuevamente'
-            : user.gender == 'M'
+            : loggingInUser.gender == 'M'
                 ? 'Bienvenido nuevamente'
                 : 'Bienvenid@ nuevamente',
         SnackBarType.success,

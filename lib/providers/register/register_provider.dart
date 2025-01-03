@@ -4,13 +4,17 @@ import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/file-asset/file_asset_controller.dart';
+import 'package:pilates/controllers/user/user_controller.dart';
+import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/file-asset/file_asset_model.dart';
+import 'package:pilates/models/user/user_model.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 
 class RegisterProvider extends ChangeNotifier {
   //****************************************/
   //? Controllers
   final FileAssetController fileAssetController = FileAssetController();
+  final UserController userController = UserController();
 
   //? Packages
   final ImagePicker imagePicker = ImagePicker();
@@ -23,7 +27,7 @@ class RegisterProvider extends ChangeNotifier {
   String lastname = '';
   String password = '';
   String repeatPassword = '';
-  DateTime? birthday; 
+  DateTime? birthday;
   String phone = '';
   String gender = '';
   String profilePhotoUrl = '';
@@ -223,8 +227,9 @@ class RegisterProvider extends ChangeNotifier {
       if (birthday == null) {
         throw Exception('La fecha de nacimiento es requerida');
       }
-      if(birthday!.isAfter(DateTime.now())){
-        throw Exception('La fecha de nacimiento no puede ser mayor a la fecha actual');
+      if (birthday!.isAfter(DateTime.now())) {
+        throw Exception(
+            'La fecha de nacimiento no puede ser mayor a la fecha actual');
       }
 
       //? Validar Teléfono
@@ -234,14 +239,10 @@ class RegisterProvider extends ChangeNotifier {
       if (phone.length != 10) {
         throw Exception('El teléfono debe tener 10 caracteres');
       }
-      if (!context.mounted) return;
       setStep1Completed(true);
     } catch (e) {
-      CustomSnackBar.show(
-        context,
-        e.toString(),
-        SnackBarType.error,
-      );
+      Logger.logAppError('Error al validar el primer paso:$e');
+      throw Exception(e.toString());
     }
   }
 
@@ -252,11 +253,8 @@ class RegisterProvider extends ChangeNotifier {
       }
       setStep2Completed(true);
     } catch (e) {
-      CustomSnackBar.show(
-        context,
-        e.toString(),
-        SnackBarType.error,
-      );
+      Logger.logAppError('Error al validar el segundo paso:$e');
+      throw Exception(e.toString());
     }
   }
 
@@ -267,11 +265,8 @@ class RegisterProvider extends ChangeNotifier {
       }
       setStep3Completed(true);
     } catch (e) {
-      CustomSnackBar.show(
-        context,
-        e.toString(),
-        SnackBarType.error,
-      );
+      Logger.logAppError('Error al validar el tercer paso:$e');
+      throw Exception(e.toString());
     }
   }
 
@@ -333,6 +328,46 @@ class RegisterProvider extends ChangeNotifier {
       CustomSnackBar.show(
         context,
         'Imagen cargada correctamente',
+        SnackBarType.success,
+      );
+    } catch (e) {
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
+    } finally {
+      hideLoading();
+    }
+  }
+
+  //? Crear Usuario
+  Future<void> register(BuildContext context) async {
+    try {
+      showLoading();
+
+      UserModel newUser = UserModel(
+        dniNumber: dni,
+        name: name,
+        lastname: lastname,
+        password: password,
+        birthdate: birthday!,
+        phone: phone,
+        gender: gender,
+        photo: profilePhotoUrl,
+        email: email,
+        role: 'client',
+      );
+
+      StandardResponse<UserModel> registerResponse = await userController.register(newUser);
+
+      if (!context.mounted) return;
+
+      nextStep();
+
+      CustomSnackBar.show(
+        context,
+        registerResponse.message,
         SnackBarType.success,
       );
     } catch (e) {

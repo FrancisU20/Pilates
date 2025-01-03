@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/app_colors.dart';
 
 class CustomStepperWidget extends StatelessWidget {
@@ -29,7 +30,7 @@ class CustomStepperWidget extends StatelessWidget {
           }
           return Container(
             width: width,
-            height: 4,
+            height: SizeConfig.scaleHeight(0.3),
             decoration: BoxDecoration(
               color: stepIndex == currentStep
                   ? AppColors.brown200
@@ -39,7 +40,7 @@ class CustomStepperWidget extends StatelessWidget {
           );
         } else {
           // Espacio entre segmentos
-          return const SizedBox(width: 8);
+          return  SizedBox(width: SizeConfig.scaleWidth(2));
         }
       }),
     );

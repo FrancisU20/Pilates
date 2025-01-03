@@ -10,7 +10,7 @@ class FinalStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SizeConfig.scaleHeight(12),
+      height: SizeConfig.scaleHeight(8),
       width: SizeConfig.scaleWidth(70),
       child: Column(
         children: [

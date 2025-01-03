@@ -12,12 +12,13 @@ class UserModel {
   String name;
   String lastname;
   DateTime birthdate;
+  String? password;
   String phone;
   String gender;
   String photo;
   String email;
   String role;
-  String status;
+  String? status;
 
   UserModel({
     this.id, // Opcional
@@ -27,12 +28,13 @@ class UserModel {
     required this.name,
     required this.lastname,
     required this.birthdate,
+    this.password, // Opcional
     required this.phone,
     required this.gender,
     required this.photo,
     required this.email,
     required this.role,
-    required this.status,
+    this.status,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -43,6 +45,7 @@ class UserModel {
         name: json["name"],
         lastname: json["lastname"],
         birthdate: DateTime.parse(json["birthdate"]),
+        password: json["password"],
         phone: json["phone"],
         gender: json["gender"],
         photo: json["photo"],
@@ -60,12 +63,13 @@ class UserModel {
         "lastname": lastname,
         "birthdate":
             "${birthdate.year.toString().padLeft(4, '0')}-${birthdate.month.toString().padLeft(2, '0')}-${birthdate.day.toString().padLeft(2, '0')}",
+        if (password != null) "password": password,
         "phone": phone,
         "gender": gender,
         "photo": photo,
         "email": email,
         "role": role,
-        "status": status,
+        if (status != null) "status": status,
       };
 
   /// Deserializar una lista de objetos JSON en una lista de instancias de `UserModel`

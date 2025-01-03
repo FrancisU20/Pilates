@@ -24,7 +24,7 @@ class ClientMenuState extends State<ClientMenu> {
             width: SizeConfig.scaleWidth(55),
             height: SizeConfig.scaleHeight(70),
             child: Material(
-              color: AppColors.grey300,
+              color: AppColors.black100,
               elevation: 8.0,
               borderRadius: BorderRadius.circular(70.0),
               child: Align(
