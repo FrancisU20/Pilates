@@ -10,6 +10,7 @@ import 'package:pilates/providers/register/register_provider.dart';
 //import 'package:pilates/screens/client/appointments/appointments_page.dart';
 //import 'package:pilates/screens/client/contact/contact_us_page.dart';
 import 'package:pilates/screens/client/dashboard/dashboard_page.dart';
+import 'package:pilates/screens/client/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
 import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
 //import 'package:pilates/screens/onboarding/onboarding_page.dart';
@@ -90,9 +91,10 @@ class MyApp extends StatelessWidget {
           home: const SplashScreenPage(),
           debugShowCheckedModeBanner: false,
           routes: {
-            //Pantallas del cliente
+            //** Pantallas del cliente
             '/home': (context) => const SplashScreenPage(),
             '/onboarding': (context) => const OnboardingPage(),
+            '/register': (context) => const RegisterPage(),
             '/login': (context) => const LoginPage(),
             '/dashboard': (context) => const DashboardPage(),
             //'/schedule_date': (context) => const ScheduleDatePage(),
@@ -100,10 +102,9 @@ class MyApp extends StatelessWidget {
             //'/contact_us': (context) => const ContactUsPage(),
             //'/profile': (context) => const ProfilePage(),
             //'/plans': (context) => const PlanPage(),
-            //'/register': (context) => const RegisterPage(),
             //'/transfer': (context) => const TransferMethodPage(),
 
-            //Pantallas del administrador
+            //** Pantallas del administrador
             //'/dashboard_admin': (context) => const DashboardAdminPage(),
             //'/clients': (context) => const ClientsPage(),
           },

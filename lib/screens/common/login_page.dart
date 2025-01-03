@@ -168,6 +168,8 @@ class LoginPageState extends State<LoginPage> {
                                             icon: FontAwesomeIcons.at,
                                             typeTextField: TextFieldType.email,
                                             controller: emailController,
+                                            disableError: true,
+                                            fontSize: 1.7,
                                           ),
                                           SizedBox(
                                               height:
@@ -180,6 +182,8 @@ class LoginPageState extends State<LoginPage> {
                                             typeTextField:
                                                 TextFieldType.password,
                                             controller: passwordController,
+                                            disableError: true,
+                                            fontSize: 1.7,
                                           ),
                                           SizedBox(
                                               height:

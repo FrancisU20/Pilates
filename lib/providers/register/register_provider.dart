@@ -23,7 +23,7 @@ class RegisterProvider extends ChangeNotifier {
   String lastname = '';
   String password = '';
   String repeatPassword = '';
-  DateTime birthday = DateTime.now();
+  DateTime? birthday; 
   String phone = '';
   String gender = '';
   String profilePhotoUrl = '';
@@ -191,54 +191,87 @@ class RegisterProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> validateStep1() async {
+  Future<void> validateStep1(BuildContext context) async {
     try {
-      await validatePassword(password, repeatPassword);
-
+      //? Validar email
       if (email.isEmpty) {
         throw Exception('El email es requerido');
       }
+      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+        throw Exception('El email no es válido');
+      }
+      //? Validar DNI
       if (dni.isEmpty) {
         throw Exception('El DNI es requerido');
       }
+      if (dni.length != 10) {
+        throw Exception('El DNI debe tener 10 caracteres');
+      }
+
+      //? Validar Nombre y Apellido
       if (name.isEmpty) {
         throw Exception('El nombre es requerido');
       }
       if (lastname.isEmpty) {
         throw Exception('El apellido es requerido');
       }
-      if (birthday == DateTime.now()) {
+
+      //? Validar Contraseña
+      await validatePassword(password, repeatPassword);
+
+      //? Validar Fecha de Nacimiento
+      if (birthday == null) {
         throw Exception('La fecha de nacimiento es requerida');
       }
+      if(birthday!.isAfter(DateTime.now())){
+        throw Exception('La fecha de nacimiento no puede ser mayor a la fecha actual');
+      }
+
+      //? Validar Teléfono
       if (phone.isEmpty) {
         throw Exception('El teléfono es requerido ');
       }
-
+      if (phone.length != 10) {
+        throw Exception('El teléfono debe tener 10 caracteres');
+      }
+      if (!context.mounted) return;
       setStep1Completed(true);
     } catch (e) {
-      throw Exception(e);
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
     }
   }
 
-  Future<void> validateStep2() async {
+  Future<void> validateStep2(BuildContext context) async {
     try {
       if (gender.isEmpty) {
         throw Exception('El género es requerido');
       }
       setStep2Completed(true);
     } catch (e) {
-      throw Exception(e);
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
     }
   }
 
-  Future<void> validateStep3() async {
+  Future<void> validateStep3(BuildContext context) async {
     try {
       if (profilePhotoUrl.isEmpty) {
         throw Exception('La foto de perfil es requerida');
       }
       setStep3Completed(true);
     } catch (e) {
-      throw Exception(e);
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
     }
   }
 

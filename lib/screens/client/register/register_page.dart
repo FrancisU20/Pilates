@@ -5,9 +5,11 @@ import 'package:pilates/screens/client/register/widgets/gender_step.dart';
 import 'package:pilates/screens/client/register/widgets/personal_information_step.dart';
 import 'package:pilates/screens/client/register/widgets/profile_picture_step.dart';
 import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -70,63 +72,58 @@ class RegisterPageState extends State<RegisterPage> {
           builder: (context, registerProvider, child) {
             return Stepper(
               currentStep: registerProvider.currentStep,
+              controlsBuilder:
+                  (BuildContext context, ControlsDetails controls) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    if (registerProvider.currentStep > 0)
+                      CustomTextButton(
+                        onPressed: controls.onStepCancel!,
+                        text: 'Atrás',
+                        color: AppColors.brown200,
+                      ),
+                    CustomButton(
+                        onPressed: controls.onStepContinue!,
+                        text: 'Siguiente',
+                        width: SizeConfig.scaleWidth(10)),
+                  ],
+                );
+              },
+              onStepCancel: () {
+                if (registerProvider.currentStep > 0) {
+                  registerProvider.previousStep();
+                }
+              },
               onStepContinue: () {
-                if (registerProvider.currentStep == 0) {
-                  try {
-                    registerProvider.validateStep1();
-                    if (registerProvider.isStep1Completed) {
-                      registerProvider.nextStep();
-                    }
-                  } catch (e) {
-                    CustomSnackBar.show(
-                      context,
-                      e.toString(),
-                      SnackBarType.error,
-                    );
-                    return;
+                try {
+                  if (registerProvider.currentStep == 0) {
+                    registerProvider.validateStep1(context);
+                    if (!registerProvider.isStep1Completed) return;
+                  } else if (registerProvider.currentStep == 1) {
+                    registerProvider.validateStep2(context);
+                    if (!registerProvider.isStep2Completed) return;
+                  } else if (registerProvider.currentStep == 2) {
+                    registerProvider.validateStep3(context);
+                    if (!registerProvider.isStep3Completed) return;
                   }
-                }
-                if (registerProvider.currentStep == 1) {
-                  try {
-                    registerProvider.validateStep2();
-                    if (registerProvider.isStep2Completed) {
-                      registerProvider.nextStep();
-                    }
-                  } catch (e) {
-                    CustomSnackBar.show(
-                      context,
-                      e.toString(),
-                      SnackBarType.error,
-                    );
-                    return;
-                  }
-                }
-
-                if (registerProvider.currentStep == 2) {
-                  try {
-                    registerProvider.validateStep3();
-                    if (registerProvider.isStep3Completed) {
-                      registerProvider.nextStep();
-                    }
-                  } catch (e) {
-                    CustomSnackBar.show(
-                      context,
-                      e.toString(),
-                      SnackBarType.error,
-                    );
-                    return;
-                  }
-                }
-                
-                if (registerProvider.currentStep == 3) {
-                  Navigator.pop(context);
+                  registerProvider.nextStep();
+                } catch (e) {
+                  CustomSnackBar.show(
+                    context,
+                    e.toString(),
+                    SnackBarType.error,
+                  );
                 }
               },
               steps: [
                 Step(
                   title: CustomText(
-                      text: !registerProvider.isStep1Completed ? 'Registro' : 'Completado',
-                      fontWeight: FontWeight.w500, fontSize: SizeConfig.scaleText(3)),
+                      text: !registerProvider.isStep1Completed
+                          ? 'Registro'
+                          : 'Completado',
+                      fontWeight: FontWeight.w500,
+                      fontSize: SizeConfig.scaleText(2.7)),
                   content: PersonalInformationStep(
                     emailController: emailController,
                     passwordController: passwordController,
@@ -147,7 +144,8 @@ class RegisterPageState extends State<RegisterPage> {
                       text: !registerProvider.isStep2Completed
                           ? 'Cuál es tu género?'
                           : 'Completado',
-                      fontWeight: FontWeight.w500, fontSize: SizeConfig.scaleText(3)),
+                      fontWeight: FontWeight.w500,
+                      fontSize: SizeConfig.scaleText(2.7)),
                   content: const GenderStep(),
                   isActive: registerProvider.currentStep >= 1,
                   state: registerProvider.isStep2Completed
@@ -159,9 +157,10 @@ class RegisterPageState extends State<RegisterPage> {
                       text: !registerProvider.isStep3Completed
                           ? 'Sube una foto de perfil'
                           : 'Completado',
-                      fontWeight: FontWeight.w500, fontSize: SizeConfig.scaleText(3)),
+                      fontWeight: FontWeight.w500,
+                      fontSize: SizeConfig.scaleText(2.7)),
                   content: const ProfilePictureStep(),
-                  isActive: registerProvider.currentStep == 2,
+                  isActive: registerProvider.currentStep >= 2,
                   state: registerProvider.isStep3Completed
                       ? StepState.complete
                       : StepState.indexed,
@@ -171,11 +170,12 @@ class RegisterPageState extends State<RegisterPage> {
                       text: registerProvider.currentStep == 3
                           ? 'Registro Exitoso'
                           : 'En Proceso',
-                      fontWeight: FontWeight.w500, fontSize: SizeConfig.scaleText(3)),
+                      fontWeight: FontWeight.w500,
+                      fontSize: SizeConfig.scaleText(2.7)),
                   content: const FinalStep(),
                   state: StepState.complete,
                   isActive: registerProvider.currentStep == 3,
-                ),
+                )
               ],
             );
           },

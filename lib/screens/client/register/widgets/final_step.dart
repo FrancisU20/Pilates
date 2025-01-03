@@ -15,11 +15,8 @@ class FinalStep extends StatelessWidget {
       child: Column(
         children: [
           CustomText(
-              text: '¡Has completado la primera parte del registro!',
-              fontWeight: FontWeight.w400, fontSize: SizeConfig.scaleText(2)),
-          CustomText(
-              text: 'Ahora puedes seleccionar un plan',
-              fontWeight: FontWeight.w400, fontSize: SizeConfig.scaleText(2)),
+              text: '¡Has completado tu registro ahora puedes iniciar sesión en el App!',
+              fontWeight: FontWeight.w400, fontSize: SizeConfig.scaleText(2),maxLines: 2,),
         ],
       ),
     );

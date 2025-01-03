@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/app_colors.dart';
+
+class CustomImageNetwork extends StatelessWidget {
+  final String imagePath;
+  final double height;
+  final double borderRadius;
+  final BoxFit fit;
+  final Color errorBackgroundColor;
+  final Color errorIconColor;
+  final double errorIconSize;
+
+  const CustomImageNetwork({
+    super.key,
+    required this.imagePath,
+    required this.height,
+    this.borderRadius = 15.0,
+    this.fit = BoxFit.cover,
+    this.errorBackgroundColor = const Color(0xFFF0F0F0),
+    this.errorIconColor = const Color(0xFFFF0000),
+    this.errorIconSize = 20.0,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(borderRadius),
+      child: Image.network(
+        imagePath,
+        height: height,
+        fit: fit,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            height: height,
+            color: errorBackgroundColor,
+            alignment: Alignment.center,
+            child: Icon(
+              Icons.broken_image,
+              color: errorIconColor,
+              size: errorIconSize,
+            ),
+          );
+        },
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          } else {
+            return LoadingAnimationWidget.staggeredDotsWave(
+              color: AppColors.white100,
+              size: SizeConfig.scaleHeight(7.5),
+            );
+          }
+        },
+      ),
+    );
+  }
+}
