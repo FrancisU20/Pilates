@@ -19,6 +19,15 @@ class CustomSnackBar {
       ),
       backgroundColor: _getBackgroundColor(type),
       duration: const Duration(seconds: 3), // Duración predeterminada
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(SizeConfig.scaleHeight(2)),
+      ),
+      margin: EdgeInsets.only(
+        left: SizeConfig.scaleWidth(2.5),
+        right: SizeConfig.scaleWidth(2.5),
+        bottom: SizeConfig.scaleHeight(1),
+      ),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
