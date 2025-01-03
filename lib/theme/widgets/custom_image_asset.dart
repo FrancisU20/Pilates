@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pilates/theme/app_colors.dart';
 
 class CustomImageAsset extends StatelessWidget {
   final String imagePath;
@@ -15,8 +16,8 @@ class CustomImageAsset extends StatelessWidget {
     required this.height,
     this.borderRadius = 15.0,
     this.fit = BoxFit.cover,
-    this.errorBackgroundColor = const Color(0xFFF0F0F0),
-    this.errorIconColor = const Color(0xFFFF0000),
+    this.errorBackgroundColor = AppColors.white200,
+    this.errorIconColor = AppColors.red300,
     this.errorIconSize = 20.0,
   });
 

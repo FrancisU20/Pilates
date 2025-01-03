@@ -41,7 +41,7 @@ class GenderStepState extends State<GenderStep> {
                       border: Border.all(
                         color: registerProvider.gender == 'M'
                             ? AppColors.brown200
-                            : Colors.transparent,
+                            : AppColors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
                       color: AppColors.white100,
@@ -74,7 +74,7 @@ class GenderStepState extends State<GenderStep> {
                       border: Border.all(
                         color: registerProvider.gender == 'F'
                             ? AppColors.brown200
-                            : Colors.transparent,
+                            : AppColors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
                       color: AppColors.white100,
@@ -112,7 +112,7 @@ class GenderStepState extends State<GenderStep> {
                       border: Border.all(
                         color: registerProvider.gender == 'X'
                             ? AppColors.brown200
-                            : Colors.transparent,
+                            : AppColors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
                       color: AppColors.white100,
