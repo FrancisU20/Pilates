@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pilates/providers/register/register_provider.dart';
-import 'package:pilates/screens/client/register/widgets/final_step.dart';
-import 'package:pilates/screens/client/register/widgets/gender_step.dart';
-import 'package:pilates/screens/client/register/widgets/personal_information_step.dart';
-import 'package:pilates/screens/client/register/widgets/profile_picture_step.dart';
+import 'package:pilates/screens/client/register/widgets/register_success.dart';
+import 'package:pilates/screens/client/register/widgets/step_2.dart';
+import 'package:pilates/screens/client/register/widgets/step_1.dart';
+import 'package:pilates/screens/client/register/widgets/step_3.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
@@ -75,6 +75,9 @@ class RegisterPageState extends State<RegisterPage> {
               builder: (context, registerProvider, child) {
                 return Stepper(
                   currentStep: registerProvider.currentStep,
+                  connectorColor: WidgetStateProperty.resolveWith((states) {
+                    return AppColors.brown200; // Color para pasos no seleccionados.
+                  }),
                   controlsBuilder:
                       (BuildContext context, ControlsDetails controls) {
                     return Row(
@@ -142,7 +145,7 @@ class RegisterPageState extends State<RegisterPage> {
                               : 'Completado',
                           fontWeight: FontWeight.w500,
                           fontSize: SizeConfig.scaleText(2.7)),
-                      content: PersonalInformationStep(
+                      content: Step1(
                         emailController: emailController,
                         passwordController: passwordController,
                         repeatPasswordController: repeatPasswordController,
@@ -164,7 +167,7 @@ class RegisterPageState extends State<RegisterPage> {
                               : 'Completado',
                           fontWeight: FontWeight.w500,
                           fontSize: SizeConfig.scaleText(2.7)),
-                      content: const GenderStep(),
+                      content: const Step2(),
                       isActive: registerProvider.currentStep >= 1,
                       state: registerProvider.isStep2Completed
                           ? StepState.complete
@@ -177,7 +180,7 @@ class RegisterPageState extends State<RegisterPage> {
                               : 'Completado',
                           fontWeight: FontWeight.w500,
                           fontSize: SizeConfig.scaleText(2.7)),
-                      content: const ProfilePictureStep(),
+                      content: const Step3(),
                       isActive: registerProvider.currentStep >= 2,
                       state: registerProvider.isStep3Completed
                           ? StepState.complete
@@ -190,7 +193,7 @@ class RegisterPageState extends State<RegisterPage> {
                               : 'En Proceso',
                           fontWeight: FontWeight.w500,
                           fontSize: SizeConfig.scaleText(2.7)),
-                      content: const FinalStep(),
+                      content: const RegisterSuccess(),
                       state: StepState.complete,
                       isActive: registerProvider.currentStep == 3,
                     )

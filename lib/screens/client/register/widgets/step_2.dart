@@ -6,16 +6,16 @@ import 'package:pilates/theme/widgets/custom_image_asset.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:provider/provider.dart';
 
-class GenderStep extends StatefulWidget {
-  const GenderStep({
+class Step2 extends StatefulWidget {
+  const Step2({
     super.key,
   });
 
   @override
-  GenderStepState createState() => GenderStepState();
+  Step2State createState() => Step2State();
 }
 
-class GenderStepState extends State<GenderStep> {
+class Step2State extends State<Step2> {
   @override
   void initState() {
     super.initState();

@@ -8,8 +8,8 @@ import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
-class ProfilePictureStep extends StatelessWidget {
-  const ProfilePictureStep({
+class Step3 extends StatelessWidget {
+  const Step3({
     super.key,
   });
 

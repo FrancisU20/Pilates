@@ -7,8 +7,8 @@ import 'package:pilates/theme/widgets/custom_text_field.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
 
-class PersonalInformationStep extends StatefulWidget {
-  const PersonalInformationStep({
+class Step1 extends StatefulWidget {
+  const Step1({
     super.key,
     required this.emailController,
     required this.passwordController,
@@ -30,10 +30,10 @@ class PersonalInformationStep extends StatefulWidget {
   final TextEditingController dniController;
 
   @override
-  PersonalInformationStepState createState() => PersonalInformationStepState();
+  Step1State createState() => Step1State();
 }
 
-class PersonalInformationStepState extends State<PersonalInformationStep> {
+class Step1State extends State<Step1> {
   @override
   void initState() {
     super.initState();

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 
-class FinalStep extends StatelessWidget {
-  const FinalStep({
+class RegisterSuccess extends StatelessWidget {
+  const RegisterSuccess({
     super.key,
   });
 
