@@ -6,6 +6,7 @@ import 'package:pilates/controllers/login/login_controller.dart';
 import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/user/user_model.dart';
 import 'package:pilates/providers/register/register_provider.dart';
+import 'package:pilates/theme/utils/functions.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -107,7 +108,7 @@ class LoginProvider extends ChangeNotifier {
       prefs.setString('email', email);
       prefs.setString('password', password);
 
-      Navigator.of(context).pushNamed('/dashboard');
+      smoothTransition(context, '/dashboard');
       CustomSnackBar.show(
         context,
         loggingInUser.gender == 'F'

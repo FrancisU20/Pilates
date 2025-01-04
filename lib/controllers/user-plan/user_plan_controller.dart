@@ -36,4 +36,63 @@ class UserPlanController {
       throw Exception(e.toString().replaceAll('Exception: ', ''));
     }
   }
+
+  Future<StandardResponse<List<UserPlanModel>>> getUserPlans({
+    String? userId,
+    String? status,
+    DateTime? startDate,
+    DateTime? endDate,
+  }) async {
+    try {
+      final apiBase = await ApiBaseService.create(contentType: 'json');
+
+      // Inicializar una lista de parámetros
+      final queryParameters = <String, String>{};
+
+      // Agregar los parámetros opcionales solo si no son null
+      if (userId != null && userId.isNotEmpty) {
+        queryParameters['userId'] = userId;
+      }
+      if (status != null && status.isNotEmpty) {
+        queryParameters['status'] = status;
+      }
+      if (startDate != null) {
+        queryParameters['startDate'] =
+            startDate.toIso8601String().substring(0, 10);
+      }
+      if (endDate != null) {
+        queryParameters['endDate'] = endDate.toIso8601String().substring(0, 10);
+      }
+
+      // Construir la URL
+      final uri = Uri(
+        path: '/users-plans',
+        queryParameters: queryParameters.isNotEmpty ? queryParameters : null,
+      );
+
+      // Realizar la solicitud HTTP
+      final response = await apiBase.get(uri.toString());
+      final serverJson = json.decode(response.body);
+
+      // Manejar errores del servidor
+      if (serverJson['statusCode'] != 200 && serverJson['statusCode'] != 201) {
+        Logger.logServerError(serverJson);
+        throw Exception(serverJson['message']);
+      } else {
+        Logger.logServerSuccess(serverJson);
+      }
+
+      // Mapear la respuesta JSON a la lista de UserPlanModel
+      StandardResponse<List<UserPlanModel>> userPlanListResponse =
+          StandardResponse<List<UserPlanModel>>.fromJson(
+        serverJson,
+        (data) => List<UserPlanModel>.from(
+            data.map((x) => UserPlanModel.fromJson(x))),
+      );
+
+      return userPlanListResponse;
+    } catch (e) {
+      throw Exception(e.toString().replaceAll('Exception: ', ''));
+    }
+  }
 }

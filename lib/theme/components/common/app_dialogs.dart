@@ -5,6 +5,7 @@ import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/utils/functions.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -157,7 +158,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(15),
                     onPressed: () {
                       /* registerProvider.clearTransferImageFile(); */
-                      Navigator.pushNamed(context, '/transfer-payment');
+                      smoothTransition(context, '/transfer-payment');
                     },
                   ),
                   SizedBox(
@@ -229,7 +230,7 @@ class AppDialogs {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
                 child: CustomText(
                   text: 'No',
@@ -243,8 +244,8 @@ class AppDialogs {
                 color: AppColors.brown200,
                 width: SizeConfig.scaleWidth(6),
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/login', (route) => false);
+                  smoothTransition(
+                      context, '/login', clearStack: true);
 
                   Future.delayed(const Duration(seconds: 3), () {
                   });
@@ -274,7 +275,7 @@ class AppDialogs {
                 ),
                 onTap: () {
                   registerProvider.pickImage(context, ImageSource.gallery);
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
               ),
               ListTile(
@@ -287,7 +288,7 @@ class AppDialogs {
                 ),
                 onTap: () {
                   registerProvider.pickImage(context, ImageSource.camera);
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
               ),
             ],
@@ -316,7 +317,7 @@ class AppDialogs {
                 ),
                 onTap: () {
                   userPlanProvider.pickImage(context, ImageSource.gallery, dni);
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
               ),
               ListTile(
@@ -329,7 +330,7 @@ class AppDialogs {
                 ),
                 onTap: () {
                   userPlanProvider.pickImage(context, ImageSource.camera, dni);
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                 },
               ),
             ],

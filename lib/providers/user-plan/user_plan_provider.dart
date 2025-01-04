@@ -36,6 +36,8 @@ class UserPlanProvider extends ChangeNotifier {
   //****************************************/
   //? Objetos
   PlanModel? selectedPlan;
+  UserPlanModel? activeUserPlan;
+  UserPlanModel? inactiveUserPlan;
 
   //? Setters Objetos
   void setSelectedPlan(PlanModel plan) {
@@ -43,10 +45,41 @@ class UserPlanProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setActiveUserPlan(UserPlanModel userPlan) {
+    activeUserPlan = userPlan;
+    notifyListeners();
+  }
+
+  void setInactiveUserPlan(UserPlanModel userPlan) {
+    inactiveUserPlan = userPlan;
+    notifyListeners();
+  }
+
+  //? Limpiar Objetos
+  void clearSelectedPlan() {
+    selectedPlan = null;
+    notifyListeners();
+  }
+
+  void clearActiveUserPlan() {
+    activeUserPlan = null;
+    notifyListeners();
+  }
+
+  void clearInactiveUserPlan() {
+    inactiveUserPlan = null;
+    notifyListeners();
+  }
+
   //****************************************/
   //? Listas
+  List<UserPlanModel> listUserPlans = [];
 
   //? Setters Listas
+  void setListUserPlans(List<UserPlanModel> list) {
+    listUserPlans = list;
+    notifyListeners();
+  }
 
   //****************************************/
   //? Reutilizables
@@ -181,8 +214,8 @@ class UserPlanProvider extends ChangeNotifier {
       // Leer el provider del Login para obtener la data del usuario
       LoginProvider loginProvider =
           Provider.of<LoginProvider>(context, listen: false);
-      UserPlanCreateModel newUserPlan =
-          UserPlanCreateModel(userId: loginProvider.user!.id!, planId: selectedPlan!.id!); 
+      UserPlanCreateModel newUserPlan = UserPlanCreateModel(
+          userId: loginProvider.user!.id!, planId: selectedPlan!.id!);
 
       StandardResponse<UserPlanModel> createUserPlanResponse =
           await userPlanController.createUserPlan(newUserPlan);
@@ -225,6 +258,47 @@ class UserPlanProvider extends ChangeNotifier {
       // Crear el plan del usuario
       if (!context.mounted) return;
       await createUserPlan(context);
+    } catch (e) {
+      if (!context.mounted) return;
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
+    } finally {
+      hideLoading();
+    }
+  }
+
+  //? Obtener Planes del Usuario (Activo e Inactivo)
+  Future<void> getUserPlans(BuildContext context,
+      {String? status, DateTime? startDate, DateTime? endDate}) async {
+    try {
+      showLoading();
+      //? Se limpia los planes del usuario
+      clearActiveUserPlan();
+      clearInactiveUserPlan();
+
+      LoginProvider loginProvider =
+          Provider.of<LoginProvider>(context, listen: false);
+
+      StandardResponse<List<UserPlanModel>> userPlansResponse =
+          await userPlanController.getUserPlans(
+              userId: loginProvider.user!.id,
+              status: status,
+              startDate: startDate,
+              endDate: endDate);
+
+      //? Si el usuario tiene un plan activo, se asigna a la variable activeUserPlan
+      if (userPlansResponse.data!.isNotEmpty) {
+        for (UserPlanModel userPlan in userPlansResponse.data!) {
+          if (userPlan.status == 'A') {
+            setActiveUserPlan(userPlan);
+          } else if (userPlan.status == 'I') {
+            setInactiveUserPlan(userPlan);
+          }
+        }
+      }
     } catch (e) {
       if (!context.mounted) return;
       CustomSnackBar.show(

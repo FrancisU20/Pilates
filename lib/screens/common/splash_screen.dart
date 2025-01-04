@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:pilates/screens/common/login_page.dart';
-import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/utils/functions.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({super.key});
@@ -22,23 +21,13 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       if (isFirstOpen) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const OnboardingPage(),
-              ),
-            );
+            smoothTransition(context, '/onboarding');
           });
         });
       } else {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const LoginPage(),
-              ),
-            );
+            smoothTransition(context, '/login');
           });
         });
       }
@@ -67,8 +56,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(SizeConfig.scaleHeight(25)),
+                borderRadius: BorderRadius.circular(SizeConfig.scaleHeight(25)),
               ),
               clipBehavior: Clip.hardEdge,
               height: SizeConfig.scaleHeight(20),
@@ -79,8 +67,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             ),
             SizedBox(height: SizeConfig.scaleHeight(1)),
             LoadingAnimationWidget.staggeredDotsWave(
-                color: AppColors.black100,
-                size: SizeConfig.scaleHeight(5)),
+                color: AppColors.black100, size: SizeConfig.scaleHeight(5)),
           ],
         ),
       ),

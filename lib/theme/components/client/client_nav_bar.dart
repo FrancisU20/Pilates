@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/utils/functions.dart';
 
 class ClientNavBar extends StatelessWidget {
   const ClientNavBar({super.key});
@@ -26,7 +27,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              Navigator.pushNamed(context, '/dashboard');
+              smoothTransition(context, '/dashboard');
             },
           ),
           IconButton(
@@ -37,7 +38,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              Navigator.pushNamed(context, '/schedule_date');
+              smoothTransition(context, '/schedule_date');
             },
           ),
           IconButton(
@@ -48,7 +49,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              Navigator.pushNamed(context, '/appointments');
+              smoothTransition(context, '/appointments');
             },
           ),
           IconButton(
@@ -59,7 +60,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              Navigator.pushNamed(context, '/contact_us');
+              smoothTransition(context, '/contact_us');
             },
           ),
           IconButton(
@@ -70,7 +71,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              Navigator.pushNamed(context, '/profile');
+              smoothTransition(context, '/profile');
             },
           ),
         ],
