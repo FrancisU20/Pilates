@@ -153,7 +153,7 @@ class DashboardPageState extends State<DashboardPage> {
                   CustomText(
                       text:
                           '${loginProvider.user!.name}!',
-                      color: AppColors.brown200,
+                      color: AppColors.brown300,
                       fontSize: SizeConfig.scaleHeight(4),
                       fontWeight: FontWeight.w400),
                 ],

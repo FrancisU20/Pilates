@@ -33,7 +33,7 @@ class CustomStepperWidget extends StatelessWidget {
             height: SizeConfig.scaleHeight(0.3),
             decoration: BoxDecoration(
               color: stepIndex == currentStep
-                  ? AppColors.brown200
+                  ? AppColors.brown300
                   : AppColors.brown300,
               borderRadius: BorderRadius.circular(2),
             ),

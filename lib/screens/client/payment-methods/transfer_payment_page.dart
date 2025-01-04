@@ -146,7 +146,7 @@ class TransferPaymentPageState extends State<TransferPaymentPage> {
                         AppDialogs.showTransferPaymentPicker(
                             context, loginProvider.user!.dniNumber);
                       },
-                      backgroundColor: AppColors.brown200,
+                      backgroundColor: AppColors.brown300,
                       child: const Icon(
                         FontAwesomeIcons.camera,
                         color: AppColors.white100,

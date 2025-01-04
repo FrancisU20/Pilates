@@ -40,7 +40,7 @@ class Step2State extends State<Step2> {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: registerProvider.gender == 'M'
-                            ? AppColors.brown200
+                            ? AppColors.brown300
                             : AppColors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -55,7 +55,7 @@ class Step2State extends State<Step2> {
                         CustomText(
                           text: 'Hombre',
                           color: registerProvider.gender == 'M'
-                              ? AppColors.brown200
+                              ? AppColors.brown300
                               : AppColors.black100,
                           fontWeight: FontWeight.w400,
                           fontSize: SizeConfig.scaleText(2),
@@ -73,7 +73,7 @@ class Step2State extends State<Step2> {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: registerProvider.gender == 'F'
-                            ? AppColors.brown200
+                            ? AppColors.brown300
                             : AppColors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -88,7 +88,7 @@ class Step2State extends State<Step2> {
                         CustomText(
                             text: 'Mujer',
                             color: registerProvider.gender == 'F'
-                                ? AppColors.brown200
+                                ? AppColors.brown300
                                 : AppColors.black100,
                             fontWeight: FontWeight.w400,
                             fontSize: SizeConfig.scaleText(2)),
@@ -111,7 +111,7 @@ class Step2State extends State<Step2> {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: registerProvider.gender == 'X'
-                            ? AppColors.brown200
+                            ? AppColors.brown300
                             : AppColors.transparent,
                       ),
                       borderRadius: BorderRadius.circular(10),
@@ -121,7 +121,7 @@ class Step2State extends State<Step2> {
                       child: CustomText(
                           text: 'Prefiero no contestar',
                           color: registerProvider.gender == 'X'
-                              ? AppColors.brown200
+                              ? AppColors.brown300
                               : AppColors.black100,
                           fontWeight: FontWeight.w400,
                           fontSize: SizeConfig.scaleText(2)),

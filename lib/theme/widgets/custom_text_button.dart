@@ -14,7 +14,7 @@ class CustomTextButton extends StatelessWidget {
     super.key,
     this.text,
     required this.onPressed,
-    this.color = AppColors.brown200,
+    this.color = AppColors.brown300,
     this.isActive = true,
     this.fontSize = 1.7,
   });

@@ -5,18 +5,14 @@ class AppColors {
   // Blancos
   static const white100 = Color(0xFFF7F7F1);
   static const white200 = Color(0xFFEDEAE0);
-  static const white300 = Color(0xFFEAE1CF);
 
   // Beige
   static const beige100 = Color(0xFFE0D4C3);
   static const beige200 = Color(0xFFCAB49F);
 
-  // Marrones
-  static const brown100 = Color(0xFFD2D0C8); 
-  static const brown200 = Color(0xFFA0917D);
-
-  // Grises
-  static const brown300 = Color(0xFF56514B); 
+  // Marrones 
+  static const brown300 = Color(0xFF8A8074); 
+  static const brown400 = Color(0xFF56514B); 
 
   // Negros
   static const black100 = Color(0xFF313031);

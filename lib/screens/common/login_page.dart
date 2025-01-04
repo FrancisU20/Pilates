@@ -138,7 +138,7 @@ class LoginPageState extends State<LoginPage> {
                                                         BiometricType.face)
                                                 ? 'Face ID'
                                                 : 'Touch ID \n Huella',
-                                            color: AppColors.brown200,
+                                            color: AppColors.brown300,
                                           ),
                                           SizedBox(
                                               height:
@@ -194,7 +194,7 @@ class LoginPageState extends State<LoginPage> {
                                             child: Center(
                                               child: CustomButton(
                                                 text: 'Iniciar Sesión',
-                                                color: AppColors.brown200,
+                                                color: AppColors.brown300,
                                                 onPressed: () {
                                                   loginProvider.login(
                                                     context,
@@ -218,7 +218,7 @@ class LoginPageState extends State<LoginPage> {
                                                   Navigator.pushNamed(context,
                                                       '/forgot_password');
                                                 },
-                                                color: AppColors.brown200,
+                                                color: AppColors.brown300,
                                               ),
                                             ),
                                           ),

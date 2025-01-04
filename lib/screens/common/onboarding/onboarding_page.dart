@@ -94,7 +94,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                 CustomButton(
                   text: 'Siguiente',
                   onPressed: _incrementCounter,
-                  color: AppColors.brown200,
+                  color: AppColors.brown300,
                 ),
                 currentStep != 0
                     ? CustomTextButton(
