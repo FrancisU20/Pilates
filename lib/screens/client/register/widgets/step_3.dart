@@ -23,7 +23,7 @@ class Step3 extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: SizeConfig.scaleImage(25),
-              backgroundColor: AppColors.brown300,
+              backgroundColor: AppColors.brown200,
               child: registerProvider.profilePhotoUrl.isNotEmpty
                   ? CustomImageNetwork(imagePath: registerProvider.profilePhotoUrl, height: SizeConfig.scaleImage(50), borderRadius: 100,)
                   : Icon(
@@ -37,7 +37,7 @@ class Step3 extends StatelessWidget {
               onPressed: () {
                 AppDialogs.showProfilePhotoPicker(context);
               },
-              color: AppColors.brown300,
+              color: AppColors.brown200,
             ),
           ],
         ),

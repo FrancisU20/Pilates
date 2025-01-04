@@ -4,10 +4,12 @@ import 'package:pilates/theme/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
+  final bool toDashboard;
 
   const CustomAppBar({
     super.key,
     this.backgroundColor = AppColors.white100, // Valor por defecto
+    this.toDashboard = false,
   });
 
   @override
@@ -24,7 +26,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: backgroundColor == AppColors.white100
                   ? AppColors.black100
                   : AppColors.white100),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => toDashboard
+              ? Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/dashboard', (Route<dynamic> route) => false)
+              : Navigator.of(context).pop(),
         ),
       ),
     );

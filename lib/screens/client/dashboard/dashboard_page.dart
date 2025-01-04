@@ -144,7 +144,7 @@ class DashboardPageState extends State<DashboardPage> {
                 children: [
                   CustomText(
                       text: 'Hola,',
-                      color: AppColors.brown300,
+                      color: AppColors.brown200,
                       fontSize: SizeConfig.scaleHeight(4),
                       fontWeight: FontWeight.w400),
                   SizedBox(
@@ -153,7 +153,7 @@ class DashboardPageState extends State<DashboardPage> {
                   CustomText(
                       text:
                           '${loginProvider.user!.name}!',
-                      color: AppColors.brown300,
+                      color: AppColors.brown200,
                       fontSize: SizeConfig.scaleHeight(4),
                       fontWeight: FontWeight.w400),
                 ],
@@ -165,7 +165,7 @@ class DashboardPageState extends State<DashboardPage> {
                 children: [
                   CustomText(
                       text: '¿Qué te gustaría hacer hoy?',
-                      color: AppColors.brown300,
+                      color: AppColors.brown200,
                       fontSize: SizeConfig.scaleHeight(2.5),
                       fontWeight: FontWeight.w500),
                 ],
@@ -268,7 +268,7 @@ class DashboardPageState extends State<DashboardPage> {
                               CustomText(
                                   text:
                                       '${currentClientPlan!.numberOfClasses - currentClientPlan!.attendedClasses} de ${currentClientPlan!.numberOfClasses}',
-                                  color: AppColors.brown300,
+                                  color: AppColors.brown200,
                                   fontSize: SizeConfig.scaleHeight(2),
                                   fontWeight: FontWeight.w500),
                               SizedBox(
@@ -278,7 +278,7 @@ class DashboardPageState extends State<DashboardPage> {
                                 width: SizeConfig.scaleWidth(70),
                                 child: LinearProgressIndicator(
                                   value: 0,
-                                  backgroundColor: AppColors.brown300,
+                                  backgroundColor: AppColors.brown200,
                                   valueColor:
                                       const AlwaysStoppedAnimation<Color>(
                                           AppColors.beige100,),
@@ -293,7 +293,7 @@ class DashboardPageState extends State<DashboardPage> {
                               CustomText(
                                   text: 'Clases Disponibles',
                                   color:
-                                      AppColors.brown300,
+                                      AppColors.brown200,
                                   fontSize: SizeConfig.scaleHeight(2),
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.start),

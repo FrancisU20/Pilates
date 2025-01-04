@@ -111,40 +111,6 @@ class UserPlanProvider extends ChangeNotifier {
     }
   }
 
-  //? Capturar Imagen
-  Future<void> pickImage(BuildContext context, ImageSource source, String dni) async {
-    try {
-      showLoading();
-      final XFile? imageSelected = await imagePicker.pickImage(source: source);
-      if (imageSelected == null) {
-        return;
-      }
-      XFile compressedImage = await compressImage(imageSelected);
-      MultipartFile multipartFile = await convertToFile(compressedImage);
-
-      StandardResponse<FileAssetModel> fileAssetResponse =
-          await fileAssetController.postS3File(
-              multipartFile, 'clients-payments', dni);
-
-      setUserPaymentImage(fileAssetResponse.data!.path);
-
-      if (!context.mounted) return;
-      CustomSnackBar.show(
-        context,
-        fileAssetResponse.message,
-        SnackBarType.success,
-      );
-    } catch (e) {
-      CustomSnackBar.show(
-        context,
-        e.toString(),
-        SnackBarType.error,
-      );
-    } finally {
-      hideLoading();
-    }
-  }
-
   //? Convertir fecha a formato legible
   String convertDate(String date) {
     try {
@@ -212,12 +178,11 @@ class UserPlanProvider extends ChangeNotifier {
   //? Crear Plan del Usuario
   Future<void> createUserPlan(BuildContext context) async {
     try {
-      showLoading();
       // Leer el provider del Login para obtener la data del usuario
       LoginProvider loginProvider =
           Provider.of<LoginProvider>(context, listen: false);
       UserPlanCreateModel newUserPlan =
-          UserPlanCreateModel(userId: loginProvider.user!.id!, planId: '');
+          UserPlanCreateModel(userId: loginProvider.user!.id!, planId: selectedPlan!.id!); 
 
       StandardResponse<UserPlanModel> createUserPlanResponse =
           await userPlanController.createUserPlan(newUserPlan);
@@ -230,6 +195,38 @@ class UserPlanProvider extends ChangeNotifier {
         SnackBarType.success,
       );
     } catch (e) {
+      setUserPaymentImage('');
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
+    }
+  }
+
+  //? Capturar Imagen (Tambien crea el plan del usuario)
+  Future<void> pickImage(
+      BuildContext context, ImageSource source, String dni) async {
+    try {
+      showLoading();
+      final XFile? imageSelected = await imagePicker.pickImage(source: source);
+      if (imageSelected == null) {
+        return;
+      }
+      XFile compressedImage = await compressImage(imageSelected);
+      MultipartFile multipartFile = await convertToFile(compressedImage);
+
+      StandardResponse<FileAssetModel> fileAssetResponse =
+          await fileAssetController.postS3File(
+              multipartFile, 'clients-payments', dni);
+
+      setUserPaymentImage(fileAssetResponse.data!.path);
+
+      // Crear el plan del usuario
+      if (!context.mounted) return;
+      await createUserPlan(context);
+    } catch (e) {
+      if (!context.mounted) return;
       CustomSnackBar.show(
         context,
         e.toString(),

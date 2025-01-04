@@ -22,9 +22,9 @@ class AppBirthdayPicker {
         return Theme(
           data: ThemeData.light().copyWith(
               primaryColor:
-                  AppColors.brown300, // Color del encabezado
+                  AppColors.brown200, // Color del encabezado
               colorScheme: const ColorScheme.light(
-                  primary: AppColors.brown300),
+                  primary: AppColors.brown200),
               buttonTheme:
                   const ButtonThemeData(textTheme: ButtonTextTheme.primary),
               textTheme: TextTheme(

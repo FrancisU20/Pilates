@@ -67,7 +67,7 @@ class AppDialogs {
                       Center(
                         child: CustomButton(
                           text: 'Regresar',
-                          color: AppColors.brown300,
+                          color: AppColors.brown200,
                           width: SizeConfig.scaleWidth(15),
                           onPressed: onButtonPressed ??
                               () {
@@ -153,7 +153,7 @@ class AppDialogs {
                 children: [
                   CustomButton(
                     text: 'Transferencia',
-                    color: AppColors.brown300,
+                    color: AppColors.black100,
                     width: SizeConfig.scaleWidth(15),
                     onPressed: () {
                       /* registerProvider.clearTransferImageFile(); */
@@ -165,7 +165,7 @@ class AppDialogs {
                   ),
                   CustomButton(
                     text: 'Tarjeta de Crédito',
-                    color: AppColors.brown300,
+                    color: AppColors.brown200,
                     width: SizeConfig.scaleWidth(15),
                     onPressed: () {
                       showComingSoon(
@@ -240,7 +240,7 @@ class AppDialogs {
               ),
               CustomButton(
                 text: 'Sí',
-                color: AppColors.brown300,
+                color: AppColors.brown200,
                 width: SizeConfig.scaleWidth(6),
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(

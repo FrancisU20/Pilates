@@ -76,7 +76,7 @@ class RegisterPageState extends State<RegisterPage> {
                 return Stepper(
                   currentStep: registerProvider.currentStep,
                   connectorColor: WidgetStateProperty.resolveWith((states) {
-                    return AppColors.brown300; // Color para pasos no seleccionados.
+                    return AppColors.brown200; // Color para pasos no seleccionados.
                   }),
                   controlsBuilder:
                       (BuildContext context, ControlsDetails controls) {
@@ -88,7 +88,7 @@ class RegisterPageState extends State<RegisterPage> {
                           CustomTextButton(
                             onPressed: controls.onStepCancel!,
                             text: 'Atrás',
-                            color: AppColors.brown300,
+                            color: AppColors.brown200,
                           ),
                         if (registerProvider.currentStep < 3)
                           CustomButton(

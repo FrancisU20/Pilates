@@ -137,8 +137,10 @@ class LoginPageState extends State<LoginPage> {
                                                     .contains(
                                                         BiometricType.face)
                                                 ? 'Face ID'
-                                                : 'Touch ID \n Huella',
-                                            color: AppColors.brown300,
+                                                : 'Huella',
+                                            color: AppColors.brown200,
+                                            width: 27,
+                                            height: 12,
                                           ),
                                           SizedBox(
                                               height:
@@ -154,7 +156,7 @@ class LoginPageState extends State<LoginPage> {
                                                 loginProvider
                                                     .setListBiometrics([]);
                                               },
-                                              color: AppColors.brown300,
+                                              color: AppColors.brown200,
                                             ),
                                           ),
                                         ],
@@ -194,7 +196,7 @@ class LoginPageState extends State<LoginPage> {
                                             child: Center(
                                               child: CustomButton(
                                                 text: 'Iniciar Sesión',
-                                                color: AppColors.brown300,
+                                                color: AppColors.brown200,
                                                 onPressed: () {
                                                   loginProvider.login(
                                                     context,
@@ -218,7 +220,7 @@ class LoginPageState extends State<LoginPage> {
                                                   Navigator.pushNamed(context,
                                                       '/forgot_password');
                                                 },
-                                                color: AppColors.brown300,
+                                                color: AppColors.brown200,
                                               ),
                                             ),
                                           ),
@@ -233,7 +235,7 @@ class LoginPageState extends State<LoginPage> {
                                                 Navigator.pushNamed(
                                                     context, '/onboarding');
                                               },
-                                              color: AppColors.brown300,
+                                              color: AppColors.brown200,
                                             ),
                                           ),
                                         ],

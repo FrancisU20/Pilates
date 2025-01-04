@@ -8,6 +8,7 @@ import 'package:pilates/theme/widgets/custom_app_bar.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_image_network.dart';
+import 'package:pilates/theme/widgets/custom_page_header.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
@@ -34,49 +35,15 @@ class PlanPageState extends State<PlanPage> {
       children: [
         Scaffold(
           backgroundColor: AppColors.white100,
-          appBar: const CustomAppBar(backgroundColor: AppColors.brown300),
+          appBar: const CustomAppBar(backgroundColor: AppColors.brown200),
           body: Container(
-            color: AppColors.brown300,
+            color: AppColors.brown200,
             child: Column(
               children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.scaleWidth(5),
-                    vertical: SizeConfig.scaleHeight(1),
-                  ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: SizeConfig.scaleImage(8),
-                        backgroundColor: AppColors.white100,
-                        child: Icon(
-                          FontAwesomeIcons.boxesStacked,
-                          size: SizeConfig.scaleImage(8),
-                          color: AppColors.black100,
-                        ),
-                      ),
-                      SizedBox(
-                        width: SizeConfig.scaleWidth(5),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                              text: 'Planes',
-                              color: AppColors.white100,
-                              fontSize: SizeConfig.scaleText(4),
-                              fontWeight: FontWeight.w400),
-                          CustomText(
-                              text: 'Conoce nuestros planes',
-                              color: AppColors.white100,
-                              fontSize: SizeConfig.scaleText(2),
-                              fontWeight: FontWeight.w400,
-                              textAlign: TextAlign.left),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                const CustomPageHeader(
+                    icon: FontAwesomeIcons.boxesStacked,
+                    title: 'Planes',
+                    subtitle: 'Conoce nuestros planes'),
                 SizedBox(
                   height: SizeConfig.scaleHeight(2),
                 ),
@@ -133,7 +100,9 @@ class PlanPageState extends State<PlanPage> {
                                     child: CustomButton(
                                       icon: FontAwesomeIcons.whatsapp,
                                       onPressed: () {
-                                        whatsappServices.whatsappRedirect(message: 'Hola, me gustaría obtener información sobre los planes de Pilates.');
+                                        whatsappServices.whatsappRedirect(
+                                            message:
+                                                'Hola, me gustaría obtener información sobre los planes de Pilates.');
                                       },
                                       text: 'Contactar',
                                     ),

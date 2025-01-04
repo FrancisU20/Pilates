@@ -40,10 +40,10 @@ class TransferPaymentPageState extends State<TransferPaymentPage> {
                 days: userPlanProvider.selectedPlan!.classesValidityPeriod));
             return Scaffold(
               backgroundColor: AppColors.white100,
-              appBar: const CustomAppBar(backgroundColor: AppColors.brown300),
+              appBar: const CustomAppBar(backgroundColor: AppColors.brown200, toDashboard: true),
               body: Stack(children: [
                 Container(
-                  color: AppColors.brown300,
+                  color: AppColors.brown200,
                   child: Column(
                     children: [
                       const CustomPageHeader(
@@ -127,7 +127,7 @@ class TransferPaymentPageState extends State<TransferPaymentPage> {
                                         ),
                                         CustomButton(onPressed: () {
                                           whatsappServices.whatsappRedirect(message: 'Hola, necesito ayuda con la activación de mi plan. Mi número de cédula es ${loginProvider.user!.dniNumber}');
-                                        }, text: 'Informar pago', color: AppColors.brown300, icon: FontAwesomeIcons.whatsapp),
+                                        }, text: 'Informar pago', color: AppColors.brown200, icon: FontAwesomeIcons.whatsapp),
                                       ],
                                     ),
                                   ),
@@ -146,7 +146,7 @@ class TransferPaymentPageState extends State<TransferPaymentPage> {
                         AppDialogs.showTransferPaymentPicker(
                             context, loginProvider.user!.dniNumber);
                       },
-                      backgroundColor: AppColors.brown300,
+                      backgroundColor: AppColors.brown200,
                       child: const Icon(
                         FontAwesomeIcons.camera,
                         color: AppColors.white100,

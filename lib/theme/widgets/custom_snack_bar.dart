@@ -43,7 +43,7 @@ class CustomSnackBar {
       case SnackBarType.informative:
         return AppColors.black100;
       default:
-        return AppColors.brown300; // Color predeterminado
+        return AppColors.brown200; // Color predeterminado
     }
   }
 }

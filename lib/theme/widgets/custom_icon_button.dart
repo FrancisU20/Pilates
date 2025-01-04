@@ -22,7 +22,7 @@ class CustomIconButton extends StatelessWidget {
     required this.icon,
     this.iconSize = 2,
     required this.onPressed,
-    this.color = AppColors.brown300,
+    this.color = AppColors.brown200,
     this.textColor = AppColors.white100,
     this.width = 30,
     this.height = 15,
