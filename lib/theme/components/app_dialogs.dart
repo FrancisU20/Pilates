@@ -14,8 +14,8 @@ class AppDialogs {
   /// Widget reutilizable para mostrar el logotipo
   static Widget _buildLogo() {
     return Container(
-      width: SizeConfig.scaleWidth(100),
-      height: SizeConfig.scaleHeight(20),
+      width: SizeConfig.scaleWidth(90),
+      height: SizeConfig.scaleHeight(15),
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/logo/logo_rectangle.png'),
@@ -43,16 +43,13 @@ class AppDialogs {
           ),
           content: SizedBox(
             width: SizeConfig.scaleWidth(100),
-            height: SizeConfig.scaleHeight(35),
+            height: SizeConfig.scaleHeight(27.5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildLogo(),
-                SizedBox(
-                  width: SizeConfig.scaleWidth(100),
-                  height: SizeConfig.scaleHeight(15),
-                  child: Column(
+                Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -62,6 +59,7 @@ class AppDialogs {
                         color: AppColors.black100,
                         fontSize: SizeConfig.scaleText(2),
                         fontWeight: FontWeight.w400,
+                        maxLines: 3,
                       ),
                       SizedBox(
                         height: SizeConfig.scaleHeight(2),
@@ -69,7 +67,7 @@ class AppDialogs {
                       Center(
                         child: CustomButton(
                           text: 'Regresar',
-                          color: AppColors.grey300,
+                          color: AppColors.brown200,
                           width: SizeConfig.scaleWidth(15),
                           onPressed: onButtonPressed ??
                               () {
@@ -78,7 +76,7 @@ class AppDialogs {
                         ),
                       ),
                     ],
-                  ),
+                  
                 ),
               ],
             ),
@@ -105,44 +103,43 @@ class AppDialogs {
           title: CustomText(
             text: 'Seleccione un método de pago',
             color: AppColors.black100,
-            fontSize: SizeConfig.scaleText(2.5),
+            fontSize: SizeConfig.scaleText(2),
             fontWeight: FontWeight.w500,
+            maxLines: 3,
           ),
           content: SizedBox(
             width: SizeConfig.scaleWidth(100),
-            height: SizeConfig.scaleHeight(35),
+            height: SizeConfig.scaleHeight(26),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildLogo(),
-                SizedBox(
-                  width: SizeConfig.scaleWidth(100),
-                  height: SizeConfig.scaleHeight(15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text:
-                            'Usted ha seleccionado el plan ${selectedPlan.name}',
-                        color: AppColors.black100,
-                        fontSize: SizeConfig.scaleText(2),
-                        fontWeight: FontWeight.w400,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.scaleHeight(2),
-                      ),
-                      CustomText(
-                        text:
-                            'Nota: Una vez realizado el pago, no se aceptan devoluciones',
-                        color: AppColors.black100,
-                        fontSize: SizeConfig.scaleText(2),
-                        fontWeight: FontWeight.w500,
-                        textAlign: TextAlign.start,
-                      ),
-                    ],
-                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text:
+                          'Usted ha seleccionado el plan ${selectedPlan.name}',
+                      color: AppColors.black100,
+                      fontSize: SizeConfig.scaleText(1.7),
+                      fontWeight: FontWeight.w400,
+                      maxLines: 3,
+                    ),
+                    SizedBox(
+                      height: SizeConfig.scaleHeight(2),
+                    ),
+                    CustomText(
+                      text:
+                          'Nota: Una vez realizado el pago, no se aceptan devoluciones.',
+                      color: AppColors.red300,
+                      fontSize: SizeConfig.scaleText(1.5),
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -155,7 +152,7 @@ class AppDialogs {
                 children: [
                   CustomButton(
                     text: 'Transferencia',
-                    color: AppColors.grey300,
+                    color: AppColors.brown200,
                     width: SizeConfig.scaleWidth(15),
                     onPressed: () {
                       /* registerProvider.clearTransferImageFile(); */
@@ -167,7 +164,7 @@ class AppDialogs {
                   ),
                   CustomButton(
                     text: 'Tarjeta de Crédito',
-                    color: AppColors.grey300,
+                    color: AppColors.brown200,
                     width: SizeConfig.scaleWidth(15),
                     onPressed: () {
                       showComingSoon(

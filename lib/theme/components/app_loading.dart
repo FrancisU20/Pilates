@@ -11,8 +11,10 @@ class AppLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.black100.withOpacity(0.35),
+        color: AppColors.black100.withOpacity(0.8),
       ),
+      width: double.infinity,
+      height: double.infinity,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

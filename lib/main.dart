@@ -4,12 +4,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/login/login_provider.dart';
+import 'package:pilates/providers/plan/plan_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 //import 'package:pilates/screens/admin/clients/clients_page.dart';
 //import 'package:pilates/screens/admin/dashboard/dashboard_admin_page.dart';
 //import 'package:pilates/screens/client/appointments/appointments_page.dart';
 //import 'package:pilates/screens/client/contact/contact_us_page.dart';
 import 'package:pilates/screens/client/dashboard/dashboard_page.dart';
+import 'package:pilates/screens/client/plan/plan_page.dart';
 import 'package:pilates/screens/client/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
 import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
@@ -52,6 +54,7 @@ Future<void> main() async {
       ChangeNotifierProvider<RegisterProvider>(
           create: (_) => RegisterProvider()),
       ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
+      ChangeNotifierProvider<PlanProvider>(create: (_) => PlanProvider()),
       ChangeNotifierProvider<ClientClassProvider>(
           create: (_) => ClientClassProvider()),
     ],
@@ -101,7 +104,7 @@ class MyApp extends StatelessWidget {
             //'/appointments': (context) => const AppointmentsPage(),
             //'/contact_us': (context) => const ContactUsPage(),
             //'/profile': (context) => const ProfilePage(),
-            //'/plans': (context) => const PlanPage(),
+            '/plans': (context) => const PlanPage(),
             //'/transfer': (context) => const TransferMethodPage(),
 
             //** Pantallas del administrador

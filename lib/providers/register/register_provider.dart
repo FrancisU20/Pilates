@@ -153,6 +153,7 @@ class RegisterProvider extends ChangeNotifier {
     isStep1Completed = false;
     isStep2Completed = false;
     isStep3Completed = false;
+    notifyListeners();
   }
 
   //****************************************/
@@ -319,15 +320,15 @@ class RegisterProvider extends ChangeNotifier {
       XFile compressedImage = await compressImage(imageSelected);
       MultipartFile multipartFile = await convertToFile(compressedImage);
 
-      FileAssetModel fileAsset = await fileAssetController.postS3File(
-          multipartFile, dni, 'clients-photos');
+      StandardResponse<FileAssetModel> fileAssetResponse = await fileAssetController.postS3File(
+          multipartFile, 'clients-photos', dni);
 
-      setImageUrl(fileAsset.path);
+      setImageUrl(fileAssetResponse.data!.path);
 
       if (!context.mounted) return;
       CustomSnackBar.show(
         context,
-        'Imagen cargada correctamente',
+        fileAssetResponse.message,
         SnackBarType.success,
       );
     } catch (e) {

@@ -155,7 +155,7 @@ class DashboardPageState extends State<DashboardPage> {
                   CustomText(
                       text:
                           '${clientProvider.user!.name}!',
-                      color: AppColors.black100,
+                      color: AppColors.brown200,
                       fontSize: SizeConfig.scaleHeight(4),
                       fontWeight: FontWeight.w400),
                 ],
@@ -177,7 +177,7 @@ class DashboardPageState extends State<DashboardPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: SizeConfig.scaleHeight(2.5),
+                    height: SizeConfig.scaleHeight(4),
                   ),
                   CarouselSlider(
                     options: CarouselOptions(
@@ -230,7 +230,7 @@ class DashboardPageState extends State<DashboardPage> {
                       ? Column(
                           children: [
                             SizedBox(
-                              height: SizeConfig.scaleHeight(2.5),
+                              height: SizeConfig.scaleHeight(5),
                             ),
                             GestureDetector(
                                 onTap: () =>

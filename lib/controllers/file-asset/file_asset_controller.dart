@@ -6,14 +6,16 @@ import 'package:pilates/models/file-asset/file_asset_model.dart';
 import 'package:pilates/services/api_base_service.dart';
 
 class FileAssetController {
-  Future<FileAssetModel> postS3File(
+  Future<StandardResponse<FileAssetModel>> postS3File(
       MultipartFile file, String folderPath, String dni) async {
     try {
       final apiBase =
           await ApiBaseService.create(contentType: 'multipart/form-data');
 
+      String awsFoldetPath = '$folderPath/$dni';
+
       List<MultipartFile> fileList = [file];
-      FileAssetModel sendFileAssetModel = FileAssetModel(path: folderPath);
+      FileAssetModel sendFileAssetModel = FileAssetModel(path: awsFoldetPath);
 
       String dataJson = jsonEncode(sendFileAssetModel.toJson());
 
@@ -30,14 +32,12 @@ class FileAssetController {
         Logger.logServerSuccess(serverJson);
       }
 
-      final fileAssetResponse = StandardResponse<FileAssetModel>.fromJson(
+      StandardResponse<FileAssetModel> fileAssetResponse = StandardResponse<FileAssetModel>.fromJson(
         serverJson,
         (data) => FileAssetModel.fromJson(data),
       );
 
-      FileAssetModel fileAsset = fileAssetResponse.data!;
-
-      return fileAsset;
+      return fileAssetResponse;
     } catch (e) {
       throw Exception(e.toString().replaceAll('Exception: ', ''));
     }

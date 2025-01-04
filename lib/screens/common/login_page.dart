@@ -27,6 +27,13 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LoginProvider loginProvider =
+          Provider.of<LoginProvider>(context, listen: false);
+      loginProvider.canUseBiometrics(context);
+      loginProvider.getAvailableBiometrics(context);
+      loginProvider.getSharedPreferences(context);
+    });
   }
 
   @override
@@ -38,11 +45,6 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    LoginProvider clientProvider =
-        Provider.of<LoginProvider>(context, listen: false);
-    clientProvider.canUseBiometrics(context);
-    clientProvider.getAvailableBiometrics(context);
-    clientProvider.getSharedPreferences(context);
     return Stack(
       children: [
         Scaffold(
@@ -81,7 +83,7 @@ class LoginPageState extends State<LoginPage> {
                       width: SizeConfig.scaleWidth(90),
                       padding: const EdgeInsets.all(25),
                       child: Consumer<LoginProvider>(
-                        builder: (context, clientProvider, child) {
+                        builder: (context, loginProvider, child) {
                           return Form(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,26 +114,26 @@ class LoginPageState extends State<LoginPage> {
                                 ),
                                 SizedBox(height: SizeConfig.scaleHeight(2)),
                                 Consumer<LoginProvider>(
-                                  builder: (context, clientProvider, child) {
-                                    if (clientProvider.canCheckBiometric &&
-                                        clientProvider
+                                  builder: (context, loginProvider, child) {
+                                    if (loginProvider.canCheckBiometric &&
+                                        loginProvider
                                             .listBiometrics.isNotEmpty &&
-                                        clientProvider.email.isNotEmpty &&
-                                        clientProvider.password.isNotEmpty) {
+                                        loginProvider.email.isNotEmpty &&
+                                        loginProvider.password.isNotEmpty) {
                                       return Column(
                                         children: [
                                           CustomIconButton(
                                             onPressed: () {
-                                              clientProvider
+                                              loginProvider
                                                   .loginBiometric(context);
                                             },
-                                            icon: clientProvider.listBiometrics
+                                            icon: loginProvider.listBiometrics
                                                     .contains(
                                                         BiometricType.face)
                                                 ? Icons.face
                                                 : FontAwesomeIcons.fingerprint,
                                             iconSize: 5,
-                                            text: clientProvider.listBiometrics
+                                            text: loginProvider.listBiometrics
                                                     .contains(
                                                         BiometricType.face)
                                                 ? 'Face ID'
@@ -146,10 +148,10 @@ class LoginPageState extends State<LoginPage> {
                                               text:
                                                   'Iniciar sesión con correo y contraseña',
                                               onPressed: () {
-                                                clientProvider
+                                                loginProvider
                                                     .setCanCheckBiometric(
                                                         false);
-                                                clientProvider
+                                                loginProvider
                                                     .setListBiometrics([]);
                                               },
                                               color: AppColors.grey300,
@@ -194,14 +196,14 @@ class LoginPageState extends State<LoginPage> {
                                                 text: 'Iniciar Sesión',
                                                 color: AppColors.brown200,
                                                 onPressed: () {
-                                                  clientProvider.login(
+                                                  loginProvider.login(
                                                     context,
                                                     emailController.text,
                                                     passwordController.text,
                                                   );
                                                 },
                                                 isActive:
-                                                    clientProvider.isLoading
+                                                    loginProvider.isLoading
                                                         ? false
                                                         : true,
                                               ),
@@ -252,8 +254,8 @@ class LoginPageState extends State<LoginPage> {
           ),
         ),
         Consumer<LoginProvider>(
-          builder: (context, clientProvider, child) {
-            if (clientProvider.isLoading) {
+          builder: (context, loginProvider, child) {
+            if (loginProvider.isLoading) {
               return const AppLoading();
             } else {
               return const SizedBox.shrink();
