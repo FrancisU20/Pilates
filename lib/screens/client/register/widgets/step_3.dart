@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/components/app_dialogs.dart';
+import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class Step3 extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: SizeConfig.scaleImage(25),
-              backgroundColor: AppColors.grey300,
+              backgroundColor: AppColors.brown300,
               child: registerProvider.profilePhotoUrl.isNotEmpty
                   ? CustomImageNetwork(imagePath: registerProvider.profilePhotoUrl, height: SizeConfig.scaleImage(50), borderRadius: 100,)
                   : Icon(
@@ -35,9 +35,9 @@ class Step3 extends StatelessWidget {
             CustomTextButton(
               text: 'Subir una foto',
               onPressed: () {
-                AppDialogs.showMediaSourcePicker(context);
+                AppDialogs.showProfilePhotoPicker(context);
               },
-              color: AppColors.grey300,
+              color: AppColors.brown300,
             ),
           ],
         ),

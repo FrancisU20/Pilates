@@ -100,7 +100,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                     ? CustomTextButton(
                         text: 'Regresar',
                         onPressed: _decrementCounter,
-                        color: AppColors.grey300,
+                        color: AppColors.brown300,
                       )
                     : CustomTextButton(
                         text: 'Ya dispones de una cuenta, Inicia Sesión',
@@ -108,7 +108,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                           Navigator.pushNamedAndRemoveUntil(
                               context, '/login', (route) => false)
                         },
-                        color: AppColors.grey300,
+                        color: AppColors.brown300,
                       )
               ],
             ),

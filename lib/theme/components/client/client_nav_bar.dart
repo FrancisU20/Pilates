@@ -24,7 +24,7 @@ class ClientNavBar extends StatelessWidget {
                 : const Icon(FontAwesomeIcons.grip),
             color: ModalRoute.of(context)?.settings.name == '/dashboard'
                 ? AppColors.white100
-                : AppColors.grey300,
+                : AppColors.brown300,
             onPressed: () {
               Navigator.pushNamed(context, '/dashboard');
             },
@@ -35,7 +35,7 @@ class ClientNavBar extends StatelessWidget {
                 : const Icon(FontAwesomeIcons.penToSquare),
             color: ModalRoute.of(context)?.settings.name == '/schedule_date'
                 ? AppColors.white100
-                : AppColors.grey300,
+                : AppColors.brown300,
             onPressed: () {
               Navigator.pushNamed(context, '/schedule_date');
             },
@@ -46,7 +46,7 @@ class ClientNavBar extends StatelessWidget {
                 : const Icon(Icons.calendar_month_outlined),
             color: ModalRoute.of(context)?.settings.name == '/appointments'
                 ? AppColors.white100
-                : AppColors.grey300,
+                : AppColors.brown300,
             onPressed: () {
               Navigator.pushNamed(context, '/appointments');
             },
@@ -57,7 +57,7 @@ class ClientNavBar extends StatelessWidget {
                 : const Icon(FontAwesomeIcons.comment),
             color: ModalRoute.of(context)?.settings.name == '/contact_us'
                 ? AppColors.white100
-                : AppColors.grey300,
+                : AppColors.brown300,
             onPressed: () {
               Navigator.pushNamed(context, '/contact_us');
             },
@@ -68,7 +68,7 @@ class ClientNavBar extends StatelessWidget {
                 : const Icon(FontAwesomeIcons.addressCard),
             color: ModalRoute.of(context)?.settings.name == '/profile'
                 ? AppColors.white100
-                : AppColors.grey300,
+                : AppColors.brown300,
             onPressed: () {
               Navigator.pushNamed(context, '/profile');
             },

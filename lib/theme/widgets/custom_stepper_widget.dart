@@ -34,7 +34,7 @@ class CustomStepperWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: stepIndex == currentStep
                   ? AppColors.brown200
-                  : AppColors.grey300,
+                  : AppColors.brown300,
               borderRadius: BorderRadius.circular(2),
             ),
           );

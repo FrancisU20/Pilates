@@ -24,7 +24,7 @@ class AdminNavBar extends StatelessWidget {
                 : const Icon(FontAwesomeIcons.chartPie),
             color: ModalRoute.of(context)?.settings.name == '/dashboard_admin'
                 ? AppColors.white100
-                : AppColors.grey300,
+                : AppColors.brown300,
             onPressed: () {
               Navigator.pushNamed(context, '/dashboard_admin');
             },
@@ -35,7 +35,7 @@ class AdminNavBar extends StatelessWidget {
                 : const Icon(FontAwesomeIcons.addressBook),
             color: ModalRoute.of(context)?.settings.name == '/clients'
                 ? AppColors.white100
-                : AppColors.grey300,
+                : AppColors.brown300,
             onPressed: () {
               Navigator.pushNamed(context, '/clients');
             },
@@ -46,7 +46,7 @@ class AdminNavBar extends StatelessWidget {
                 : const Icon(FontAwesomeIcons.chartSimple),
             color: ModalRoute.of(context)?.settings.name == '/clients'
                 ? AppColors.white100
-                : AppColors.grey300,
+                : AppColors.brown300,
             onPressed: () {
               Navigator.pushNamed(context, '/clients');
             },

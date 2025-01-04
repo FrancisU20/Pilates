@@ -5,7 +5,7 @@ import 'package:pilates/screens/client/register/widgets/step_2.dart';
 import 'package:pilates/screens/client/register/widgets/step_1.dart';
 import 'package:pilates/screens/client/register/widgets/step_3.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/components/app_loading.dart';
+import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';

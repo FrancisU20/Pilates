@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pilates/models/plan/plan_model.dart';
-import 'package:pilates/providers/client_class_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
+import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -91,9 +91,10 @@ class AppDialogs {
     required BuildContext context,
     required PlanModel selectedPlan,
   }) async {
-    /* final registerProvider =
-        Provider.of<RegisterProvider>(context, listen: false);
-    registerProvider.setSelectedPlan(selectedPlan); */
+    final UserPlanProvider userPlanProvider =
+        Provider.of<UserPlanProvider>(context, listen: false);
+
+    userPlanProvider.setSelectedPlan(selectedPlan);
 
     return showDialog(
       context: context,
@@ -156,7 +157,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(15),
                     onPressed: () {
                       /* registerProvider.clearTransferImageFile(); */
-                      Navigator.pushNamed(context, '/transfer');
+                      Navigator.pushNamed(context, '/transfer-payment');
                     },
                   ),
                   SizedBox(
@@ -185,9 +186,6 @@ class AppDialogs {
   }
 
   static Future<void> showLogout(BuildContext context) {
-    ClientClassProvider clientClassProvider =
-        Provider.of<ClientClassProvider>(context, listen: false);
-
     return showDialog(
         context: context,
         builder: (context) {
@@ -242,14 +240,13 @@ class AppDialogs {
               ),
               CustomButton(
                 text: 'Sí',
-                color: AppColors.grey300,
+                color: AppColors.brown300,
                 width: SizeConfig.scaleWidth(6),
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/login', (route) => false);
 
                   Future.delayed(const Duration(seconds: 3), () {
-                    clientClassProvider.clearAll();
                   });
                 },
               ),
@@ -258,7 +255,7 @@ class AppDialogs {
         });
   }
 
-  static Future<void> showMediaSourcePicker(BuildContext context) {
+  static Future<void> showProfilePhotoPicker(BuildContext context) {
     RegisterProvider registerProvider =
         Provider.of<RegisterProvider>(context, listen: false);
     return showModalBottomSheet(
@@ -290,6 +287,48 @@ class AppDialogs {
                 ),
                 onTap: () {
                   registerProvider.pickImage(context, ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<void> showTransferPaymentPicker(BuildContext context, String dni) {
+    UserPlanProvider userPlanProvider =
+        Provider.of<UserPlanProvider>(context, listen: false);
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.images),
+                title: CustomText(
+                  text: 'Galería',
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: SizeConfig.scaleText(2),
+                ),
+                onTap: () {
+                  userPlanProvider.pickImage(context, ImageSource.gallery, dni);
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.cameraRetro),
+                title: CustomText(
+                  text: 'Cámara',
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: SizeConfig.scaleText(2),
+                ),
+                onTap: () {
+                  userPlanProvider.pickImage(context, ImageSource.camera, dni);
                   Navigator.of(context).pop();
                 },
               ),

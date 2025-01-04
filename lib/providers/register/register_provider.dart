@@ -78,7 +78,7 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setImageUrl(String profilePhotoUrl) {
+  void setProfilePhotoUrl(String profilePhotoUrl) {
     this.profilePhotoUrl = profilePhotoUrl;
     notifyListeners();
   }
@@ -323,7 +323,7 @@ class RegisterProvider extends ChangeNotifier {
       StandardResponse<FileAssetModel> fileAssetResponse = await fileAssetController.postS3File(
           multipartFile, 'clients-photos', dni);
 
-      setImageUrl(fileAssetResponse.data!.path);
+      setProfilePhotoUrl(fileAssetResponse.data!.path);
 
       if (!context.mounted) return;
       CustomSnackBar.show(

@@ -16,7 +16,7 @@ class AppColors {
   static const brown200 = Color(0xFFA0917D);
 
   // Grises
-  static const grey300 = Color(0xFF56514B); 
+  static const brown300 = Color(0xFF56514B); 
 
   // Negros
   static const black100 = Color(0xFF313031);

@@ -6,6 +6,7 @@ import 'package:pilates/theme/app_colors.dart';
 class CustomImageNetwork extends StatelessWidget {
   final String imagePath;
   final double height;
+  final double? width;
   final double borderRadius;
   final BoxFit fit;
   final Color errorBackgroundColor;
@@ -16,6 +17,7 @@ class CustomImageNetwork extends StatelessWidget {
     super.key,
     required this.imagePath,
     required this.height,
+    this.width,
     this.borderRadius = 15.0,
     this.fit = BoxFit.cover,
     this.errorBackgroundColor = AppColors.white200,
@@ -30,10 +32,12 @@ class CustomImageNetwork extends StatelessWidget {
       child: Image.network(
         imagePath,
         height: height,
+        width: width,
         fit: fit,
         errorBuilder: (context, error, stackTrace) {
           return Container(
             height: height,
+            width: width,
             color: errorBackgroundColor,
             alignment: Alignment.center,
             child: Icon(

@@ -1,9 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pilates/controllers/client_plans_controller.dart';
 import 'package:pilates/data/menu_data.dart';
-import 'package:pilates/models/response/client_plans_response.dart';
+import 'package:pilates/models/backup/response/client_plans_response.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/client/client_home_bar.dart';
@@ -21,7 +20,6 @@ class DashboardPage extends StatefulWidget {
 
 class DashboardPageState extends State<DashboardPage> {
   final menuItems = MenuData.menuItems;
-  ClientPlansController clientPlansController = ClientPlansController();
   bool noPlans = true;
   bool isNextToExpire = false;
   ClientPlansResponse? currentClientPlan;
@@ -125,7 +123,7 @@ class DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    LoginProvider clientProvider =
+    LoginProvider loginProvider =
         Provider.of<LoginProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: AppColors.white100,
@@ -146,7 +144,7 @@ class DashboardPageState extends State<DashboardPage> {
                 children: [
                   CustomText(
                       text: 'Hola,',
-                      color: AppColors.grey300,
+                      color: AppColors.brown300,
                       fontSize: SizeConfig.scaleHeight(4),
                       fontWeight: FontWeight.w400),
                   SizedBox(
@@ -154,7 +152,7 @@ class DashboardPageState extends State<DashboardPage> {
                   ),
                   CustomText(
                       text:
-                          '${clientProvider.user!.name}!',
+                          '${loginProvider.user!.name}!',
                       color: AppColors.brown200,
                       fontSize: SizeConfig.scaleHeight(4),
                       fontWeight: FontWeight.w400),
@@ -167,7 +165,7 @@ class DashboardPageState extends State<DashboardPage> {
                 children: [
                   CustomText(
                       text: '¿Qué te gustaría hacer hoy?',
-                      color: AppColors.grey300,
+                      color: AppColors.brown300,
                       fontSize: SizeConfig.scaleHeight(2.5),
                       fontWeight: FontWeight.w500),
                 ],
@@ -270,7 +268,7 @@ class DashboardPageState extends State<DashboardPage> {
                               CustomText(
                                   text:
                                       '${currentClientPlan!.numberOfClasses - currentClientPlan!.attendedClasses} de ${currentClientPlan!.numberOfClasses}',
-                                  color: AppColors.grey300,
+                                  color: AppColors.brown300,
                                   fontSize: SizeConfig.scaleHeight(2),
                                   fontWeight: FontWeight.w500),
                               SizedBox(
@@ -280,7 +278,7 @@ class DashboardPageState extends State<DashboardPage> {
                                 width: SizeConfig.scaleWidth(70),
                                 child: LinearProgressIndicator(
                                   value: 0,
-                                  backgroundColor: AppColors.grey300,
+                                  backgroundColor: AppColors.brown300,
                                   valueColor:
                                       const AlwaysStoppedAnimation<Color>(
                                           AppColors.beige100,),
@@ -295,7 +293,7 @@ class DashboardPageState extends State<DashboardPage> {
                               CustomText(
                                   text: 'Clases Disponibles',
                                   color:
-                                      AppColors.grey300,
+                                      AppColors.brown300,
                                   fontSize: SizeConfig.scaleHeight(2),
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.start),
