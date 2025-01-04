@@ -6,7 +6,7 @@ import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
-import 'package:pilates/theme/utils/functions.dart';
+import 'package:pilates/theme/utils/custom_navigator.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_icon_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -218,7 +218,7 @@ class LoginPageState extends State<LoginPage> {
                                                 text:
                                                     '¿Olvidaste tu contraseña?',
                                                 onPressed: () {
-                                                  smoothTransition(context,
+                                                  customNavigator(context,
                                                       '/forgot_password');
                                                 },
                                                 color: AppColors.brown200,
@@ -233,7 +233,7 @@ class LoginPageState extends State<LoginPage> {
                                               text:
                                                   '¿Aún no tienes cuenta? Registrate',
                                               onPressed: () {
-                                                smoothTransition(
+                                                customNavigator(
                                                     context, '/onboarding');
                                               },
                                               color: AppColors.brown200,

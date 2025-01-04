@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/utils/functions.dart';
+import 'package:pilates/theme/utils/custom_navigator.dart';
 
 class AdminNavBar extends StatelessWidget {
   const AdminNavBar({super.key});
@@ -27,7 +27,7 @@ class AdminNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              smoothTransition(context, '/dashboard_admin');
+              customNavigator(context, '/dashboard_admin');
             },
           ),
           IconButton(
@@ -38,7 +38,7 @@ class AdminNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              smoothTransition(context, '/clients');
+              customNavigator(context, '/clients');
             },
           ),
           IconButton(
@@ -49,7 +49,7 @@ class AdminNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              smoothTransition(context, '/clients');
+              customNavigator(context, '/clients');
             },
           ),
         ],

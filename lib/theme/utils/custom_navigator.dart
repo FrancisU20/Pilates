@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<Object?> smoothTransition(
+Future<Object?> customNavigator(
   BuildContext context,
   String routeName, {
   Object? arguments,

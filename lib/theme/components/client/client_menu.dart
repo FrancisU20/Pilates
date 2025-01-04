@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/components/common/app_dialogs.dart';
-import 'package:pilates/theme/utils/functions.dart';
+import 'package:pilates/theme/utils/custom_navigator.dart';
 
 class ClientMenu extends StatefulWidget {
   const ClientMenu({super.key});
@@ -44,7 +44,7 @@ class ClientMenuState extends State<ClientMenu> {
                         title: const Text('Dashboard'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          smoothTransition(context, '/dashboard');
+                          customNavigator(context, '/dashboard');
                         },
                       ),
                       SizedBox(
@@ -59,7 +59,7 @@ class ClientMenuState extends State<ClientMenu> {
                         title: const Text('Agendar Cita'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          smoothTransition(context, '/schedule_date');
+                          customNavigator(context, '/schedule_date');
                         },
                       ),
                       SizedBox(
@@ -74,7 +74,7 @@ class ClientMenuState extends State<ClientMenu> {
                         title: const Text('Citas Agendadas'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          smoothTransition(context, '/appointments');
+                          customNavigator(context, '/appointments');
                         },
                       ),
                       SizedBox(
@@ -89,7 +89,7 @@ class ClientMenuState extends State<ClientMenu> {
                         title: const Text('Contáctanos'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          smoothTransition(context, '/contact_us');
+                          customNavigator(context, '/contact_us');
                         },
                       ),
                       SizedBox(
@@ -104,7 +104,7 @@ class ClientMenuState extends State<ClientMenu> {
                         title: const Text('Mi Cuenta'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          smoothTransition(context, '/profile');
+                          customNavigator(context, '/profile');
                         },
                       ),
                       SizedBox(

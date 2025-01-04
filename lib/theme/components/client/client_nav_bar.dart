@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/utils/functions.dart';
+import 'package:pilates/theme/utils/custom_navigator.dart';
 
 class ClientNavBar extends StatelessWidget {
   const ClientNavBar({super.key});
@@ -27,7 +27,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              smoothTransition(context, '/dashboard');
+              customNavigator(context, '/dashboard');
             },
           ),
           IconButton(
@@ -38,7 +38,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              smoothTransition(context, '/schedule_date');
+              customNavigator(context, '/schedule_date');
             },
           ),
           IconButton(
@@ -49,7 +49,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              smoothTransition(context, '/appointments');
+              customNavigator(context, '/appointments');
             },
           ),
           IconButton(
@@ -60,7 +60,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              smoothTransition(context, '/contact_us');
+              customNavigator(context, '/contact_us');
             },
           ),
           IconButton(
@@ -71,7 +71,7 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.white100
                 : AppColors.brown200,
             onPressed: () {
-              smoothTransition(context, '/profile');
+              customNavigator(context, '/profile');
             },
           ),
         ],

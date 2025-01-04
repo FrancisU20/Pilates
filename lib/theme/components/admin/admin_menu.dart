@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/utils/functions.dart';
+import 'package:pilates/theme/utils/custom_navigator.dart';
 
 class AdminMenu extends StatefulWidget {
   const AdminMenu({super.key});
@@ -44,7 +44,7 @@ class AdminMenuState extends State<AdminMenu> {
                         title: const Text('Dashboard'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          smoothTransition(context, '/dashboard_admin');
+                          customNavigator(context, '/dashboard_admin');
                         },
                       ),
                       SizedBox(
@@ -59,7 +59,7 @@ class AdminMenuState extends State<AdminMenu> {
                         title: const Text('Clientes'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          smoothTransition(context, '/clients');
+                          customNavigator(context, '/clients');
                         },
                       ),
                       SizedBox(
@@ -74,7 +74,7 @@ class AdminMenuState extends State<AdminMenu> {
                         title: const Text('Reportes'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          smoothTransition(context, '/clients');
+                          customNavigator(context, '/clients');
                         },
                       ),
                       SizedBox(

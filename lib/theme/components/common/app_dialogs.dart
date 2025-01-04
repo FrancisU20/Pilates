@@ -5,7 +5,7 @@ import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/utils/functions.dart';
+import 'package:pilates/theme/utils/custom_navigator.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -158,7 +158,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(15),
                     onPressed: () {
                       /* registerProvider.clearTransferImageFile(); */
-                      smoothTransition(context, '/transfer-payment');
+                      customNavigator(context, '/transfer-payment');
                     },
                   ),
                   SizedBox(
@@ -244,7 +244,7 @@ class AppDialogs {
                 color: AppColors.brown200,
                 width: SizeConfig.scaleWidth(6),
                 onPressed: () {
-                  smoothTransition(
+                  customNavigator(
                       context, '/login', clearStack: true);
 
                   Future.delayed(const Duration(seconds: 3), () {

@@ -98,6 +98,16 @@ class ApiBaseService {
         headers: headers, body: bodyRequest);
   }
 
+  Future<http.Response> patch(String microserviceAndParams,
+      {Map<String, String>? headersAdditional,
+      String? bodyRequest,
+      bool? isLocal}) async {
+    final api = isLocal != null && isLocal ? uriLocal : uri;
+    final headers = {...customHeaders, ...?headersAdditional};
+    return http.patch(Uri.parse('$api$microserviceAndParams'),
+        headers: headers, body: bodyRequest);
+  }
+
   Future<http.Response> delete(String microserviceAndParams,
       {Map<String, String>? headersAdditional,
       String? bodyRequest,

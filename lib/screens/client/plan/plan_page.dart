@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/integrations/whatsapp_launcher.dart';
 import 'package:pilates/providers/plan/plan_provider.dart';
+import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_app_bar.dart';
@@ -25,6 +26,7 @@ class PlanPageState extends State<PlanPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<UserPlanProvider>(context, listen: false).clearData();
       Provider.of<PlanProvider>(context, listen: false).getPlans(context);
     });
   }

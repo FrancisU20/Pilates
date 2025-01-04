@@ -6,6 +6,7 @@ import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/file-asset/file_asset_controller.dart';
 import 'package:pilates/controllers/user-plan/user_plan_controller.dart';
 import 'package:pilates/models/common/standard_response.dart';
+import 'package:pilates/models/common/update_status_model.dart';
 import 'package:pilates/models/file-asset/file_asset_model.dart';
 import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/models/user-plan/user_plan_create_model.dart';
@@ -30,6 +31,12 @@ class UserPlanProvider extends ChangeNotifier {
   //? Setters Variables
   void setUserPaymentImage(String image) {
     userPaymentImage = image;
+    notifyListeners();
+  }
+
+  //? Limpiar Variables
+  void clearUserPaymentImage() {
+    userPaymentImage = '';
     notifyListeners();
   }
 
@@ -81,6 +88,12 @@ class UserPlanProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //? Limpiar Listas
+  void clearListUserPlans() {
+    listUserPlans = [];
+    notifyListeners();
+  }
+
   //****************************************/
   //? Reutilizables
   bool isLoading = false;
@@ -98,6 +111,11 @@ class UserPlanProvider extends ChangeNotifier {
 
   //? Eliminar toda la data
   void clearData() {
+    clearUserPaymentImage();
+    clearSelectedPlan();
+    clearActiveUserPlan();
+    clearInactiveUserPlan();
+    clearListUserPlans();
     notifyListeners();
   }
 
@@ -270,6 +288,33 @@ class UserPlanProvider extends ChangeNotifier {
     }
   }
 
+  //? Actualizar Plan del Usuario
+  Future<void> updateStatusUserPlan(BuildContext context,
+      UserPlanModel userPlan, UpdateStatusModel updateStatus) async {
+    try {
+      StandardResponse<UserPlanModel> updateStatusUserPlanResponse =
+          await userPlanController.updateStatusUserPlan(userPlan, updateStatus);
+
+      if (!context.mounted) return;
+      CustomSnackBar.show(
+        context,
+        updateStatusUserPlanResponse.message,
+        updateStatusUserPlanResponse.data!.status == 'A' ||
+                updateStatusUserPlanResponse.data!.status == 'C'
+            ? SnackBarType.success
+            : updateStatusUserPlanResponse.data!.status == 'I'
+                ? SnackBarType.informative
+                : SnackBarType.error,
+      );
+    } catch (e) {
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
+    }
+  }
+
   //? Obtener Planes del Usuario (Activo e Inactivo)
   Future<void> getUserPlans(BuildContext context,
       {String? status, DateTime? startDate, DateTime? endDate}) async {
@@ -289,14 +334,36 @@ class UserPlanProvider extends ChangeNotifier {
               startDate: startDate,
               endDate: endDate);
 
-      //? Si el usuario tiene un plan activo, se asigna a la variable activeUserPlan
-      if (userPlansResponse.data!.isNotEmpty) {
-        for (UserPlanModel userPlan in userPlansResponse.data!) {
-          if (userPlan.status == 'A') {
-            setActiveUserPlan(userPlan);
-          } else if (userPlan.status == 'I') {
-            setInactiveUserPlan(userPlan);
+      //? Filtrar todos los planes que no sean completados status (C) y expirados status (E)
+      List<UserPlanModel> filteredUserPlans = userPlansResponse.data!
+          .where((userPlan) => userPlan.status != 'C' && userPlan.status != 'E')
+          .toList();
+
+      if (!context.mounted) return;
+      //? Verificar solo de los planes activos (A) si estan vencidos y actualizar su status
+      for (UserPlanModel userPlan in filteredUserPlans) {
+        if (userPlan.status == 'A') {
+          DateTime planEnd = userPlan.planEnd;
+          if (planEnd.isBefore(DateTime.now())) {
+            UpdateStatusModel updateStatus = UpdateStatusModel(status: 'E');
+            await updateStatusUserPlan(context, userPlan, updateStatus);
           }
+        }
+      }
+
+      //? Volver a consultar al servidor para obtener los planes actualizados
+      userPlansResponse = await userPlanController.getUserPlans(
+          userId: loginProvider.user!.id,
+          status: status,
+          startDate: startDate,
+          endDate: endDate);
+
+      //? Si el plan es (A) se asigna a la variable activeUserPlan, si es (I) se asigna a la variable inactiveUserPlan
+      for (UserPlanModel userPlan in userPlansResponse.data!) {
+        if (userPlan.status == 'A') {
+          setActiveUserPlan(userPlan);
+        } else if (userPlan.status == 'I') {
+          setInactiveUserPlan(userPlan);
         }
       }
     } catch (e) {
