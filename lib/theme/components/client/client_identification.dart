@@ -64,7 +64,8 @@ class ClientIdentification extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: '${loginProvider.user!.name} ${loginProvider.user!.lastname}',
+                        text:
+                            '${loginProvider.user!.name} ${loginProvider.user!.lastname}',
                         color: AppColors.white100,
                         fontSize: SizeConfig.scaleText(1.6),
                         fontWeight: FontWeight.w500,
@@ -78,14 +79,16 @@ class ClientIdentification extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                       CustomText(
-                        text: 'Celular: ${loginProvider.user!.phone.replaceAll('+593', '0')}',
+                        text:
+                            'Celular: ${loginProvider.user!.phone.replaceAll('+593', '0')}',
                         color: AppColors.white100,
                         fontSize: SizeConfig.scaleText(1.6),
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.left,
                       ),
                       CustomText(
-                        text: 'Cumpleaños: ${userPlanProvider.convertDate(loginProvider.user!.birthdate.toString().substring(0, 10)).substring(0, 9)}',
+                        text:
+                            'Cumpleaños: ${userPlanProvider.convertDate(loginProvider.user!.birthdate.toString().substring(0, 10)).substring(0, 9)}',
                         color: AppColors.white100,
                         fontSize: SizeConfig.scaleText(1.6),
                         fontWeight: FontWeight.w500,
@@ -100,7 +103,8 @@ class ClientIdentification extends StatelessWidget {
           SizedBox(height: SizeConfig.scaleHeight(1.5)),
           Center(
             child: CustomText(
-              text: 'Miembro desde el ${userPlanProvider.convertDate(DateTime.now().toString().substring(0, 10))}',
+              text:
+                  'Miembro desde el ${userPlanProvider.convertDate(loginProvider.user!.createdAt.toString().substring(0, 10))}',
               color: AppColors.white100,
               fontSize: SizeConfig.scaleText(1.6),
               fontWeight: FontWeight.w500,

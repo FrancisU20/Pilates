@@ -51,9 +51,15 @@ class CustomImageNetwork extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           } else {
-            return LoadingAnimationWidget.staggeredDotsWave(
-              color: AppColors.white100,
-              size: SizeConfig.scaleHeight(7.5),
+            return Container(
+              height: height,
+              width: width,
+              color: AppColors.grey200,
+              alignment: Alignment.center,
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                color: AppColors.white100,
+                size: SizeConfig.scaleHeight(height/16),
+              ),
             );
           }
         },

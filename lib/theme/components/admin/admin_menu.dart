@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 
 class AdminMenu extends StatefulWidget {
   const AdminMenu({super.key});
@@ -13,7 +12,6 @@ class AdminMenu extends StatefulWidget {
 }
 
 class AdminMenuState extends State<AdminMenu> {
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -36,37 +34,33 @@ class AdminMenuState extends State<AdminMenu> {
                     shrinkWrap: true,
                     children: <Widget>[
                       ListTile(
-                        leading:  Icon(
+                        leading: Icon(
                           FontAwesomeIcons.chartPie,
                           color: AppColors.white100,
                           size: SizeConfig.scaleHeight(3),
                         ),
                         title: const Text('Dashboard'),
                         textColor: AppColors.white100,
-                        onTap: () {
-                          customNavigator(context, '/dashboard_admin');
-                        },
+                        onTap: () {},
                       ),
                       SizedBox(
                         height: SizeConfig.scaleHeight(2.5),
                       ),
                       ListTile(
-                        leading:  Icon(
+                        leading: Icon(
                           FontAwesomeIcons.solidAddressBook,
                           color: AppColors.white100,
                           size: SizeConfig.scaleHeight(3),
                         ),
                         title: const Text('Clientes'),
                         textColor: AppColors.white100,
-                        onTap: () {
-                          customNavigator(context, '/clients');
-                        },
+                        onTap: () {},
                       ),
                       SizedBox(
                         height: SizeConfig.scaleHeight(2.5),
                       ),
                       ListTile(
-                        leading:  Icon(
+                        leading: Icon(
                           FontAwesomeIcons.chartSimple,
                           color: AppColors.white100,
                           size: SizeConfig.scaleHeight(3),
@@ -74,14 +68,14 @@ class AdminMenuState extends State<AdminMenu> {
                         title: const Text('Reportes'),
                         textColor: AppColors.white100,
                         onTap: () {
-                          customNavigator(context, '/clients');
+                          
                         },
                       ),
                       SizedBox(
                         height: SizeConfig.scaleHeight(2.5),
                       ),
                       ListTile(
-                        leading:  Icon(
+                        leading: Icon(
                           FontAwesomeIcons.hands,
                           color: AppColors.white100,
                           size: SizeConfig.scaleHeight(3),

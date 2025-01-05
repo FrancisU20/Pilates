@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/screens/common/onboarding/widgets/step_1.dart';
 import 'package:pilates/screens/common/onboarding/widgets/step_2.dart';
 import 'package:pilates/screens/common/onboarding/widgets/step_3.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 import 'package:pilates/theme/widgets/custom_stepper_widget.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
@@ -36,7 +36,7 @@ class OnboardingPageState extends State<OnboardingPage> {
       );
     } else {
       registerProvider.clearData();
-      customNavigator(context, '/register');
+      context.go('/onboarding/register');
     }
   }
 
@@ -105,10 +105,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                       )
                     : CustomTextButton(
                         text: 'Ya dispones de una cuenta, Inicia Sesión',
-                        onPressed: () => {
-                          customNavigator(
-                              context, '/login', )
-                        },
+                        onPressed: () => {context.go('/login')},
                         color: AppColors.brown200,
                       )
               ],

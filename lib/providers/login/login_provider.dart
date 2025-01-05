@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/login/login_controller.dart';
 import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/user/user_model.dart';
 import 'package:pilates/providers/register/register_provider.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -108,7 +108,7 @@ class LoginProvider extends ChangeNotifier {
       prefs.setString('email', email);
       prefs.setString('password', password);
 
-      customNavigator(context, '/dashboard');
+      context.go('/dashboard');
       CustomSnackBar.show(
         context,
         loggingInUser.gender == 'F'

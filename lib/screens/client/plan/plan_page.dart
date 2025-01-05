@@ -4,11 +4,10 @@ import 'package:pilates/integrations/whatsapp_launcher.dart';
 import 'package:pilates/providers/plan/plan_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/components/common/app_dialogs.dart';
+import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_app_bar.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/widgets/custom_button.dart';
-import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_page_header.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -52,67 +51,18 @@ class PlanPageState extends State<PlanPage> {
                 Consumer<PlanProvider>(
                   builder: (context, planProvider, child) {
                     if (planProvider.plans.isEmpty) {
-                      return Flexible(
-                        child: Container(
-                            width: SizeConfig.scaleWidth(100),
-                            height: SizeConfig.scaleHeight(78),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: SizeConfig.scaleWidth(5),
-                                vertical: SizeConfig.scaleHeight(2)),
-                            decoration: const BoxDecoration(
-                                color: AppColors.white100,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25),
-                                    topRight: Radius.circular(25))),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              physics: const ClampingScrollPhysics(),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: SizeConfig.scaleHeight(3),
-                                  ),
-                                  Center(
-                                    child: CustomImageNetwork(
-                                      imagePath:
-                                          'https://curvepilates-bucket.s3.amazonaws.com/app-assets/box/box-empty.png',
-                                      height: SizeConfig.scaleHeight(25),
-                                      errorIconSize: SizeConfig.scaleImage(20),
-                                      borderRadius: SizeConfig.scaleHeight(100),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: SizeConfig.scaleHeight(2),
-                                  ),
-                                  Center(
-                                    child: CustomText(
-                                      text:
-                                          'Lo sentimos, no hay planes disponibles, comunícate con nosotros para más información.',
-                                      color: AppColors.black100,
-                                      fontSize: SizeConfig.scaleText(2.5),
-                                      fontWeight: FontWeight.w400,
-                                      maxLines: 3,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: SizeConfig.scaleHeight(2),
-                                  ),
-                                  Center(
-                                    child: CustomButton(
-                                      icon: FontAwesomeIcons.whatsapp,
-                                      onPressed: () {
-                                        whatsappServices.whatsappRedirect(
-                                            message:
-                                                'Hola, me gustaría obtener información sobre los planes de Pilates.');
-                                      },
-                                      text: 'Contactar',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      );
+                      return AppEmptyData(
+                          imagePath:
+                              'https://curvepilates-bucket.s3.amazonaws.com/app-assets/box/box-empty.png',
+                          message:
+                              'Lo sentimos, no hay planes disponibles, comunícate con nosotros para más información.',
+                          buttonText: 'Crear Ficha',
+                          onButtonPressed: (){
+                            whatsappServices.whatsappRedirect(
+                                message:
+                                    'Hola, me gustaría obtener información sobre los planes de Pilates.');
+                          },
+                          buttonIcon: FontAwesomeIcons.whatsapp);
                     } else {
                       return Flexible(
                         child: Container(

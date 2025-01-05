@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
@@ -28,7 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ? AppColors.black100
                   : AppColors.white100),
           onPressed: () => toDashboard
-              ? customNavigator(context, '/dashboard', clearStack: true)
+              ? context.go('/dashboard')
               : Navigator.pop(context),
         ),
       ),

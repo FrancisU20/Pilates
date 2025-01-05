@@ -1,26 +1,26 @@
 import 'package:pilates/config/images_paths.dart';
 
 class MenuData {
-  static List<Map<String, String>> menuItems = [
+  static List<Map<String, dynamic>> menuItems = [
     {
       'image': imagesPaths.dashboardItem1,
       'description': 'Agendar Cita',
-      'route': '/schedule_date'
+      'route': '/dashboard'
     },
     {
       'image': imagesPaths.dashboardItem2,
       'description': 'Clases Agendadas',
-      'route': '/appointments'
+      'route': '/dashboard'
     },
     {
       'image': imagesPaths.dashboardItem3,
       'description': 'Contáctanos',
-      'route': '/contact_us'
+      'route': '/dashboard/contact'
     },
     {
       'image': imagesPaths.dashboardItem4,
       'description': 'Mi Cuenta',
-      'route': '/profile'
+      'route': '/dashboard/my-account'
     },
   ];
 }

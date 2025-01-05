@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 
 class ClientNavBar extends StatelessWidget {
   const ClientNavBar({super.key});
@@ -20,58 +20,54 @@ class ClientNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            icon: ModalRoute.of(context)?.settings.name == '/dashboard'
+            icon: ModalRoute.of(context)!.settings.name == '/dashboard'
                 ? const Icon(FontAwesomeIcons.grip)
                 : const Icon(FontAwesomeIcons.grip),
-            color: ModalRoute.of(context)?.settings.name == '/dashboard'
-                ? AppColors.white100
-                : AppColors.brown200,
+            color: ModalRoute.of(context)!.settings.name == '/dashboard'
+                ? AppColors.gold100
+                : AppColors.white100,
             onPressed: () {
-              customNavigator(context, '/dashboard');
+              context.go('/dashboard');
             },
           ),
           IconButton(
-            icon: ModalRoute.of(context)?.settings.name == '/schedule_date'
+            icon: ModalRoute.of(context)!.settings.name == '/'
                 ? const Icon(FontAwesomeIcons.solidPenToSquare)
                 : const Icon(FontAwesomeIcons.penToSquare),
-            color: ModalRoute.of(context)?.settings.name == '/schedule_date'
-                ? AppColors.white100
-                : AppColors.brown200,
-            onPressed: () {
-              customNavigator(context, '/schedule_date');
-            },
+            color: ModalRoute.of(context)!.settings.name == '/'
+                ? AppColors.gold100
+                : AppColors.white100,
+            onPressed: () {},
           ),
           IconButton(
-            icon: ModalRoute.of(context)?.settings.name == '/appointments'
+            icon: ModalRoute.of(context)!.settings.name == '/'
                 ? const Icon(Icons.calendar_month)
                 : const Icon(Icons.calendar_month_outlined),
-            color: ModalRoute.of(context)?.settings.name == '/appointments'
-                ? AppColors.white100
-                : AppColors.brown200,
-            onPressed: () {
-              customNavigator(context, '/appointments');
-            },
+            color: ModalRoute.of(context)!.settings.name == '/'
+                ? AppColors.gold100
+                : AppColors.white100,
+            onPressed: () {},
           ),
           IconButton(
-            icon: ModalRoute.of(context)?.settings.name == '/contact_us'
+            icon: ModalRoute.of(context)!.settings.name == 'contact'
                 ? const Icon(FontAwesomeIcons.solidComment)
                 : const Icon(FontAwesomeIcons.comment),
-            color: ModalRoute.of(context)?.settings.name == '/contact_us'
-                ? AppColors.white100
-                : AppColors.brown200,
+            color: ModalRoute.of(context)!.settings.name == 'contact'
+                ? AppColors.gold100
+                : AppColors.white100,
             onPressed: () {
-              customNavigator(context, '/contact_us');
+              context.go('/dashboard/contact');
             },
           ),
           IconButton(
-            icon: ModalRoute.of(context)?.settings.name == '/profile'
-                ? const Icon(FontAwesomeIcons.solidAddressCard)
-                : const Icon(FontAwesomeIcons.addressCard),
-            color: ModalRoute.of(context)?.settings.name == '/profile'
-                ? AppColors.white100
-                : AppColors.brown200,
+            icon: ModalRoute.of(context)!.settings.name == 'my-account'
+                ? const Icon(FontAwesomeIcons.userAstronaut)
+                : const Icon(FontAwesomeIcons.userAstronaut),
+            color: ModalRoute.of(context)!.settings.name == 'my-account'
+                ? AppColors.gold100
+                : AppColors.white100,
             onPressed: () {
-              customNavigator(context, '/profile');
+              context.go('/dashboard/my-account');
             },
           ),
         ],

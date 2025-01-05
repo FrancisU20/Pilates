@@ -167,8 +167,15 @@ class CustomTextFieldState extends State<CustomTextField> {
           ? SizeConfig.scaleHeight(widget.height + 2)
           : SizeConfig.scaleHeight(widget.height),
       child: GestureDetector(
-        onTap: widget.typeTextField == TextFieldType.date
-            ? () => AppBirthdayPicker.selectBirthday(context, widget.controller)
+        onTap: widget.typeTextField == TextFieldType.date 
+            ? () async {
+                await AppBirthdayPicker.selectBirthday(
+                    context, widget.controller);
+                if (widget.onChanged != null) {
+                  widget.onChanged!(
+                      widget.controller.text); // Llamar a onChanged manualmente
+                }
+              }
             : null,
         child: AbsorbPointer(
           absorbing: widget.typeTextField == TextFieldType.date,
@@ -182,7 +189,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                 labelStyle: GoogleFonts.montserrat(
                   textStyle: TextStyle(
                     color: textColor,
-                    fontSize: SizeConfig.scaleText(widget.fontSize!),
+                    fontSize: widget.fontSize!,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -191,7 +198,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                 hintStyle: GoogleFonts.montserrat(
                   textStyle: TextStyle(
                     color: textColor,
-                    fontSize: SizeConfig.scaleText(widget.fontSize!),
+                    fontSize: widget.fontSize!,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -251,7 +258,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                 errorStyle: GoogleFonts.montserrat(
                   textStyle: TextStyle(
                     color: AppColors.red300,
-                    fontSize: SizeConfig.scaleText(1.5),
+                    fontSize: widget.fontSize! - 0.2,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -260,7 +267,7 @@ class CustomTextFieldState extends State<CustomTextField> {
             style: GoogleFonts.montserrat(
               textStyle: TextStyle(
                 color: textColor,
-                fontSize: SizeConfig.scaleText(widget.fontSize!),
+                fontSize: widget.fontSize!,
                 fontWeight: FontWeight.w400,
               ),
             ),

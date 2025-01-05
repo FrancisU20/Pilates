@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -157,8 +157,7 @@ class AppDialogs {
                     color: AppColors.black100,
                     width: SizeConfig.scaleWidth(15),
                     onPressed: () {
-                      /* registerProvider.clearTransferImageFile(); */
-                      customNavigator(context, '/transfer-payment');
+                      context.go('/dashboard/plans/transfer-payment');
                     },
                   ),
                   SizedBox(
@@ -244,11 +243,7 @@ class AppDialogs {
                 color: AppColors.brown200,
                 width: SizeConfig.scaleWidth(6),
                 onPressed: () {
-                  customNavigator(
-                      context, '/login', clearStack: true);
-
-                  Future.delayed(const Duration(seconds: 3), () {
-                  });
+                  context.go('/login');
                 },
               ),
             ],

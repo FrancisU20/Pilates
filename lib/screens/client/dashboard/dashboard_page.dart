@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pilates/data/menu_data.dart';
 import 'package:pilates/integrations/whatsapp_launcher.dart';
 import 'package:pilates/providers/login/login_provider.dart';
@@ -9,7 +10,6 @@ import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/client/client_home_bar.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -62,7 +62,7 @@ class DashboardPageState extends State<DashboardPage> {
                           CustomText(
                               text: 'Hola,',
                               color: AppColors.brown400,
-                              fontSize: SizeConfig.scaleHeight(4),
+                              fontSize: SizeConfig.scaleText(4),
                               fontWeight: FontWeight.w400),
                           SizedBox(
                             width: SizeConfig.scaleWidth(3),
@@ -70,7 +70,7 @@ class DashboardPageState extends State<DashboardPage> {
                           CustomText(
                               text: '${loginProvider.user!.name}!',
                               color: AppColors.brown200,
-                              fontSize: SizeConfig.scaleHeight(4),
+                              fontSize: SizeConfig.scaleText(4),
                               fontWeight: FontWeight.w400),
                         ],
                       );
@@ -84,7 +84,7 @@ class DashboardPageState extends State<DashboardPage> {
                       CustomText(
                           text: '¿Qué te gustaría hacer hoy?',
                           color: AppColors.brown400,
-                          fontSize: SizeConfig.scaleHeight(2.5),
+                          fontSize: SizeConfig.scaleText(2.5),
                           fontWeight: FontWeight.w500),
                     ],
                   ),
@@ -107,12 +107,12 @@ class DashboardPageState extends State<DashboardPage> {
                               const Duration(milliseconds: 1600),
                           viewportFraction: 0.8,
                         ),
-                        items: menuItems.map((activitie) {
+                        items: menuItems.map((menuItem) {
                           return Builder(
                             builder: (BuildContext context) {
                               return GestureDetector(
                                 onTap: () => {
-                                  customNavigator(context, activitie['route']!)
+                                  context.go(menuItem['route']),
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
@@ -121,7 +121,7 @@ class DashboardPageState extends State<DashboardPage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
-                                      image: AssetImage(activitie['image']!),
+                                      image: AssetImage(menuItem['image']!),
                                       fit: BoxFit.cover,
                                       colorFilter: ColorFilter.mode(
                                           AppColors.black100.withOpacity(0.2),
@@ -130,9 +130,9 @@ class DashboardPageState extends State<DashboardPage> {
                                   ),
                                   child: Center(
                                     child: CustomText(
-                                        text: activitie['description']!,
+                                        text: menuItem['description']!,
                                         color: AppColors.white100,
-                                        fontSize: SizeConfig.scaleHeight(2.5),
+                                        fontSize: SizeConfig.scaleText(2.5),
                                         fontWeight: FontWeight.w500,
                                         textAlign: TextAlign.center),
                                   ),
@@ -156,7 +156,7 @@ class DashboardPageState extends State<DashboardPage> {
                                       text:
                                           '${userPlanProvider.activeUserPlan!.plan.classesCount - userPlanProvider.activeUserPlan!.scheduledClasses} de ${userPlanProvider.activeUserPlan!.plan.classesCount}',
                                       color: AppColors.brown400,
-                                      fontSize: SizeConfig.scaleHeight(2),
+                                      fontSize: SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w500),
                                   SizedBox(
                                     height: SizeConfig.scaleHeight(1.5),
@@ -181,7 +181,7 @@ class DashboardPageState extends State<DashboardPage> {
                                   CustomText(
                                       text: 'Clases Disponibles',
                                       color: AppColors.brown200,
-                                      fontSize: SizeConfig.scaleHeight(2),
+                                      fontSize: SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.start),
                                 ],
@@ -200,7 +200,7 @@ class DashboardPageState extends State<DashboardPage> {
                                     text:
                                         'Tu plan se encuentra en proceso de activación',
                                     color: AppColors.brown400,
-                                    fontSize: SizeConfig.scaleHeight(2),
+                                    fontSize: SizeConfig.scaleText(2),
                                     fontWeight: FontWeight.w500,
                                     maxLines: 2,
                                   ),
@@ -226,8 +226,9 @@ class DashboardPageState extends State<DashboardPage> {
                                   height: SizeConfig.scaleHeight(5),
                                 ),
                                 GestureDetector(
-                                    onTap: () =>
-                                        {customNavigator(context, '/plans')},
+                                    onTap: () => {
+                                          context.go('/dashboard/plans'),
+                                        },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -235,8 +236,7 @@ class DashboardPageState extends State<DashboardPage> {
                                         CustomText(
                                             text: 'Adquiere un plan',
                                             color: AppColors.red300,
-                                            fontSize:
-                                                SizeConfig.scaleHeight(2.5),
+                                            fontSize: SizeConfig.scaleText(2.5),
                                             fontWeight: FontWeight.w500,
                                             textAlign: TextAlign.center),
                                         SizedBox(

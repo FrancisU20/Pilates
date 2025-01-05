@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/screens/client/register/widgets/register_success.dart';
 import 'package:pilates/screens/client/register/widgets/step_2.dart';
@@ -6,7 +7,6 @@ import 'package:pilates/screens/client/register/widgets/step_1.dart';
 import 'package:pilates/screens/client/register/widgets/step_3.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -77,7 +77,8 @@ class RegisterPageState extends State<RegisterPage> {
                 return Stepper(
                   currentStep: registerProvider.currentStep,
                   connectorColor: WidgetStateProperty.resolveWith((states) {
-                    return AppColors.brown200; // Color para pasos no seleccionados.
+                    return AppColors
+                        .brown200; // Color para pasos no seleccionados.
                   }),
                   controlsBuilder:
                       (BuildContext context, ControlsDetails controls) {
@@ -99,8 +100,7 @@ class RegisterPageState extends State<RegisterPage> {
                         if (registerProvider.currentStep == 3)
                           CustomButton(
                             onPressed: () {
-                              customNavigator(
-                                  context, '/login', clearStack: true);
+                              context.go('/login');
                             },
                             text: 'Iniciar Sesión',
                             width: SizeConfig.scaleWidth(10),

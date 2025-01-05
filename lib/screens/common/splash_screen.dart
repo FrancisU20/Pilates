@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({super.key});
@@ -21,13 +21,13 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       if (isFirstOpen) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Future.delayed(const Duration(seconds: 3), () {
-            customNavigator(context, '/onboarding');
+            context.go('/onboarding');
           });
         });
       } else {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Future.delayed(const Duration(seconds: 3), () {
-            customNavigator(context, '/login');
+            context.go('/login');
           });
         });
       }

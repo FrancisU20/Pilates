@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
-import 'package:pilates/theme/utils/custom_navigator.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_icon_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -104,14 +104,14 @@ class LoginPageState extends State<LoginPage> {
                                   text: 'Bienvenido,',
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.start,
-                                  fontSize: SizeConfig.scaleHeight(3),
+                                  fontSize: SizeConfig.scaleText(3),
                                 ),
                                 SizedBox(height: SizeConfig.scaleHeight(1)),
                                 CustomText(
                                   text: 'Es un gusto volver a verte',
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.start,
-                                  fontSize: SizeConfig.scaleHeight(2),
+                                  fontSize: SizeConfig.scaleText(2),
                                 ),
                                 SizedBox(height: SizeConfig.scaleHeight(2)),
                                 Consumer<LoginProvider>(
@@ -174,7 +174,7 @@ class LoginPageState extends State<LoginPage> {
                                             typeTextField: TextFieldType.email,
                                             controller: emailController,
                                             disableError: true,
-                                            fontSize: 1.7,
+                                            fontSize: SizeConfig.scaleText(1.7),
                                           ),
                                           SizedBox(
                                               height:
@@ -188,7 +188,7 @@ class LoginPageState extends State<LoginPage> {
                                                 TextFieldType.password,
                                             controller: passwordController,
                                             disableError: true,
-                                            fontSize: 1.7,
+                                            fontSize: SizeConfig.scaleText(1.7),
                                           ),
                                           SizedBox(
                                               height:
@@ -218,8 +218,6 @@ class LoginPageState extends State<LoginPage> {
                                                 text:
                                                     '¿Olvidaste tu contraseña?',
                                                 onPressed: () {
-                                                  customNavigator(context,
-                                                      '/forgot_password');
                                                 },
                                                 color: AppColors.brown200,
                                               ),
@@ -233,8 +231,7 @@ class LoginPageState extends State<LoginPage> {
                                               text:
                                                   '¿Aún no tienes cuenta? Registrate',
                                               onPressed: () {
-                                                customNavigator(
-                                                    context, '/onboarding');
+                                                context.go('/onboarding');
                                               },
                                               color: AppColors.brown200,
                                             ),

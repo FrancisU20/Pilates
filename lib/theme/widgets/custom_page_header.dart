@@ -34,7 +34,7 @@ class CustomPageHeader extends StatelessWidget {
             backgroundColor: iconBackgroundColor,
             child: Icon(
               icon,
-              size: SizeConfig.scaleImage(8),
+              size: SizeConfig.scaleImage(7),
               color: iconColor,
             ),
           ),
@@ -47,13 +47,13 @@ class CustomPageHeader extends StatelessWidget {
               CustomText(
                 text: title,
                 color: textColor,
-                fontSize: SizeConfig.scaleText(4),
-                fontWeight: FontWeight.w400,
+                fontSize: SizeConfig.scaleText(3),
+                fontWeight: FontWeight.w600,
               ),
               CustomText(
                 text: subtitle,
                 color: textColor,
-                fontSize: SizeConfig.scaleText(2),
+                fontSize: SizeConfig.scaleText(1.8),
                 fontWeight: FontWeight.w400,
                 textAlign: TextAlign.left,
               ),

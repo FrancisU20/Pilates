@@ -13,6 +13,8 @@ class CustomIconButton extends StatelessWidget {
   final Color textColor;
   final double width;
   final double height;
+  final double? radius;
+  final bool? isCircle;
   final bool isActive;
 
   const CustomIconButton({
@@ -26,59 +28,46 @@ class CustomIconButton extends StatelessWidget {
     this.textColor = AppColors.white100,
     this.width = 30,
     this.height = 15,
+    this.radius = 2,
+    this.isCircle = false,
     this.isActive = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: SizeConfig.scaleWidth(width),
-      height: SizeConfig.scaleHeight(height),
-      child: ElevatedButton(
-        onPressed: isActive ? onPressed : null,
-        style: _buildButtonStyle(),
-        child: _buildContent(),
-      ),
-    );
-  }
-
-  /// Construye el estilo del botón basado en su tipo
-  ButtonStyle _buildButtonStyle() {
-    final baseStyle = ButtonStyle(
-      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+    return GestureDetector(
+      onTap: isActive ? onPressed : null,
+      child: Container(
+        width: isCircle!
+            ? SizeConfig.scaleHeight(height)
+            : SizeConfig.scaleWidth(width),
+        height: SizeConfig.scaleHeight(height),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SizeConfig.scaleHeight(radius!)),
+          color: color,
         ),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: text != null
+                ? [
+                    Icon(icon,
+                        color: textColor,
+                        size: SizeConfig.scaleHeight(iconSize!)),
+                    CustomText(
+                      text: text!,
+                      color: textColor,
+                      fontSize: SizeConfig.scaleText(fontSize!),
+                      fontWeight: FontWeight.w500,
+                      maxLines: 2,
+                    )
+                  ]
+                : [
+                    Icon(icon,
+                        color: textColor,
+                        size: SizeConfig.scaleHeight(iconSize!)),
+                  ]),
       ),
     );
-
-    return baseStyle.copyWith(
-      backgroundColor: WidgetStateProperty.all<Color>(color),
-      side: WidgetStateProperty.all(BorderSide.none),
-    );
-  }
-
-  /// Construye el contenido del botón basado en su tipo
-  Widget _buildContent() {
-    final hasText = text != null;
-
-    if (hasText) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: textColor, size: SizeConfig.scaleHeight(iconSize!)),
-          CustomText(
-            text: text!,
-            color: textColor,
-            fontSize: SizeConfig.scaleText(fontSize!),
-            fontWeight: FontWeight.w500,
-            maxLines: 2,
-          ),
-        ],
-      );
-    } else {
-      return Icon(icon,
-          color: textColor, size: SizeConfig.scaleHeight(iconSize!));
-    }
   }
 }
