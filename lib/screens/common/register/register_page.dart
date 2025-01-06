@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pilates/providers/register/register_provider.dart';
-import 'package:pilates/screens/client/register/widgets/register_success.dart';
-import 'package:pilates/screens/client/register/widgets/step_2.dart';
-import 'package:pilates/screens/client/register/widgets/step_1.dart';
-import 'package:pilates/screens/client/register/widgets/step_3.dart';
+import 'package:pilates/screens/common/register/widgets/register_success.dart';
+import 'package:pilates/screens/common/register/widgets/step_2.dart';
+import 'package:pilates/screens/common/register/widgets/step_1.dart';
+import 'package:pilates/screens/common/register/widgets/step_3.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';

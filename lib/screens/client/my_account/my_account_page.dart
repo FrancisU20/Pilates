@@ -6,7 +6,7 @@ import 'package:pilates/screens/client/my_account/widgets/classes_summary.dart';
 import 'package:pilates/screens/client/my_account/widgets/plan_details.dart';
 import 'package:pilates/theme/components/client/client_identification.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
-import 'package:pilates/theme/widgets/custom_app_bar.dart';
+import 'package:pilates/theme/components/client/client_app_bar.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_page_header.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -25,7 +25,7 @@ class MyAccountPageState extends State<MyAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white100,
-      appBar: const CustomAppBar(backgroundColor: AppColors.brown200),
+      appBar: const ClientAppBar(backgroundColor: AppColors.brown200),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         physics: const ClampingScrollPhysics(),

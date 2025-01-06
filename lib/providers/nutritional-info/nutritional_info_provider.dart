@@ -704,8 +704,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
         SnackBarType.success,
       );
     } catch (e) {
-
-      CustomSnackBar.show(context, e.toString(), SnackBarType.error);
+      Logger.logAppError('Error al obtener la información nutricional: $e');
     } finally {
       hideLoading();
     }

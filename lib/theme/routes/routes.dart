@@ -6,7 +6,7 @@ import 'package:pilates/screens/client/my_account/my_account_page.dart';
 import 'package:pilates/screens/client/nutritional-info/nutritional_info_page.dart';
 import 'package:pilates/screens/client/payment-methods/transfer_payment_page.dart';
 import 'package:pilates/screens/client/plan/plan_page.dart';
-import 'package:pilates/screens/client/register/register_page.dart';
+import 'package:pilates/screens/common/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
 import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
 import 'package:pilates/screens/common/splash_screen.dart';

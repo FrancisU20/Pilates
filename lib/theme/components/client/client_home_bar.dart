@@ -37,14 +37,11 @@ class ClientHomeBar extends StatelessWidget implements PreferredSizeWidget {
             FontAwesomeIcons.rotateLeft,
             color: AppColors.grey200,
           ),
-          onPressed: () {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              Provider.of<UserPlanProvider>(context, listen: false)
-                  .getUserPlans(context,
-                      startDate:
-                          DateTime.now().subtract(const Duration(days: 30)),
-                      endDate: DateTime.now().add(const Duration(days: 30)));
-            });
+          onPressed: () async {
+            await Provider.of<UserPlanProvider>(context, listen: false).getUserPlans(
+                context,
+                startDate: DateTime.now().subtract(const Duration(days: 30)),
+                endDate: DateTime.now().add(const Duration(days: 30)));
           },
         ),
       ],

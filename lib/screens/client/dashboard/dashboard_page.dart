@@ -28,8 +28,8 @@ class DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<UserPlanProvider>(context, listen: false).getUserPlans(
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      await Provider.of<UserPlanProvider>(context, listen: false).getUserPlans(
           context,
           startDate: DateTime.now().subtract(const Duration(days: 30)),
           endDate: DateTime.now().add(const Duration(days: 30)));

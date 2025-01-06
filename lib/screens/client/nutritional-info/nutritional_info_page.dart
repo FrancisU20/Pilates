@@ -4,7 +4,7 @@ import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dar
 import 'package:pilates/screens/client/nutritional-info/widgets/nutritional_sheet.dart';
 import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
-import 'package:pilates/theme/widgets/custom_app_bar.dart';
+import 'package:pilates/theme/components/client/client_app_bar.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_page_header.dart';
 import 'package:pilates/config/size_config.dart';
@@ -118,7 +118,7 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
       children: [
         Scaffold(
           backgroundColor: AppColors.brown200,
-          appBar: const CustomAppBar(backgroundColor: AppColors.brown200),
+          appBar: const ClientAppBar(backgroundColor: AppColors.brown200),
           body: Container(
             color: AppColors.brown200,
             child: Column(

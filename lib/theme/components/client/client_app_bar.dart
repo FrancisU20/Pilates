@@ -3,11 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pilates/theme/app_colors.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class ClientAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
   final bool toDashboard;
 
-  const CustomAppBar({
+  const ClientAppBar({
     super.key,
     this.backgroundColor = AppColors.white100, // Valor por defecto
     this.toDashboard = false,
