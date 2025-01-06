@@ -23,6 +23,9 @@ class EatingHabits extends StatefulWidget {
     required this.isPregnantController,
     required this.currentPhysicalActivityController,
     required this.currentSportsInjuryDurationController,
+
+    //! agregar viewMode
+    this.viewMode = false,
   });
 
   final TextEditingController numberOfMealsController;
@@ -39,6 +42,9 @@ class EatingHabits extends StatefulWidget {
   final TextEditingController currentPhysicalActivityController;
   final TextEditingController currentSportsInjuryDurationController;
   final TextEditingController isPregnantController;
+
+  // ! agregar viewMode
+  final bool? viewMode;
 
   @override
   EatingHabitsState createState() => EatingHabitsState();
@@ -81,7 +87,7 @@ class EatingHabitsState extends State<EatingHabits> {
             children: [
               Center(
                 child: CustomText(
-                    text: 'Datos de Identificación',
+                    text: 'Hábitos alimenticios',
                     color: AppColors.black100,
                     fontSize: SizeConfig.scaleText(2.5),
                     fontWeight: FontWeight.w500,
@@ -98,8 +104,14 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.numberOfMealsController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
+                  if (value.isNotEmpty) {
                   nutritionalInfoProvider.setNumberOfMeals(int.parse(value));
+                  }
+                  else {
+                    nutritionalInfoProvider.setNumberOfMeals(0);
+                  }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Alergias a medicamentos',
@@ -111,6 +123,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 onChanged: (value) {
                   nutritionalInfoProvider.setMedicationAllergy(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: '¿Tomas algún suplemento?',
@@ -126,8 +139,9 @@ class EatingHabitsState extends State<EatingHabits> {
                     nutritionalInfoProvider.setTakesSupplement(false);
                   }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
-              if (nutritionalInfoProvider.takesSupplement)
+              if (nutritionalInfoProvider.takesSupplement == true)
                 Column(
                   children: [
                     CustomTextField(
@@ -140,6 +154,7 @@ class EatingHabitsState extends State<EatingHabits> {
                       onChanged: (value) {
                         nutritionalInfoProvider.setSupplementName(value);
                       },
+                      isActive: widget.viewMode == true ? false : true,
                     ),
                     CustomTextField(
                       title: 'Dosis del suplemento',
@@ -151,6 +166,7 @@ class EatingHabitsState extends State<EatingHabits> {
                       onChanged: (value) {
                         nutritionalInfoProvider.setSupplementDose(value);
                       },
+                      isActive: widget.viewMode == true ? false : true,
                     ),
                     CustomTextField(
                       title: '¿Por qué tomas el suplemento?',
@@ -162,6 +178,7 @@ class EatingHabitsState extends State<EatingHabits> {
                       onChanged: (value) {
                         nutritionalInfoProvider.setSupplementReason(value);
                       },
+                      isActive: widget.viewMode == true ? false : true,
                     ),
                   ],
                 ),
@@ -180,6 +197,7 @@ class EatingHabitsState extends State<EatingHabits> {
                     nutritionalInfoProvider.setFoodVariesWithMood(false);
                   }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: '¿Has llevado un plan de alimentación?',
@@ -195,6 +213,7 @@ class EatingHabitsState extends State<EatingHabits> {
                     nutritionalInfoProvider.setHasDietPlan(false);
                   }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: '¿Consumes alcohol?',
@@ -210,6 +229,7 @@ class EatingHabitsState extends State<EatingHabits> {
                     nutritionalInfoProvider.setConsumesAlcohol(false);
                   }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: '¿Fumas?',
@@ -225,6 +245,7 @@ class EatingHabitsState extends State<EatingHabits> {
                     nutritionalInfoProvider.setSmokes(false);
                   }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: '¿Has realizado actividad física antes?',
@@ -240,6 +261,7 @@ class EatingHabitsState extends State<EatingHabits> {
                     nutritionalInfoProvider.setPreviousPhysicalActivity(false);
                   }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: '¿Estás embarazada?',
@@ -255,6 +277,7 @@ class EatingHabitsState extends State<EatingHabits> {
                     nutritionalInfoProvider.setIsPregnant(false);
                   }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: '¿Tienes alguna lesión deportiva actualmente?',
@@ -265,13 +288,14 @@ class EatingHabitsState extends State<EatingHabits> {
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
-                    nutritionalInfoProvider.setCurrentPhysicalActivity(true);
+                    nutritionalInfoProvider.setCurrentPhysicalInjury(true);
                   } else {
-                    nutritionalInfoProvider.setCurrentPhysicalActivity(false);
+                    nutritionalInfoProvider.setCurrentPhysicalInjury(false);
                   }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
-              if (nutritionalInfoProvider.currentPhysicalActivity)
+              if (nutritionalInfoProvider.currentPhysicalInjury == true)
               CustomTextField(
                 title: '¿Hace cuánto tiempo ocurrió la lesión?',
                 labelColor: AppColors.black100,
@@ -282,6 +306,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 onChanged: (value) {
                   nutritionalInfoProvider.setCurrentSportsInjuryDuration(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
             ],
           ),

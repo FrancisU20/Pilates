@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:provider/provider.dart';
 
 class ConfirmNutritionalInfo extends StatelessWidget {
   const ConfirmNutritionalInfo({super.key});
@@ -74,8 +77,18 @@ class ConfirmNutritionalInfo extends StatelessWidget {
           ),
           const Spacer(),
           CustomButton(
-            text: 'Guardar',
-            onPressed: () {},
+            text: 'Guardar / Actualizar',
+            onPressed: () async{
+              NutritionalInfoProvider nutritionalInfoProvider =
+                  Provider.of<NutritionalInfoProvider>(context, listen: false);
+
+              //? Si la informacion es correcta, se guarda
+              await nutritionalInfoProvider.createNutritionalInfo(context);
+
+              //? Redirige a la pantalla de información nutricional
+              if (!context.mounted) return;
+              context.go('/dashboard');
+            },
             color: AppColors.brown200,
           ),
         ],

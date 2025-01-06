@@ -14,6 +14,9 @@ class AnthropometricData extends StatefulWidget {
     required this.neckCircumferenceController,
     required this.waistCircumferenceController,
     required this.hipCircumferenceController,
+
+    //! agregar viewMode
+    this.viewMode = false,
   });
 
   final TextEditingController weightController;
@@ -21,6 +24,9 @@ class AnthropometricData extends StatefulWidget {
   final TextEditingController neckCircumferenceController;
   final TextEditingController waistCircumferenceController;
   final TextEditingController hipCircumferenceController;
+
+  // ! agregar viewMode
+  final bool? viewMode;
 
   @override
   AnthropometricDataState createState() => AnthropometricDataState();
@@ -81,8 +87,14 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 controller: widget.weightController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  if (value.isNotEmpty) {
+                  nutritionalInfoProvider.setWeight(double.parse(value));
+                  }
+                  else {
+                    nutritionalInfoProvider.setWeight(0);
+                  }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Estatura (cm)',
@@ -92,8 +104,14 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 controller: widget.heightController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  if (value.isNotEmpty) {
+                  nutritionalInfoProvider.setHeight(double.parse(value));
+                  }
+                  else {
+                    nutritionalInfoProvider.setHeight(0);
+                  }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Circunferencia de Cuello (cm)',
@@ -103,8 +121,14 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 controller: widget.neckCircumferenceController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  if (value.isNotEmpty) {
+                  nutritionalInfoProvider.setNeckCircumference(double.parse(value));
+                  }
+                  else {
+                    nutritionalInfoProvider.setNeckCircumference(0);
+                  }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Circunferencia de Cintura (cm)',
@@ -114,8 +138,14 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 controller: widget.waistCircumferenceController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  if (value.isNotEmpty) {
+                  nutritionalInfoProvider.setWaistCircumference(double.parse(value));
+                  }
+                  else {
+                    nutritionalInfoProvider.setWaistCircumference(0);
+                  }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Circunferencia de Cadera (cm)',
@@ -125,8 +155,14 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 controller: widget.hipCircumferenceController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  if (value.isNotEmpty) {
+                  nutritionalInfoProvider.setHipCircumference(double.parse(value));
+                  }
+                  else {
+                    nutritionalInfoProvider.setHipCircumference(0);
+                  }
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
             ],
           ),

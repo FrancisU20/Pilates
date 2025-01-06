@@ -9,21 +9,25 @@ String userPlanCreateModelModelToJson(UserPlanCreateModel data) =>
 class UserPlanCreateModel {
   String userId;
   String planId;
+  String paymentPhoto;
 
   UserPlanCreateModel({
     required this.userId,
     required this.planId,
+    required this.paymentPhoto,
   });
 
   factory UserPlanCreateModel.fromJson(Map<String, dynamic> json) =>
       UserPlanCreateModel(
         userId: json["userId"],
         planId: json["planId"],
+        paymentPhoto: json["paymentPhoto"],
       );
 
   Map<String, dynamic> toJson() => {
         "userId": userId,
         "planId": planId,
+        "paymentPhoto": paymentPhoto,
       };
 
   /// Deserializar una lista de objetos JSON en una lista de instancias de `UserPlanCreateModel`

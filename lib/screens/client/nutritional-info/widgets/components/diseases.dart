@@ -16,6 +16,9 @@ class Diseases extends StatefulWidget {
     required this.cancerController,
     required this.hypoHyperthyroidismController,
     required this.otherConditionsController,
+
+    //! agregar viewMode
+    this.viewMode = false,
   });
 
   final TextEditingController diabetesController;
@@ -25,6 +28,9 @@ class Diseases extends StatefulWidget {
   final TextEditingController cancerController;
   final TextEditingController hypoHyperthyroidismController;
   final TextEditingController otherConditionsController;
+
+  // ! agregar viewMode
+  final bool? viewMode;
 
   @override
   DiseasesState createState() => DiseasesState();
@@ -87,6 +93,7 @@ class DiseasesState extends State<Diseases> {
                 onChanged: (value) {
                   nutritionalInfoProvider.setDiabetes(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Dislipidemias',
@@ -96,8 +103,9 @@ class DiseasesState extends State<Diseases> {
                 controller: widget.dyslipidemiasController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  nutritionalInfoProvider.setDyslipidemias(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Obesidad',
@@ -107,8 +115,9 @@ class DiseasesState extends State<Diseases> {
                 controller: widget.obesityController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  nutritionalInfoProvider.setObesity(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Hipertensión',
@@ -118,8 +127,9 @@ class DiseasesState extends State<Diseases> {
                 controller: widget.hypertensionController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  nutritionalInfoProvider.setHypertension(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Cáncer',
@@ -129,8 +139,9 @@ class DiseasesState extends State<Diseases> {
                 controller: widget.cancerController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  nutritionalInfoProvider.setCancer(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Hipotiroidismo/Hipertiroidismo',
@@ -140,8 +151,9 @@ class DiseasesState extends State<Diseases> {
                 controller: widget.hypoHyperthyroidismController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  nutritionalInfoProvider.setHypoHyperthyroidism(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
               CustomTextField(
                 title: 'Otras condiciones',
@@ -151,8 +163,9 @@ class DiseasesState extends State<Diseases> {
                 controller: widget.otherConditionsController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  nutritionalInfoProvider.setDiabetes(value);
+                  nutritionalInfoProvider.setOtherConditions(value);
                 },
+                isActive: widget.viewMode == true ? false : true,
               ),
             ],
           ),

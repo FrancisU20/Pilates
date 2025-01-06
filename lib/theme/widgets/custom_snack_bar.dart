@@ -15,7 +15,7 @@ class CustomSnackBar {
         textAlign: TextAlign.start,
         fontSize: SizeConfig.scaleText(2),
         color: AppColors.white100,
-        maxLines: 2,
+        maxLines: 3,
       ),
       backgroundColor: _getBackgroundColor(type),
       duration: const Duration(seconds: 3), // Duración predeterminada

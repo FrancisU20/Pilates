@@ -34,7 +34,7 @@ class DashboardPageState extends State<DashboardPage> {
           startDate: DateTime.now().subtract(const Duration(days: 30)),
           endDate: DateTime.now().add(const Duration(days: 30)));
     });
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {

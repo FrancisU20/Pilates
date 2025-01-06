@@ -184,7 +184,7 @@ class CustomTextFieldState extends State<CustomTextField> {
           ? SizeConfig.scaleHeight(widget.height + 2)
           : SizeConfig.scaleHeight(widget.height),
       child: GestureDetector(
-        onTap: widget.typeTextField == TextFieldType.date
+        onTap: widget.typeTextField == TextFieldType.date && widget.isActive
             ? () async {
                 await AppBirthdayPicker.selectBirthday(
                     context, widget.controller);
@@ -193,7 +193,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                       widget.controller.text); // Llamar a onChanged manualmente
                 }
               }
-            : widget.typeTextField == TextFieldType.boolean
+            : widget.typeTextField == TextFieldType.boolean && widget.isActive
                 ? () async {
                     await AppDialogs.showBooleanOptions(context, widget.controller);
                     if (widget.onChanged != null) {
@@ -201,7 +201,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                           widget.controller.text); // Llamar a onChanged manualmente
                     }
                   }
-                : widget.typeTextField == TextFieldType.diseases
+                : widget.typeTextField == TextFieldType.diseases && widget.isActive
                     ? () async {
                         await AppDialogs.showDiseasesOptions(
                             context, widget.controller);

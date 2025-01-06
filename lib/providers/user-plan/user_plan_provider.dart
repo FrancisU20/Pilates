@@ -233,7 +233,7 @@ class UserPlanProvider extends ChangeNotifier {
       LoginProvider loginProvider =
           Provider.of<LoginProvider>(context, listen: false);
       UserPlanCreateModel newUserPlan = UserPlanCreateModel(
-          userId: loginProvider.user!.id!, planId: selectedPlan!.id!);
+          userId: loginProvider.user!.id!, planId: selectedPlan!.id!, paymentPhoto: userPaymentImage);
 
       StandardResponse<UserPlanModel> createUserPlanResponse =
           await userPlanController.createUserPlan(newUserPlan);

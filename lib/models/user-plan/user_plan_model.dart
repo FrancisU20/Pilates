@@ -17,6 +17,7 @@ class UserPlanModel {
   DateTime planStart;
   DateTime planEnd;
   int scheduledClasses;
+  String paymentPhoto;
   String? status;
 
   UserPlanModel({
@@ -28,6 +29,7 @@ class UserPlanModel {
     required this.planStart,
     required this.planEnd,
     required this.scheduledClasses,
+    required this.paymentPhoto,
     this.status, // Opcional
   });
 
@@ -40,6 +42,7 @@ class UserPlanModel {
         planStart: DateTime.parse(json["planStart"]),
         planEnd: DateTime.parse(json["planEnd"]),
         scheduledClasses: json["scheduledClasses"],
+        paymentPhoto: json["paymentPhoto"],
         status: json["status"],
       );
 
@@ -52,6 +55,7 @@ class UserPlanModel {
         "planStart": planStart.toIso8601String(),
         "planEnd": planEnd.toIso8601String(),
         "scheduledClasses": scheduledClasses,
+        "paymentPhoto": paymentPhoto,
         if (status != null) "status": status,
       };
 
