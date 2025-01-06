@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/components/common/app_birthday_picker.dart';
+import 'package:pilates/theme/components/common/app_dialogs.dart';
 
 enum TextFieldType {
   phone,
@@ -14,7 +15,9 @@ enum TextFieldType {
   date,
   password,
   repeatPassword,
-  dni
+  dni,
+  boolean,
+  diseases
 }
 
 class CustomTextField extends StatefulWidget {
@@ -101,6 +104,12 @@ class CustomTextFieldState extends State<CustomTextField> {
         inputFormatters = [LengthLimitingTextInputFormatter(10)];
         keyboardType = TextInputType.number;
         break;
+      case TextFieldType.boolean:
+        keyboardType = TextInputType.text;
+        break;
+      case TextFieldType.diseases:
+        keyboardType = TextInputType.text;
+        break;
       default:
         keyboardType = TextInputType.text;
     }
@@ -130,6 +139,10 @@ class CustomTextFieldState extends State<CustomTextField> {
         return value == widget.compareValue;
       case TextFieldType.dni:
         return value.length == 10;
+      case TextFieldType.boolean:
+        return value.isNotEmpty;
+      case TextFieldType.diseases:
+        return value.isNotEmpty;
       default:
         return value.isNotEmpty;
     }
@@ -153,6 +166,10 @@ class CustomTextFieldState extends State<CustomTextField> {
         return '* Las contraseñas no coinciden';
       case TextFieldType.dni:
         return '* Cédula inválida';
+      case TextFieldType.boolean:
+        return '* Requerido';
+      case TextFieldType.diseases:
+        return '* Requerido';
       default:
         return '* Requerido';
     }
@@ -167,7 +184,7 @@ class CustomTextFieldState extends State<CustomTextField> {
           ? SizeConfig.scaleHeight(widget.height + 2)
           : SizeConfig.scaleHeight(widget.height),
       child: GestureDetector(
-        onTap: widget.typeTextField == TextFieldType.date 
+        onTap: widget.typeTextField == TextFieldType.date
             ? () async {
                 await AppBirthdayPicker.selectBirthday(
                     context, widget.controller);
@@ -176,9 +193,29 @@ class CustomTextFieldState extends State<CustomTextField> {
                       widget.controller.text); // Llamar a onChanged manualmente
                 }
               }
-            : null,
+            : widget.typeTextField == TextFieldType.boolean
+                ? () async {
+                    await AppDialogs.showBooleanOptions(context, widget.controller);
+                    if (widget.onChanged != null) {
+                      widget.onChanged!(
+                          widget.controller.text); // Llamar a onChanged manualmente
+                    }
+                  }
+                : widget.typeTextField == TextFieldType.diseases
+                    ? () async {
+                        await AppDialogs.showDiseasesOptions(
+                            context, widget.controller);
+                        if (widget.onChanged != null) {
+                          widget.onChanged!(
+                              widget.controller.text); // Llamar a onChanged manualmente
+                        }
+                      }
+                    : null,
         child: AbsorbPointer(
-          absorbing: widget.typeTextField == TextFieldType.date,
+          absorbing: (widget.typeTextField == TextFieldType.date ||
+                  widget.typeTextField == TextFieldType.boolean || widget.typeTextField == TextFieldType.diseases)
+              ? true
+              : false,
           child: TextFormField(
             controller: widget.controller,
             inputFormatters: inputFormatters,

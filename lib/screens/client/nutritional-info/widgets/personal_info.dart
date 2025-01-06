@@ -42,19 +42,21 @@ class PersonalInformationState extends State<PersonalInformation> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       NutritionalInfoProvider nutritionalInfoProvider =
           Provider.of<NutritionalInfoProvider>(context, listen: false);
-      await nutritionalInfoProvider.getExistingData(context);
+      await nutritionalInfoProvider.getExistingPersonalInformation(context);
       //? el await es para esperar a que se ejecute el método getExistingData
       widget.completeNameController.text = nutritionalInfoProvider.completeName;
       widget.birthDateController.text =
           nutritionalInfoProvider.birthDate.toString().substring(0, 10);
       widget.ageController.text = nutritionalInfoProvider.age.toString();
-      widget.genderController.text = nutritionalInfoProvider.gender.toString() == 'M'
-          ? 'Masculino'
-          : nutritionalInfoProvider.gender.toString() == 'F'
-              ? 'Femenino'
-              : 'LGBTQ+';
+      widget.genderController.text =
+          nutritionalInfoProvider.gender.toString() == 'M'
+              ? 'Masculino'
+              : nutritionalInfoProvider.gender.toString() == 'F'
+                  ? 'Femenino'
+                  : 'LGBTQ+';
       widget.phoneController.text = nutritionalInfoProvider.phone.toString();
-      widget.emailController.text = nutritionalInfoProvider.email.toString();});
+      widget.emailController.text = nutritionalInfoProvider.email.toString();
+    });
   }
 
   @override
@@ -62,28 +64,34 @@ class PersonalInformationState extends State<PersonalInformation> {
     NutritionalInfoProvider nutritionalInfoProvider =
         Provider.of<NutritionalInfoProvider>(context, listen: false);
     return Container(
-      width: SizeConfig.scaleWidth(100),
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.scaleWidth(5),
         vertical: SizeConfig.scaleHeight(2),
       ),
       decoration: BoxDecoration(
         color: AppColors.white200,
-        borderRadius: BorderRadius.circular(SizeConfig.scaleWidth(2)),
-        border: Border.all(
-          color: AppColors.black100.withOpacity(0.1),
-        ),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black100.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Form(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: CustomText(
                   text: 'Datos de Identificación',
                   color: AppColors.black100,
                   fontSize: SizeConfig.scaleText(2.5),
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w500,
+                  maxLines: 2,),
+            ),
+            SizedBox(
+              height: SizeConfig.scaleHeight(1),
             ),
             CustomTextField(
               title: 'Nombre',

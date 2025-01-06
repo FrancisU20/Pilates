@@ -51,33 +51,32 @@ class AppDialogs {
               children: [
                 _buildLogo(),
                 Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text:
-                            'El módulo estará disponible en la próxima actualización',
-                        color: AppColors.black100,
-                        fontSize: SizeConfig.scaleText(2),
-                        fontWeight: FontWeight.w400,
-                        maxLines: 3,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text:
+                          'El módulo estará disponible en la próxima actualización',
+                      color: AppColors.black100,
+                      fontSize: SizeConfig.scaleText(2),
+                      fontWeight: FontWeight.w400,
+                      maxLines: 3,
+                    ),
+                    SizedBox(
+                      height: SizeConfig.scaleHeight(2),
+                    ),
+                    Center(
+                      child: CustomButton(
+                        text: 'Regresar',
+                        color: AppColors.brown200,
+                        width: SizeConfig.scaleWidth(15),
+                        onPressed: onButtonPressed ??
+                            () {
+                              Navigator.pop(context);
+                            },
                       ),
-                      SizedBox(
-                        height: SizeConfig.scaleHeight(2),
-                      ),
-                      Center(
-                        child: CustomButton(
-                          text: 'Regresar',
-                          color: AppColors.brown200,
-                          width: SizeConfig.scaleWidth(15),
-                          onPressed: onButtonPressed ??
-                              () {
-                                Navigator.pop(context);
-                              },
-                        ),
-                      ),
-                    ],
-                  
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -293,7 +292,8 @@ class AppDialogs {
     );
   }
 
-  static Future<void> showTransferPaymentPicker(BuildContext context, String dni) {
+  static Future<void> showTransferPaymentPicker(
+      BuildContext context, String dni) {
     UserPlanProvider userPlanProvider =
         Provider.of<UserPlanProvider>(context, listen: false);
     return showModalBottomSheet(
@@ -333,5 +333,103 @@ class AppDialogs {
         );
       },
     );
+  }
+
+  static Future<void> showBooleanOptions(
+      BuildContext context, TextEditingController controller) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColors.white100,
+            title: CustomText(
+              text: 'Seleccione una opción:',
+              color: AppColors.black100,
+              fontSize: SizeConfig.scaleText(2),
+              fontWeight: FontWeight.w500,
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButton(
+                    text: 'No',
+                    color: AppColors.beige200,
+                    width: SizeConfig.scaleWidth(6),
+                    onPressed: () {
+                      controller.text = 'NO';
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(
+                    width: SizeConfig.scaleWidth(2),
+                  ),
+                  CustomButton(
+                    text: 'Sí',
+                    color: AppColors.brown200,
+                    width: SizeConfig.scaleWidth(6),
+                    onPressed: () {
+                      controller.text = 'SI';
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          );
+        });
+  }
+
+  static Future<void> showDiseasesOptions(
+      BuildContext context, TextEditingController controller) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColors.white100,
+            title: CustomText(
+              text: 'Seleccione una opción:',
+              color: AppColors.black100,
+              fontSize: SizeConfig.scaleText(2),
+              fontWeight: FontWeight.w500,
+            ),
+            content: SizedBox(
+              height: SizeConfig.scaleHeight(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomButton(
+                    text: 'Padre',
+                    color: AppColors.beige200,
+                    width: SizeConfig.scaleWidth(10),
+                    onPressed: () {
+                      controller.text = 'Padre';
+                      Navigator.pop(context);
+                    },
+                  ),
+                  CustomButton(
+                    text: 'Madre',
+                    color: AppColors.brown200,
+                    width: SizeConfig.scaleWidth(10),
+                    onPressed: () {
+                      controller.text = 'Madre';
+                      Navigator.pop(context);
+                    },
+                  ),
+                  CustomButton(
+                    text: 'Ninguno',
+                    color: AppColors.brown200,
+                    width: SizeConfig.scaleWidth(10),
+                    onPressed: () {
+                      controller.text = 'Ninguno';
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

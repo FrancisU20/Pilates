@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pilates/theme/widgets/custom_image_asset.dart';
 import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/theme/app_colors.dart';
@@ -51,8 +50,8 @@ class ClientIdentification extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomImageAsset(
-                          imagePath: 'assets/logo/logo_rectangle_white.png',
+                        CustomImageNetwork(
+                          imagePath: 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/logo/logo_rectangle_transparent_white.png',
                           height: SizeConfig.scaleHeight(6),
                         ),
                       ],

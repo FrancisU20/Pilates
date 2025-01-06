@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/widgets/custom_image_asset.dart';
+import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:provider/provider.dart';
 
@@ -48,9 +48,9 @@ class Step2State extends State<Step2> {
                     ),
                     child: Column(
                       children: [
-                        CustomImageAsset(
-                            imagePath: 'assets/images/male.jpg',
-                            height: SizeConfig.scaleHeight(23),
+                        CustomImageNetwork(
+                            imagePath: 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/gender/male.png',
+                            height: SizeConfig.scaleHeight(16.5),
                             fit: BoxFit.contain),
                         CustomText(
                           text: 'Hombre',
@@ -81,9 +81,9 @@ class Step2State extends State<Step2> {
                     ),
                     child: Column(
                       children: [
-                        CustomImageAsset(
-                            imagePath: 'assets/images/female.jpg',
-                            height: SizeConfig.scaleHeight(23),
+                        CustomImageNetwork(
+                            imagePath: 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/gender/female.png',
+                            height: SizeConfig.scaleHeight(16.5),
                             fit: BoxFit.contain),
                         CustomText(
                             text: 'Mujer',

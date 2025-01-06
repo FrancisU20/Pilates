@@ -12,7 +12,9 @@ class NutritionalInfoProvider extends ChangeNotifier {
   //****************************************/
   //? Variables
   bool hasNutritionalInfo = false;
+  int currentStep = 0;
 
+  //! Personal Information
   String completeName = '';
   DateTime birthDate = DateTime.now();
   int age = 0;
@@ -23,12 +25,38 @@ class NutritionalInfoProvider extends ChangeNotifier {
   String phone = '';
   String email = '';
 
+  //! Nutritional Information
+  int numberOfMeals = 0;
+  String medicationAllergy = '';
+  bool takesSupplement = false;
+  String supplementName = '';
+  String supplementDose = '';
+  String supplementReason = '';
+  bool foodVariesWithMood = false;
+  bool hasDietPlan = false;
+  bool consumesAlcohol = false;
+  bool smokes = false;
+  bool previousPhysicalActivity = false;
+  bool isPregnant = false;
+  bool currentPhysicalActivity = false;
+  String currentSportsInjuryDuration = '';
+
+  //! Diseases Information
+  String diabetes = '';
+  String dyslipidemias = '';
+  String obesity = '';
+  String hypertension = '';
+  String cancer = '';
+  String hypoHyperthyroidism = '';
+  String otherConditions = '';
+
   //? Setters Variables
   void setHasNutritionalInfo(bool value) {
     hasNutritionalInfo = value;
     notifyListeners();
   }
 
+  //! Personal Information
   void setCompleteName(String value) {
     completeName = value;
     notifyListeners();
@@ -74,6 +102,112 @@ class NutritionalInfoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //! Nutritional Information
+  void setNumberOfMeals(int value) {
+    numberOfMeals = value;
+    notifyListeners();
+  }
+
+  void setMedicationAllergy(String value) {
+    medicationAllergy = value;
+    notifyListeners();
+  }
+
+  void setTakesSupplement(bool value) {
+    takesSupplement = value;
+    notifyListeners();
+  }
+
+  void setSupplementName(String value) {
+    supplementName = value;
+    notifyListeners();
+  }
+
+  void setSupplementDose(String value) {
+    supplementDose = value;
+    notifyListeners();
+  }
+
+  void setSupplementReason(String value) {
+    supplementReason = value;
+    notifyListeners();
+  }
+
+  void setFoodVariesWithMood(bool value) {
+    foodVariesWithMood = value;
+    notifyListeners();
+  }
+
+  void setHasDietPlan(bool value) {
+    hasDietPlan = value;
+    notifyListeners();
+  }
+
+  void setConsumesAlcohol(bool value) {
+    consumesAlcohol = value;
+  }
+
+  void setSmokes(bool value) {
+    smokes = value;
+    notifyListeners();
+  }
+
+  void setPreviousPhysicalActivity(bool value) {
+    previousPhysicalActivity = value;
+    notifyListeners();
+  }
+
+  void setIsPregnant(bool value) {
+    isPregnant = value;
+    notifyListeners();
+  }
+
+  void setCurrentPhysicalActivity(bool value) {
+    currentPhysicalActivity = value;
+    notifyListeners();
+  }
+
+  void setCurrentSportsInjuryDuration(String value) {
+    currentSportsInjuryDuration = value;
+    notifyListeners();
+  }
+
+  //! Diseases Information
+  void setDiabetes(String value) {
+    diabetes = value;
+    notifyListeners();
+  }
+
+  void setDyslipidemias(String value) {
+    dyslipidemias = value;
+    notifyListeners();
+  }
+
+  void setObesity(String value) {
+    obesity = value;
+    notifyListeners();
+  }
+
+  void setHypertension(String value) {
+    hypertension = value;
+    notifyListeners();
+  }
+
+  void setCancer(String value) {
+    cancer = value;
+    notifyListeners();
+  }
+
+  void setHypoHyperthyroidism(String value) {
+    hypoHyperthyroidism = value;
+    notifyListeners();
+  }
+
+  void setOtherConditions(String value) {
+    otherConditions = value;
+    notifyListeners();
+  }
+
   //****************************************/
   //? Objetos
 
@@ -94,6 +228,16 @@ class NutritionalInfoProvider extends ChangeNotifier {
 
   void hideLoading() {
     isLoading = false;
+    notifyListeners();
+  }
+
+  void nextStep() {
+    currentStep++;
+    notifyListeners();
+  }
+
+  void previousStep() {
+    currentStep--;
     notifyListeners();
   }
 
@@ -194,23 +338,33 @@ class NutritionalInfoProvider extends ChangeNotifier {
     }
   }
 
-  //? Funcion para obtener data ya existente
-  Future<void> getExistingData(BuildContext context) async {
+  //? Funcion para obtener data ya existente (Personal Information)
+  Future<void> getExistingPersonalInformation(BuildContext context) async {
     LoginProvider loginProvider =
         Provider.of<LoginProvider>(context, listen: false);
     try {
       showLoading();
 
-      //? Setear la data existente
+      //? Setear la data personal existente
       setCompleteName(
           '${loginProvider.user!.name} ${loginProvider.user!.lastname}');
       setBirthDate(loginProvider.user!.birthdate);
+      //? Calcular edad
+      calculateAge(loginProvider.user!.birthdate);
       setGender(loginProvider.user!.gender);
       setPhone(loginProvider.user!.phone);
       setEmail(loginProvider.user!.email);
+    } catch (e) {
+      Logger.logAppError('Error al obtener la data existente: $e');
+    } finally {
+      hideLoading();
+    }
+  }
 
-      //? Calcular edad
-      calculateAge(loginProvider.user!.birthdate);
+  //? Funcion para obtener data ya existente (Nutritional Information)
+  Future<void> getExistingNutritionalInformation(BuildContext context) async {
+    try {
+      showLoading();
     } catch (e) {
       Logger.logAppError('Error al obtener la data existente: $e');
     } finally {
