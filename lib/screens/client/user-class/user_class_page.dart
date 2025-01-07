@@ -109,10 +109,7 @@ class ClassPageState extends State<ClassPage> {
                                       calendarFormat: calendarFormat,
                                       onToggle: (calendarFormat) {
                                         setState(() {
-                                          calendarFormat = calendarFormat ==
-                                                  CalendarFormat.week
-                                              ? CalendarFormat.month
-                                              : CalendarFormat.week;
+                                          this.calendarFormat = calendarFormat;
                                         });
                                       },
                                     ),

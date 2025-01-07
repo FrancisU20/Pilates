@@ -32,7 +32,7 @@ class ClassesSummary extends StatelessWidget {
               context,
               remainingClasses.toString(),
               'Clases restantes',
-              AppColors.beige100,
+              AppColors.brown200,
               AppColors.white100,
             ),
           ],

@@ -57,18 +57,14 @@ class ClassPickerState extends State<ClassPicker> {
             selectedDayPredicate: (day) => isSameDay(selectedDay, day),
             onDaySelected: (selectedDay, focusedDay) {
               //? Si el dia no esta en la lista de clases, no se selecciona
-              if (widget.classList
-                  .any((element) => element.classDate == selectedDay.toString().substring(0, 10))) {
+              if (widget.classList.any((element) =>
+                  element.classDate ==
+                  selectedDay.toString().substring(0, 10))) {
                 setState(() {
                   this.selectedDay = selectedDay;
                 });
                 classProvider.cleanSelectedHourIndex();
                 classProvider.filterClassByDate(context, selectedDay);
-              }
-              else{
-                setState(() {
-                  this.selectedDay = null;
-                });
               }
             },
             calendarStyle: CalendarStyle(

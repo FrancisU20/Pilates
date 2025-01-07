@@ -64,7 +64,7 @@ class PlanPageState extends State<PlanPage> {
                           },
                           buttonIcon: FontAwesomeIcons.whatsapp);
                     } else {
-                      return Flexible(
+                      return Expanded(
                         child: Container(
                             width: SizeConfig.scaleWidth(100),
                             height: SizeConfig.scaleHeight(78),

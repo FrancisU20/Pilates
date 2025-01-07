@@ -208,7 +208,7 @@ class NutritionalSheetState extends State<NutritionalSheet> {
                 SizedBox(
                   height: SizeConfig.scaleHeight(2),
                 ),
-                CustomText(text: 'Debes guardar nuevamente', fontSize: SizeConfig.scaleText(1.5), color: AppColors.red300),
+                CustomText(text: 'Completa el formulario, por favor.', fontSize: SizeConfig.scaleText(1.5), color: AppColors.red300),
                 SizedBox(
                   height: SizeConfig.scaleHeight(2),
                 ),

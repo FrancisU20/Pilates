@@ -19,6 +19,7 @@ class AppColors {
   static const black200 = Color(0xFF262626);
 
   // Grises
+  static const grey100 = Color.fromARGB(255, 107, 107, 107);
   static const grey200 = Color.fromARGB(255, 65, 64, 65);
 
   // Verdes

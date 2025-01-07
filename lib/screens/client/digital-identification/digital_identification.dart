@@ -36,7 +36,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
             angle: 90 * (3.14159265359 / 180), // Rotar 90 grados
             child: FractionallySizedBox(
               widthFactor: 1.4,
-              heightFactor: 0.7,
+              heightFactor: 0.6,
               alignment: Alignment.centerRight,
               child: Consumer<LoginProvider>(
                 builder: (context, loginProvider, child) {
@@ -61,7 +61,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                               children: [
                                 CustomImageNetwork(
                                   imagePath: loginProvider.user!.photo,
-                                  height: SizeConfig.scaleHeight(32),
+                                  height: SizeConfig.scaleHeight(28),
                                   width: SizeConfig.scaleWidth(35),
                                 ),
                                 SizedBox(width: SizeConfig.scaleWidth(5)),
@@ -80,14 +80,14 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                                       text:
                                           '${loginProvider.user!.name} ${loginProvider.user!.lastname}',
                                       color: AppColors.white100,
-                                      fontSize: SizeConfig.scaleText(3),
+                                      fontSize: SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w400,
                                       textAlign: TextAlign.left,
                                     ),
                                     CustomText(
                                       text: loginProvider.user!.dniNumber,
                                       color: AppColors.white100,
-                                      fontSize: SizeConfig.scaleText(3),
+                                      fontSize: SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w400,
                                       textAlign: TextAlign.left,
                                     ),
@@ -95,7 +95,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                                       text:
                                           'Celular: ${loginProvider.user!.phone.replaceAll('+593', '0')}',
                                       color: AppColors.white100,
-                                      fontSize: SizeConfig.scaleText(3),
+                                      fontSize: SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w400,
                                       textAlign: TextAlign.left,
                                     ),
@@ -103,7 +103,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                                       text:
                                           'Cumpleaños: ${userPlanProvider.convertDate(loginProvider.user!.birthdate.toString().substring(0, 10)).substring(0, 9)}',
                                       color: AppColors.white100,
-                                      fontSize: SizeConfig.scaleText(3),
+                                      fontSize: SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w400,
                                       textAlign: TextAlign.left,
                                     ),
@@ -117,7 +117,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                                 text:
                                     'Miembro desde el ${userPlanProvider.convertDate(loginProvider.user!.createdAt.toString().substring(0, 10))}',
                                 color: AppColors.white100,
-                                fontSize: SizeConfig.scaleText(3),
+                                fontSize: SizeConfig.scaleText(2),
                                 fontWeight: FontWeight.w400,
                               ),
                             ),

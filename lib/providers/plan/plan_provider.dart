@@ -70,12 +70,6 @@ class PlanProvider extends ChangeNotifier {
       if (!context.mounted) return;
 
       setListPlans(responsePlans.data!);
-
-      CustomSnackBar.show(
-        context,
-        responsePlans.message,
-        SnackBarType.success,
-      );
     } catch (e) {
       CustomSnackBar.show(
         context,

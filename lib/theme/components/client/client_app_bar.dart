@@ -27,9 +27,16 @@ class ClientAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: backgroundColor == AppColors.white100
                   ? AppColors.black100
                   : AppColors.white100),
-          onPressed: () => toDashboard
-              ? context.go('/dashboard')
-              : Navigator.pop(context),
+          onPressed: toDashboard
+              ? () {
+                  Router.neglect(
+                    context,
+                    () => context.replace('/dashboard'),
+                  );
+                }
+              : () {
+                  Navigator.pop(context);
+                },
         ),
       ),
     );

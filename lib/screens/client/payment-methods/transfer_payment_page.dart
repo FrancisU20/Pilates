@@ -58,7 +58,7 @@ class TransferPaymentPageState extends State<TransferPaymentPage> {
                           SizedBox(
                             height: SizeConfig.scaleHeight(2),
                           ),
-                          Flexible(
+                          Expanded(
                             child: Container(
                                 width: SizeConfig.scaleWidth(100),
                                 height: SizeConfig.scaleHeight(78),

@@ -28,13 +28,13 @@ class DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Provider.of<UserPlanProvider>(context, listen: false).getUserPlans(
           context,
           startDate: DateTime.now().subtract(const Duration(days: 30)),
           endDate: DateTime.now().add(const Duration(days: 30)));
     });
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +155,7 @@ class DashboardPageState extends State<DashboardPage> {
                                   CustomText(
                                       text:
                                           '${userPlanProvider.activeUserPlan!.plan.classesCount - userPlanProvider.activeUserPlan!.scheduledClasses} de ${userPlanProvider.activeUserPlan!.plan.classesCount}',
-                                      color: AppColors.brown400,
+                                      color: AppColors.brown200,
                                       fontSize: SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w500),
                                   SizedBox(
@@ -164,11 +164,19 @@ class DashboardPageState extends State<DashboardPage> {
                                   SizedBox(
                                     width: SizeConfig.scaleWidth(70),
                                     child: LinearProgressIndicator(
-                                      value: 0,
-                                      backgroundColor: AppColors.brown200,
+                                      value: (userPlanProvider.activeUserPlan!
+                                                  .plan.classesCount
+                                                  .toDouble() -
+                                              userPlanProvider.activeUserPlan!
+                                                  .scheduledClasses
+                                                  .toDouble()) /
+                                          userPlanProvider
+                                              .activeUserPlan!.plan.classesCount
+                                              .toDouble(),
+                                      backgroundColor: AppColors.grey100,
                                       valueColor:
                                           const AlwaysStoppedAnimation<Color>(
-                                        AppColors.beige100,
+                                        AppColors.brown200,
                                       ),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(15)),

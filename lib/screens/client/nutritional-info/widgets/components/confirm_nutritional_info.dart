@@ -77,7 +77,7 @@ class ConfirmNutritionalInfo extends StatelessWidget {
           ),
           const Spacer(),
           CustomButton(
-            text: 'Guardar / Actualizar',
+            text: 'Guardar Ficha',
             onPressed: () async{
               NutritionalInfoProvider nutritionalInfoProvider =
                   Provider.of<NutritionalInfoProvider>(context, listen: false);
