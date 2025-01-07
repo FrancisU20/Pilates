@@ -10,9 +10,12 @@ import 'package:pilates/providers/user-class/user_class_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
+import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/widgets/custom_text_button.dart';
+import 'package:pilates/theme/widgets/custom_text_field.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 
 class AppDialogs {
@@ -613,5 +616,217 @@ class AppDialogs {
             ],
           );
         });
+  }
+
+  static Future<void> showResetPassword(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController pinController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController confirmPasswordController = TextEditingController();
+
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Para permitir que el modal ocupe más espacio
+      builder: (BuildContext bc) {
+        bool sendEmail = false;
+        bool resetPassword = false;
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.scaleWidth(5),
+                  vertical: SizeConfig.scaleHeight(2),
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.white200,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black100.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                height: SizeConfig.scaleHeight(38),
+                width: SizeConfig.scaleWidth(100),
+                child: Form(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: CustomText(
+                        text: 'Restablecer Contraseña',
+                        color: AppColors.black100,
+                        fontSize: SizeConfig.scaleText(2.5),
+                        fontWeight: FontWeight.w500,
+                        maxLines: 2,
+                      ),
+                    ),
+                    SizedBox(height: SizeConfig.scaleHeight(1)),
+
+                    // Formulario para enviar correo
+                    Visibility(
+                      visible: !sendEmail,
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            title: 'Correo Electrónico',
+                            labelColor: AppColors.black100,
+                            hintText: 'info@curve.com',
+                            typeTextField: TextFieldType.email,
+                            controller: emailController,
+                            fontSize: SizeConfig.scaleText(1.7),
+                          ),
+                          SizedBox(height: SizeConfig.scaleHeight(1)),
+                          Center(
+                            child: CustomButton(
+                              onPressed: () async {
+                                //? Validar correo debe tener una
+                                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                    .hasMatch(emailController.text)) {
+                                  return;
+                                }
+                                //? Enviar al server el correo para enviar el código
+
+                                setState(() {
+                                  sendEmail = true;
+                                });
+                              },
+                              text: 'Enviar Código',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: SizeConfig.scaleHeight(1)),
+
+                    // Formulario para código de verificación
+                    Visibility(
+                      visible: sendEmail && !resetPassword,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Container(
+                              width: SizeConfig.scaleWidth(60),
+                              decoration: BoxDecoration(
+                                color: AppColors.white100,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding:
+                                  EdgeInsets.all(SizeConfig.scaleHeight(1)),
+                              child: PinCodeTextField(
+                                appContext: context,
+                                length: 4,
+                                cursorColor: AppColors.black100,
+                                controller: pinController,
+                                backgroundColor: AppColors.white100,
+                              ),
+                            ),
+                            SizedBox(height: SizeConfig.scaleHeight(2)),
+                            CustomButton(
+                              onPressed: () async {
+                                //? Validar el código en el servidor
+                                if (!RegExp(r'^[0-9]{4}$')
+                                    .hasMatch(pinController.text)) {
+                                  return;
+                                }
+                                setState(() {
+                                  resetPassword = true;
+                                });
+                              },
+                              text: 'Validar Código',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // Formulario para restablecer contraseña
+                    Visibility(
+                      visible: sendEmail && resetPassword,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomTextField(
+                            title: 'Contraseña',
+                            labelColor: AppColors.black100,
+                            hintText: '********',
+                            typeTextField: TextFieldType.password,
+                            controller: passwordController,
+                            fontSize: SizeConfig.scaleText(1.7),
+                          ),
+                          CustomTextField(
+                            title: 'Confirmar Contraseña',
+                            labelColor: AppColors.black100,
+                            hintText: '********',
+                            typeTextField: TextFieldType.password,
+                            controller: confirmPasswordController,
+                            fontSize: SizeConfig.scaleText(1.7),
+                          ),
+                          SizedBox(height: SizeConfig.scaleHeight(1)),
+                          Center(
+                            child: CustomButton(
+                              onPressed: () async {
+                                // Validar que las contraseñas coincidan
+                                if (passwordController.text !=
+                                    confirmPasswordController.text) {
+                                  CustomSnackBar.show(
+                                    context,
+                                    'Las contraseñas no coinciden',
+                                    SnackBarType.error,
+                                  );
+                                  return;
+                                }
+
+                                // Validar que la contraseña cumpla con los requisitos
+                                if (!RegExp(
+                                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,15}$')
+                                    .hasMatch(passwordController.text)) {
+                                  CustomSnackBar.show(
+                                    context,
+                                    'La contraseña debe tener entre 8 y 15 caracteres, incluir una letra mayúscula, una minúscula, un número y un carácter especial.',
+                                    SnackBarType.error,
+                                  );
+                                  return;
+                                }
+
+                                // Enviar al servidor la nueva contraseña
+                                try {
+                                  // Lógica para enviar la contraseña al servidor
+                                  // await yourApiService.resetPassword(passwordController.text);
+
+                                  // Redirigir al login después de éxito
+                                  Navigator.pop(context);
+                                  CustomSnackBar.show(
+                                    context,
+                                    'Contraseña restablecida correctamente',
+                                    SnackBarType.success,
+                                  );
+                                } catch (error) {
+                                  CustomSnackBar.show(
+                                    context,
+                                    'Error al restablecer la contraseña. Inténtalo de nuevo.',
+                                    SnackBarType.error,
+                                  );
+                                }
+                              },
+                              text: 'Restablecer Contraseña',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
