@@ -696,13 +696,6 @@ class NutritionalInfoProvider extends ChangeNotifier {
               .getUserNutritionalInfo(loginProvider.user!.id ?? '');
 
       setNutritionalInfo(userNutritionalInfoResponse.data!);
-
-      if (!context.mounted) return;
-      CustomSnackBar.show(
-        context,
-        userNutritionalInfoResponse.message,
-        SnackBarType.success,
-      );
     } catch (e) {
       Logger.logAppError('Error al obtener la información nutricional: $e');
     } finally {
@@ -823,7 +816,11 @@ class NutritionalInfoProvider extends ChangeNotifier {
       completeNameController.text = completeName;
       birthDateController.text = convertDate(birthDate.toString());
       ageController.text = age.toString();
-      genderController.text = gender == 'M' ? 'Masculino' : gender == 'F' ? 'Femenino' : '';
+      genderController.text = gender == 'M'
+          ? 'Masculino'
+          : gender == 'F'
+              ? 'Femenino'
+              : '';
       maritalStatusController.text = maritalStatus;
       addressController.text = address;
       occupationController.text = occupation;
@@ -831,19 +828,50 @@ class NutritionalInfoProvider extends ChangeNotifier {
       emailController.text = email;
       numberOfMealsController.text = numberOfMeals.toString();
       medicationAllergyController.text = medicationAllergy;
-      takesSupplementController.text = takesSupplement == true ? 'SI' : takesSupplement == false ? 'NO' : '';
+      takesSupplementController.text = takesSupplement == true
+          ? 'SI'
+          : takesSupplement == false
+              ? 'NO'
+              : '';
       supplementNameController.text = supplementName;
       supplementDoseController.text = supplementDose;
       supplementReasonController.text = supplementReason;
-      foodVariesWithMoodController.text = foodVariesWithMood == true ? 'SI' : foodVariesWithMood == false ? 'NO' : '';
-      hasDietPlanController.text = hasDietPlan == true ? 'SI' : hasDietPlan == false ? 'NO' : '';
-      consumesAlcoholController.text = consumesAlcohol == true ? 'SI' : consumesAlcohol == false ? 'NO' : '';
-      smokesController.text = smokes == true ? 'SI' : smokes == false ? 'NO' : '';
-      previousPhysicalActivityController.text =
-          previousPhysicalActivity == true ? 'SI' : previousPhysicalActivity == false ? 'NO' : '';
-      currentPhysicalActivityController.text = currentPhysicalInjury == true ? 'SI' : currentPhysicalInjury == false ? 'NO' : '';
+      foodVariesWithMoodController.text = foodVariesWithMood == true
+          ? 'SI'
+          : foodVariesWithMood == false
+              ? 'NO'
+              : '';
+      hasDietPlanController.text = hasDietPlan == true
+          ? 'SI'
+          : hasDietPlan == false
+              ? 'NO'
+              : '';
+      consumesAlcoholController.text = consumesAlcohol == true
+          ? 'SI'
+          : consumesAlcohol == false
+              ? 'NO'
+              : '';
+      smokesController.text = smokes == true
+          ? 'SI'
+          : smokes == false
+              ? 'NO'
+              : '';
+      previousPhysicalActivityController.text = previousPhysicalActivity == true
+          ? 'SI'
+          : previousPhysicalActivity == false
+              ? 'NO'
+              : '';
+      currentPhysicalActivityController.text = currentPhysicalInjury == true
+          ? 'SI'
+          : currentPhysicalInjury == false
+              ? 'NO'
+              : '';
       currentSportsInjuryDurationController.text = currentSportsInjuryDuration;
-      isPregnantController.text = isPregnant == true ? 'SI' : isPregnant == false ? 'NO' : '';
+      isPregnantController.text = isPregnant == true
+          ? 'SI'
+          : isPregnant == false
+              ? 'NO'
+              : '';
       diabetesController.text = diabetes;
       dyslipidemiasController.text = dyslipidemias;
       obesityController.text = obesity;

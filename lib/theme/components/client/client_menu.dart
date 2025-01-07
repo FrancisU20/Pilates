@@ -48,7 +48,7 @@ class ClientMenuState extends State<ClientMenu> {
                       size: SizeConfig.scaleHeight(3),
                     ),
                     onTap: () {
-                      context.go('/dashboard/my-account');
+                      context.go('/dashboard/digital-identification');
                     },
                   ),
                   ListTile(

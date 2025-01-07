@@ -56,8 +56,8 @@ class PlanPageState extends State<PlanPage> {
                               'https://curvepilates-bucket.s3.amazonaws.com/app-assets/box/box-empty.png',
                           message:
                               'Lo sentimos, no hay planes disponibles, comunícate con nosotros para más información.',
-                          buttonText: 'Crear Ficha',
-                          onButtonPressed: (){
+                          buttonText: 'Contactar',
+                          onButtonPressed: () {
                             whatsappServices.whatsappRedirect(
                                 message:
                                     'Hola, me gustaría obtener información sobre los planes de Pilates.');
@@ -115,54 +115,69 @@ class PlanPageState extends State<PlanPage> {
                                               selectedPlan:
                                                   planProvider.plans[index]);
                                         },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            gradient: const LinearGradient(
-                                              colors: [
-                                                AppColors.beige100,
-                                                AppColors.white200,
-                                              ],
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              stops: [
-                                                0.5,
-                                                0.5
-                                              ], // Marca el punto medio donde los colores cambian
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(
+                                                  SizeConfig.scaleHeight(1)),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.beige100,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                      SizeConfig.scaleHeight(
+                                                          2)),
+                                                  topRight: Radius.circular(
+                                                      SizeConfig.scaleHeight(
+                                                          2)),
+                                                ),
+                                              ),
+                                              width: SizeConfig.scaleWidth(40),
+                                              child: Column(
+                                                children: [
+                                                  Center(
+                                                    child: CustomText(
+                                                      text: planProvider
+                                                          .plans[index]
+                                                          .classesCount
+                                                          .toString(),
+                                                      color: AppColors.black100,
+                                                      fontSize:
+                                                          SizeConfig.scaleText(
+                                                              4.5),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                  Center(
+                                                    child: CustomText(
+                                                      text: 'clases',
+                                                      color: AppColors.black100,
+                                                      fontSize:
+                                                          SizeConfig.scaleText(
+                                                              2),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            borderRadius: BorderRadius.circular(
-                                                SizeConfig.scaleHeight(2)),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                height:
-                                                    SizeConfig.scaleHeight(1),
-                                              ),
-                                              Center(
-                                                child: CustomText(
-                                                  text: planProvider
-                                                      .plans[index].classesCount
-                                                      .toString(),
-                                                  color: AppColors.black100,
-                                                  fontSize:
-                                                      SizeConfig.scaleText(4.5),
-                                                  fontWeight: FontWeight.w500,
+                                            Container(
+                                              padding: EdgeInsets.all(
+                                                  SizeConfig.scaleHeight(1)),
+                                              width: SizeConfig.scaleWidth(40),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.white200,
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft: Radius.circular(
+                                                      SizeConfig.scaleHeight(
+                                                          2)),
+                                                  bottomRight: Radius.circular(
+                                                      SizeConfig.scaleHeight(
+                                                          2)),
                                                 ),
                                               ),
-                                              Center(
-                                                child: CustomText(
-                                                  text: 'clases',
-                                                  color: AppColors.black100,
-                                                  fontSize:
-                                                      SizeConfig.scaleText(2),
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height:
-                                                    SizeConfig.scaleHeight(1.5),
-                                              ),
-                                              Column(
+                                              child: Column(
                                                 children: [
                                                   CustomText(
                                                     text: planProvider
@@ -193,8 +208,8 @@ class PlanPageState extends State<PlanPage> {
                                                   ),
                                                 ],
                                               ),
-                                            ],
-                                          ),
+                                            )
+                                          ],
                                         ),
                                       );
                                     },

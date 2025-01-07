@@ -202,7 +202,7 @@ class AppDialogs {
             ),
             content: SizedBox(
               width: SizeConfig.scaleWidth(100),
-              height: SizeConfig.scaleHeight(28),
+              height: SizeConfig.scaleHeight(23),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,6 +221,7 @@ class AppDialogs {
                             color: AppColors.black100,
                             fontSize: SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
+                            maxLines: 2,
                           ),
                         ],
                       ),
@@ -246,7 +247,10 @@ class AppDialogs {
                 color: AppColors.brown200,
                 width: SizeConfig.scaleWidth(6),
                 onPressed: () {
-                  context.go('/login');
+                  Router.neglect(
+                    context,
+                    () => context.go('/login'),
+                  );
                 },
               ),
             ],

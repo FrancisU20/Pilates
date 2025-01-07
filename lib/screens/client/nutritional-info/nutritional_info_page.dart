@@ -132,7 +132,8 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
                 ),
                 Consumer<NutritionalInfoProvider>(
                   builder: (context, nutritionalInfoProvider, child) {
-                    if (nutritionalInfoProvider.nutritionalInfo == null) {
+                    if (nutritionalInfoProvider.nutritionalInfo == null &&
+                        nutritionalInfoProvider.isEditable == false) {
                       return AppEmptyData(
                           imagePath:
                               'https://curvepilates-bucket.s3.amazonaws.com/app-assets/clipboard/empty-clipboard.png',

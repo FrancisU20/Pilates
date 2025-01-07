@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pilates/screens/client/contact/contact_page.dart';
 import 'package:pilates/screens/client/dashboard/dashboard_page.dart';
+import 'package:pilates/screens/client/digital-identification/digital_identification.dart';
 import 'package:pilates/screens/client/my-account/my_account_page.dart';
 import 'package:pilates/screens/client/nutritional-info/nutritional_info_page.dart';
 import 'package:pilates/screens/client/payment-methods/transfer_payment_page.dart';
@@ -91,6 +92,14 @@ final GoRouter goRouter = GoRouter(routes: <GoRoute>[
           path: 'user-class',
           builder: (BuildContext context, GoRouterState state) {
             return const ClassPage();
+          },
+        ),
+
+        //? Digital Identification
+        GoRoute(
+          path: 'digital-identification',
+          builder: (BuildContext context, GoRouterState state) {
+            return const DigitalIdentificationPage();
           },
         ),
       ]),

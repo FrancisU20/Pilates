@@ -5,6 +5,7 @@ import 'package:pilates/providers/user-class/user_class_provider.dart';
 import 'package:pilates/screens/client/user-class/widgets/activities_gallery.dart';
 import 'package:pilates/screens/client/user-class/widgets/class_picker.dart';
 import 'package:pilates/screens/client/user-class/widgets/hour_picker.dart';
+import 'package:pilates/screens/client/user-class/widgets/view_month.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/client/client_app_bar.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
@@ -12,6 +13,7 @@ import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_page_header.dart';
+import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';
@@ -68,64 +70,34 @@ class ClassPageState extends State<ClassPage> {
                 SizedBox(
                   height: SizeConfig.scaleHeight(2),
                 ),
-                Flexible(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.scaleWidth(5),
-                        vertical: SizeConfig.scaleHeight(2)),
-                    decoration: const BoxDecoration(
-                      color: AppColors.white100,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                      ),
-                    ),
-                    height: SizeConfig.scaleHeight(100),
-                    width: SizeConfig.scaleWidth(100),
-                    child: ListView(
-                      children: [
-                        Row(
-                          children: [
-                            const Spacer(),
-                            Row(
-                              mainAxisSize: MainAxisSize
-                                  .min, // Ajusta el tamaño del Row al contenido
-                              children: [
-                                CustomText(
-                                  text: 'Ver mes',
-                                  fontSize: SizeConfig.scaleText(2),
-                                ),
-                                // Espacio entre el texto y el icono
-                                IconButton(
-                                  icon: Icon(
-                                      calendarFormat == CalendarFormat.week
-                                          ? FontAwesomeIcons.toggleOff
-                                          : FontAwesomeIcons.toggleOn),
-                                  color: AppColors.black100,
-                                  onPressed: () {
-                                    setState(() {
-                                      calendarFormat =
-                                          calendarFormat == CalendarFormat.week
-                                              ? CalendarFormat.month
-                                              : CalendarFormat.week;
-                                    });
-                                  },
-                                ),
-                              ],
+                Consumer<ClassProvider>(
+                  builder: (context, classProvider, child) {
+                    if (classProvider.listClass.isEmpty) {
+                      return AppEmptyData(
+                          imagePath:
+                              'https://curvepilates-bucket.s3.amazonaws.com/app-assets/calendar/empty-calendar.png',
+                          message:
+                              'Es probable que no haya horarios disponibles. Por favor intenta más tarde',
+                          buttonText: 'Volver',
+                          onButtonPressed: () {});
+                    } else {
+                      return Flexible(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.scaleWidth(5),
+                              vertical: SizeConfig.scaleHeight(2)),
+                          decoration: const BoxDecoration(
+                            color: AppColors.white100,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25),
                             ),
-                          ],
-                        ),
-                        Consumer<ClassProvider>(
-                          builder: (context, classProvider, child) {
-                            if (classProvider.listClass.isEmpty) {
-                              return AppEmptyData(
-                                  imagePath: '',
-                                  message:
-                                      'Es probable que no haya horarios disponibles. Por favor intenta más tarde',
-                                  buttonText: 'Volver',
-                                  onButtonPressed: () {});
-                            } else {
-                              return Container(
+                          ),
+                          height: SizeConfig.scaleHeight(100),
+                          width: SizeConfig.scaleWidth(100),
+                          child: ListView(
+                            children: [
+                              Container(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: SizeConfig.scaleWidth(2.5),
                                 ),
@@ -133,10 +105,20 @@ class ClassPageState extends State<ClassPage> {
                                 height: SizeConfig.scaleHeight(100),
                                 child: Column(
                                   children: [
+                                    ViewMonth(
+                                      calendarFormat: calendarFormat,
+                                      onToggle: (calendarFormat) {
+                                        setState(() {
+                                          calendarFormat = calendarFormat ==
+                                                  CalendarFormat.week
+                                              ? CalendarFormat.month
+                                              : CalendarFormat.week;
+                                        });
+                                      },
+                                    ),
                                     ClassPicker(
                                       calendarFormat: calendarFormat,
-                                      classList:
-                                          classProvider.listClass,
+                                      classList: classProvider.listClass,
                                     ),
                                     SizedBox(
                                       height: SizeConfig.scaleHeight(2),
@@ -150,8 +132,8 @@ class ClassPageState extends State<ClassPage> {
                                         height: SizeConfig.scaleHeight(2),
                                       ),
                                       HourPicker(
-                                        userClassList: classProvider
-                                            .listClassFilter,
+                                        userClassList:
+                                            classProvider.listClassFilter,
                                       ),
                                       SizedBox(
                                         height: SizeConfig.scaleHeight(2),
@@ -165,9 +147,17 @@ class ClassPageState extends State<ClassPage> {
                                         height: SizeConfig.scaleHeight(2),
                                       ),
                                       CustomButton(
-                                        text: 'Continuar',
+                                        text: 'Crear Cita',
                                         color: AppColors.brown200,
                                         onPressed: () async {
+                                          if (classProvider.selectedClass ==
+                                              null) {
+                                            CustomSnackBar.show(
+                                                context,
+                                                'Por favor selecciona un día y hora',
+                                                SnackBarType.error);
+                                            return;
+                                          }
                                           await classProvider
                                               .createClass(context);
                                         },
@@ -175,14 +165,14 @@ class ClassPageState extends State<ClassPage> {
                                     ]
                                   ],
                                 ),
-                              );
-                            }
-                          },
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                )
+                      );
+                    }
+                  },
+                ),
               ],
             ),
           ),

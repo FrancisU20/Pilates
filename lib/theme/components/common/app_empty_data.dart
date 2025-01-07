@@ -24,7 +24,7 @@ class AppEmptyData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
       child: Container(
         width: SizeConfig.scaleWidth(100),
         height: SizeConfig.scaleHeight(100),

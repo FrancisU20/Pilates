@@ -26,7 +26,7 @@ class ClientIdentification extends StatelessWidget {
         vertical: SizeConfig.scaleHeight(2),
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFF262626),
+        color: AppColors.black200,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
