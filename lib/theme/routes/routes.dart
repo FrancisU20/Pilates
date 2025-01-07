@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pilates/screens/client/contact/contact_page.dart';
 import 'package:pilates/screens/client/dashboard/dashboard_page.dart';
-import 'package:pilates/screens/client/my_account/my_account_page.dart';
+import 'package:pilates/screens/client/my-account/my_account_page.dart';
 import 'package:pilates/screens/client/nutritional-info/nutritional_info_page.dart';
 import 'package:pilates/screens/client/payment-methods/transfer_payment_page.dart';
 import 'package:pilates/screens/client/plan/plan_page.dart';
+import 'package:pilates/screens/client/user-class/user_class_page.dart';
 import 'package:pilates/screens/common/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
 import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
@@ -84,5 +85,13 @@ final GoRouter goRouter = GoRouter(routes: <GoRoute>[
             builder: (BuildContext context, GoRouterState state) {
               return const NutritionalInfoPage();
             }),
+
+        //? User Class
+        GoRoute(
+          path: 'user-class',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ClassPage();
+          },
+        ),
       ]),
 ]);

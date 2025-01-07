@@ -3,12 +3,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pilates/models/plan/plan_model.dart';
+import 'package:pilates/models/class/class_model.dart';
+import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
+import 'package:pilates/providers/user-class/user_class_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
 class AppDialogs {
@@ -429,6 +433,180 @@ class AppDialogs {
                 ],
               ),
             ),
+          );
+        });
+  }
+
+  static Future<void> showSheduleConfirm(BuildContext context) async {
+    LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context, listen: false);
+    ClassProvider classProvider =
+        Provider.of<ClassProvider>(context, listen: false);
+
+    ClassModel selectedClass = classProvider.selectedClass!;
+
+    //? Formatear la hora de inicio y fin
+    String startHour = selectedClass.schedule!.startHour.substring(0, 5);
+    String endHour = selectedClass.schedule!.endHour.substring(0, 5);
+
+    //? Obtener la fecha de la cita
+    String selectedDate = selectedClass.classDate;
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColors.white100,
+            title: CustomText(
+              text: 'Confirmar cita',
+              color: AppColors.black100,
+              fontSize: SizeConfig.scaleText(2.5),
+              fontWeight: FontWeight.w500,
+            ),
+            content: SizedBox(
+              width: SizeConfig.scaleWidth(100),
+              height: SizeConfig.scaleHeight(32),
+              child: Column(
+                children: [
+                  _buildLogo(),
+                  Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            text: 'Nombre:',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: 'Apellido:',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: 'Fecha:',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: 'Hora de inicio:',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: 'Hora de fin:',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: 'Duración:',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: SizeConfig.scaleWidth(5),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            text: loginProvider.user!.name,
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: loginProvider.user!.lastname,
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: selectedDate,
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: '$startHour hrs',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: '$endHour hrs',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(1),
+                          ),
+                          CustomText(
+                            text: '50 min',
+                            color: AppColors.black100,
+                            fontSize: SizeConfig.scaleHeight(2),
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              CustomTextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                text: 'Cancelar',
+                color: AppColors.brown200,
+              ),
+              CustomButton(
+                  onPressed: () {},
+                  text: 'Confirmar',
+                  color: AppColors.brown200,
+                  width: SizeConfig.scaleWidth(10)),
+            ],
           );
         });
   }

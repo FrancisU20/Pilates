@@ -35,10 +35,10 @@ class ClientNavBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: ModalRoute.of(context)!.settings.name == '/'
-                ? const Icon(FontAwesomeIcons.solidPenToSquare)
-                : const Icon(FontAwesomeIcons.penToSquare),
-            color: ModalRoute.of(context)!.settings.name == '/'
+            icon: ModalRoute.of(context)!.settings.name == 'user-class'
+                ? const Icon(FontAwesomeIcons.calendarPlus)
+                : const Icon(FontAwesomeIcons.calendarPlus),
+            color: ModalRoute.of(context)!.settings.name == 'user-class'
                 ? AppColors.gold100
                 : AppColors.white100,
             onPressed: () async {
@@ -69,7 +69,7 @@ class ClientNavBar extends StatelessWidget {
                       SnackBarType.error);
                   context.go('/dashboard/nutritional-info');
                 } else {
-                  context.go('/my-account');
+                  context.go('/dashboard/user-class');
                 }
               } else {
                 CustomSnackBar.show(
