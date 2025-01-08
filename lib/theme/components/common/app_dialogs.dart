@@ -637,7 +637,7 @@ class AppDialogs {
                 ),
                 content: SizedBox(
                   width: SizeConfig.scaleWidth(100),
-                  height: SizeConfig.scaleHeight(48),
+                  height: SizeConfig.scaleHeight(55),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -656,16 +656,41 @@ class AppDialogs {
                               fontWeight: FontWeight.w400,
                             ),
                             SizedBox(
-                              height: SizeConfig.scaleHeight(2),
+                              height: SizeConfig.scaleHeight(1),
+                            ),
+                            CustomText(
+                              text: 'Aviso Importante:',
+                              color: AppColors.gold100,
+                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontWeight: FontWeight.w700,
+                              textAlign: TextAlign.justify,
                             ),
                             CustomText(
                               text:
-                                  'Aviso Importante: \n\nSi decides cancelar una clase, puedes hacerlo con al menos 24 horas de anticipación a las 00:00 del día de la clase. De esta forma, la clase se repondrá automáticamente a tu plan y no la perderás. Recuerda que no se permite cancelar clases después de este plazo.',
+                                  'Si decides cancelar una clase, puedes hacerlo con al menos 24 horas de anticipación a las 00:00 del día de la clase. De esta forma, la clase se repondrá automáticamente a tu plan y no la perderás. Recuerda que no se permite cancelar clases después de este plazo.',
                               color: AppColors.green200,
                               fontSize: SizeConfig.scaleHeight(1.8),
                               fontWeight: FontWeight.w500,
                               textAlign: TextAlign.justify,
                               maxLines: 10,
+                            ),
+                            SizedBox(
+                              height: SizeConfig.scaleHeight(1),
+                            ),
+                            CustomText(
+                              text: 'Atención:',
+                              color: AppColors.red300,
+                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontWeight: FontWeight.w600,
+                              textAlign: TextAlign.justify,
+                            ),
+                            CustomText(
+                              text: 'Si cancelas la última clase disponible de tu plan, esta no será repuesta, y el plan se marcará como completado.',
+                              color: AppColors.red300,
+                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontWeight: FontWeight.w600,
+                              textAlign: TextAlign.justify,
+                              maxLines: 5,
                             ),
                           ],
                         ),

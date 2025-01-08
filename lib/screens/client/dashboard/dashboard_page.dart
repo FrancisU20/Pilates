@@ -145,6 +145,15 @@ class DashboardPageState extends State<DashboardPage> {
                       Consumer<UserPlanProvider>(
                         builder: (context, userPlanProvider, child) {
                           if (userPlanProvider.activeUserPlan != null) {
+                            double barPercent = (userPlanProvider
+                                        .activeUserPlan!.plan.classesCount
+                                        .toDouble() -
+                                    userPlanProvider
+                                        .activeUserPlan!.scheduledClasses
+                                        .toDouble()) /
+                                userPlanProvider
+                                    .activeUserPlan!.plan.classesCount
+                                    .toDouble();
                             return SizedBox(
                               height: SizeConfig.scaleHeight(15),
                               width: double.infinity,
@@ -164,19 +173,13 @@ class DashboardPageState extends State<DashboardPage> {
                                   SizedBox(
                                     width: SizeConfig.scaleWidth(70),
                                     child: LinearProgressIndicator(
-                                      value: (userPlanProvider.activeUserPlan!
-                                                  .plan.classesCount
-                                                  .toDouble() -
-                                              userPlanProvider.activeUserPlan!
-                                                  .scheduledClasses
-                                                  .toDouble()) /
-                                          userPlanProvider
-                                              .activeUserPlan!.plan.classesCount
-                                              .toDouble(),
+                                      value: barPercent,
                                       backgroundColor: AppColors.grey100,
                                       valueColor:
-                                          const AlwaysStoppedAnimation<Color>(
-                                        AppColors.brown200,
+                                           AlwaysStoppedAnimation<Color>(
+                                        barPercent <= 0.25
+                                            ? AppColors.red300
+                                            : AppColors.brown200,
                                       ),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(15)),
