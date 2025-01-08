@@ -20,17 +20,6 @@ class ClientNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            icon: ModalRoute.of(context)!.settings.name == '/dashboard'
-                ? const Icon(FontAwesomeIcons.grip)
-                : const Icon(FontAwesomeIcons.grip),
-            color: ModalRoute.of(context)!.settings.name == '/dashboard'
-                ? AppColors.gold100
-                : AppColors.white100,
-            onPressed: () async {
-              await AppMiddleware.updateClientData(context, '/dashboard');
-            },
-          ),
-          IconButton(
             icon: ModalRoute.of(context)!.settings.name == 'class'
                 ? const Icon(FontAwesomeIcons.calendarPlus)
                 : const Icon(FontAwesomeIcons.calendarPlus),
@@ -49,7 +38,19 @@ class ClientNavBar extends StatelessWidget {
                 ? AppColors.gold100
                 : AppColors.white100,
             onPressed: () async {
-              await AppMiddleware.updateClientData(context, '/dashboard/user-class');
+              await AppMiddleware.updateClientData(
+                  context, '/dashboard/user-class');
+            },
+          ),
+          IconButton(
+            icon: ModalRoute.of(context)!.settings.name == '/dashboard'
+                ? Icon(FontAwesomeIcons.house, size: SizeConfig.scaleHeight(4))
+                : Icon(FontAwesomeIcons.house, size: SizeConfig.scaleHeight(4)),
+            color: ModalRoute.of(context)!.settings.name == '/dashboard'
+                ? AppColors.gold100
+                : AppColors.white100,
+            onPressed: () async {
+              await AppMiddleware.updateClientData(context, '/dashboard');
             },
           ),
           IconButton(

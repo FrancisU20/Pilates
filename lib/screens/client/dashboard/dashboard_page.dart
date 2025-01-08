@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pilates/data/menu_data.dart';
 import 'package:pilates/integrations/whatsapp_launcher.dart';
+import 'package:pilates/middleware/app_middleware.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
@@ -113,8 +114,9 @@ class DashboardPageState extends State<DashboardPage> {
                             return Builder(
                               builder: (BuildContext context) {
                                 return GestureDetector(
-                                  onTap: () => {
-                                    context.go(menuItem['route']),
+                                  onTap: () async {
+                                    await AppMiddleware.updateClientData(
+                                        context, menuItem['route']);
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
