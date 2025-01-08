@@ -281,6 +281,32 @@ class UserClassProvider extends ChangeNotifier {
 
       List<UserClassModel> listUserClass = response.data!;
 
+      //? Cambiar estado a Completadas a la citas cuyo estado sea A y su fecha de inicio sea menor a la fecha actual y tambien compara la hora actual es mayor a la hora de finalización de la clase
+      //! Obtener la fecha actual en formato UTC (Universal)
+      DateTime now = DateTime.now().toUtc();
+      DateTime ecuadorCurrentDate = now.add(const Duration(hours: -5));
+      int ecuadorCurrentHour = ecuadorCurrentDate.hour;
+      int ecuadorCurrentMinute = ecuadorCurrentDate.minute;
+
+      for (int i = 0; i < listUserClass.length; i++) {
+        if (listUserClass[i].status == 'A') {
+          DateTime classDate =
+              DateTime.parse(listUserClass[i].classModel.classDate);
+          int classEndHour = int.parse(
+              listUserClass[i].classModel.schedule!.endHour.split(':')[0]);
+
+          if (classDate.isBefore(ecuadorCurrentDate) ||
+              (classDate.isAtSameMomentAs(ecuadorCurrentDate) &&
+                  (ecuadorCurrentHour > classEndHour ||
+                      (ecuadorCurrentHour == classEndHour &&
+                          ecuadorCurrentMinute >= 0)))) {
+            listUserClass[i].status = 'C';
+            if (!context.mounted) return;
+            await updateUserClassStatus(context, listUserClass[i].id!, 'C');
+          }
+        }
+      }
+
       if (isHistory) {
         //? filtrar todas las que no esten en estado A
         listUserClass =

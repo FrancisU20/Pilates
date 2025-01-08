@@ -102,71 +102,64 @@ class ClassPageState extends State<ClassPage> {
                           width: SizeConfig.scaleWidth(100),
                           child: ListView(
                             children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.scaleWidth(2.5),
-                                ),
-                                width: SizeConfig.scaleWidth(90),
-                                height: SizeConfig.scaleHeight(100),
-                                child: Column(
-                                  children: [
-                                    ViewMonth(
-                                      calendarFormat: calendarFormat,
-                                      onToggle: (calendarFormat) {
-                                        setState(() {
-                                          this.calendarFormat = calendarFormat;
-                                        });
-                                      },
+                              Column(
+                                children: [
+                                  ViewMonth(
+                                    calendarFormat: calendarFormat,
+                                    onToggle: (calendarFormat) {
+                                      setState(() {
+                                        this.calendarFormat = calendarFormat;
+                                      });
+                                    },
+                                  ),
+                                  ClassPicker(
+                                    calendarFormat: calendarFormat,
+                                    classList: classProvider.listClass,
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.scaleHeight(2),
+                                  ),
+                                  if (classProvider
+                                      .listClassFilter.isNotEmpty) ...[
+                                    CustomText(
+                                        text: 'Selecciona la hora de inicio:',
+                                        fontSize: SizeConfig.scaleText(2)),
+                                    SizedBox(
+                                      height: SizeConfig.scaleHeight(2),
                                     ),
-                                    ClassPicker(
-                                      calendarFormat: calendarFormat,
-                                      classList: classProvider.listClass,
+                                    HourPicker(
+                                      userClassList:
+                                          classProvider.listClassFilter,
                                     ),
                                     SizedBox(
                                       height: SizeConfig.scaleHeight(2),
                                     ),
-                                    if (classProvider
-                                        .listClassFilter.isNotEmpty) ...[
-                                      CustomText(
-                                          text: 'Selecciona la hora de inicio:',
-                                          fontSize: SizeConfig.scaleText(2)),
-                                      SizedBox(
-                                        height: SizeConfig.scaleHeight(2),
-                                      ),
-                                      HourPicker(
-                                        userClassList:
-                                            classProvider.listClassFilter,
-                                      ),
-                                      SizedBox(
-                                        height: SizeConfig.scaleHeight(2),
-                                      ),
-                                      CustomText(
-                                          text: 'Nuestras actividades:',
-                                          fontSize: SizeConfig.scaleText(2)),
-                                      ActivitiesGallery(
-                                          activitiesData: activitiesData),
-                                      SizedBox(
-                                        height: SizeConfig.scaleHeight(2),
-                                      ),
-                                      CustomButton(
-                                        text: 'Crear Cita',
-                                        color: AppColors.brown200,
-                                        onPressed: () async {
-                                          if (classProvider.selectedClass ==
-                                              null) {
-                                            CustomSnackBar.show(
-                                                context,
-                                                'Por favor selecciona un día y hora',
-                                                SnackBarType.error);
-                                            return;
-                                          }
-                                          await classProvider
-                                              .createClass(context);
-                                        },
-                                      ),
-                                    ]
-                                  ],
-                                ),
+                                    CustomText(
+                                        text: 'Nuestras actividades:',
+                                        fontSize: SizeConfig.scaleText(2)),
+                                    ActivitiesGallery(
+                                        activitiesData: activitiesData),
+                                    SizedBox(
+                                      height: SizeConfig.scaleHeight(2),
+                                    ),
+                                    CustomButton(
+                                      text: 'Crear Cita',
+                                      color: AppColors.brown200,
+                                      onPressed: () async {
+                                        if (classProvider.selectedClass ==
+                                            null) {
+                                          CustomSnackBar.show(
+                                              context,
+                                              'Por favor selecciona un día y hora',
+                                              SnackBarType.error);
+                                          return;
+                                        }
+                                        await classProvider
+                                            .createClass(context);
+                                      },
+                                    ),
+                                  ]
+                                ],
                               ),
                             ],
                           ),
