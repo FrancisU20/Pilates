@@ -9,7 +9,7 @@ import 'package:pilates/theme/widgets/custom_text.dart';
 class AppEmptyData extends StatelessWidget {
   final String imagePath;
   final String message;
-  final String buttonText;
+  final String? buttonText;
   final VoidCallback? onButtonPressed;
   final IconData buttonIcon;
 
@@ -17,7 +17,7 @@ class AppEmptyData extends StatelessWidget {
     super.key,
     required this.imagePath,
     required this.message,
-    required this.buttonText,
+    this.buttonText,
     this.onButtonPressed,
     this.buttonIcon = FontAwesomeIcons.plus,
   });

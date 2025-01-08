@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/models/class/class_model.dart';
-import 'package:pilates/providers/user-class/user_class_provider.dart';
+import 'package:pilates/providers/class/class_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:provider/provider.dart';

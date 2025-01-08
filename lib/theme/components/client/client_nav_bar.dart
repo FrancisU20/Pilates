@@ -35,10 +35,10 @@ class ClientNavBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: ModalRoute.of(context)!.settings.name == 'user-class'
+            icon: ModalRoute.of(context)!.settings.name == 'class'
                 ? const Icon(FontAwesomeIcons.calendarPlus)
                 : const Icon(FontAwesomeIcons.calendarPlus),
-            color: ModalRoute.of(context)!.settings.name == 'user-class'
+            color: ModalRoute.of(context)!.settings.name == 'class'
                 ? AppColors.gold100
                 : AppColors.white100,
             onPressed: () async {
@@ -69,7 +69,7 @@ class ClientNavBar extends StatelessWidget {
                       SnackBarType.error);
                   context.go('/dashboard/nutritional-info');
                 } else {
-                  context.go('/dashboard/user-class');
+                  context.go('/dashboard/class');
                 }
               } else {
                 CustomSnackBar.show(
@@ -81,13 +81,15 @@ class ClientNavBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: ModalRoute.of(context)!.settings.name == '/'
+            icon: ModalRoute.of(context)!.settings.name == 'user-class'
                 ? const Icon(Icons.calendar_month)
                 : const Icon(Icons.calendar_month_outlined),
-            color: ModalRoute.of(context)!.settings.name == '/'
+            color: ModalRoute.of(context)!.settings.name == 'user-class'
                 ? AppColors.gold100
                 : AppColors.white100,
-            onPressed: () {},
+            onPressed: () {
+              context.go('/dashboard/user-class');
+            },
           ),
           IconButton(
             icon: ModalRoute.of(context)!.settings.name == 'contact'

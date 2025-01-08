@@ -8,6 +8,7 @@ import 'package:pilates/screens/client/nutritional-info/nutritional_info_page.da
 import 'package:pilates/screens/client/payment-methods/transfer_payment_page.dart';
 import 'package:pilates/screens/client/plan/plan_page.dart';
 import 'package:pilates/screens/client/recover-password/recover_password_page.dart';
+import 'package:pilates/screens/client/class/class_page.dart';
 import 'package:pilates/screens/client/user-class/user_class_page.dart';
 import 'package:pilates/screens/common/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
@@ -97,9 +98,17 @@ final GoRouter goRouter = GoRouter(routes: <GoRoute>[
 
         //? User Class
         GoRoute(
-          path: 'user-class',
+          path: 'class',
           builder: (BuildContext context, GoRouterState state) {
             return const ClassPage();
+          },
+        ),
+
+        //? History User Class
+        GoRoute(
+          path: 'user-class',
+          builder: (BuildContext context, GoRouterState state) {
+            return const UserClassPage();
           },
         ),
 

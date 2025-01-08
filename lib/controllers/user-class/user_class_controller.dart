@@ -37,4 +37,39 @@ class UserClassController {
       throw Exception(e.toString().replaceAll('Exception: ', ''));
     }
   }
+
+  //**
+  // ? Funcion para obtener las clases
+  // ! @param  userId= UUID del usuario
+  // ! @param  status= Estado de la clase
+  // ! @param  startAt= Fecha de inicio del filtro (Creación de la clase)
+  // */
+  Future<StandardResponse<List<UserClassModel>>> getUserClass(
+      String userId, String status, String startAt) async {
+    try {
+      final apiBase = await ApiBaseService.create(contentType: 'json');
+
+      final response = await apiBase
+          .get('/users-classes?userId=$userId&status=$status&startAt=$startAt');
+      final serverJson = json.decode(response.body);
+
+      if (serverJson['statusCode'] != 200 && serverJson['statusCode'] != 201) {
+        Logger.logServerError(serverJson);
+        throw Exception(serverJson['message']);
+      } else {
+        Logger.logServerSuccess(serverJson);
+      }
+
+      StandardResponse<List<UserClassModel>> getUserClassResponse =
+          StandardResponse<List<UserClassModel>>.fromJson(
+        serverJson,
+        (data) => List<UserClassModel>.from(
+            data.map((x) => UserClassModel.fromJson(x))),
+      );
+
+      return getUserClassResponse;
+    } catch (e) {
+      throw Exception(e.toString().replaceAll('Exception: ', ''));
+    }
+  }
 }

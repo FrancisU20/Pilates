@@ -6,10 +6,11 @@ import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/models/class/class_model.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
-import 'package:pilates/providers/user-class/user_class_provider.dart';
+import 'package:pilates/providers/class/class_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
+import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/widgets/custom_text_button.dart';
@@ -610,6 +611,90 @@ class AppDialogs {
                   text: 'Confirmar',
                   color: AppColors.brown200,
                   width: SizeConfig.scaleWidth(10)),
+            ],
+          );
+        });
+  }
+
+  static Future<void> showDeleteConfirm(
+      BuildContext context, String classId, DateTime classDate) async {
+    DateTime now = DateTime.now();
+
+    // Si la cita es menor a 24 horas no se puede cancelar
+    if (now.isAfter(classDate.subtract(const Duration(hours: 24)))) {
+      CustomSnackBar.show(
+          context,
+          'No se puede cancelar la cita, debe ser con 24 horas de anticipación',
+          SnackBarType.error);
+    }
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColors.white100,
+            title: CustomText(
+              text: 'Confirmar cancelación',
+              color: AppColors.black100,
+              fontSize: SizeConfig.scaleHeight(2.5),
+              fontWeight: FontWeight.w500,
+            ),
+            content: SizedBox(
+              width: SizeConfig.scaleWidth(100),
+              height: SizeConfig.scaleHeight(30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildLogo(),
+                  SizedBox(
+                    width: SizeConfig.scaleWidth(100),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                          text: 'Estás seguro de cancelar la cita?',
+                          color: AppColors.black100,
+                          fontSize: SizeConfig.scaleHeight(1.8),
+                          fontWeight: FontWeight.w400,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.scaleHeight(2),
+                        ),
+                        CustomText(
+                          text:
+                              'Nota: Una vez cancelada la cita no podrá ser recuperada',
+                          color: AppColors.black100,
+                          fontSize: SizeConfig.scaleHeight(1.8),
+                          fontWeight: FontWeight.w500,
+                          textAlign: TextAlign.start,
+                          maxLines: 2,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: CustomText(
+                  text: 'Regresar',
+                  color: AppColors.brown200,
+                  fontSize: SizeConfig.scaleHeight(2),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              CustomButton(
+                text: 'Confirmar',
+                color: AppColors.brown200,
+                width: SizeConfig.scaleWidth(10),
+                onPressed: () {},
+              ),
             ],
           );
         });

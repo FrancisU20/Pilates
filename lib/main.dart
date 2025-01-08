@@ -7,6 +7,7 @@ import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dar
 import 'package:pilates/providers/plan/plan_provider.dart';
 import 'package:pilates/providers/recover-password/recover_password_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
+import 'package:pilates/providers/class/class_provider.dart';
 import 'package:pilates/providers/user-class/user_class_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
@@ -47,10 +48,11 @@ Future<void> main() async {
           create: (_) => UserPlanProvider()),
       ChangeNotifierProvider<NutritionalInfoProvider>(
           create: (_) => NutritionalInfoProvider()),
-      ChangeNotifierProvider<ClassProvider>(
-          create: (_) => ClassProvider()),
+      ChangeNotifierProvider<ClassProvider>(create: (_) => ClassProvider()),
       ChangeNotifierProvider<RecoverPasswordProvider>(
           create: (_) => RecoverPasswordProvider()),
+      ChangeNotifierProvider<UserClassProvider>(
+          create: (_) => UserClassProvider()),
     ],
     child: const MyApp(),
   ));

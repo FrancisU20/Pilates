@@ -1,81 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pilates/common/logger.dart';
-import 'package:pilates/controllers/class/class_controller.dart';
 import 'package:pilates/controllers/user-class/user_class_controller.dart';
 import 'package:pilates/models/common/standard_response.dart';
-import 'package:pilates/models/class/class_model.dart';
-import 'package:pilates/models/user-class/user_class_create_model.dart';
 import 'package:pilates/models/user-class/user_class_model.dart';
 import 'package:pilates/providers/login/login_provider.dart';
-import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 
-class ClassProvider extends ChangeNotifier {
+class UserClassProvider extends ChangeNotifier {
   //****************************************/
   //? Controllers
-  ClassController classController = ClassController();
   UserClassController userClassController = UserClassController();
 
   //? Packages
 
   //****************************************/
   //? Variables
-  int? selectedHourIndex;
+  bool isHistory = false;
 
   //? Setters Variables
-  void setSelectedHourIndex(int selectedHourIndex) {
-    this.selectedHourIndex = selectedHourIndex;
+  void setIsHistory(bool isHistory) {
+    this.isHistory = isHistory;
     notifyListeners();
   }
 
   //? Clean Variables
-  void cleanSelectedHourIndex() {
-    selectedHourIndex = null;
+  void cleanIsHistory() {
+    isHistory = false;
     notifyListeners();
   }
 
   //****************************************/
   //? Objetos
-  ClassModel? selectedClass;
 
   //? Setters Objetos
-  void setSelectedClass(ClassModel selectedClass) {
-    this.selectedClass = selectedClass;
-    notifyListeners();
-  }
 
   //? Clean Objetos
-  void cleanSelectedClass() {
-    selectedClass = null;
-    notifyListeners();
-  }
 
   //****************************************/
   //? Listas
-  List<ClassModel> listClass = [];
-  List<ClassModel> listClassFilter = [];
+  List<UserClassModel> listUserClass = [];
+  List<UserClassModel> listUserClassHistory = [];
+  List<UserClassModel> listUserClassAdmin = [];
+  List<UserClassModel> listUserClassHistoryAdmin = [];
 
   //? Setters Listas
-  void setListClass(List<ClassModel> listClass) {
-    this.listClass = listClass;
+  void setListClass(List<UserClassModel> listUserClass) {
+    this.listUserClass = listUserClass;
     notifyListeners();
   }
 
-  void setListClassFilter(List<ClassModel> listClassFilter) {
-    this.listClassFilter = listClassFilter;
+  void setListClassFilter(List<UserClassModel> listUserClassHistory) {
+    this.listUserClassHistory = listUserClassHistory;
+    notifyListeners();
+  }
+
+  void setListClassAdmin(List<UserClassModel> listUserClassAdmin) {
+    this.listUserClassAdmin = listUserClassAdmin;
+    notifyListeners();
+  }
+
+  void setListClassHistoryAdmin(
+      List<UserClassModel> listUserClassHistoryAdmin) {
+    this.listUserClassHistoryAdmin = listUserClassHistoryAdmin;
     notifyListeners();
   }
 
   //? Clean Listas
-  void cleanListClass() {
-    listClass = [];
+  void cleanlistUserClass() {
+    listUserClass = [];
     notifyListeners();
   }
 
-  void cleanListClassFilter() {
-    listClassFilter = [];
+  void cleanListUserClassHistory() {
+    listUserClassHistory = [];
+    notifyListeners();
+  }
+
+  void cleanListUserClassAdmin() {
+    listUserClassAdmin = [];
+    notifyListeners();
+  }
+
+  void cleanListUserClassHistoryAdmin() {
+    listUserClassHistoryAdmin = [];
     notifyListeners();
   }
 
@@ -96,10 +104,11 @@ class ClassProvider extends ChangeNotifier {
 
   //? Eliminar toda la data
   void clearData() {
-    cleanSelectedHourIndex();
-    cleanSelectedClass();
-    cleanListClass();
-    cleanListClassFilter();
+    cleanIsHistory();
+    cleanlistUserClass();
+    cleanListUserClassHistory();
+    cleanListUserClassAdmin();
+    cleanListUserClassHistoryAdmin();
   }
 
   //****************************************/
@@ -110,97 +119,185 @@ class ClassProvider extends ChangeNotifier {
   //****************************************/
   //***************FUNCIONES****************/
   //****************************************/
-  //? Obtener Clases y Horarios
-  Future<void> getClassList(BuildContext context) async {
+  //? Funcion que convierrte la fecha de la clase a un formato legible
+  //? Convertir fecha a formato legible
+  String convertDate(String date) {
     try {
-      showLoading();
+      // Validar longitud de la fecha para evitar errores al usar substring
+      if (date.length < 10) {
+        throw const FormatException(
+            'La fecha proporcionada no tiene el formato esperado.');
+      }
 
-      StandardResponse<List<ClassModel>> response =
-          await classController.getClassList();
+      String year = date.substring(0, 4);
+      String month = date.substring(5, 7);
+      String day = date.substring(8, 10);
 
-      //? Filtrar solo las clases que tiene availableClasses > 0
-      List<ClassModel> availableClasses = response.data!
-          .where((element) => element.availableClasses > 0)
-          .toList();
+      // Determinar el nombre del mes
+      String monthName = '';
+      switch (month) {
+        case '01':
+          monthName = 'Enero';
+          break;
+        case '02':
+          monthName = 'Febrero';
+          break;
+        case '03':
+          monthName = 'Marzo';
+          break;
+        case '04':
+          monthName = 'Abril';
+          break;
+        case '05':
+          monthName = 'Mayo';
+          break;
+        case '06':
+          monthName = 'Junio';
+          break;
+        case '07':
+          monthName = 'Julio';
+          break;
+        case '08':
+          monthName = 'Agosto';
+          break;
+        case '09':
+          monthName = 'Septiembre';
+          break;
+        case '10':
+          monthName = 'Octubre';
+          break;
+        case '11':
+          monthName = 'Noviembre';
+          break;
+        case '12':
+          monthName = 'Diciembre';
+          break;
+        default:
+          throw Exception('El mes proporcionado no es válido.');
+      }
 
-      setListClass(availableClasses);
-
-      if (!context.mounted) return;
-      CustomSnackBar.show(
-        context,
-        availableClasses.isEmpty
-            ? 'Lo sentimos, nuestro horario está completo 😓'
-            : 'Clases cargadas correctamente 🎉',
-        availableClasses.isEmpty ? SnackBarType.error : SnackBarType.success,
-      );
+      // Devolver la fecha en el formato esperado
+      return '$day de $monthName de $year';
     } catch (e) {
-      Logger.logAppError('Error en getClasses $e');
-      CustomSnackBar.show(context, e.toString(), SnackBarType.error);
-    } finally {
-      hideLoading();
+      Logger.logAppError('Error al convertir la fecha: $e');
+      throw Exception('Error al convertir la fecha');
     }
   }
 
-  //? Filtar las clases por fecha seleccionada
-  Future<void> filterClassByDate(
-      BuildContext context, DateTime selectedDate) async {
+  //? Funcion que convierte la hora si es es AM o PM
+  String getAMFM(String hour) {
     try {
-      showLoading();
-      //? Eliminar la clase seleccionada
-      cleanSelectedClass();
-
-      List<ClassModel> userClassFilter = listClass
-          .where((element) =>
-              element.classDate.substring(0, 10) ==
-              selectedDate.toString().substring(0, 10))
-          .toList();
-
-      //? Ordenar las clases por hora
-      userClassFilter.sort(
-          (a, b) => a.schedule!.startHour.compareTo(b.schedule!.startHour));
-
-      setListClassFilter(userClassFilter);
+      String initialHour = hour.substring(0, 2);
+      int hourInt = int.parse(initialHour);
+      if (hourInt < 12) {
+        return 'AM';
+      } else {
+        return 'PM';
+      }
     } catch (e) {
-      Logger.logAppError('Error en filterClassByDate $e');
-    } finally {
-      hideLoading();
+      Logger.logAppError('Error al convertir la hora: $e');
+      throw Exception('Error al convertir la hora');
     }
   }
 
-  //? Crear una clase
-  Future<void> createClass(BuildContext context) async {
+  //? Funcion para obtener las sigals del mes
+  String getStringMonth(DateTime classDate) {
+    try {
+      String month = '';
+      switch (classDate.month) {
+        case 1:
+          month = 'ENE';
+          break;
+        case 2:
+          month = 'FEB';
+          break;
+        case 3:
+          month = 'MAR';
+          break;
+        case 4:
+          month = 'ABR';
+          break;
+        case 5:
+          month = 'MAY';
+          break;
+        case 6:
+          month = 'JUN';
+          break;
+        case 7:
+          month = 'JUL';
+          break;
+        case 8:
+          month = 'AGO';
+          break;
+        case 9:
+          month = 'SEP';
+          break;
+        case 10:
+          month = 'OCT';
+          break;
+        case 11:
+          month = 'NOV';
+          break;
+        case 12:
+          month = 'DIC';
+          break;
+      }
+      return month;
+    } catch (e) {
+      Logger.logAppError('Error al obtener las siglas del mes: $e');
+      throw Exception('Error al obtener las siglas del mes');
+    }
+  }
+
+  //? Funcion para consultar las clases del cliente
+  Future<void> getUserClass(BuildContext context) async {
     try {
       showLoading();
       LoginProvider loginProvider =
           Provider.of<LoginProvider>(context, listen: false);
 
-      UserPlanProvider userPlanProvider =
-          Provider.of<UserPlanProvider>(context, listen: false);
+      String userId = '';
+      bool isAdmin = loginProvider.user!.role == 'admin';
 
-      UserClassCreateModel userClassCreateModel = UserClassCreateModel(
-        userId: loginProvider.user!.id!,
-        classId: selectedClass!.id!,
+      if (!isAdmin) {
+        userId = loginProvider.user!.id!;
+      }
+
+      String statusFilter = isHistory ? '' : 'A';
+      String startAt = isHistory
+          ? ''
+          : DateTime.now()
+              .subtract(const Duration(days: 30))
+              .toString()
+              .substring(0, 10);
+
+      StandardResponse<List<UserClassModel>> response =
+          await userClassController.getUserClass(
+        userId,
+        statusFilter,
+        startAt,
       );
 
-      StandardResponse<UserClassModel> response =
-          await userClassController.createUserClass(userClassCreateModel);
+      List<UserClassModel> listUserClass = response.data!;
 
-      if (!context.mounted) return;
-      //? Actualizar los planes del usuario para que se refleje la clase restada
-      await userPlanProvider.getUserPlans(context,
-          startDate: DateTime.now().subtract(const Duration(days: 30)),
-          endDate: DateTime.now().add(const Duration(days: 30)));
+      if (isHistory) {
+        //? filtrar todas las que no esten en estado A
+        listUserClass =
+            listUserClass.where((element) => element.status != 'A').toList();
+      }
 
-      //? Redirigir a la pantalla al login
-      if (!context.mounted) return;
-
-      context.go('/dashboard');
-      CustomSnackBar.show(
-        context,
-        response.message,
-        SnackBarType.success,
-      );
+      if (isAdmin && isHistory) {
+        setListClassHistoryAdmin(listUserClass);
+      } else if (isAdmin && !isHistory) {
+        setListClassAdmin(listUserClass);
+      } else if (!isAdmin && isHistory) {
+        setListClassFilter(listUserClass);
+      } else {
+        setListClass(listUserClass);
+      }
     } catch (e) {
+      if (!context.mounted) return;
+      Logger.logAppError('Error al obtener las clases: $e');
       CustomSnackBar.show(context, e.toString(), SnackBarType.error);
     } finally {
       hideLoading();
