@@ -29,9 +29,6 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
   @override
   initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<RecoverPasswordProvider>(context, listen: false).cleanData();
-    });
   }
 
   @override

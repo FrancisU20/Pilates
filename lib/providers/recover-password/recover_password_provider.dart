@@ -281,10 +281,6 @@ class RecoverPasswordProvider extends ChangeNotifier {
     try {
       showLoading();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-
-      prefs.remove('email');
-      prefs.remove('password');
-
       if (!context.mounted) return;
       await validateStep3();
 
@@ -296,6 +292,13 @@ class RecoverPasswordProvider extends ChangeNotifier {
 
       if (!context.mounted) return;
       setStep3Completed(true);
+      //! Eliminar todos los datos de memoria 
+      prefs.remove('email');
+      prefs.remove('password');
+
+      cleanData();
+      Logger.logCustomMessage('Atencion:', 'Se ha eliminado todos los datos de memoria');
+
       context.go('/login');
       CustomSnackBar.show(
         context,
