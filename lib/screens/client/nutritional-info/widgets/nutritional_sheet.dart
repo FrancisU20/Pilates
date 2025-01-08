@@ -99,10 +99,10 @@ class NutritionalSheet extends StatefulWidget {
 
 class NutritionalSheetState extends State<NutritionalSheet> {
   int currentStep = 0;
+  
   @override
-  void activate() {
-    super.activate();
-    
+  void initState() {
+    super.initState();
   }
 
   @override

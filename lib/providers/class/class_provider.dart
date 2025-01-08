@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/class/class_controller.dart';
 import 'package:pilates/controllers/user-class/user_class_controller.dart';
@@ -182,12 +181,11 @@ class ClassProvider extends ChangeNotifier {
       StandardResponse<UserClassModel> response =
           await userClassController.createUserClass(userClassCreateModel);
 
-      if (!context.mounted) return;
-      await AppMiddleware.updateClienData(context);
-
       //? Redirigir a la pantalla al login
       if (!context.mounted) return;
-      context.go('/dashboard');
+      await AppMiddleware.updateClientData(context, '/dashboard');
+
+      if (!context.mounted) return;
       CustomSnackBar.show(
         context,
         response.message,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -60,6 +61,7 @@ class EatingHabitsState extends State<EatingHabits> {
   Widget build(BuildContext context) {
     NutritionalInfoProvider nutritionalInfoProvider =
         Provider.of<NutritionalInfoProvider>(context, listen: false);
+    LoginProvider loginProvider = Provider.of<LoginProvider>(context, listen: false);
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: const ClampingScrollPhysics(),
@@ -261,6 +263,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              if(loginProvider.user!.gender != 'M')
               CustomTextField(
                 title: '¿Estás embarazada?',
                 labelColor: AppColors.black100,

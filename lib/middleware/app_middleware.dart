@@ -6,7 +6,8 @@ import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 
 class AppMiddleware {
-  static Future<void> updateClienData(BuildContext context) async {
+  static Future<void> updateClientData(
+      BuildContext context, String route) async {
     //! Providers
     UserPlanProvider userPlanProvider =
         Provider.of<UserPlanProvider>(context, listen: false);
@@ -30,7 +31,18 @@ class AppMiddleware {
             'Hemos detectado que no has llenado tu ficha nutricional. Llena tu ficha para poder disfrutar de la app.',
             SnackBarType.error);
         context.go('/dashboard/nutritional-info');
-      } 
+      } else {
+        if (!context.mounted) return;
+        context.go(route);
+      }
+    } else if (userPlanProvider.inactiveUserPlan != null) {
+      //? Verificar si el plan está inactivo
+      if (!context.mounted) return;
+      CustomSnackBar.show(
+          context,
+          'Tu plan está inactivo. Por favor, informa tu pago para poder disfrutar de la app.',
+          SnackBarType.error);
+      context.go('/dashboard');
     }
   }
 }

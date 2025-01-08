@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pilates/middleware/app_middleware.dart';
 import 'package:pilates/theme/app_colors.dart';
 
@@ -27,9 +26,7 @@ class ClientAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ? AppColors.black100
                   : AppColors.white100),
           onPressed: () async {
-            await AppMiddleware.updateClienData(context);
-            if (!context.mounted) return;
-            context.pop();
+            await AppMiddleware.updateClientData(context, '/dashboard');
           },
         ),
       ),

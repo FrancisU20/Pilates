@@ -38,7 +38,7 @@ class ClientHomeBar extends StatelessWidget implements PreferredSizeWidget {
             color: AppColors.grey200,
           ),
           onPressed: () async {
-            await AppMiddleware.updateClienData(context);
+            await AppMiddleware.updateClientData(context, '/dashboard');
           },
         ),
       ],

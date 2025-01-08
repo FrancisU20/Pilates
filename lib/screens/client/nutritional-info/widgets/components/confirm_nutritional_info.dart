@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pilates/middleware/app_middleware.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
@@ -87,12 +86,9 @@ class ConfirmNutritionalInfo extends StatelessWidget {
               await nutritionalInfoProvider.createNutritionalInfo(context);
 
               if (!context.mounted) return;
-              //? Actualiza la informacion del cliente
-              await AppMiddleware.updateClienData(context);
+              //? Actualiza la informacion del cliente y lo redirige al dashboard
+              await AppMiddleware.updateClientData(context, '/dashboard');
 
-              //? Redirige al dashboard
-              if (!context.mounted) return;
-              context.go('/dashboard');
             },
             color: AppColors.brown200,
           ),

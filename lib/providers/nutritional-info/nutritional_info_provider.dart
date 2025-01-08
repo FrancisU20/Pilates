@@ -462,6 +462,8 @@ class NutritionalInfoProvider extends ChangeNotifier {
 
   //? Validar toda la informacion
   Future<void> validateNutritionalInfo(BuildContext context) async {
+    LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context, listen: false);
     try {
       //! Personal Information
       if (maritalStatus.isEmpty) {
@@ -526,7 +528,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
         throw Exception(
             'Por favor, selecciona si realizas actividad física actualmente.');
       }
-      if (isPregnant == null) {
+      if (loginProvider.user!.gender != 'M' && isPregnant == null) {
         throw Exception('Por favor, selecciona si estás embarazada.');
       }
 
@@ -764,6 +766,8 @@ class NutritionalInfoProvider extends ChangeNotifier {
             nutritionalData.anthropometricData?.waistCircumference ?? 0.0);
         setHipCircumference(
             nutritionalData.anthropometricData?.hipCircumference ?? 0.0);
+
+        notifyListeners();    
       } else {
         throw Exception('No hay información nutricional para llenar.');
       }
