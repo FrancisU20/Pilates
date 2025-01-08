@@ -185,7 +185,7 @@ class PlanPageState extends State<PlanPage> {
                                                     color: AppColors.black100,
                                                     fontSize:
                                                         SizeConfig.scaleText(
-                                                            2.5),
+                                                            1.6),
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                   CustomText(
@@ -194,16 +194,16 @@ class PlanPageState extends State<PlanPage> {
                                                     color: AppColors.black100,
                                                     fontSize:
                                                         SizeConfig.scaleText(
-                                                            2.5),
+                                                            2.2),
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                                   CustomText(
                                                     text:
-                                                        '\$ ${planProvider.plans[index].pricePerClass}/por clase',
+                                                        '\$ ${planProvider.plans[index].pricePerClass}/clase',
                                                     color: AppColors.black100,
                                                     fontSize:
                                                         SizeConfig.scaleText(
-                                                            1.5),
+                                                            1.6),
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                 ],
