@@ -120,7 +120,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   title: 'Edad',
                   labelColor: AppColors.black100,
                   hintText: '',
-                  typeTextField: TextFieldType.number,
+                  typeTextField: TextFieldType.numberInt,
                   controller: widget.ageController,
                   fontSize: SizeConfig.scaleText(1.7),
                   isActive: false,

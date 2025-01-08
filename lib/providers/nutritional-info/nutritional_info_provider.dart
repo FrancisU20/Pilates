@@ -561,9 +561,6 @@ class NutritionalInfoProvider extends ChangeNotifier {
         throw Exception(
             'Por favor, selecciona si tienes hipotiroidismo o hipertiroidismo.');
       }
-      if (otherConditions.isEmpty) {
-        throw Exception('Por favor, ingresa si tienes otras condiciones.');
-      }
 
       //! Anthropometric Data
       if (weight == 0.0) {

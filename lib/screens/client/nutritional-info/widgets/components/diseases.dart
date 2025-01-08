@@ -166,6 +166,7 @@ class DiseasesState extends State<Diseases> {
                   nutritionalInfoProvider.setOtherConditions(value);
                 },
                 isActive: widget.viewMode == true ? false : true,
+                disableError: true,
               ),
             ],
           ),

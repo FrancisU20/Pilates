@@ -100,7 +100,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 title: 'Cuántas comidas consumes al día?',
                 labelColor: AppColors.black100,
                 hintText: '',
-                typeTextField: TextFieldType.number,
+                typeTextField: TextFieldType.numberInt,
                 controller: widget.numberOfMealsController,
                 fontSize: SizeConfig.scaleText(1.7),
                 onChanged: (value) {

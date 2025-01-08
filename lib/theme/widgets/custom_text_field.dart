@@ -11,6 +11,7 @@ enum TextFieldType {
   phone,
   email,
   number,
+  numberInt,
   alphanumeric,
   date,
   password,
@@ -87,6 +88,18 @@ class CustomTextFieldState extends State<CustomTextField> {
         keyboardType = TextInputType.emailAddress;
         break;
       case TextFieldType.number:
+        inputFormatters = [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d*[\.,]?\d*')),
+          TextInputFormatter.withFunction((oldValue, newValue) {
+            return TextEditingValue(
+              text: newValue.text.replaceAll(',', '.'),
+              selection: newValue.selection,
+            );
+          }),
+        ];
+        keyboardType = const TextInputType.numberWithOptions(decimal: true);
+        break;
+      case TextFieldType.numberInt:
         inputFormatters = [FilteringTextInputFormatter.digitsOnly];
         keyboardType = TextInputType.number;
         break;
@@ -129,6 +142,8 @@ class CustomTextFieldState extends State<CustomTextField> {
         return value.contains('@') && value.contains('.');
       case TextFieldType.number:
         return value.isNotEmpty;
+      case TextFieldType.numberInt:
+        return value.isNotEmpty;
       case TextFieldType.alphanumeric:
         return value.isNotEmpty;
       case TextFieldType.date:
@@ -156,6 +171,8 @@ class CustomTextFieldState extends State<CustomTextField> {
       case TextFieldType.email:
         return 'Email inválido';
       case TextFieldType.number:
+        return '* Requerido';
+      case TextFieldType.numberInt:
         return '* Requerido';
       case TextFieldType.alphanumeric:
         return '* Requerido';
@@ -196,25 +213,28 @@ class CustomTextFieldState extends State<CustomTextField> {
               }
             : widget.typeTextField == TextFieldType.boolean && widget.isActive
                 ? () async {
-                    await AppDialogs.showBooleanOptions(context, widget.controller);
+                    await AppDialogs.showBooleanOptions(
+                        context, widget.controller);
                     if (widget.onChanged != null) {
-                      widget.onChanged!(
-                          widget.controller.text); // Llamar a onChanged manualmente
+                      widget.onChanged!(widget
+                          .controller.text); // Llamar a onChanged manualmente
                     }
                   }
-                : widget.typeTextField == TextFieldType.diseases && widget.isActive
+                : widget.typeTextField == TextFieldType.diseases &&
+                        widget.isActive
                     ? () async {
                         await AppDialogs.showDiseasesOptions(
                             context, widget.controller);
                         if (widget.onChanged != null) {
-                          widget.onChanged!(
-                              widget.controller.text); // Llamar a onChanged manualmente
+                          widget.onChanged!(widget.controller
+                              .text); // Llamar a onChanged manualmente
                         }
                       }
                     : null,
         child: AbsorbPointer(
           absorbing: (widget.typeTextField == TextFieldType.date ||
-                  widget.typeTextField == TextFieldType.boolean || widget.typeTextField == TextFieldType.diseases)
+                  widget.typeTextField == TextFieldType.boolean ||
+                  widget.typeTextField == TextFieldType.diseases)
               ? true
               : false,
           child: TextFormField(
