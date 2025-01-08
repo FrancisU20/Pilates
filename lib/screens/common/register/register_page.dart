@@ -62,7 +62,7 @@ class RegisterPageState extends State<RegisterPage> {
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios, color: AppColors.black100),
               onPressed: () {
-                Navigator.pop(context);
+                context.pop();
               },
             ),
           ),
@@ -204,15 +204,7 @@ class RegisterPageState extends State<RegisterPage> {
             ),
           ),
         ),
-        Consumer<RegisterProvider>(
-          builder: (context, registerProvider, child) {
-            if (registerProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox.shrink();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }

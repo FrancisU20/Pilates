@@ -24,9 +24,9 @@ class PlanPageState extends State<PlanPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       Provider.of<UserPlanProvider>(context, listen: false).clearData();
-      Provider.of<PlanProvider>(context, listen: false).getPlans(context);
+      await Provider.of<PlanProvider>(context, listen: false).getPlans(context);
     });
   }
 
@@ -36,7 +36,8 @@ class PlanPageState extends State<PlanPage> {
       children: [
         Scaffold(
           backgroundColor: AppColors.white100,
-          appBar: const ClientAppBar(backgroundColor: AppColors.brown200),
+          appBar: const ClientAppBar(
+              backgroundColor: AppColors.brown200, ),
           body: Container(
             color: AppColors.brown200,
             child: Column(
@@ -225,15 +226,7 @@ class PlanPageState extends State<PlanPage> {
             ),
           ),
         ),
-        Consumer<PlanProvider>(
-          builder: (context, planProvider, child) {
-            if (planProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }

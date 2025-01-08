@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pilates/data/activities_data.dart';
 import 'package:pilates/providers/class/class_provider.dart';
 import 'package:pilates/screens/client/class/widgets/activities_gallery.dart';
@@ -58,7 +59,8 @@ class ClassPageState extends State<ClassPage> {
       children: [
         Scaffold(
           backgroundColor: AppColors.white100,
-          appBar: const ClientAppBar(backgroundColor: AppColors.brown200),
+          appBar: const ClientAppBar(
+              backgroundColor: AppColors.brown200, ),
           body: Container(
             color: AppColors.brown200,
             child: Column(
@@ -80,7 +82,7 @@ class ClassPageState extends State<ClassPage> {
                               'Es probable que no haya horarios disponibles. Por favor intenta más tarde',
                           buttonText: 'Volver',
                           onButtonPressed: () {
-                            Navigator.pop(context);
+                            context.pop();
                           });
                     } else {
                       return Flexible(
@@ -177,15 +179,7 @@ class ClassPageState extends State<ClassPage> {
           ),
           bottomNavigationBar: const ClientNavBar(),
         ),
-        Consumer<ClassProvider>(
-          builder: (context, classProvider, child) {
-            if (classProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }

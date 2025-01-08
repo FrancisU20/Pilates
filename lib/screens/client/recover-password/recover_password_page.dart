@@ -270,15 +270,7 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
             ),
           ),
         ),
-        Consumer<RecoverPasswordProvider>(
-          builder: (context, recoverPasswordProvider, child) {
-            if (recoverPasswordProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }

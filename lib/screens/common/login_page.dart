@@ -28,12 +28,17 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      LoginProvider loginProvider =
-          Provider.of<LoginProvider>(context, listen: false);
-      loginProvider.canUseBiometrics(context);
-      loginProvider.getAvailableBiometrics(context);
-      loginProvider.getSharedPreferences(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+
+      await loginProvider.canUseBiometrics(context);
+      if (!mounted) return;
+
+      await loginProvider.getAvailableBiometrics(context);
+      if (!mounted) return;
+
+      await loginProvider.getSharedPreferences(context);
     });
   }
 
@@ -218,11 +223,7 @@ class LoginPageState extends State<LoginPage> {
                                                 text:
                                                     '¿Olvidaste tu contraseña?',
                                                 onPressed: () {
-                                                  Router.neglect(
-                                                    context,
-                                                    () => context.replace(
-                                                        '/login/recover-password'),
-                                                  );
+                                                  context.go('/login/recover-password');
                                                 },
                                                 color: AppColors.brown200,
                                               ),
@@ -258,15 +259,7 @@ class LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-        Consumer<LoginProvider>(
-          builder: (context, loginProvider, child) {
-            if (loginProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox.shrink();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }

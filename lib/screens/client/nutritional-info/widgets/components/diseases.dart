@@ -40,8 +40,6 @@ class DiseasesState extends State<Diseases> {
   @override
   void initState() {
     super.initState();
-    //? Calcular edad
-    WidgetsBinding.instance.addPostFrameCallback((_) async {});
   }
 
   @override

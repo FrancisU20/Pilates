@@ -36,8 +36,6 @@ class AnthropometricDataState extends State<AnthropometricData> {
   @override
   void initState() {
     super.initState();
-    //? Calcular edad
-    WidgetsBinding.instance.addPostFrameCallback((_) async {});
   }
 
   @override

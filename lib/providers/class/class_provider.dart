@@ -3,12 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/class/class_controller.dart';
 import 'package:pilates/controllers/user-class/user_class_controller.dart';
+import 'package:pilates/middleware/app_middleware.dart';
 import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/class/class_model.dart';
 import 'package:pilates/models/user-class/user_class_create_model.dart';
 import 'package:pilates/models/user-class/user_class_model.dart';
 import 'package:pilates/providers/login/login_provider.dart';
-import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -174,9 +174,6 @@ class ClassProvider extends ChangeNotifier {
       LoginProvider loginProvider =
           Provider.of<LoginProvider>(context, listen: false);
 
-      UserPlanProvider userPlanProvider =
-          Provider.of<UserPlanProvider>(context, listen: false);
-
       UserClassCreateModel userClassCreateModel = UserClassCreateModel(
         userId: loginProvider.user!.id!,
         classId: selectedClass!.id!,
@@ -186,14 +183,10 @@ class ClassProvider extends ChangeNotifier {
           await userClassController.createUserClass(userClassCreateModel);
 
       if (!context.mounted) return;
-      //? Actualizar los planes del usuario para que se refleje la clase restada
-      await userPlanProvider.getUserPlans(context,
-          startDate: DateTime.now().subtract(const Duration(days: 30)),
-          endDate: DateTime.now().add(const Duration(days: 30)));
+      await AppMiddleware.updateClienData(context);
 
       //? Redirigir a la pantalla al login
       if (!context.mounted) return;
-
       context.go('/dashboard');
       CustomSnackBar.show(
         context,

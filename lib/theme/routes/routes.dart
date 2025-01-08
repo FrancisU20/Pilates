@@ -14,110 +14,172 @@ import 'package:pilates/screens/common/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
 import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
 import 'package:pilates/screens/common/splash_screen.dart';
+import 'package:pilates/theme/routes/page_transitions.dart';
 
-final GoRouter goRouter = GoRouter(routes: <GoRoute>[
-  //? Splash Screen
-  GoRoute(
+Page<void> buildPageWithFadeTransition(
+  BuildContext context,
+  GoRouterState state,
+  Widget child,
+) {
+  return CustomTransitionPage(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 300),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return PageTransitions.fadeTransition(animation, child);
+    },
+  );
+}
+
+final GoRouter goRouter = GoRouter(
+  routes: <GoRoute>[
+    GoRoute(
       path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const SplashScreenPage();
-      }),
-
-  //? Onboarding
-  GoRoute(
+      pageBuilder: (context, state) {
+        return buildPageWithFadeTransition(
+          context,
+          state,
+          const SplashScreenPage(),
+        );
+      },
+    ),
+    GoRoute(
       path: '/onboarding',
-      builder: (BuildContext context, GoRouterState state) {
-        return const OnboardingPage();
+      pageBuilder: (context, state) {
+        return buildPageWithFadeTransition(
+          context,
+          state,
+          const OnboardingPage(),
+        );
       },
       routes: [
-        //? Register
         GoRoute(
-            path: 'register',
-            builder: (BuildContext context, GoRouterState state) {
-              return const RegisterPage();
-            }),
-      ]),
-
-  //? Login
-  GoRoute(
+          path: 'register',
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const RegisterPage(),
+            );
+          },
+        ),
+      ],
+    ),
+    GoRoute(
       path: '/login',
-      builder: (BuildContext context, GoRouterState state) {
-        return const LoginPage();
+      pageBuilder: (context, state) {
+        return buildPageWithFadeTransition(
+          context,
+          state,
+          const LoginPage(),
+        );
       },
       routes: [
         GoRoute(
           path: 'recover-password',
-          builder: (BuildContext context, GoRouterState state) {
-            return const RecoverPasswordPage();
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const RecoverPasswordPage(),
+            );
           },
-        )
-      ]),
-
-  //? Dashboard
-  GoRoute(
+        ),
+      ],
+    ),
+    GoRoute(
       path: '/dashboard',
-      builder: (BuildContext context, GoRouterState state) {
-        return const DashboardPage();
+      pageBuilder: (context, state) {
+        return buildPageWithFadeTransition(
+          context,
+          state,
+          const DashboardPage(),
+        );
       },
       routes: [
-        //? Plan
         GoRoute(
-            path: 'plans',
-            builder: (BuildContext context, GoRouterState state) {
-              return const PlanPage();
-            },
-            routes: [
-              //? Transfer Payment
-              GoRoute(
-                  path: 'transfer-payment',
-                  builder: (BuildContext context, GoRouterState state) {
-                    return const TransferPaymentPage();
-                  }),
-            ]),
-
-        //? Contact
+          path: 'plans',
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const PlanPage(),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'transfer-payment',
+              pageBuilder: (context, state) {
+                return buildPageWithFadeTransition(
+                  context,
+                  state,
+                  const TransferPaymentPage(),
+                );
+              },
+            ),
+          ],
+        ),
         GoRoute(
-            path: 'contact',
-            builder: (BuildContext context, GoRouterState state) {
-              return const ContactPage();
-            }),
-
-        //? MyAccount
+          path: 'contact',
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const ContactPage(),
+            );
+          },
+        ),
         GoRoute(
-            path: 'my-account',
-            builder: (BuildContext context, GoRouterState state) {
-              return const MyAccountPage();
-            }),
-
-        //? Nutritional Information
+          path: 'my-account',
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const MyAccountPage(),
+            );
+          },
+        ),
         GoRoute(
-            path: 'nutritional-info',
-            builder: (BuildContext context, GoRouterState state) {
-              return const NutritionalInfoPage();
-            }),
-
-        //? User Class
+          path: 'nutritional-info',
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const NutritionalInfoPage(),
+            );
+          },
+        ),
         GoRoute(
           path: 'class',
-          builder: (BuildContext context, GoRouterState state) {
-            return const ClassPage();
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const ClassPage(),
+            );
           },
         ),
-
-        //? History User Class
         GoRoute(
           path: 'user-class',
-          builder: (BuildContext context, GoRouterState state) {
-            return const UserClassPage();
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const UserClassPage(),
+            );
           },
         ),
-
-        //? Digital Identification
         GoRoute(
           path: 'digital-identification',
-          builder: (BuildContext context, GoRouterState state) {
-            return const DigitalIdentificationPage();
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition(
+              context,
+              state,
+              const DigitalIdentificationPage(),
+            );
           },
         ),
-      ]),
-]);
+      ],
+    ),
+  ],
+);

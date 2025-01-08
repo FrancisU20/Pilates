@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/user-class/user_class_controller.dart';
 import 'package:pilates/models/common/standard_response.dart';
+import 'package:pilates/models/common/update_status_model.dart';
 import 'package:pilates/models/user-class/user_class_model.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
@@ -299,6 +300,35 @@ class UserClassProvider extends ChangeNotifier {
       if (!context.mounted) return;
       Logger.logAppError('Error al obtener las clases: $e');
       CustomSnackBar.show(context, e.toString(), SnackBarType.error);
+    } finally {
+      hideLoading();
+    }
+  }
+
+  //? Funciona para actualizar es estado de una clase
+  Future<void> updateUserClassStatus(
+      BuildContext context, String userClassId, String status) async {
+    try {
+      showLoading();
+
+      UpdateStatusModel updateStatusModel = UpdateStatusModel(status: status);
+
+      StandardResponse<UserClassModel> updateUserClassResponse =
+          await userClassController.updateUserClass(
+        userClassId,
+        updateStatusModel,
+      );
+
+      Logger.logCustomMessage(
+          'Clase ${updateUserClassResponse.data!.status} cambio al estado: ',
+          updateUserClassResponse.data!.status);
+
+      if (!context.mounted) return;
+      await getUserClass(context);
+    } catch (e) {
+      if (!context.mounted) return;
+      Logger.logAppError('Error al actualizar el estado de la clase: $e');
+      throw Exception(e.toString().replaceAll('Exception: ', ''));
     } finally {
       hideLoading();
     }

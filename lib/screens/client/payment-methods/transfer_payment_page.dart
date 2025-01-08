@@ -45,7 +45,7 @@ class TransferPaymentPageState extends State<TransferPaymentPage> {
                 return Scaffold(
                   backgroundColor: AppColors.white100,
                   appBar: const ClientAppBar(
-                      backgroundColor: AppColors.brown200, toDashboard: true),
+                      backgroundColor: AppColors.brown200, ),
                   body: Stack(children: [
                     Container(
                       color: AppColors.brown200,
@@ -175,15 +175,7 @@ class TransferPaymentPageState extends State<TransferPaymentPage> {
             );
           },
         ),
-        Consumer<UserPlanProvider>(
-          builder: (context, userPlanProvider, child) {
-            if (userPlanProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }

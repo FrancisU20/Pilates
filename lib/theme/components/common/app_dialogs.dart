@@ -7,8 +7,10 @@ import 'package:pilates/models/class/class_model.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/providers/class/class_provider.dart';
+import 'package:pilates/providers/user-class/user_class_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -77,7 +79,7 @@ class AppDialogs {
                         width: SizeConfig.scaleWidth(15),
                         onPressed: onButtonPressed ??
                             () {
-                              Navigator.pop(context);
+                              context.pop();
                             },
                       ),
                     ),
@@ -175,7 +177,7 @@ class AppDialogs {
                       showComingSoon(
                         context: context,
                         onButtonPressed: () {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                       );
                     },
@@ -234,7 +236,7 @@ class AppDialogs {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  context.pop();
                 },
                 child: CustomText(
                   text: 'No',
@@ -248,10 +250,7 @@ class AppDialogs {
                 color: AppColors.brown200,
                 width: SizeConfig.scaleWidth(6),
                 onPressed: () {
-                  Router.neglect(
-                    context,
-                    () => context.go('/login'),
-                  );
+                  context.go('/login');
                 },
               ),
             ],
@@ -278,7 +277,7 @@ class AppDialogs {
                 ),
                 onTap: () {
                   registerProvider.pickImage(context, ImageSource.gallery);
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
               ListTile(
@@ -291,7 +290,7 @@ class AppDialogs {
                 ),
                 onTap: () {
                   registerProvider.pickImage(context, ImageSource.camera);
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
             ],
@@ -321,7 +320,7 @@ class AppDialogs {
                 ),
                 onTap: () {
                   userPlanProvider.pickImage(context, ImageSource.gallery, dni);
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
               ListTile(
@@ -334,7 +333,7 @@ class AppDialogs {
                 ),
                 onTap: () {
                   userPlanProvider.pickImage(context, ImageSource.camera, dni);
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
             ],
@@ -367,7 +366,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(6),
                     onPressed: () {
                       controller.text = 'NO';
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                   SizedBox(
@@ -379,7 +378,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(6),
                     onPressed: () {
                       controller.text = 'SI';
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                 ],
@@ -414,7 +413,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(10),
                     onPressed: () {
                       controller.text = 'Padre';
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                   CustomButton(
@@ -423,7 +422,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(10),
                     onPressed: () {
                       controller.text = 'Madre';
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                   CustomButton(
@@ -432,7 +431,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(10),
                     onPressed: () {
                       controller.text = 'Ninguno';
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   ),
                 ],
@@ -601,7 +600,7 @@ class AppDialogs {
             actions: [
               CustomTextButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  context.pop();
                 },
                 text: 'Cancelar',
                 color: AppColors.brown200,
@@ -620,81 +619,104 @@ class AppDialogs {
       BuildContext context, String classId, DateTime classDate) async {
     DateTime now = DateTime.now();
 
-    // Si la cita es menor a 24 horas no se puede cancelar
-    if (now.isAfter(classDate.subtract(const Duration(hours: 24)))) {
-      CustomSnackBar.show(
-          context,
-          'No se puede cancelar la cita, debe ser con 24 horas de anticipación',
-          SnackBarType.error);
-    }
+    //Restar las diferencias de horas
+    int hoursDifference = classDate.difference(now).inHours;
 
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            backgroundColor: AppColors.white100,
-            title: CustomText(
-              text: 'Confirmar cancelación',
-              color: AppColors.black100,
-              fontSize: SizeConfig.scaleHeight(2.5),
-              fontWeight: FontWeight.w500,
-            ),
-            content: SizedBox(
-              width: SizeConfig.scaleWidth(100),
-              height: SizeConfig.scaleHeight(30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildLogo(),
-                  SizedBox(
-                    width: SizeConfig.scaleWidth(100),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(
-                          text: 'Estás seguro de cancelar la cita?',
-                          color: AppColors.black100,
-                          fontSize: SizeConfig.scaleHeight(1.8),
-                          fontWeight: FontWeight.w400,
+          return Stack(
+            children: [
+              AlertDialog(
+                backgroundColor: AppColors.white100,
+                title: CustomText(
+                  text: 'Confirmar cancelación',
+                  color: AppColors.black100,
+                  fontSize: SizeConfig.scaleHeight(2.5),
+                  fontWeight: FontWeight.w500,
+                ),
+                content: SizedBox(
+                  width: SizeConfig.scaleWidth(100),
+                  height: SizeConfig.scaleHeight(48),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildLogo(),
+                      SizedBox(
+                        width: SizeConfig.scaleWidth(100),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              text: 'Estás seguro de cancelar la cita?',
+                              color: AppColors.black100,
+                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            SizedBox(
+                              height: SizeConfig.scaleHeight(2),
+                            ),
+                            CustomText(
+                              text:
+                                  'Aviso Importante: \n\nSi decides cancelar una clase, puedes hacerlo con al menos 24 horas de anticipación a las 00:00 del día de la clase. De esta forma, la clase se repondrá automáticamente a tu plan y no la perderás. Recuerda que no se permite cancelar clases después de este plazo.',
+                              color: AppColors.green200,
+                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontWeight: FontWeight.w500,
+                              textAlign: TextAlign.justify,
+                              maxLines: 10,
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: SizeConfig.scaleHeight(2),
-                        ),
-                        CustomText(
-                          text:
-                              'Nota: Una vez cancelada la cita no podrá ser recuperada',
-                          color: AppColors.black100,
-                          fontSize: SizeConfig.scaleHeight(1.8),
-                          fontWeight: FontWeight.w500,
-                          textAlign: TextAlign.start,
-                          maxLines: 2,
-                        ),
-                      ],
+                      ),
+                    ],
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    child: CustomText(
+                      text: 'Regresar',
+                      color: AppColors.brown200,
+                      fontSize: SizeConfig.scaleHeight(2),
+                      fontWeight: FontWeight.w500,
                     ),
+                  ),
+                  CustomButton(
+                    text: 'Confirmar',
+                    color: AppColors.brown200,
+                    width: SizeConfig.scaleWidth(10),
+                    onPressed: () async {
+                      try {
+                        if (hoursDifference < 24) {
+                          context.pop();
+                          CustomSnackBar.show(
+                              context,
+                              'No se puede cancelar la cita, debe ser con 24 horas de anticipación.',
+                              SnackBarType.error);
+                          return;
+                        }
+                        UserClassProvider userClassProvider =
+                            Provider.of<UserClassProvider>(context,
+                                listen: false);
+                        await userClassProvider.updateUserClassStatus(
+                            context, classId, 'X'); //! X porque es cancelada
+
+                        if (!context.mounted) return;
+                        context.pop();
+                      } catch (e) {
+                        context.pop();
+                        CustomSnackBar.show(
+                            context, e.toString(), SnackBarType.error);
+                      }
+                    },
                   ),
                 ],
               ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: CustomText(
-                  text: 'Regresar',
-                  color: AppColors.brown200,
-                  fontSize: SizeConfig.scaleHeight(2),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              CustomButton(
-                text: 'Confirmar',
-                color: AppColors.brown200,
-                width: SizeConfig.scaleWidth(10),
-                onPressed: () {},
-              ),
+              const AppLoading(),
             ],
           );
         });

@@ -166,7 +166,8 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
       children: [
         Scaffold(
           backgroundColor: AppColors.brown200,
-          appBar: const ClientAppBar(backgroundColor: AppColors.brown200),
+          appBar: const ClientAppBar(
+              backgroundColor: AppColors.brown200, ),
           body: Container(
             color: AppColors.brown200,
             child: Column(
@@ -295,15 +296,7 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
             ),
           ),
         ),
-        Consumer<NutritionalInfoProvider>(
-          builder: (context, nutritionalInfoProvider, child) {
-            if (nutritionalInfoProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }

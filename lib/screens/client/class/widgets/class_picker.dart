@@ -28,7 +28,6 @@ class ClassPickerState extends State<ClassPicker> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   @override

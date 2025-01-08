@@ -38,6 +38,7 @@ class ClientMenuState extends State<ClientMenu> {
                       size: SizeConfig.scaleHeight(3),
                     ),
                     onTap: () {
+                      context.pop();
                       context.go('/dashboard/nutritional-info');
                     },
                   ),
@@ -48,6 +49,7 @@ class ClientMenuState extends State<ClientMenu> {
                       size: SizeConfig.scaleHeight(3),
                     ),
                     onTap: () {
+                      context.pop();
                       context.go('/dashboard/digital-identification');
                     },
                   ),
@@ -58,6 +60,7 @@ class ClientMenuState extends State<ClientMenu> {
                       size: SizeConfig.scaleHeight(3),
                     ),
                     onTap: () {
+                      context.pop();
                       AppDialogs.showLogout(context);
                     },
                   ),

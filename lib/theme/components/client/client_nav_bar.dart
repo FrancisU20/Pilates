@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
+import 'package:pilates/middleware/app_middleware.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
@@ -30,7 +30,9 @@ class ClientNavBar extends StatelessWidget {
             color: ModalRoute.of(context)!.settings.name == '/dashboard'
                 ? AppColors.gold100
                 : AppColors.white100,
-            onPressed: () {
+            onPressed: () async {
+              await AppMiddleware.updateClienData(context);
+              if (!context.mounted) return;
               context.go('/dashboard');
             },
           ),
@@ -44,39 +46,17 @@ class ClientNavBar extends StatelessWidget {
             onPressed: () async {
               UserPlanProvider userPlanProvider =
                   Provider.of<UserPlanProvider>(context, listen: false);
-
-              userPlanProvider.clearData();
-
-              NutritionalInfoProvider nutritionalInfoProvider =
-                  Provider.of<NutritionalInfoProvider>(context, listen: false);
-
-              //? Se obtiene los planes de usuario
-              await userPlanProvider.getUserPlans(context,
-                  startDate: DateTime.now().subtract(const Duration(days: 30)),
-                  endDate: DateTime.now().add(const Duration(days: 30)));
-
+              await AppMiddleware.updateClienData(context);
               if (!context.mounted) return;
-
-              //? Se mira si tiene un plan activo
-              if (userPlanProvider.activeUserPlan != null) {
-                //? Se obtiene la información nutricional
-                await nutritionalInfoProvider.getUserNutritionalInfo(context);
-                if (!context.mounted) return;
-                if (nutritionalInfoProvider.nutritionalInfo == null) {
-                  CustomSnackBar.show(
-                      context,
-                      'Para acceder al módulo de agendamiento es necesario llenar tu ficha nutricional.',
-                      SnackBarType.error);
-                  context.go('/dashboard/nutritional-info');
-                } else {
-                  context.go('/dashboard/class');
-                }
-              } else {
+              if (userPlanProvider.activeUserPlan == null) {
                 CustomSnackBar.show(
                     context,
                     'Para acceder al módulo de agendamiento es necesario tener un plan activo.',
                     SnackBarType.error);
                 context.go('/dashboard');
+                return;
+              } else {
+                context.go('/dashboard/class');
               }
             },
           ),
@@ -98,7 +78,9 @@ class ClientNavBar extends StatelessWidget {
             color: ModalRoute.of(context)!.settings.name == 'contact'
                 ? AppColors.gold100
                 : AppColors.white100,
-            onPressed: () {
+            onPressed: () async {
+              await AppMiddleware.updateClienData(context);
+              if (!context.mounted) return;
               context.go('/dashboard/contact');
             },
           ),
@@ -109,7 +91,9 @@ class ClientNavBar extends StatelessWidget {
             color: ModalRoute.of(context)!.settings.name == 'my-account'
                 ? AppColors.gold100
                 : AppColors.white100,
-            onPressed: () {
+            onPressed: () async {
+              await AppMiddleware.updateClienData(context);
+              if (!context.mounted) return;
               context.go('/dashboard/my-account');
             },
           ),

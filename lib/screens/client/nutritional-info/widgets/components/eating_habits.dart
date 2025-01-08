@@ -54,8 +54,6 @@ class EatingHabitsState extends State<EatingHabits> {
   @override
   void initState() {
     super.initState();
-    //? Calcular edad
-    WidgetsBinding.instance.addPostFrameCallback((_) async {});
   }
 
   @override

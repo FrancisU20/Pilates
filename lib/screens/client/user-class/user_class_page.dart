@@ -3,10 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/integrations/maps_launcher.dart';
 import 'package:pilates/models/user-class/user_class_model.dart';
 import 'package:pilates/providers/user-class/user_class_provider.dart';
-import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/client/client_app_bar.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
+import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_icon_button.dart';
@@ -27,7 +27,10 @@ class UserClassPageState extends State<UserClassPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Provider.of<UserClassProvider>(context, listen: false)
+          .getUserClass(context);
+    });
   }
 
   @override
@@ -41,7 +44,9 @@ class UserClassPageState extends State<UserClassPage> {
       children: [
         Scaffold(
             backgroundColor: AppColors.white100,
-            appBar: const ClientAppBar(backgroundColor: AppColors.brown200),
+            appBar: const ClientAppBar(
+              backgroundColor: AppColors.brown200,
+            ),
             body: Container(
               color: AppColors.brown200,
               child: Column(
@@ -70,7 +75,7 @@ class UserClassPageState extends State<UserClassPage> {
                                   //? Aqui va el get con filtro solo (A)
                                   userClassProvider.getUserClass(context);
                                 },
-                                text: 'Próximas',
+                                text: 'Agendadas',
                                 color: !userClassProvider.isHistory
                                     ? AppColors.gold100
                                     : AppColors.white100),
@@ -349,7 +354,18 @@ class UserClassPageState extends State<UserClassPage> {
                                                     width: 10,
                                                     icon:
                                                         FontAwesomeIcons.xmark,
-                                                    onPressed: () {}),
+                                                    onPressed: () {
+                                                      AppDialogs.showDeleteConfirm(
+                                                          context,
+                                                          listUserClass[index]
+                                                              .id!,
+                                                          DateTime.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .classDate
+                                                                  .toString()));
+                                                    }),
                                               ],
                                             )
                                           ] else if (userClassProvider
@@ -423,24 +439,7 @@ class UserClassPageState extends State<UserClassPage> {
               ),
             ),
             bottomNavigationBar: const ClientNavBar()),
-        Consumer<UserClassProvider>(
-          builder: (context, userClassProvider, child) {
-            if (userClassProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
-        Consumer<UserPlanProvider>(
-          builder: (context, userPlanProvider, child) {
-            if (userPlanProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }

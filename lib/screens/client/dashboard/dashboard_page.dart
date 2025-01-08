@@ -274,15 +274,7 @@ class DashboardPageState extends State<DashboardPage> {
           ),
           bottomNavigationBar: const ClientNavBar(),
         ),
-        Consumer<UserPlanProvider>(
-          builder: (context, userPlanProvider, child) {
-            if (userPlanProvider.isLoading) {
-              return const AppLoading();
-            } else {
-              return const SizedBox();
-            }
-          },
-        ),
+        const AppLoading(),
       ],
     );
   }
