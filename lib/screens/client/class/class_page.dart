@@ -56,125 +56,128 @@ class ClassPageState extends State<ClassPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: AppColors.white100,
-          appBar: const ClientAppBar(
-              backgroundColor: AppColors.brown200, ),
-          body: Container(
-            color: AppColors.brown200,
-            child: Column(
-              children: [
-                const CustomPageHeader(
-                    icon: FontAwesomeIcons.calendarPlus,
-                    title: 'Agendar Cita',
-                    subtitle: 'Selecciona la fecha y hora'),
-                SizedBox(
-                  height: SizeConfig.scaleHeight(2),
-                ),
-                Consumer<ClassProvider>(
-                  builder: (context, classProvider, child) {
-                    if (classProvider.listClass.isEmpty) {
-                      return AppEmptyData(
-                          imagePath:
-                              'https://curvepilates-bucket.s3.amazonaws.com/app-assets/calendar/empty-calendar.png',
-                          message:
-                              'Es probable que no haya horarios disponibles. Por favor intenta más tarde',
-                          buttonText: 'Volver',
-                          onButtonPressed: () {
-                            context.pop();
-                          });
-                    } else {
-                      return Flexible(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.scaleWidth(5),
-                              vertical: SizeConfig.scaleHeight(2)),
-                          decoration: const BoxDecoration(
-                            color: AppColors.white100,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(25),
-                              topRight: Radius.circular(25),
+    return PopScope(
+      canPop: false,
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: AppColors.white100,
+            appBar: const ClientAppBar(
+                backgroundColor: AppColors.brown200, ),
+            body: Container(
+              color: AppColors.brown200,
+              child: Column(
+                children: [
+                  const CustomPageHeader(
+                      icon: FontAwesomeIcons.calendarPlus,
+                      title: 'Agendar Cita',
+                      subtitle: 'Selecciona la fecha y hora'),
+                  SizedBox(
+                    height: SizeConfig.scaleHeight(2),
+                  ),
+                  Consumer<ClassProvider>(
+                    builder: (context, classProvider, child) {
+                      if (classProvider.listClass.isEmpty) {
+                        return AppEmptyData(
+                            imagePath:
+                                'https://curvepilates-bucket.s3.amazonaws.com/app-assets/calendar/empty-calendar.png',
+                            message:
+                                'Es probable que no haya horarios disponibles. Por favor intenta más tarde',
+                            buttonText: 'Volver',
+                            onButtonPressed: () {
+                              context.pop();
+                            });
+                      } else {
+                        return Flexible(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.scaleWidth(5),
+                                vertical: SizeConfig.scaleHeight(2)),
+                            decoration: const BoxDecoration(
+                              color: AppColors.white100,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                topRight: Radius.circular(25),
+                              ),
                             ),
-                          ),
-                          height: SizeConfig.scaleHeight(100),
-                          width: SizeConfig.scaleWidth(100),
-                          child: ListView(
-                            children: [
-                              Column(
-                                children: [
-                                  ViewMonth(
-                                    calendarFormat: calendarFormat,
-                                    onToggle: (calendarFormat) {
-                                      setState(() {
-                                        this.calendarFormat = calendarFormat;
-                                      });
-                                    },
-                                  ),
-                                  ClassPicker(
-                                    calendarFormat: calendarFormat,
-                                    classList: classProvider.listClass,
-                                  ),
-                                  SizedBox(
-                                    height: SizeConfig.scaleHeight(2),
-                                  ),
-                                  if (classProvider
-                                      .listClassFilter.isNotEmpty) ...[
-                                    CustomText(
-                                        text: 'Selecciona la hora de inicio:',
-                                        fontSize: SizeConfig.scaleText(2)),
-                                    SizedBox(
-                                      height: SizeConfig.scaleHeight(2),
-                                    ),
-                                    HourPicker(
-                                      userClassList:
-                                          classProvider.listClassFilter,
-                                    ),
-                                    SizedBox(
-                                      height: SizeConfig.scaleHeight(2),
-                                    ),
-                                    CustomText(
-                                        text: 'Nuestras actividades:',
-                                        fontSize: SizeConfig.scaleText(2)),
-                                    ActivitiesGallery(
-                                        activitiesData: activitiesData),
-                                    SizedBox(
-                                      height: SizeConfig.scaleHeight(2),
-                                    ),
-                                    CustomButton(
-                                      text: 'Crear Cita',
-                                      color: AppColors.brown200,
-                                      onPressed: () async {
-                                        if (classProvider.selectedClass ==
-                                            null) {
-                                          CustomSnackBar.show(
-                                              context,
-                                              'Por favor selecciona un día y hora',
-                                              SnackBarType.error);
-                                          return;
-                                        }
-                                        await classProvider
-                                            .createClass(context);
+                            height: SizeConfig.scaleHeight(100),
+                            width: SizeConfig.scaleWidth(100),
+                            child: ListView(
+                              children: [
+                                Column(
+                                  children: [
+                                    ViewMonth(
+                                      calendarFormat: calendarFormat,
+                                      onToggle: (calendarFormat) {
+                                        setState(() {
+                                          this.calendarFormat = calendarFormat;
+                                        });
                                       },
                                     ),
-                                  ]
-                                ],
-                              ),
-                            ],
+                                    ClassPicker(
+                                      calendarFormat: calendarFormat,
+                                      classList: classProvider.listClass,
+                                    ),
+                                    SizedBox(
+                                      height: SizeConfig.scaleHeight(2),
+                                    ),
+                                    if (classProvider
+                                        .listClassFilter.isNotEmpty) ...[
+                                      CustomText(
+                                          text: 'Selecciona la hora de inicio:',
+                                          fontSize: SizeConfig.scaleText(2)),
+                                      SizedBox(
+                                        height: SizeConfig.scaleHeight(2),
+                                      ),
+                                      HourPicker(
+                                        userClassList:
+                                            classProvider.listClassFilter,
+                                      ),
+                                      SizedBox(
+                                        height: SizeConfig.scaleHeight(2),
+                                      ),
+                                      CustomText(
+                                          text: 'Nuestras actividades:',
+                                          fontSize: SizeConfig.scaleText(2)),
+                                      ActivitiesGallery(
+                                          activitiesData: activitiesData),
+                                      SizedBox(
+                                        height: SizeConfig.scaleHeight(2),
+                                      ),
+                                      CustomButton(
+                                        text: 'Crear Cita',
+                                        color: AppColors.brown200,
+                                        onPressed: () async {
+                                          if (classProvider.selectedClass ==
+                                              null) {
+                                            CustomSnackBar.show(
+                                                context,
+                                                'Por favor selecciona un día y hora',
+                                                SnackBarType.error);
+                                            return;
+                                          }
+                                          await classProvider
+                                              .createClass(context);
+                                        },
+                                      ),
+                                    ]
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ],
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
+            bottomNavigationBar: const ClientNavBar(),
           ),
-          bottomNavigationBar: const ClientNavBar(),
-        ),
-        const AppLoading(),
-      ],
+          const AppLoading(),
+        ],
+      ),
     );
   }
 }

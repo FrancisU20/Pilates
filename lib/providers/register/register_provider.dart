@@ -83,6 +83,57 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //? Clean Variables
+  void cleanEmail() {
+    email = '';
+    notifyListeners();
+  }
+
+  void cleanDni() {
+    dni = '';
+    notifyListeners();
+  }
+
+  void cleanName() {
+    name = '';
+    notifyListeners();
+  }
+
+  void cleanLastname() {
+    lastname = '';
+    notifyListeners();
+  }
+
+  void cleanPassword() {
+    password = '';
+    notifyListeners();
+  }
+
+  void cleanRepeatPassword() {
+    repeatPassword = '';
+    notifyListeners();
+  }
+
+  void cleanBirthday() {
+    birthday = null;
+    notifyListeners();
+  }
+
+  void cleanPhone() {
+    phone = '';
+    notifyListeners();
+  }
+
+  void cleanGender(){
+    gender = '';
+    notifyListeners();
+  }
+
+  void cleanProfilePhotoUrl() {
+    profilePhotoUrl = '';
+    notifyListeners();
+  }
+
   //****************************************/
   //? Objetos
 
@@ -137,22 +188,27 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //? Eliminar toda la data
-  void clearData() {
-    email = '';
-    dni = '';
-    name = '';
-    lastname = '';
-    password = '';
-    repeatPassword = '';
-    birthday = DateTime.now();
-    phone = '';
-    gender = '';
-    profilePhotoUrl = '';
+  //? Clear reutilizables
+  void cleanSteps() {
     currentStep = 0;
     isStep1Completed = false;
     isStep2Completed = false;
     isStep3Completed = false;
+    notifyListeners();
+  }
+
+  //? Eliminar toda la data
+  void reset() {
+    cleanEmail();
+    cleanDni();
+    cleanName();
+    cleanPassword();
+    cleanRepeatPassword();
+    cleanBirthday();
+    cleanPhone();
+    cleanGender();
+    cleanProfilePhotoUrl();
+    cleanSteps();
     notifyListeners();
   }
 

@@ -6,7 +6,13 @@ import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/login/login_controller.dart';
 import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/user/user_model.dart';
+import 'package:pilates/providers/class/class_provider.dart';
+import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
+import 'package:pilates/providers/plan/plan_provider.dart';
+import 'package:pilates/providers/recover-password/recover_password_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
+import 'package:pilates/providers/user-class/user_class_provider.dart';
+import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,6 +45,22 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //? Clear Variables
+  void clearEmail() {
+    email = '';
+    notifyListeners();
+  }
+
+  void clearPassword() {
+    password = '';
+    notifyListeners();
+  }
+
+  void clearCanCheckBiometric() {
+    canCheckBiometric = false;
+    notifyListeners();
+  }
+
   //****************************************/
   //? Objetos
   UserModel? user;
@@ -49,6 +71,12 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //? Clean Objetos
+  void clearUser() {
+    user = null;
+    notifyListeners();
+  }
+
   //****************************************/
   //? Listas
   List<BiometricType> listBiometrics = [];
@@ -56,6 +84,12 @@ class LoginProvider extends ChangeNotifier {
   //? Setters Listas
   void setListBiometrics(List<BiometricType> listBiometrics) {
     this.listBiometrics = listBiometrics;
+    notifyListeners();
+  }
+
+  //? Clean Listas
+  void clearListBiometrics() {
+    listBiometrics = [];
     notifyListeners();
   }
 
@@ -73,6 +107,44 @@ class LoginProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  //! Eliminar toda la data
+  void reset() {
+    clearEmail();
+    clearPassword();
+    clearUser();
+    clearListBiometrics();
+    clearCanCheckBiometric();
+  }
+
+  //! METODO UNICO DE ESTA CLASE LOGOUT
+  void logout(BuildContext context) {
+    ClassProvider classProvider =
+        Provider.of<ClassProvider>(context, listen: false);
+    NutritionalInfoProvider nutritionalInfoProvider =
+        Provider.of<NutritionalInfoProvider>(context, listen: false);
+    PlanProvider planProvider =
+        Provider.of<PlanProvider>(context, listen: false);
+    RecoverPasswordProvider recoverPasswordProvider =
+        Provider.of<RecoverPasswordProvider>(context, listen: false);
+    RegisterProvider registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+    UserClassProvider userClassProvider =
+        Provider.of<UserClassProvider>(context, listen: false);
+    UserPlanProvider userPlanProvider =
+        Provider.of<UserPlanProvider>(context, listen: false);
+
+    //? Resetear estados
+    classProvider.reset();
+    nutritionalInfoProvider.reset();
+    planProvider.reset();
+    recoverPasswordProvider.reset();
+    registerProvider.reset();
+    userClassProvider.reset();
+    userPlanProvider.reset();
+    reset(); //! Provider de Login
+  }
+
   //****************************************/
   //***************FUNCIONES****************/
   //****************************************/
@@ -93,11 +165,12 @@ class LoginProvider extends ChangeNotifier {
       context,
       listen: false,
     );
-    registerProvider.clearData();
+    registerProvider.reset();
     try {
       showLoading();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      StandardResponse<UserModel> loginResponse = await loginController.login(email, password);
+      StandardResponse<UserModel> loginResponse =
+          await loginController.login(email, password);
 
       UserModel loggingInUser = loginResponse.data!;
 

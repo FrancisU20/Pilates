@@ -93,8 +93,8 @@ class ClassProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //? Eliminar toda la data
-  void clearData() {
+  //! Eliminar toda la data
+  void reset() {
     cleanSelectedHourIndex();
     cleanSelectedClass();
     cleanListClass();

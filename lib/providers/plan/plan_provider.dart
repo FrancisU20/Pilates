@@ -31,6 +31,12 @@ class PlanProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //? Clear Listas
+  void clearListPlans() {
+    plans = [];
+    notifyListeners();
+  }
+
   //****************************************/
   //? Reutilizables
   bool isLoading = false;
@@ -47,7 +53,8 @@ class PlanProvider extends ChangeNotifier {
   }
 
   //? Eliminar toda la data
-  void clearData() {
+  void reset() {
+    clearListPlans();
     notifyListeners();
   }
 

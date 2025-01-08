@@ -32,151 +32,154 @@ class TransferPaymentPageState extends State<TransferPaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Consumer<LoginProvider>(
-          builder: (context, loginProvider, child) {
-            return Consumer<UserPlanProvider>(
-              builder: (context, userPlanProvider, child) {
-                DateTime planStart = DateTime.now();
-                DateTime planExpiration = planStart.add(Duration(
-                    days:
-                        userPlanProvider.selectedPlan!.classesValidityPeriod));
-                return Scaffold(
-                  backgroundColor: AppColors.white100,
-                  appBar: const ClientAppBar(
-                      backgroundColor: AppColors.brown200, ),
-                  body: Stack(children: [
-                    Container(
-                      color: AppColors.brown200,
-                      child: Column(
-                        children: [
-                          const CustomPageHeader(
-                              icon: FontAwesomeIcons.moneyBill,
-                              title: 'CheckOut',
-                              subtitle: 'Transferencia bancaria'),
-                          SizedBox(
-                            height: SizeConfig.scaleHeight(2),
-                          ),
-                          Expanded(
-                            child: Container(
-                                width: SizeConfig.scaleWidth(100),
-                                height: SizeConfig.scaleHeight(78),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: SizeConfig.scaleWidth(5),
-                                    vertical: SizeConfig.scaleHeight(2)),
-                                decoration: const BoxDecoration(
-                                    color: AppColors.white100,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(25),
-                                        topRight: Radius.circular(25))),
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  physics: const ClampingScrollPhysics(),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Visibility(
-                                        visible:
-                                            userPlanProvider.userPaymentImage ==
-                                                '',
-                                        child: Column(
-                                          children: [
-                                            Center(
-                                              child: CustomText(
-                                                  text:
-                                                      'Verifica tu carné virtual',
-                                                  color: AppColors.black100,
-                                                  fontSize:
-                                                      SizeConfig.scaleText(2.5),
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            SizedBox(
-                                              height: SizeConfig.scaleHeight(2),
-                                            ),
-                                            ClientIdentification(
-                                              loginProvider: loginProvider,
-                                              userPlanProvider:
-                                                  userPlanProvider,
-                                            ),
-                                            SizedBox(
-                                              height: SizeConfig.scaleHeight(2),
-                                            ),
-                                            PlanDetails(
+    return PopScope(
+      canPop: false,
+      child: Stack(
+        children: [
+          Consumer<LoginProvider>(
+            builder: (context, loginProvider, child) {
+              return Consumer<UserPlanProvider>(
+                builder: (context, userPlanProvider, child) {
+                  DateTime planStart = DateTime.now();
+                  DateTime planExpiration = planStart.add(Duration(
+                      days:
+                          userPlanProvider.selectedPlan!.classesValidityPeriod));
+                  return Scaffold(
+                    backgroundColor: AppColors.white100,
+                    appBar: const ClientAppBar(
+                        backgroundColor: AppColors.brown200, ),
+                    body: Stack(children: [
+                      Container(
+                        color: AppColors.brown200,
+                        child: Column(
+                          children: [
+                            const CustomPageHeader(
+                                icon: FontAwesomeIcons.moneyBill,
+                                title: 'CheckOut',
+                                subtitle: 'Transferencia bancaria'),
+                            SizedBox(
+                              height: SizeConfig.scaleHeight(2),
+                            ),
+                            Expanded(
+                              child: Container(
+                                  width: SizeConfig.scaleWidth(100),
+                                  height: SizeConfig.scaleHeight(78),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: SizeConfig.scaleWidth(5),
+                                      vertical: SizeConfig.scaleHeight(2)),
+                                  decoration: const BoxDecoration(
+                                      color: AppColors.white100,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(25),
+                                          topRight: Radius.circular(25))),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    physics: const ClampingScrollPhysics(),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Visibility(
+                                          visible:
+                                              userPlanProvider.userPaymentImage ==
+                                                  '',
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: CustomText(
+                                                    text:
+                                                        'Verifica tu carné virtual',
+                                                    color: AppColors.black100,
+                                                    fontSize:
+                                                        SizeConfig.scaleText(2.5),
+                                                    fontWeight: FontWeight.w400),
+                                              ),
+                                              SizedBox(
+                                                height: SizeConfig.scaleHeight(2),
+                                              ),
+                                              ClientIdentification(
+                                                loginProvider: loginProvider,
                                                 userPlanProvider:
                                                     userPlanProvider,
-                                                planStart: planStart,
-                                                planExpiration: planExpiration),
-                                            SizedBox(
-                                              height: SizeConfig.scaleHeight(2),
-                                            ),
-                                            const AppBankDetails(),
-                                          ],
+                                              ),
+                                              SizedBox(
+                                                height: SizeConfig.scaleHeight(2),
+                                              ),
+                                              PlanDetails(
+                                                  userPlanProvider:
+                                                      userPlanProvider,
+                                                  planStart: planStart,
+                                                  planExpiration: planExpiration),
+                                              SizedBox(
+                                                height: SizeConfig.scaleHeight(2),
+                                              ),
+                                              const AppBankDetails(),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Visibility(
-                                        visible:
-                                            userPlanProvider.userPaymentImage !=
-                                                '',
-                                        child: Column(
-                                          children: [
-                                            Center(
-                                              child: CustomText(
-                                                  text: 'Ya casi terminamos',
-                                                  color: AppColors.black100,
-                                                  fontSize:
-                                                      SizeConfig.scaleText(2.5),
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            SizedBox(
-                                              height: SizeConfig.scaleHeight(2),
-                                            ),
-                                            const PlanStatusDisclaimer(),
-                                            SizedBox(
-                                              height: SizeConfig.scaleHeight(2),
-                                            ),
-                                            CustomButton(
-                                                onPressed: () {
-                                                  whatsappServices.whatsappRedirect(
-                                                      message:
-                                                          'Hola, necesito ayuda con la activación de mi plan. Mi número de cédula es ${loginProvider.user!.dniNumber}');
-                                                },
-                                                text: 'Informar pago',
-                                                color: AppColors.brown200,
-                                                icon:
-                                                    FontAwesomeIcons.whatsapp),
-                                          ],
+                                        Visibility(
+                                          visible:
+                                              userPlanProvider.userPaymentImage !=
+                                                  '',
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: CustomText(
+                                                    text: 'Ya casi terminamos',
+                                                    color: AppColors.black100,
+                                                    fontSize:
+                                                        SizeConfig.scaleText(2.5),
+                                                    fontWeight: FontWeight.w400),
+                                              ),
+                                              SizedBox(
+                                                height: SizeConfig.scaleHeight(2),
+                                              ),
+                                              const PlanStatusDisclaimer(),
+                                              SizedBox(
+                                                height: SizeConfig.scaleHeight(2),
+                                              ),
+                                              CustomButton(
+                                                  onPressed: () {
+                                                    whatsappServices.whatsappRedirect(
+                                                        message:
+                                                            'Hola, necesito ayuda con la activación de mi plan. Mi número de cédula es ${loginProvider.user!.dniNumber}');
+                                                  },
+                                                  text: 'Informar pago',
+                                                  color: AppColors.brown200,
+                                                  icon:
+                                                      FontAwesomeIcons.whatsapp),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ]),
-                  floatingActionButton: userPlanProvider.userPaymentImage != ''
-                      ? null
-                      : FloatingActionButton(
-                          onPressed: () {
-                            AppDialogs.showTransferPaymentPicker(
-                                context, loginProvider.user!.dniNumber);
-                          },
-                          backgroundColor: AppColors.brown200,
-                          child: const Icon(
-                            FontAwesomeIcons.camera,
-                            color: AppColors.white100,
-                          ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ],
                         ),
-                );
-              },
-            );
-          },
-        ),
-        const AppLoading(),
-      ],
+                      ),
+                    ]),
+                    floatingActionButton: userPlanProvider.userPaymentImage != ''
+                        ? null
+                        : FloatingActionButton(
+                            onPressed: () {
+                              AppDialogs.showTransferPaymentPicker(
+                                  context, loginProvider.user!.dniNumber);
+                            },
+                            backgroundColor: AppColors.brown200,
+                            child: const Icon(
+                              FontAwesomeIcons.camera,
+                              color: AppColors.white100,
+                            ),
+                          ),
+                  );
+                },
+              );
+            },
+          ),
+          const AppLoading(),
+        ],
+      ),
     );
   }
 }

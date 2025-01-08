@@ -132,7 +132,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
   }
 
   //? Eliminar toda la data
-  void cleanData() {
+  void reset() {
     cleanRecoverPasswordModel();
     cleanSteps();
     cleanEmail();
@@ -296,7 +296,7 @@ class RecoverPasswordProvider extends ChangeNotifier {
       prefs.remove('email');
       prefs.remove('password');
 
-      cleanData();
+      reset();
       Logger.logCustomMessage('Atencion:', 'Se ha eliminado todos los datos de memoria');
 
       context.go('/login');

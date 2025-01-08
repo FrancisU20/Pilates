@@ -104,7 +104,7 @@ class UserClassProvider extends ChangeNotifier {
   }
 
   //? Eliminar toda la data
-  void clearData() {
+  void reset() {
     cleanIsHistory();
     cleanlistUserClass();
     cleanListUserClassHistory();

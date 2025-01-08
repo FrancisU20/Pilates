@@ -304,7 +304,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearData() {
+  void reset() {
     isEditable = false;
     clearNutritionalInfo();
     age = 0;

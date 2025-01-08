@@ -70,7 +70,7 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       NutritionalInfoProvider nutritionalInfoProvider =
           Provider.of<NutritionalInfoProvider>(context, listen: false);
-      nutritionalInfoProvider.clearData();
+      nutritionalInfoProvider.reset();
       await nutritionalInfoProvider.getUserNutritionalInfo(context);
       await nutritionalInfoProvider.fillNutritionalInfo();
       await nutritionalInfoProvider.updateAllTextEditingControllers(
@@ -162,88 +162,43 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: AppColors.brown200,
-          appBar: const ClientAppBar(
-              backgroundColor: AppColors.brown200, ),
-          body: Container(
-            color: AppColors.brown200,
-            child: Column(
-              children: [
-                const CustomPageHeader(
-                    icon: FontAwesomeIcons.boxesStacked,
-                    title: 'Ficha Nutricional',
-                    subtitle: 'Ingresa o actualiza tu información'),
-                SizedBox(
-                  height: SizeConfig.scaleHeight(2),
-                ),
-                Consumer<NutritionalInfoProvider>(
-                  builder: (context, nutritionalInfoProvider, child) {
-                    if (nutritionalInfoProvider.nutritionalInfo == null &&
-                        nutritionalInfoProvider.isEditable == false) {
-                      return AppEmptyData(
-                          imagePath:
-                              'https://curvepilates-bucket.s3.amazonaws.com/app-assets/clipboard/empty-clipboard.png',
-                          message:
-                              'Aún no has completado tu ficha nutricional. Crea una nueva y agrega tu información.',
-                          buttonText: 'Crear Ficha',
-                          onButtonPressed: () {
-                            nutritionalInfoProvider.setIsEditable(true);
-                          },
-                          buttonIcon: FontAwesomeIcons.plus);
-                    } else if (nutritionalInfoProvider.nutritionalInfo !=
-                            null &&
-                        nutritionalInfoProvider.isEditable == false) {
-                      return NutritionalSheet(
-                        completeNameController: completeNameController,
-                        birthDateController: birthDateController,
-                        ageController: ageController,
-                        genderController: genderController,
-                        maritalStatusController: maritalStatusController,
-                        addressController: addressController,
-                        occupationController: occupationController,
-                        phoneController: phoneController,
-                        emailController: emailController,
-                        numberOfMealsController: numberOfMealsController,
-                        medicationAllergyController:
-                            medicationAllergyController,
-                        takesSupplementController: takesSupplementController,
-                        supplementNameController: supplementNameController,
-                        supplementDoseController: supplementDoseController,
-                        supplementReasonController: supplementReasonController,
-                        foodVariesWithMoodController:
-                            foodVariesWithMoodController,
-                        hasDietPlanController: hasDietPlanController,
-                        consumesAlcoholController: consumesAlcoholController,
-                        smokesController: smokesController,
-                        previousPhysicalActivityController:
-                            previousPhysicalActivityController,
-                        isPregnantController: isPregnantController,
-                        currentPhysicalActivityController:
-                            currentPhysicalActivityController,
-                        currentSportsInjuryDurationController:
-                            currentSportsInjuryDurationController,
-                        diabetesController: diabetesController,
-                        dyslipidemiasController: dyslipidemiasController,
-                        obesityController: obesityController,
-                        hypertensionController: hypertensionController,
-                        cancerController: cancerController,
-                        hypoHyperthyroidismController:
-                            hypoHyperthyroidismController,
-                        otherConditionsController: otherConditionsController,
-                        weightController: weightController,
-                        heightController: heightController,
-                        neckCircumferenceController:
-                            neckCircumferenceController,
-                        waistCircumferenceController:
-                            waistCircumferenceController,
-                        hipCircumferenceController: hipCircumferenceController,
-                        viewMode: true,
-                      );
-                    } else {
-                      return NutritionalSheet(
+    return PopScope(
+      canPop: false,
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: AppColors.brown200,
+            appBar: const ClientAppBar(
+                backgroundColor: AppColors.brown200, ),
+            body: Container(
+              color: AppColors.brown200,
+              child: Column(
+                children: [
+                  const CustomPageHeader(
+                      icon: FontAwesomeIcons.boxesStacked,
+                      title: 'Ficha Nutricional',
+                      subtitle: 'Ingresa o actualiza tu información'),
+                  SizedBox(
+                    height: SizeConfig.scaleHeight(2),
+                  ),
+                  Consumer<NutritionalInfoProvider>(
+                    builder: (context, nutritionalInfoProvider, child) {
+                      if (nutritionalInfoProvider.nutritionalInfo == null &&
+                          nutritionalInfoProvider.isEditable == false) {
+                        return AppEmptyData(
+                            imagePath:
+                                'https://curvepilates-bucket.s3.amazonaws.com/app-assets/clipboard/empty-clipboard.png',
+                            message:
+                                'Aún no has completado tu ficha nutricional. Crea una nueva y agrega tu información.',
+                            buttonText: 'Crear Ficha',
+                            onButtonPressed: () {
+                              nutritionalInfoProvider.setIsEditable(true);
+                            },
+                            buttonIcon: FontAwesomeIcons.plus);
+                      } else if (nutritionalInfoProvider.nutritionalInfo !=
+                              null &&
+                          nutritionalInfoProvider.isEditable == false) {
+                        return NutritionalSheet(
                           completeNameController: completeNameController,
                           birthDateController: birthDateController,
                           ageController: ageController,
@@ -259,8 +214,7 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
                           takesSupplementController: takesSupplementController,
                           supplementNameController: supplementNameController,
                           supplementDoseController: supplementDoseController,
-                          supplementReasonController:
-                              supplementReasonController,
+                          supplementReasonController: supplementReasonController,
                           foodVariesWithMoodController:
                               foodVariesWithMoodController,
                           hasDietPlanController: hasDietPlanController,
@@ -287,17 +241,66 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
                               neckCircumferenceController,
                           waistCircumferenceController:
                               waistCircumferenceController,
-                          hipCircumferenceController:
-                              hipCircumferenceController);
-                    }
-                  },
-                ),
-              ],
+                          hipCircumferenceController: hipCircumferenceController,
+                          viewMode: true,
+                        );
+                      } else {
+                        return NutritionalSheet(
+                            completeNameController: completeNameController,
+                            birthDateController: birthDateController,
+                            ageController: ageController,
+                            genderController: genderController,
+                            maritalStatusController: maritalStatusController,
+                            addressController: addressController,
+                            occupationController: occupationController,
+                            phoneController: phoneController,
+                            emailController: emailController,
+                            numberOfMealsController: numberOfMealsController,
+                            medicationAllergyController:
+                                medicationAllergyController,
+                            takesSupplementController: takesSupplementController,
+                            supplementNameController: supplementNameController,
+                            supplementDoseController: supplementDoseController,
+                            supplementReasonController:
+                                supplementReasonController,
+                            foodVariesWithMoodController:
+                                foodVariesWithMoodController,
+                            hasDietPlanController: hasDietPlanController,
+                            consumesAlcoholController: consumesAlcoholController,
+                            smokesController: smokesController,
+                            previousPhysicalActivityController:
+                                previousPhysicalActivityController,
+                            isPregnantController: isPregnantController,
+                            currentPhysicalActivityController:
+                                currentPhysicalActivityController,
+                            currentSportsInjuryDurationController:
+                                currentSportsInjuryDurationController,
+                            diabetesController: diabetesController,
+                            dyslipidemiasController: dyslipidemiasController,
+                            obesityController: obesityController,
+                            hypertensionController: hypertensionController,
+                            cancerController: cancerController,
+                            hypoHyperthyroidismController:
+                                hypoHyperthyroidismController,
+                            otherConditionsController: otherConditionsController,
+                            weightController: weightController,
+                            heightController: heightController,
+                            neckCircumferenceController:
+                                neckCircumferenceController,
+                            waistCircumferenceController:
+                                waistCircumferenceController,
+                            hipCircumferenceController:
+                                hipCircumferenceController);
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const AppLoading(),
-      ],
+          const AppLoading(),
+        ],
+      ),
     );
   }
 }

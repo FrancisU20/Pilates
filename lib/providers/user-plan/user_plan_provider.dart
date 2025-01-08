@@ -110,7 +110,7 @@ class UserPlanProvider extends ChangeNotifier {
   }
 
   //? Eliminar toda la data
-  void clearData() {
+  void reset() {
     clearUserPaymentImage();
     clearSelectedPlan();
     clearActiveUserPlan();

@@ -192,6 +192,8 @@ class AppDialogs {
   }
 
   static Future<void> showLogout(BuildContext context) {
+    LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context, listen: false);
     return showDialog(
         context: context,
         builder: (context) {
@@ -250,7 +252,9 @@ class AppDialogs {
                 color: AppColors.brown200,
                 width: SizeConfig.scaleWidth(6),
                 onPressed: () {
-                  context.go('/login');
+                  context.pop();
+                  context.go('/');
+                  loginProvider.logout(context);
                 },
               ),
             ],
@@ -685,7 +689,8 @@ class AppDialogs {
                               textAlign: TextAlign.justify,
                             ),
                             CustomText(
-                              text: 'Si cancelas la última clase disponible de tu plan, esta no será repuesta, y el plan se marcará como completado.',
+                              text:
+                                  'Si cancelas la última clase disponible de tu plan, esta no será repuesta, y el plan se marcará como completado.',
                               color: AppColors.red300,
                               fontSize: SizeConfig.scaleHeight(1.8),
                               fontWeight: FontWeight.w600,
