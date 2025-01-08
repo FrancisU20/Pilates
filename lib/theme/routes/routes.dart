@@ -7,6 +7,7 @@ import 'package:pilates/screens/client/my-account/my_account_page.dart';
 import 'package:pilates/screens/client/nutritional-info/nutritional_info_page.dart';
 import 'package:pilates/screens/client/payment-methods/transfer_payment_page.dart';
 import 'package:pilates/screens/client/plan/plan_page.dart';
+import 'package:pilates/screens/client/recover-password/recover_password_page.dart';
 import 'package:pilates/screens/client/user-class/user_class_page.dart';
 import 'package:pilates/screens/common/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
@@ -38,11 +39,18 @@ final GoRouter goRouter = GoRouter(routes: <GoRoute>[
 
   //? Login
   GoRoute(
-    path: '/login',
-    builder: (BuildContext context, GoRouterState state) {
-      return const LoginPage();
-    },
-  ),
+      path: '/login',
+      builder: (BuildContext context, GoRouterState state) {
+        return const LoginPage();
+      },
+      routes: [
+        GoRoute(
+          path: 'recover-password',
+          builder: (BuildContext context, GoRouterState state) {
+            return const RecoverPasswordPage();
+          },
+        )
+      ]),
 
   //? Dashboard
   GoRoute(

@@ -6,7 +6,6 @@ import 'package:pilates/config/size_config.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
-import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_icon_button.dart';
@@ -219,7 +218,11 @@ class LoginPageState extends State<LoginPage> {
                                                 text:
                                                     '¿Olvidaste tu contraseña?',
                                                 onPressed: () {
-                                                  AppDialogs.showResetPassword(context);
+                                                  Router.neglect(
+                                                    context,
+                                                    () => context.replace(
+                                                        '/login/recover-password'),
+                                                  );
                                                 },
                                                 color: AppColors.brown200,
                                               ),

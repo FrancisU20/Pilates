@@ -61,7 +61,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                               children: [
                                 CustomImageNetwork(
                                   imagePath: loginProvider.user!.photo,
-                                  height: SizeConfig.scaleHeight(28),
+                                  height: SizeConfig.scaleHeight(25),
                                   width: SizeConfig.scaleWidth(35),
                                 ),
                                 SizedBox(width: SizeConfig.scaleWidth(5)),

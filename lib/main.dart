@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/providers/plan/plan_provider.dart';
+import 'package:pilates/providers/recover-password/recover_password_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/providers/user-class/user_class_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
@@ -48,6 +49,8 @@ Future<void> main() async {
           create: (_) => NutritionalInfoProvider()),
       ChangeNotifierProvider<ClassProvider>(
           create: (_) => ClassProvider()),
+      ChangeNotifierProvider<RecoverPasswordProvider>(
+          create: (_) => RecoverPasswordProvider()),
     ],
     child: const MyApp(),
   ));

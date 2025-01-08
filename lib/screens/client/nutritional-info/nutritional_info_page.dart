@@ -113,6 +113,54 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
   }
 
   @override
+  void dispose() {
+    //? Información Personal
+    completeNameController.dispose();
+    birthDateController.dispose();
+    ageController.dispose();
+    genderController.dispose();
+    maritalStatusController.dispose();
+    addressController.dispose();
+    occupationController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+
+    //? Hábitos Alimenticios
+    numberOfMealsController.dispose();
+    medicationAllergyController.dispose();
+    takesSupplementController.dispose();
+    supplementNameController.dispose();
+    supplementDoseController.dispose();
+    supplementReasonController.dispose();
+    foodVariesWithMoodController.dispose();
+    hasDietPlanController.dispose();
+    consumesAlcoholController.dispose();
+    smokesController.dispose();
+    previousPhysicalActivityController.dispose();
+    currentPhysicalActivityController.dispose();
+    currentSportsInjuryDurationController.dispose();
+    isPregnantController.dispose();
+
+    //? Antecedentes Heredofamiliares
+    diabetesController.dispose();
+    dyslipidemiasController.dispose();
+    obesityController.dispose();
+    hypertensionController.dispose();
+    cancerController.dispose();
+    hypoHyperthyroidismController.dispose();
+    otherConditionsController.dispose();
+
+    //? Medidas Antropométricas
+    weightController.dispose();
+    heightController.dispose();
+    neckCircumferenceController.dispose();
+    waistCircumferenceController.dispose();
+    hipCircumferenceController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -144,7 +192,9 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
                             nutritionalInfoProvider.setIsEditable(true);
                           },
                           buttonIcon: FontAwesomeIcons.plus);
-                    } else if (nutritionalInfoProvider.nutritionalInfo != null && nutritionalInfoProvider.isEditable == false) {
+                    } else if (nutritionalInfoProvider.nutritionalInfo !=
+                            null &&
+                        nutritionalInfoProvider.isEditable == false) {
                       return NutritionalSheet(
                         completeNameController: completeNameController,
                         birthDateController: birthDateController,

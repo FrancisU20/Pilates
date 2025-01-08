@@ -71,6 +71,7 @@ class CustomTextFieldState extends State<CustomTextField> {
     super.initState();
 
     textColor = widget.labelColor;
+    obscureText = false;
 
     // Configurar inputFormatters y keyboardType basado en el tipo
     switch (widget.typeTextField) {
