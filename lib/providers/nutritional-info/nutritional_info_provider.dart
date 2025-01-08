@@ -687,6 +687,10 @@ class NutritionalInfoProvider extends ChangeNotifier {
   Future<void> getUserNutritionalInfo(BuildContext context) async {
     try {
       showLoading();
+
+      //? hacer un clear de la informacion nutricional
+      clearNutritionalInfo();
+
       LoginProvider loginProvider =
           Provider.of<LoginProvider>(context, listen: false);
 

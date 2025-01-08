@@ -40,6 +40,9 @@ class ClassPageState extends State<ClassPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ClassProvider userPlanProvider =
           Provider.of<ClassProvider>(context, listen: false);
+      //? Limpiar clase seleccionada e index
+      userPlanProvider.cleanSelectedHourIndex();
+      userPlanProvider.cleanSelectedClass();
 
       //? Consulta al de la lista de clases
       await userPlanProvider.getClassList(context);

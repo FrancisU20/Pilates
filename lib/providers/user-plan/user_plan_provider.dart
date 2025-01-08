@@ -233,7 +233,9 @@ class UserPlanProvider extends ChangeNotifier {
       LoginProvider loginProvider =
           Provider.of<LoginProvider>(context, listen: false);
       UserPlanCreateModel newUserPlan = UserPlanCreateModel(
-          userId: loginProvider.user!.id!, planId: selectedPlan!.id!, paymentPhoto: userPaymentImage);
+          userId: loginProvider.user!.id!,
+          planId: selectedPlan!.id!,
+          paymentPhoto: userPaymentImage);
 
       StandardResponse<UserPlanModel> createUserPlanResponse =
           await userPlanController.createUserPlan(newUserPlan);
@@ -346,6 +348,9 @@ class UserPlanProvider extends ChangeNotifier {
           DateTime planEnd = userPlan.planEnd;
           if (planEnd.isBefore(DateTime.now())) {
             UpdateStatusModel updateStatus = UpdateStatusModel(status: 'E');
+            await updateStatusUserPlan(context, userPlan, updateStatus);
+          } else if (userPlan.scheduledClasses == userPlan.plan.classesCount) {
+            UpdateStatusModel updateStatus = UpdateStatusModel(status: 'C');
             await updateStatusUserPlan(context, userPlan, updateStatus);
           }
         }
