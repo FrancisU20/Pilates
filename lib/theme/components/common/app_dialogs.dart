@@ -793,4 +793,85 @@ class AppDialogs {
           );
         });
   }
+
+  static Future<void> showDeleteAccountDialog(BuildContext context) {
+    LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context, listen: false);
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColors.white100,
+            title: CustomText(
+              text: 'Confirmar eliminación de cuenta',
+              color: AppColors.black100,
+              fontSize: SizeConfig.scaleText(2.5),
+              fontWeight: FontWeight.w500,
+            ),
+            content: SizedBox(
+              width: SizeConfig.scaleWidth(100),
+              height: SizeConfig.scaleHeight(30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildLogo(),
+                  Center(
+                    child: SizedBox(
+                      width: SizeConfig.scaleWidth(60),
+                      height: SizeConfig.scaleHeight(15),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            text:
+                                'Tus datos serán eliminados de forma permanente, y no podrás recuperarlos.',
+                            color: AppColors.red300,
+                            fontSize: SizeConfig.scaleText(2),
+                            fontWeight: FontWeight.w400,
+                            textAlign: TextAlign.justify,
+                            maxLines: 3,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.scaleHeight(2),
+                          ),
+                          CustomText(
+                            text: 'Estás seguro que deseas eliminar tu cuenta?',
+                            color: AppColors.red300,
+                            fontSize: SizeConfig.scaleText(2),
+                            fontWeight: FontWeight.w500,
+                            maxLines: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  context.pop();
+                },
+                child: CustomText(
+                  text: 'No',
+                  color: AppColors.green200,
+                  fontSize: SizeConfig.scaleText(2),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              CustomButton(
+                text: 'Sí',
+                color: AppColors.red300,
+                width: SizeConfig.scaleWidth(6),
+                onPressed: () async{
+                  await loginProvider.deleteUser(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
 }

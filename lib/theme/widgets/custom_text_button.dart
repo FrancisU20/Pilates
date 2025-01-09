@@ -9,6 +9,7 @@ class CustomTextButton extends StatelessWidget {
   final Color color;
   final bool isActive;
   final double fontSize;
+  final FontWeight? fontWeight;
 
   const CustomTextButton({
     super.key,
@@ -17,6 +18,7 @@ class CustomTextButton extends StatelessWidget {
     this.color = AppColors.brown200,
     this.isActive = true,
     this.fontSize = 1.7,
+    this.fontWeight = FontWeight.w400,
   });
 
   @override
@@ -24,11 +26,10 @@ class CustomTextButton extends StatelessWidget {
     return TextButton(
       onPressed: isActive ? onPressed : null,
       child: CustomText(
-        text: text ?? '',
-        color: color,
-        fontSize: SizeConfig.scaleText(fontSize),
-        fontWeight: FontWeight.w400,
-      ),
+          text: text ?? '',
+          color: color,
+          fontSize: SizeConfig.scaleText(fontSize),
+          fontWeight: fontWeight),
     );
   }
 }

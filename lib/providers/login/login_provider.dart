@@ -405,4 +405,34 @@ class LoginProvider extends ChangeNotifier {
       hideLoading();
     }
   }
+
+  //! Eliminar Usuario
+  Future<void> deleteUser(BuildContext context) async {
+    try {
+      showLoading();
+      String userId = user!.id ?? '';
+      StandardResponse<UserModel> userResponse =
+          await loginController.deleteUser(userId);
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove('email');
+      prefs.remove('password');
+
+      if (!context.mounted) return;
+      CustomSnackBar.show(
+        context,
+        userResponse.message,
+        SnackBarType.success,
+      );
+      context.go('/');
+    } catch (e) {
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
+    } finally {
+      hideLoading();
+    }
+  }
 }
