@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/screens/client/my-account/widgets/classes_summary.dart';
-import 'package:pilates/screens/client/my-account/widgets/plan_details.dart';
+import 'package:pilates/theme/components/common/app_plan_details.dart';
 import 'package:pilates/theme/components/client/client_identification.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
 import 'package:pilates/theme/components/client/client_app_bar.dart';
@@ -121,7 +121,7 @@ class MyAccountPageState extends State<MyAccountPage> {
                                         SizedBox(
                                           height: SizeConfig.scaleHeight(2),
                                         ),
-                                        PlanDetails(
+                                        AppPlanDetails(
                                           planName: userPlanProvider
                                                   .activeUserPlan?.plan.name ??
                                               'No hay plan activo',

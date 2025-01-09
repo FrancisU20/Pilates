@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/components/admin/admin_menu.dart';
 import 'package:pilates/config/icons_paths.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/components/admin/admin_menu.dart';
 
 class AdminHomeBar extends StatelessWidget implements PreferredSizeWidget {
   const AdminHomeBar({super.key});
@@ -24,10 +25,22 @@ class AdminHomeBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           onPressed: () => showDialog(
             context: context,
+            barrierDismissible: true,
             builder: (BuildContext context) => const AdminMenu(),
           ),
         ),
       ),
+      actions: [
+        IconButton(
+          icon: const Icon(
+            FontAwesomeIcons.rotateLeft,
+            color: AppColors.grey200,
+          ),
+          onPressed: () async {
+            
+          },
+        ),
+      ],
     );
   }
 }

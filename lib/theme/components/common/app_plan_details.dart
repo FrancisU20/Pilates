@@ -3,13 +3,13 @@ import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 
-class PlanDetails extends StatelessWidget {
+class AppPlanDetails extends StatelessWidget {
   final String? planName;
   final String? planDescription;
   final String? planPrice;
   final String? planEndDate;
 
-  const PlanDetails({
+  const AppPlanDetails({
     super.key,
     this.planName,
     this.planDescription,
@@ -42,10 +42,12 @@ class PlanDetails extends StatelessWidget {
             'Precio: ',
             '\$ ${planPrice ?? 0}',
           ),
-          _buildDetailRow(
-            'Vigencia: ',
-            planEndDate ?? 'Fecha no disponible',
-          ),
+          if (planEndDate != null) ...[
+            _buildDetailRow(
+              'Vigencia: ',
+              planEndDate ?? 'Fecha no disponible',
+            ),
+          ]
         ],
       ),
     );

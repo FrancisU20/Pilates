@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/providers/plan/plan_provider.dart';
@@ -56,6 +57,7 @@ Future<void> main() async {
           create: (_) => RecoverPasswordProvider()),
       ChangeNotifierProvider<UserClassProvider>(
           create: (_) => UserClassProvider()),
+      ChangeNotifierProvider<AdminProvider>(create: (_) => AdminProvider()),
     ],
     child: const MyApp(),
   ));

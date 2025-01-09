@@ -203,7 +203,11 @@ class LoginProvider extends ChangeNotifier {
       prefs.setString('email', email);
       prefs.setString('password', password);
 
-      context.go('/dashboard');
+      if (user!.role == 'admin') {
+        context.go('/admin-dashboard');
+      } else {
+        context.go('/dashboard');
+      }
       CustomSnackBar.show(
         context,
         loggingInUser.gender == 'F'

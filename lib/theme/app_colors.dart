@@ -34,6 +34,9 @@ class AppColors {
   // Oro
   static const gold100 = Color(0xFFBDAA70);
 
+  // Azul
+  static const blue200 = Color.fromARGB(255, 71, 93, 165);
+
   // Otros
   static const transparent = Colors.transparent;
 

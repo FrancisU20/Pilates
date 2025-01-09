@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pilates/screens/admin/dashboard/adm_dashboard_page.dart';
 import 'package:pilates/screens/client/contact/contact_page.dart';
 import 'package:pilates/screens/client/dashboard/dashboard_page.dart';
 import 'package:pilates/screens/client/digital-identification/digital_identification.dart';
@@ -192,5 +193,20 @@ final GoRouter goRouter = GoRouter(
         ),
       ],
     ),
+
+    //! Rutas del admin 
+    GoRoute(
+      path: '/admin-dashboard',
+      pageBuilder: (context, state) {
+        return buildPageWithFadeTransition(
+          context,
+          state,
+          const AdmDashboardPage(),
+        );
+      },
+      routes: [
+      ],
+    ),
+
   ],
 );

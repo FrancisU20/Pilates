@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/models/class/class_model.dart';
+import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/providers/class/class_provider.dart';
@@ -866,12 +867,88 @@ class AppDialogs {
                 text: 'Sí',
                 color: AppColors.red300,
                 width: SizeConfig.scaleWidth(6),
-                onPressed: () async{
+                onPressed: () async {
                   await loginProvider.deleteUser(context);
                 },
               ),
             ],
           );
         });
+  }
+
+  static Future<void> showMonthSelector(
+      BuildContext context, AdminProvider adminProvider) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: AppColors.white100,
+          child: SizedBox(
+            height:
+                SizeConfig.scaleHeight(25), // Ajustar altura según necesidad
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(SizeConfig.scaleWidth(
+                      2)), // Espaciado alrededor del título
+                  child: Text(
+                    "Selecciona un mes:",
+                    style: TextStyle(
+                      fontSize:
+                          SizeConfig.scaleText(2), // Ajustar tamaño del texto
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black100,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: SizeConfig.scaleWidth(50),
+                  child: const Divider(color: AppColors.black100),
+                ), // Línea divisora opcional
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: adminProvider.listMonth.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: CustomText(
+                          text: adminProvider
+                              .getStringMonth(adminProvider.listMonth[index]),
+                          color: AppColors.black100,
+                          fontSize: SizeConfig.scaleText(1.8),
+                          fontWeight: FontWeight.w600,
+                        ),
+                        onTap: () async {
+                          adminProvider
+                              .setSelectedMonth(adminProvider.listMonth[index]);
+
+                          DateTime startDate = adminProvider.selectedMonth;
+                          DateTime endDate = DateTime(
+                            startDate.year,
+                            startDate.month + 1,
+                            0,
+                          );
+
+                          context.pop();
+
+                          adminProvider.setSelectedMonthEnd(endDate);
+
+                          await adminProvider.getUsersPlans(
+                            context,
+                            startDate: startDate,
+                            endDate: endDate,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

@@ -7,6 +7,7 @@ class CustomIconButton extends StatelessWidget {
   final String? text;
   final double? fontSize;
   final IconData icon;
+  final Color iconColor;
   final double? iconSize;
   final VoidCallback onPressed;
   final Color color;
@@ -22,6 +23,7 @@ class CustomIconButton extends StatelessWidget {
     this.text,
     this.fontSize = 2,
     required this.icon,
+    this.iconColor = AppColors.white100,
     this.iconSize = 2,
     required this.onPressed,
     this.color = AppColors.brown200,
@@ -52,7 +54,7 @@ class CustomIconButton extends StatelessWidget {
             children: text != null
                 ? [
                     Icon(icon,
-                        color: textColor,
+                        color: iconColor,
                         size: SizeConfig.scaleHeight(iconSize!)),
                     CustomText(
                       text: text!,
@@ -64,7 +66,7 @@ class CustomIconButton extends StatelessWidget {
                   ]
                 : [
                     Icon(icon,
-                        color: textColor,
+                        color: iconColor,
                         size: SizeConfig.scaleHeight(iconSize!)),
                   ]),
       ),

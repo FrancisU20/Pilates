@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pilates/config/images_paths.dart';
+import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/providers/class/class_provider.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
@@ -30,6 +31,7 @@ class AppLoading extends StatelessWidget {
       context.watch<ClassProvider>().isLoading,
       context.watch<RecoverPasswordProvider>().isLoading,
       context.watch<UserClassProvider>().isLoading,
+      context.watch<AdminProvider>().isLoading,
     ];
 
     // Verifica si alguno de los providers está en estado de carga
