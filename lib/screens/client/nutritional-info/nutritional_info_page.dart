@@ -175,7 +175,7 @@ class NutritionalInfoPageState extends State<NutritionalInfoPage> {
               child: Column(
                 children: [
                   const CustomPageHeader(
-                      icon: FontAwesomeIcons.boxesStacked,
+                      icon: FontAwesomeIcons.clipboardList,
                       title: 'Ficha Nutricional',
                       subtitle: 'Ingresa o actualiza tu información'),
                   SizedBox(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
+import 'package:pilates/theme/routes/page_state_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,8 @@ class AppMiddleware {
         Provider.of<UserPlanProvider>(context, listen: false);
     NutritionalInfoProvider nutritionalInfoProvider =
         Provider.of<NutritionalInfoProvider>(context, listen: false);
+    PageStateProvider pageStateProvider =
+        Provider.of<PageStateProvider>(context, listen: false);
 
     //? update del plan
     await userPlanProvider.getUserPlans(context,
@@ -30,9 +33,11 @@ class AppMiddleware {
             context,
             'Hemos detectado que no has llenado tu ficha nutricional. Llena tu ficha para poder disfrutar de la app.',
             SnackBarType.error);
+        pageStateProvider.setActiveRoute('/dashboard/nutritional-info');
         context.go('/dashboard/nutritional-info');
       } else {
         if (!context.mounted) return;
+        pageStateProvider.setActiveRoute(route);
         context.go(route);
       }
     } else if (userPlanProvider.inactiveUserPlan != null) {
@@ -42,6 +47,7 @@ class AppMiddleware {
           context,
           'Tu plan está inactivo. Por favor, informa tu pago para poder disfrutar de la app.',
           SnackBarType.error);
+      pageStateProvider.setActiveRoute('/dashboard');
       context.go('/dashboard');
     }
   }

@@ -40,7 +40,7 @@ class ContactPageState extends State<ContactPage> {
                 child: Column(
                   children: [
                     const CustomPageHeader(
-                        icon: FontAwesomeIcons.addressBook,
+                        icon: FontAwesomeIcons.comment,
                         title: 'Contáctanos',
                         subtitle: 'Cerca de ti, para tu comodidad'),
                     SizedBox(

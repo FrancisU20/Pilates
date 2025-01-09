@@ -108,7 +108,7 @@ class UserClassPageState extends State<UserClassPage> {
                           return const AppEmptyData(
                             imagePath:
                                 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/calendar/empty-calendar.png',
-                            message: 'No se encontraro citas',
+                            message: 'No se encontraron citas',
                           );
                         } else {
                           return Flexible(

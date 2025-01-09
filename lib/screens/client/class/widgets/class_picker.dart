@@ -22,6 +22,7 @@ class ClassPicker extends StatefulWidget {
 }
 
 class ClassPickerState extends State<ClassPicker> {
+  DateTime firstDay  = DateTime.now().add(const Duration(days: 1));
   DateTime focusedDay = DateTime.now().add(const Duration(days: 1));
   DateTime? selectedDay;
 
@@ -49,18 +50,19 @@ class ClassPickerState extends State<ClassPicker> {
               ? SizeConfig.scaleHeight(21)
               : SizeConfig.scaleHeight(47),
           child: TableCalendar(
-            firstDay: focusedDay,
+            firstDay: firstDay,
             lastDay: DateTime.utc(2030, 3, 14),
             focusedDay: focusedDay,
             calendarFormat: widget.calendarFormat,
             selectedDayPredicate: (day) => isSameDay(selectedDay, day),
             onDaySelected: (selectedDay, focusedDay) {
-              //? Si el dia no esta en la lista de clases, no se selecciona
+              // Verifica si el día está en la lista de clases
               if (widget.classList.any((element) =>
                   element.classDate ==
                   selectedDay.toString().substring(0, 10))) {
                 setState(() {
                   this.selectedDay = selectedDay;
+                  this.focusedDay = focusedDay; // Actualiza el día enfocado
                 });
                 classProvider.cleanSelectedHourIndex();
                 classProvider.filterClassByDate(context, selectedDay);

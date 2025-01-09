@@ -84,6 +84,7 @@ class ClassPageState extends State<ClassPage> {
                             message:
                                 'Es probable que no haya horarios disponibles. Por favor intenta más tarde',
                             buttonText: 'Volver',
+                            buttonIcon: Icons.arrow_back_ios,
                             onButtonPressed: () {
                               context.pop();
                             });
