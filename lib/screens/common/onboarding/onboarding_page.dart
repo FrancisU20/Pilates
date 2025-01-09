@@ -58,60 +58,56 @@ class OnboardingPageState extends State<OnboardingPage> {
       canPop: false,
       child: Scaffold(
         backgroundColor: AppColors.white100,
-        appBar: AppBar(
-          backgroundColor: AppColors.white100,
-        ),
         body: Center(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            physics: const ClampingScrollPhysics(),
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.scaleWidth(8),
-              ),
-              color: AppColors.white100,
-              height: SizeConfig.scaleHeight(100),
-              width: SizeConfig.scaleWidth(100),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: SizeConfig.scaleHeight(65),
-                    child: PageView(
-                      controller: _pageController,
-                      onPageChanged: (int index) {
-                        setState(() {
-                          currentStep = index;
-                        });
-                      },
-                      children: const [
-                        Step1(),
-                        Step2(),
-                        Step3(),
-                      ],
-                    ),
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.scaleWidth(5),
+            ),
+            color: AppColors.white100,
+            height: SizeConfig.scaleHeight(100),
+            width: SizeConfig.scaleWidth(100),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: SizeConfig.scaleHeight(12),
+                ),
+                SizedBox(
+                  height: SizeConfig.scaleHeight(65),
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (int index) {
+                      setState(() {
+                        currentStep = index;
+                      });
+                    },
+                    children: const [
+                      Step1(),
+                      Step2(),
+                      Step3(),
+                    ],
                   ),
-                  CustomStepperWidget(currentStep: currentStep, totalSteps: 3),
-                  SizedBox(
-                    height: SizeConfig.scaleHeight(4),
-                  ),
-                  CustomButton(
-                    text: 'Siguiente',
-                    onPressed: _incrementCounter,
-                    color: AppColors.brown200,
-                  ),
-                  currentStep != 0
-                      ? CustomTextButton(
-                          text: 'Regresar',
-                          onPressed: _decrementCounter,
-                          color: AppColors.brown200,
-                        )
-                      : CustomTextButton(
-                          text: 'Ya dispones de una cuenta, Inicia Sesión',
-                          onPressed: () => {context.go('/login')},
-                          color: AppColors.brown200,
-                        )
-                ],
-              ),
+                ),
+                CustomStepperWidget(currentStep: currentStep, totalSteps: 3),
+                SizedBox(
+                  height: SizeConfig.scaleHeight(4),
+                ),
+                CustomButton(
+                  text: 'Siguiente',
+                  onPressed: _incrementCounter,
+                  color: AppColors.brown200,
+                ),
+                currentStep != 0
+                    ? CustomTextButton(
+                        text: 'Regresar',
+                        onPressed: _decrementCounter,
+                        color: AppColors.brown200,
+                      )
+                    : CustomTextButton(
+                        text: 'Ya dispones de una cuenta, Inicia Sesión',
+                        onPressed: () => {context.go('/login')},
+                        color: AppColors.brown200,
+                      )
+              ],
             ),
           ),
         ),

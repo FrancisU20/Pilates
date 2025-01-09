@@ -103,19 +103,8 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                             SizedBox(height: SizeConfig.scaleHeight(2)),
                             Container(
                               padding: EdgeInsets.symmetric(
-                                horizontal: SizeConfig.scaleWidth(10),
+                                horizontal: SizeConfig.scaleWidth(5),
                                 vertical: SizeConfig.scaleHeight(2),
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.white200,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.black100.withOpacity(0.1),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 5),
-                                  ),
-                                ],
                               ),
                               height: SizeConfig.scaleHeight(38),
                               width: SizeConfig.scaleWidth(100),
@@ -132,6 +121,7 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                         maxLines: 2,
                                       ),
                                     ),
+                                    SizedBox(height: SizeConfig.scaleHeight(2)),
                                     Consumer<RecoverPasswordProvider>(builder:
                                         (context, recoverPasswordProvider,
                                             child) {
@@ -144,9 +134,11 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                               title: 'Correo Electrónico',
                                               labelColor: AppColors.black100,
                                               hintText: 'info@curve.com',
-                                              typeTextField: TextFieldType.email,
+                                              typeTextField:
+                                                  TextFieldType.email,
                                               controller: emailController,
-                                              fontSize: SizeConfig.scaleText(1.7),
+                                              fontSize:
+                                                  SizeConfig.scaleText(1.7),
                                               onChanged: (value) {
                                                 recoverPasswordProvider
                                                     .setEmail(value);
@@ -154,7 +146,7 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                             ),
                                             SizedBox(
                                                 height:
-                                                    SizeConfig.scaleHeight(1)),
+                                                    SizeConfig.scaleHeight(2)),
                                             Center(
                                               child: CustomButton(
                                                 onPressed: () async {
@@ -224,7 +216,8 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                               typeTextField:
                                                   TextFieldType.password,
                                               controller: passwordController,
-                                              fontSize: SizeConfig.scaleText(1.7),
+                                              fontSize:
+                                                  SizeConfig.scaleText(1.7),
                                               onChanged: (value) {
                                                 recoverPasswordProvider
                                                     .setPassword(value);
@@ -238,7 +231,8 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                                   TextFieldType.password,
                                               controller:
                                                   confirmPasswordController,
-                                              fontSize: SizeConfig.scaleText(1.7),
+                                              fontSize:
+                                                  SizeConfig.scaleText(1.7),
                                               onChanged: (value) {
                                                 recoverPasswordProvider
                                                     .setRepeatPassword(value);
@@ -246,7 +240,7 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                             ),
                                             SizedBox(
                                                 height:
-                                                    SizeConfig.scaleHeight(1)),
+                                                    SizeConfig.scaleHeight(2)),
                                             Center(
                                               child: CustomButton(
                                                 onPressed: () async {

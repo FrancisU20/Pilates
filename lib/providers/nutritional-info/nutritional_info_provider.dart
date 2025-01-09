@@ -1112,7 +1112,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
                 ),
               ),
               pw.SizedBox(height: SizeConfig.scaleHeight(1)),
-              pw.Text('Peso: ${nutritionalData.anthropometricData!.weight} kg',
+              pw.Text('Peso: ${nutritionalData.anthropometricData!.weight} lb',
                   style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Altura: ${nutritionalData.anthropometricData!.height} cm',
