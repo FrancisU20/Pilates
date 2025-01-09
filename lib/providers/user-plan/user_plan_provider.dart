@@ -14,6 +14,7 @@ import 'package:pilates/models/user-plan/user_plan_model.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart' as p;
 
 class UserPlanProvider extends ChangeNotifier {
   //****************************************/
@@ -130,20 +131,34 @@ class UserPlanProvider extends ChangeNotifier {
   //? Comprimir imagen
   Future<XFile> compressImage(XFile file) async {
     try {
-      final targetPath = file.path.replaceAll('.jpg', '_compressed.jpg');
+      final String uuid = UniqueKey().toString();
 
+      // Extraemos el directorio y generamos un nombre único con extensión .jpg
+      final dir = p.dirname(file.path);
+      final fileName = p.basenameWithoutExtension(file.path);
+
+      // Aseguramos que el archivo de salida tenga extensión .jpg
+      final uniqueTargetPath = p.join(dir, '${fileName}_compressed_$uuid.jpg');
+
+      // Comprimimos la imagen y forzamos la conversión a JPEG
       var result = await FlutterImageCompress.compressAndGetFile(
         file.path,
-        targetPath,
+        uniqueTargetPath,
+        format: CompressFormat.jpeg, // Forzamos el formato JPEG
         quality: 60,
         minHeight: 1280,
         minWidth: 720,
       );
 
-      return XFile(result!.path);
+      if (result == null) {
+        throw Exception('La compresión de la imagen falló.');
+      }
+
+      return XFile(result.path);
     } catch (e) {
-      Logger.logAppError('Error al comprimir la imagen:$e');
-      throw Exception('Error al comprimir la imagen');
+      Logger.logAppError('Error al comprimir la imagen: $e');
+      throw Exception(
+          'Formato de imagen no soportado. Seleccione otra imagen e intente nuevamente.');
     }
   }
 
@@ -158,7 +173,8 @@ class UserPlanProvider extends ChangeNotifier {
       return multipartFiles;
     } catch (e) {
       Logger.logAppError('Error al convertir el archivo a file:$e');
-      throw Exception('Error al convertir la imagen a archivo');
+      throw Exception(
+          'Formato de imagen no soportado. Seleccione otra imagen e intente nuevamente.');
     }
   }
 

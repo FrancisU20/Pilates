@@ -47,8 +47,8 @@ class ClassPickerState extends State<ClassPicker> {
           ),
           width: SizeConfig.scaleWidth(90),
           height: widget.calendarFormat == CalendarFormat.week
-              ? SizeConfig.scaleHeight(21)
-              : SizeConfig.scaleHeight(47),
+              ? SizeConfig.scaleHeight(25)
+              : SizeConfig.scaleHeight(55),
           child: TableCalendar(
             firstDay: firstDay,
             lastDay: DateTime.utc(2030, 3, 14),
