@@ -1,15 +1,22 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pilates/common/logger.dart';
+import 'package:pilates/config/size_config.dart';
 import 'package:pilates/controllers/nutritional-info/nutritional_info_controller.dart';
 import 'package:pilates/models/common/standard_response.dart';
 import 'package:pilates/models/nutritional-info/nutritional_data_model.dart';
 import 'package:pilates/models/nutritional-info/nutritional_info_create_model.dart';
 import 'package:pilates/models/nutritional-info/nutritional_info_model.dart';
 import 'package:pilates/providers/login/login_provider.dart';
+import 'package:pilates/services/api_base_service.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class NutritionalInfoProvider extends ChangeNotifier {
   //****************************************/
@@ -771,7 +778,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
         setHipCircumference(
             nutritionalData.anthropometricData?.hipCircumference ?? 0.0);
 
-        notifyListeners();    
+        notifyListeners();
       } else {
         throw Exception('No hay información nutricional para llenar.');
       }
@@ -891,6 +898,272 @@ class NutritionalInfoProvider extends ChangeNotifier {
       hipCircumferenceController.text = hipCircumference.toString();
     } catch (e) {
       Logger.logAppError('Error al actualizar los controladores: $e');
+    }
+  }
+
+  //? FUnción que genera PDFs
+  Future<void> generatePdf(BuildContext context) async {
+    try {
+      showLoading();
+
+      final pdf = pw.Document();
+
+      NutritionalDataModel nutritionalData = nutritionalInfo!.nutritionalData;
+
+      //? Descargar el logo desde la URL
+      final apiBase = await ApiBaseService.create(contentType: 'json');
+      const logoUrl =
+          'https://curvepilates-bucket.s3.amazonaws.com/app-assets/logo/letters_logo.png';
+
+      final response = await apiBase.getExternal(logoUrl);
+      if (response.statusCode != 200) {
+        throw Exception('Error al cargar el logo');
+      }
+
+      final Uint8List logoBytes = response.bodyBytes;
+
+      //? Descargar la foto del usuario desde la URL
+      final userPhotoUrl = nutritionalInfo!.user.photo;
+      final userPhotoResponse = await apiBase.getExternal(userPhotoUrl);
+
+      if (userPhotoResponse.statusCode != 200) {
+        throw Exception('Error al cargar la foto del usuario');
+      }
+
+      final Uint8List userPhotoBytes = userPhotoResponse.bodyBytes;
+
+      // Página 1: Información Personal y Hábitos Alimenticios
+      pdf.addPage(
+        pw.Page(
+          build: (context) => pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Reporte Nutricional ${DateTime.now().year}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().day.toString().padLeft(2, '0')}',
+                    style: pw.TextStyle(
+                      fontSize: 18,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Image(
+                    pw.MemoryImage(logoBytes),
+                    height: SizeConfig.scaleHeight(10),
+                  ),
+                ],
+              ),
+              pw.SizedBox(height: SizeConfig.scaleHeight(2)),
+              pw.Text(
+                'Información Personal:',
+                style: pw.TextStyle(
+                  fontSize: SizeConfig.scaleText(1.6),
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+              pw.SizedBox(height: SizeConfig.scaleHeight(1)),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.start,
+                children: [
+                  pw.Image(
+                    pw.MemoryImage(userPhotoBytes),
+                    fit: pw.BoxFit.cover,
+                    width: SizeConfig.scaleHeight(10),
+                    height: SizeConfig.scaleHeight(10),
+                  ),
+                ],
+              ),
+              pw.SizedBox(height: SizeConfig.scaleHeight(1)),
+              pw.Text(
+                  'Nombre: ${nutritionalData.personalInformation!.completeName}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Fecha de Nacimiento: ${nutritionalData.personalInformation!.birthDate}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text('Edad: ${nutritionalData.personalInformation!.age}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text('Género: ${nutritionalData.personalInformation!.gender}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Estado Civil: ${nutritionalData.personalInformation!.maritalStatus}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Dirección: ${nutritionalData.personalInformation!.address}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Ocupación: ${nutritionalData.personalInformation!.occupation}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text('Teléfono: ${nutritionalData.personalInformation!.phone}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Correo Electrónico: ${nutritionalData.personalInformation!.email}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.SizedBox(height: SizeConfig.scaleHeight(2)),
+              pw.Text(
+                'Hábitos Alimenticios:',
+                style: pw.TextStyle(
+                  fontSize: SizeConfig.scaleText(1.6),
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+              pw.SizedBox(height: SizeConfig.scaleHeight(1)),
+              pw.Text(
+                  'Cuántas comidas consumes al día? ${nutritionalData.eatingHabits!.numberOfMeals}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Alergia a medicamentos: ${nutritionalData.eatingHabits!.medicationAllergy}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Toma suplementos? ${nutritionalData.eatingHabits!.takesSupplement != null && nutritionalData.eatingHabits!.takesSupplement == true ? 'Sí' : 'No'}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              if (nutritionalData.eatingHabits!.takesSupplement ?? false) ...[
+                pw.Text(
+                    'Nombre del suplemento: ${nutritionalData.eatingHabits!.supplementName}',
+                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                pw.Text(
+                    'Dosis: ${nutritionalData.eatingHabits!.supplementDose}',
+                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                pw.Text(
+                    'Razón: ${nutritionalData.eatingHabits!.supplementReason}',
+                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              ],
+              pw.Text(
+                  'Tu alimentación varía con tu estado de ánimo? ${nutritionalData.eatingHabits!.foodVariesWithMood != null && nutritionalData.eatingHabits!.foodVariesWithMood == true ? 'Sí' : 'No'}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Tienes un plan de alimentación? ${nutritionalData.eatingHabits!.hasDietPlan != null && nutritionalData.eatingHabits!.hasDietPlan == true ? 'Sí' : 'No'}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Consumes alcohol? ${nutritionalData.eatingHabits!.consumesAlcohol != null && nutritionalData.eatingHabits!.consumesAlcohol == true ? 'Sí' : 'No'}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Fumas? ${nutritionalData.eatingHabits!.smokes != null && nutritionalData.eatingHabits!.smokes == true ? 'Sí' : 'No'}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Realizabas actividad física anteriormente? ${nutritionalData.eatingHabits!.previousPhysicalActivity != null && nutritionalData.eatingHabits!.previousPhysicalActivity == true ? 'Sí' : 'No'}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              if (nutritionalData.personalInformation!.gender != 'M') ...[
+                pw.Text(
+                    'Estás embarazada? ${nutritionalData.eatingHabits!.isPregnant != null && nutritionalData.eatingHabits!.isPregnant == true ? 'Sí' : 'No'}',
+                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              ],
+              pw.Text(
+                  'Realizas actividad física actualmente? ${nutritionalData.eatingHabits!.currentPhysicalInjury != null && nutritionalData.eatingHabits!.currentPhysicalInjury == true ? 'Sí' : 'No'}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              if (nutritionalData.eatingHabits!.currentPhysicalInjury ??
+                  false) ...[
+                pw.Text(
+                    'Duración de la lesión: ${nutritionalData.eatingHabits!.currentSportsInjuryDuration}',
+                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              ],
+            ],
+          ),
+        ),
+      );
+
+      pdf.addPage(
+        pw.Page(
+          build: (context) => pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text(
+                'Reporte Nutricional ${DateTime.now().year}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().day.toString().padLeft(2, '0')}',
+                style: pw.TextStyle(
+                  fontSize: SizeConfig.scaleText(1.8),
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+              pw.SizedBox(height: SizeConfig.scaleHeight(2)),
+              pw.Text(
+                'Información de Enfermedades:',
+                style: pw.TextStyle(
+                  fontSize: SizeConfig.scaleText(1.6),
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+              pw.SizedBox(height: SizeConfig.scaleHeight(1)),
+              pw.Text(
+                  'Diabetes: ${nutritionalData.diseasesInformation!.diabetes}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Dislipidemias: ${nutritionalData.diseasesInformation!.dyslipidemias}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Obesidad: ${nutritionalData.diseasesInformation!.obesity}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Hipertensión: ${nutritionalData.diseasesInformation!.hypertension}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text('Cáncer: ${nutritionalData.diseasesInformation!.cancer}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Hipo/Hipertiroidismo: ${nutritionalData.diseasesInformation!.hypoHyperthyroidism}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Otras condiciones: ${nutritionalData.diseasesInformation!.otherConditions}',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.SizedBox(height: SizeConfig.scaleHeight(2)),
+              pw.Text(
+                'Datos Antropométricos:',
+                style: pw.TextStyle(
+                  fontSize: SizeConfig.scaleText(1.6),
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+              pw.SizedBox(height: SizeConfig.scaleHeight(1)),
+              pw.Text('Peso: ${nutritionalData.anthropometricData!.weight} kg',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Altura: ${nutritionalData.anthropometricData!.height} cm',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Circunferencia del cuello: ${nutritionalData.anthropometricData!.neckCircumference} cm',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Circunferencia de la cintura: ${nutritionalData.anthropometricData!.waistCircumference} cm',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.Text(
+                  'Circunferencia de la cadera: ${nutritionalData.anthropometricData!.hipCircumference} cm',
+                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+              pw.SizedBox(height: SizeConfig.scaleHeight(2)),
+              //? Disclaimer y Firma
+              pw.Text(
+                'Este reporte es generado automáticamente por el sistema de Curve Pilates, en caso de requerir más información, por favor contactar a nuestra especialista en nutrición.',
+                style: pw.TextStyle(
+                  fontSize: SizeConfig.scaleText(1.5),
+                  fontStyle: pw.FontStyle.italic,
+                ),
+              ),
+              pw.SizedBox(height: SizeConfig.scaleHeight(2)),
+              pw.Text(
+                'Firma del cliente: ${nutritionalData.personalInformation!.completeName}',
+                style: pw.TextStyle(
+                  fontSize: SizeConfig.scaleText(1.5),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+      //! Guardar el PDF en el dispositivo
+      final output = await getTemporaryDirectory();
+      final file = File("${output.path}/nutritional_report.pdf");
+      await file.writeAsBytes(await pdf.save());
+
+      if (!context.mounted) return;
+      GoRouter.of(context).push(
+        '/dashboard/nutritional-info/pdf-viewer',
+        extra: file.path,
+      );
+    } catch (e) {
+      Logger.logAppError('Error al generar el PDF: $e');
+      if (!context.mounted) return;
+      CustomSnackBar.show(
+          context, 'Error al generar el PDF', SnackBarType.error);
+    } finally {
+      hideLoading();
     }
   }
 }

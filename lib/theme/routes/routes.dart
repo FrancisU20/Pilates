@@ -14,6 +14,7 @@ import 'package:pilates/screens/common/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
 import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
 import 'package:pilates/screens/common/splash_screen.dart';
+import 'package:pilates/screens/common/pdf_viewer/pdf_viewer_page.dart';
 import 'package:pilates/theme/routes/page_transitions.dart';
 
 Page<void> buildPageWithFadeTransition(
@@ -140,15 +141,25 @@ final GoRouter goRouter = GoRouter(
           },
         ),
         GoRoute(
-          path: 'nutritional-info',
-          pageBuilder: (context, state) {
-            return buildPageWithFadeTransition(
-              context,
-              state,
-              const NutritionalInfoPage(),
-            );
-          },
-        ),
+            path: 'nutritional-info',
+            pageBuilder: (context, state) {
+              return buildPageWithFadeTransition(
+                context,
+                state,
+                const NutritionalInfoPage(),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: 'pdf-viewer',
+                builder: (context, state) {
+                  final filePath = state.extra as String;
+                  return PDFViewerPage(
+                    filePath: filePath,
+                  );
+                },
+              ),
+            ]),
         GoRoute(
           path: 'class',
           pageBuilder: (context, state) {

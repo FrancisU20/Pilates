@@ -54,7 +54,7 @@ class UserClassPageState extends State<UserClassPage> {
                 child: Column(
                   children: [
                     const CustomPageHeader(
-                        icon: FontAwesomeIcons.calendarPlus,
+                        icon: FontAwesomeIcons.calendarCheck,
                         title: 'Citas',
                         subtitle: 'Qué tenemos para ti hoy?'),
                     SizedBox(

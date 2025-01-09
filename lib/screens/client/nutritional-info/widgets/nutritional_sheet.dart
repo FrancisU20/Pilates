@@ -7,6 +7,7 @@ import 'package:pilates/screens/client/nutritional-info/widgets/components/disea
 import 'package:pilates/screens/client/nutritional-info/widgets/components/eating_habits.dart';
 import 'package:pilates/screens/client/nutritional-info/widgets/components/personal_info.dart';
 import 'package:pilates/theme/app_colors.dart';
+import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_stepper_widget.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -99,7 +100,7 @@ class NutritionalSheet extends StatefulWidget {
 
 class NutritionalSheetState extends State<NutritionalSheet> {
   int currentStep = 0;
-  
+
   @override
   void initState() {
     super.initState();
@@ -193,27 +194,30 @@ class NutritionalSheetState extends State<NutritionalSheet> {
               ],
             ),
             if (widget.viewMode == true)
-            CustomTextButton(
-              onPressed: () {
-                setState(() {
-                  currentStep = 0;
-                  nutritionalInfoProvider.setIsEditable(true);
-                });
-              },
-              text: 'Editar Información',
-            ),
+              CustomTextButton(
+                onPressed: () {
+                  setState(() {
+                    currentStep = 0;
+                    nutritionalInfoProvider.setIsEditable(true);
+                  });
+                },
+                text: 'Editar Información',
+              ),
             if (widget.viewMode == false)
-            Column(
-              children: [
-                SizedBox(
-                  height: SizeConfig.scaleHeight(2),
-                ),
-                CustomText(text: 'Completa el formulario, por favor.', fontSize: SizeConfig.scaleText(1.5), color: AppColors.red300),
-                SizedBox(
-                  height: SizeConfig.scaleHeight(2),
-                ),
-              ],
-            ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: SizeConfig.scaleHeight(2),
+                  ),
+                  CustomText(
+                      text: 'Completa el formulario, por favor.',
+                      fontSize: SizeConfig.scaleText(1.5),
+                      color: AppColors.red300),
+                  SizedBox(
+                    height: SizeConfig.scaleHeight(2),
+                  ),
+                ],
+              ),
             CustomStepperWidget(
               currentStep: currentStep,
               totalSteps: widget.viewMode! ? 4 : 5,
@@ -277,7 +281,15 @@ class NutritionalSheetState extends State<NutritionalSheet> {
                   hipCircumferenceController: widget.hipCircumferenceController,
                   viewMode: widget.viewMode)
             else if (currentStep == 4 && !widget.viewMode!)
-              const ConfirmNutritionalInfo()
+              const ConfirmNutritionalInfo(),
+            if (currentStep == 3 && widget.viewMode!) ...[
+              CustomButton(
+                  onPressed: () {
+                    nutritionalInfoProvider.generatePdf(context);
+                  },
+                  text: 'Descargar PDF',
+                  color: AppColors.brown200),
+            ]
           ],
         ),
       ),

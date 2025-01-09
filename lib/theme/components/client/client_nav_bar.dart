@@ -37,7 +37,7 @@ class ClientNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: pageStateProvider.activeRoute == '/dashboard/user-class'
-                    ? const Icon(Icons.calendar_month)
+                    ? const Icon(FontAwesomeIcons.calendarCheck)
                     : const Icon(Icons.calendar_month_outlined),
                 color: pageStateProvider.activeRoute == '/dashboard/user-class'
                     ? AppColors.gold100
@@ -63,7 +63,7 @@ class ClientNavBar extends StatelessWidget {
               IconButton(
                 icon: pageStateProvider.activeRoute == '/dashboard/contact'
                     ? const Icon(FontAwesomeIcons.solidComment)
-                    : const Icon(FontAwesomeIcons.comment),
+                    : const Icon(FontAwesomeIcons.calendarCheck),
                 color: pageStateProvider.activeRoute == '/dashboard/contact'
                     ? AppColors.gold100
                     : AppColors.white100,

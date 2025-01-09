@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/theme/app_colors.dart';
@@ -37,10 +38,15 @@ class ClientIdentification extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CustomImageNetwork(
-                imagePath: loginProvider.user!.photo,
-                height: SizeConfig.scaleHeight(16),
-                width: SizeConfig.scaleWidth(22),
+              GestureDetector(
+                onTap: () {
+                  AppDialogs.showProfilePhotoPickerUpdate(context);
+                },
+                child: CustomImageNetwork(
+                  imagePath: loginProvider.user!.photo,
+                  height: SizeConfig.scaleHeight(16),
+                  width: SizeConfig.scaleWidth(22),
+                ),
               ),
               SizedBox(width: SizeConfig.scaleWidth(5)),
               Column(
@@ -51,7 +57,8 @@ class ClientIdentification extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomImageNetwork(
-                          imagePath: 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/logo/logo_rectangle_transparent_white.png',
+                          imagePath:
+                              'https://curvepilates-bucket.s3.amazonaws.com/app-assets/logo/logo_rectangle_transparent_white.png',
                           height: SizeConfig.scaleHeight(6),
                         ),
                       ],

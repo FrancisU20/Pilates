@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:pilates/common/logger.dart';
+import 'package:pilates/controllers/file-asset/file_asset_controller.dart';
 import 'package:pilates/controllers/login/login_controller.dart';
 import 'package:pilates/models/common/standard_response.dart';
+import 'package:pilates/models/file-asset/file_asset_model.dart';
 import 'package:pilates/models/user/user_model.dart';
 import 'package:pilates/providers/class/class_provider.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
@@ -21,6 +26,10 @@ class LoginProvider extends ChangeNotifier {
   //****************************************/
   //? Controllers
   final LoginController loginController = LoginController();
+  final FileAssetController fileAssetController = FileAssetController();
+
+  //? Packages
+  final ImagePicker imagePicker = ImagePicker();
 
   //****************************************/
   //? Variables
@@ -28,6 +37,7 @@ class LoginProvider extends ChangeNotifier {
   String password = '';
 
   bool canCheckBiometric = false;
+  String profilePhotoUrl = '';
 
   //? Setters Variables
   void setEmail(String email) {
@@ -45,6 +55,11 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setProfilePhotoUrl(String profilePhotoUrl) {
+    this.profilePhotoUrl = profilePhotoUrl;
+    notifyListeners();
+  }
+
   //? Clear Variables
   void clearEmail() {
     email = '';
@@ -58,6 +73,11 @@ class LoginProvider extends ChangeNotifier {
 
   void clearCanCheckBiometric() {
     canCheckBiometric = false;
+    notifyListeners();
+  }
+
+  void clearProfilePhotoUrl() {
+    profilePhotoUrl = '';
     notifyListeners();
   }
 
@@ -115,6 +135,7 @@ class LoginProvider extends ChangeNotifier {
     clearUser();
     clearListBiometrics();
     clearCanCheckBiometric();
+    clearProfilePhotoUrl();
   }
 
   //! METODO UNICO DE ESTA CLASE LOGOUT
@@ -277,6 +298,95 @@ class LoginProvider extends ChangeNotifier {
         e.toString(),
         SnackBarType.error,
       );
+    }
+  }
+
+  //! FUnciones de actualización de imagen
+  Future<XFile> compressImage(XFile file) async {
+    try {
+      final targetPath = file.path.replaceAll('.jpg', '_compressed.jpg');
+
+      var result = await FlutterImageCompress.compressAndGetFile(
+        file.path,
+        targetPath,
+        quality: 60,
+        minHeight: 1280,
+        minWidth: 720,
+      );
+
+      return XFile(result!.path);
+    } catch (e) {
+      Logger.logAppError('Error al comprimir la imagen:$e');
+      throw Exception('Error al comprimir la imagen');
+    }
+  }
+
+  //? Convertir imagen a archivo
+  Future<MultipartFile> convertToFile(XFile file) async {
+    try {
+      MultipartFile multipartFiles = MultipartFile.fromBytes(
+        'file',
+        await file.readAsBytes(),
+        filename: file.name,
+      );
+      return multipartFiles;
+    } catch (e) {
+      Logger.logAppError('Error al convertir el archivo a file:$e');
+      throw Exception('Error al convertir la imagen a archivo');
+    }
+  }
+
+  //? Capturar Imagen
+  Future<void> pickImage(BuildContext context, ImageSource source) async {
+    try {
+      showLoading();
+      final XFile? imageSelected = await imagePicker.pickImage(source: source);
+      if (imageSelected == null) {
+        return;
+      }
+      XFile compressedImage = await compressImage(imageSelected);
+      MultipartFile multipartFile = await convertToFile(compressedImage);
+
+      StandardResponse<FileAssetModel> fileAssetResponse =
+          await fileAssetController.postS3File(
+              multipartFile, 'clients-photos', user!.dniNumber);
+
+      setProfilePhotoUrl(fileAssetResponse.data!.path);
+
+      UserModel userNewData = UserModel(
+        dniNumber: user!.dniNumber,
+        email: user!.email,
+        name: user!.name,
+        lastname: user!.lastname,
+        phone: user!.phone,
+        birthdate: user!.birthdate,
+        gender: user!.gender,
+        photo: fileAssetResponse.data!.path,
+        role: 'client',
+      );
+
+      String userId = user!.id ?? '';
+
+      StandardResponse<UserModel> userResponse =
+          await loginController.updateUser(userId, userNewData);
+
+      //? Actualiza la data del usuario (Imagen)
+      setUser(userResponse.data!);
+
+      if (!context.mounted) return;
+      CustomSnackBar.show(
+        context,
+        userResponse.message,
+        SnackBarType.success,
+      );
+    } catch (e) {
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
+    } finally {
+      hideLoading();
     }
   }
 }

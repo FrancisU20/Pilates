@@ -34,4 +34,32 @@ class LoginController {
       throw Exception(e.toString().replaceAll('Exception: ', ''));
     }
   }
+
+  Future<StandardResponse<UserModel>> updateUser(String id, UserModel userNewData) async {
+    try {
+      final apiBase = await ApiBaseService.create(contentType: 'json');
+      
+      String dataJson = jsonEncode(userNewData.toJson());
+      Logger.logSendData(dataJson);
+
+      final response = await apiBase.patch('/users/$id', bodyRequest: dataJson);
+      final serverJson = json.decode(response.body);
+
+      if (serverJson['statusCode'] != 200 && serverJson['statusCode'] != 201) {
+        Logger.logServerError(serverJson);
+        throw Exception(serverJson['message']);
+      } else {
+        Logger.logServerSuccess(serverJson);
+      }
+
+      StandardResponse<UserModel> updateUserResponse = StandardResponse<UserModel>.fromJson(
+        serverJson,
+        (data) => UserModel.fromJson(data),
+      );
+
+      return updateUserResponse;
+    } catch (e) {
+      throw Exception(e.toString().replaceAll('Exception: ', ''));
+    }
+  }
 }

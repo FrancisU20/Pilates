@@ -117,4 +117,10 @@ class ApiBaseService {
     return http.delete(Uri.parse('$api$microserviceAndParams'),
         headers: headers, body: bodyRequest);
   }
+
+  Future<http.Response> getExternal(String microserviceAndParams,
+      {Map<String, String>? headersAdditional}) async {
+    final headers = {...customHeaders, ...?headersAdditional};
+    return http.get(Uri.parse(microserviceAndParams), headers: headers);
+  }
 }

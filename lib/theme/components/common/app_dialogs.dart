@@ -304,6 +304,48 @@ class AppDialogs {
     );
   }
 
+  static Future<void> showProfilePhotoPickerUpdate(BuildContext context) {
+    LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context, listen: false);
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.images),
+                title: CustomText(
+                  text: 'Galería',
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: SizeConfig.scaleText(2),
+                ),
+                onTap: () {
+                  loginProvider.pickImage(context, ImageSource.gallery);
+                  context.pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.cameraRetro),
+                title: CustomText(
+                  text: 'Cámara',
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.start,
+                  fontSize: SizeConfig.scaleText(2),
+                ),
+                onTap: () {
+                  loginProvider.pickImage(context, ImageSource.camera);
+                  context.pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   static Future<void> showTransferPaymentPicker(
       BuildContext context, String dni) {
     UserPlanProvider userPlanProvider =
