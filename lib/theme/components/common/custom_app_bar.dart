@@ -51,33 +51,35 @@ class CustomAppBar<T> extends StatelessWidget implements PreferredSizeWidget {
           },
         ),
       ),
-      actions: [
-        Consumer<T>(
-          builder: (context, provider, child) {
-            final data = dataExtractor?.call(provider) ?? [];
-            return IconButton(
-              icon: Icon(
-                FontAwesomeIcons.magnifyingGlass,
-                color: backgroundColor == AppColors.white100
-                    ? AppColors.black100
-                    : AppColors.white100,
+      actions: dataExtractor != null
+          ? [
+              Consumer<T>(
+                builder: (context, provider, child) {
+                  final data = dataExtractor?.call(provider) ?? [];
+                  return IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.magnifyingGlass,
+                      color: backgroundColor == AppColors.white100
+                          ? AppColors.black100
+                          : AppColors.white100,
+                    ),
+                    onPressed: data.isNotEmpty
+                        ? () {
+                            showSearch(
+                              context: context,
+                              delegate: CustomSearchDelegate<dynamic>(
+                                data: data,
+                                searchField: searchField!,
+                                onTap: onTap!,
+                              ),
+                            );
+                          }
+                        : null,
+                  );
+                },
               ),
-              onPressed: data.isNotEmpty
-                  ? () {
-                      showSearch(
-                        context: context,
-                        delegate: CustomSearchDelegate<dynamic>(
-                          data: data,
-                          searchField: searchField!,
-                          onTap: onTap!, 
-                        ),
-                      );
-                    }
-                  : null,
-            );
-          },
-        ),
-      ],
+            ]
+          : null,
     );
   }
 }

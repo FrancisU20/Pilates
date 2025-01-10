@@ -237,8 +237,8 @@ class UserClassProvider extends ChangeNotifier {
       String statusFilter = isHistory ? '' : 'A';
       String startAt = isHistory
           ? ''
-          : DateTime(DateTime.now().year, DateTime.now().month + 1, 0)
-              .toString();
+          : DateTime(DateTime.now().year, DateTime.now().month, 1)
+              .toString().substring(0, 10);
 
       StandardResponse<List<UserClassModel>> response =
           await userClassController.getUserClass(

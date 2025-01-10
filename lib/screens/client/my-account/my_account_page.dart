@@ -154,7 +154,7 @@ class MyAccountPageState extends State<MyAccountPage> {
                                                         context);
                                               },
                                               text: 'Eliminar Cuenta',
-                                              fontSize:SizeConfig.scaleText(1),
+                                              fontSize: 2,
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.red300),
                                         ),

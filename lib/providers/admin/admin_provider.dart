@@ -332,8 +332,8 @@ class AdminProvider extends ChangeNotifier {
 
       String statusFilter = isHistory ? '' : 'A';
       String startAt = isHistory
-          ? DateTime(selectedMonth.year, selectedMonth.month - 3, 0).toString()
-          : selectedMonth.toString();
+          ? DateTime(selectedMonth.year, selectedMonth.month - 3, 0).toString().substring(0,10)
+          : selectedMonth.toString().substring(0,10);
 
       StandardResponse<List<UserClassModel>> response =
           await userClassController.getUserClass(
