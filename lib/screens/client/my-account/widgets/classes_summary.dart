@@ -52,7 +52,7 @@ class ClassesSummary extends StatelessWidget {
       children: [
         Container(
           width: SizeConfig.scaleWidth(15),
-          height: SizeConfig.scaleWidth(15),
+          height: SizeConfig.scaleHeight(30), 
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(50),

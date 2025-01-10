@@ -42,8 +42,6 @@ class UserClassProvider extends ChangeNotifier {
   //? Listas
   List<UserClassModel> listUserClass = [];
   List<UserClassModel> listUserClassHistory = [];
-  List<UserClassModel> listUserClassAdmin = [];
-  List<UserClassModel> listUserClassHistoryAdmin = [];
 
   //? Setters Listas
   void setListClass(List<UserClassModel> listUserClass) {
@@ -56,17 +54,6 @@ class UserClassProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setListClassAdmin(List<UserClassModel> listUserClassAdmin) {
-    this.listUserClassAdmin = listUserClassAdmin;
-    notifyListeners();
-  }
-
-  void setListClassHistoryAdmin(
-      List<UserClassModel> listUserClassHistoryAdmin) {
-    this.listUserClassHistoryAdmin = listUserClassHistoryAdmin;
-    notifyListeners();
-  }
-
   //? Clean Listas
   void cleanlistUserClass() {
     listUserClass = [];
@@ -75,16 +62,6 @@ class UserClassProvider extends ChangeNotifier {
 
   void cleanListUserClassHistory() {
     listUserClassHistory = [];
-    notifyListeners();
-  }
-
-  void cleanListUserClassAdmin() {
-    listUserClassAdmin = [];
-    notifyListeners();
-  }
-
-  void cleanListUserClassHistoryAdmin() {
-    listUserClassHistoryAdmin = [];
     notifyListeners();
   }
 
@@ -108,8 +85,6 @@ class UserClassProvider extends ChangeNotifier {
     cleanIsHistory();
     cleanlistUserClass();
     cleanListUserClassHistory();
-    cleanListUserClassAdmin();
-    cleanListUserClassHistoryAdmin();
   }
 
   //****************************************/
@@ -257,20 +232,13 @@ class UserClassProvider extends ChangeNotifier {
       LoginProvider loginProvider =
           Provider.of<LoginProvider>(context, listen: false);
 
-      String userId = '';
-      bool isAdmin = loginProvider.user!.role == 'admin';
-
-      if (!isAdmin) {
-        userId = loginProvider.user!.id!;
-      }
+      String userId = loginProvider.user!.id!;
 
       String statusFilter = isHistory ? '' : 'A';
       String startAt = isHistory
           ? ''
-          : DateTime.now()
-              .subtract(const Duration(days: 30))
-              .toString()
-              .substring(0, 10);
+          : DateTime(DateTime.now().year, DateTime.now().month + 1, 0)
+              .toString();
 
       StandardResponse<List<UserClassModel>> response =
           await userClassController.getUserClass(
@@ -313,11 +281,7 @@ class UserClassProvider extends ChangeNotifier {
             listUserClass.where((element) => element.status != 'A').toList();
       }
 
-      if (isAdmin && isHistory) {
-        setListClassHistoryAdmin(listUserClass);
-      } else if (isAdmin && !isHistory) {
-        setListClassAdmin(listUserClass);
-      } else if (!isAdmin && isHistory) {
+      if (isHistory) {
         setListClassFilter(listUserClass);
       } else {
         setListClass(listUserClass);

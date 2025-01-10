@@ -969,7 +969,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
                   pw.Image(
                     pw.MemoryImage(userPhotoBytes),
                     fit: pw.BoxFit.cover,
-                    width: SizeConfig.scaleHeight(10),
+                    width: SizeConfig.scaleWidth(20),
                     height: SizeConfig.scaleHeight(10),
                   ),
                 ],

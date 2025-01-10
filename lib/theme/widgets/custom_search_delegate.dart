@@ -7,10 +7,12 @@ import 'package:pilates/theme/widgets/custom_text.dart';
 class CustomSearchDelegate<T> extends SearchDelegate<T?> {
   final List<T> data;
   final String Function(T) searchField;
+  final void Function(dynamic)? onTap;
 
   CustomSearchDelegate({
     required this.data,
     required this.searchField,
+    required this.onTap,
   });
 
   @override
@@ -24,7 +26,7 @@ class CustomSearchDelegate<T> extends SearchDelegate<T?> {
         titleTextStyle: GoogleFonts.montserrat(
           textStyle: TextStyle(
             color: AppColors.white100, // Color del texto en el AppBar
-            fontSize:SizeConfig.scaleText(2.5),
+            fontSize: SizeConfig.scaleText(2.5),
             fontWeight: FontWeight.w500,
             letterSpacing: -0.5,
             height: 0.9,
@@ -37,7 +39,7 @@ class CustomSearchDelegate<T> extends SearchDelegate<T?> {
         hintStyle: GoogleFonts.montserrat(
           textStyle: TextStyle(
             color: AppColors.white100.withOpacity(0.7), // Placeholder
-            fontSize:SizeConfig.scaleText(2.5),
+            fontSize: SizeConfig.scaleText(2.5),
             fontWeight: FontWeight.w500,
             letterSpacing: -0.5,
             height: 0.9,
@@ -62,7 +64,7 @@ class CustomSearchDelegate<T> extends SearchDelegate<T?> {
         titleLarge: GoogleFonts.montserrat(
           textStyle: TextStyle(
             color: AppColors.white100, // Color del texto introducido
-            fontSize:SizeConfig.scaleText(2),
+            fontSize: SizeConfig.scaleText(2),
             fontWeight: FontWeight.w500,
             letterSpacing: -0.5,
             height: 0.9,
@@ -110,11 +112,13 @@ class CustomSearchDelegate<T> extends SearchDelegate<T?> {
           return ListTile(
             title: CustomText(
               text: searchField(results[index]), // Muestra el texto del modelo
-              fontSize:SizeConfig.scaleText(2),
+              fontSize: SizeConfig.scaleText(2),
               textAlign: TextAlign.start,
             ),
             onTap: () {
               close(context, results[index]);
+              //? buscar en la lista de datos y enviar el objeto seleccionado
+              onTap?.call(results[index]);
             },
           );
         },
@@ -138,12 +142,14 @@ class CustomSearchDelegate<T> extends SearchDelegate<T?> {
           return ListTile(
             title: CustomText(
               text: searchField(suggestions[index]), // Texto del modelo
-              fontSize:SizeConfig.scaleText(2),
+              fontSize: SizeConfig.scaleText(2),
               textAlign: TextAlign.start,
             ),
             onTap: () {
               query = searchField(suggestions[index]);
-              showResults(context);
+              close(context, suggestions[index]);
+              //? buscar en la lista de datos y enviar el objeto seleccionado
+              onTap?.call(suggestions[index]);
             },
           );
         },

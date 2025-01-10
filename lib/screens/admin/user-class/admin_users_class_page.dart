@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/integrations/maps_launcher.dart';
 import 'package:pilates/models/user-class/user_class_model.dart';
-import 'package:pilates/providers/user-class/user_class_provider.dart';
+import 'package:pilates/models/user/user_model.dart';
+import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/admin/admin_nav_bar.dart';
 import 'package:pilates/theme/components/common/custom_app_bar.dart';
@@ -25,52 +26,15 @@ class AdminUserClassPage extends StatefulWidget {
 
 class AdminUserClassPageState extends State<AdminUserClassPage> {
   TextEditingController searchController = TextEditingController();
-  List<UserClassModel> listUserClass = [];
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      UserClassProvider userClassProvider =
-          Provider.of<UserClassProvider>(context, listen: false);
+      AdminProvider adminProvider =
+          Provider.of<AdminProvider>(context, listen: false);
 
-      await userClassProvider.getUserClass(context);
-
-      setState(() {
-        // Actualiza `listUserClass` con los datos obtenidos
-        listUserClass = userClassProvider.isHistory
-            ? userClassProvider.listUserClassHistoryAdmin
-            : userClassProvider.listUserClassAdmin;
-      });
-
-      searchController.addListener(() {
-        filterUserClass(searchController.text);
-      });
-    });
-  }
-
-  void filterUserClass(String searchText) {
-    UserClassProvider userClassProvider =
-        Provider.of<UserClassProvider>(context, listen: false);
-
-    setState(() {
-      listUserClass = userClassProvider.isHistory
-          ? userClassProvider.listUserClassHistoryAdmin.where((element) {
-              return element.user.name
-                      .toLowerCase()
-                      .contains(searchText.toLowerCase()) ||
-                  element.user.lastname
-                      .toLowerCase()
-                      .contains(searchText.toLowerCase());
-            }).toList()
-          : userClassProvider.listUserClassAdmin.where((element) {
-              return element.user.name
-                      .toLowerCase()
-                      .contains(searchText.toLowerCase()) ||
-                  element.user.lastname
-                      .toLowerCase()
-                      .contains(searchText.toLowerCase());
-            }).toList();
+      await adminProvider.getUsersClass(context);
     });
   }
 
@@ -87,12 +51,25 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
         children: [
           Scaffold(
               backgroundColor: AppColors.white100,
-              appBar: CustomAppBar(
+              appBar: CustomAppBar<AdminProvider>(
                 backgroundColor: AppColors.brown200,
-                //? Se envia datos de busqueda
-                data: listUserClass,
-                searchField: (UserClassModel userClass) =>
-                    '${userClass.user.name} ${userClass.user.lastname}',
+                dataExtractor: (adminProvider) => adminProvider
+                    .listUserClassFiltered
+                    .map((userClass) => userClass
+                        .user) // Extrae el modelo `UserModel` de cada objeto
+                    .fold<Map<String, UserModel>>({}, (map, user) {
+                      map[user.id!] =
+                          user; // Usa `id` como clave para garantizar unicidad
+                      return map;
+                    })
+                    .values
+                    .toList(),
+                searchField: (user) => user.dniNumber,
+                onTap: (user) {
+                  AdminProvider adminProvider =
+                      Provider.of<AdminProvider>(context, listen: false);
+                  adminProvider.onUserSelected(context, user.id);
+                },
               ),
               body: Container(
                 color: AppColors.brown200,
@@ -105,8 +82,8 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                     SizedBox(
                       height: SizeConfig.scaleHeight(2),
                     ),
-                    Consumer<UserClassProvider>(
-                      builder: (context, userClassProvider, child) {
+                    Consumer<AdminProvider>(
+                      builder: (context, adminProvider, child) {
                         return Container(
                           decoration: BoxDecoration(
                               color: AppColors.black100,
@@ -118,22 +95,24 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                             children: [
                               CustomTextButton(
                                   onPressed: () {
-                                    userClassProvider.setIsHistory(false);
+                                    adminProvider.setIsHistory(false);
                                     //? Aqui va el get con filtro solo (A)
-                                    userClassProvider.getUserClass(context);
+                                    adminProvider.cleanSelectedUserId();
+                                    adminProvider.getUsersClass(context);
                                   },
                                   text: 'Agendadas',
-                                  color: !userClassProvider.isHistory
+                                  color: !adminProvider.isHistory
                                       ? AppColors.gold100
                                       : AppColors.white100),
                               CustomTextButton(
                                   onPressed: () {
-                                    userClassProvider.setIsHistory(true);
+                                    adminProvider.setIsHistory(true);
                                     //? Aqui va el get con filtro (C), (E), (X)
-                                    userClassProvider.getUserClass(context);
+                                    adminProvider.cleanSelectedUserId();
+                                    adminProvider.getUsersClass(context);
                                   },
                                   text: 'Historial',
-                                  color: userClassProvider.isHistory
+                                  color: adminProvider.isHistory
                                       ? AppColors.gold100
                                       : AppColors.white100),
                             ],
@@ -144,13 +123,9 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                     SizedBox(
                       height: SizeConfig.scaleHeight(2),
                     ),
-                    Consumer<UserClassProvider>(
-                      builder: (context, userClassProvider, child) {
-                        if (userClassProvider.listUserClassAdmin.isEmpty &&
-                                !userClassProvider.isHistory ||
-                            userClassProvider
-                                    .listUserClassHistoryAdmin.isEmpty &&
-                                userClassProvider.isHistory) {
+                    Consumer<AdminProvider>(
+                      builder: (context, adminProvider, child) {
+                        if (adminProvider.listUserClassFiltered.isEmpty) {
                           return const AppEmptyData(
                             imagePath:
                                 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/calendar/empty-calendar.png',
@@ -172,20 +147,27 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                               height: SizeConfig.scaleHeight(100),
                               width: SizeConfig.scaleWidth(100),
                               child: ListView.builder(
-                                itemCount: userClassProvider.isHistory
-                                    ? userClassProvider
-                                        .listUserClassHistoryAdmin.length
-                                    : userClassProvider
-                                        .listUserClassAdmin.length,
+                                itemCount:
+                                    adminProvider.listUserClassFiltered.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   List<UserClassModel> listUserClass =
-                                      userClassProvider.isHistory
-                                          ? userClassProvider
-                                              .listUserClassHistoryAdmin
-                                          : userClassProvider
-                                              .listUserClassAdmin;
+                                      adminProvider.listUserClassFiltered;
                                   return Column(
                                     children: [
+                                      if (index == 0 &&
+                                          adminProvider
+                                              .selectedUserId.isNotEmpty) ...[
+                                        IconButton(
+                                            onPressed: () {
+                                              adminProvider
+                                                  .cleanSelectedUserId();
+                                              adminProvider
+                                                  .getUsersClass(context);
+                                            },
+                                            icon: const Icon(
+                                                FontAwesomeIcons.circleXmark,
+                                                color: AppColors.red300)),
+                                      ],
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -195,9 +177,9 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                           ),
                                           CustomText(
                                             text:
-                                                '${listUserClass[index].classModel.schedule!.startHour.substring(0, 5)} ${userClassProvider.getAMFM(listUserClass[index].classModel.schedule!.startHour.substring(0, 5))}',
+                                                '${listUserClass[index].classModel.schedule!.startHour.substring(0, 5)} ${adminProvider.getAMFM(listUserClass[index].classModel.schedule!.startHour.substring(0, 5))}',
                                             color: AppColors.black100,
-                                            fontSize:SizeConfig.scaleText(3),
+                                            fontSize: SizeConfig.scaleText(3),
                                             fontWeight: FontWeight.w600,
                                           ),
                                           SizedBox(
@@ -263,7 +245,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                           .substring(8, 10)
                                                           .toString(),
                                                       color: AppColors.black100,
-                                                      fontSize:SizeConfig
+                                                      fontSize: SizeConfig
                                                           .scaleHeight(3),
                                                       fontWeight:
                                                           FontWeight.w600),
@@ -273,7 +255,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                             0.5),
                                                   ),
                                                   CustomText(
-                                                      text: userClassProvider
+                                                      text: adminProvider
                                                           .getStringMonth(
                                                               DateTime.parse(
                                                                   listUserClass[
@@ -281,7 +263,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                                       .classModel
                                                                       .classDate)),
                                                       color: AppColors.black100,
-                                                      fontSize:SizeConfig
+                                                      fontSize: SizeConfig
                                                           .scaleHeight(1.5),
                                                       fontWeight:
                                                           FontWeight.w400),
@@ -292,7 +274,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                               width: SizeConfig.scaleWidth(5),
                                             ),
                                             SizedBox(
-                                              width: userClassProvider.isHistory
+                                              width: adminProvider.isHistory
                                                   ? SizeConfig.scaleWidth(35)
                                                   : SizeConfig.scaleWidth(40),
                                               child: Column(
@@ -304,7 +286,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                   CustomText(
                                                       text: 'Datos:',
                                                       color: AppColors.black100,
-                                                      fontSize:SizeConfig
+                                                      fontSize: SizeConfig
                                                           .scaleHeight(1.5),
                                                       fontWeight:
                                                           FontWeight.w600),
@@ -334,7 +316,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                           .user
                                                           .dniNumber,
                                                       color: AppColors.grey200,
-                                                      fontSize:SizeConfig
+                                                      fontSize: SizeConfig
                                                           .scaleHeight(1.5),
                                                       fontWeight:
                                                           FontWeight.w400,
@@ -358,7 +340,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                               ? 'Mujer'
                                                               : 'LGBTQ+',
                                                       color: AppColors.grey200,
-                                                      fontSize:SizeConfig
+                                                      fontSize: SizeConfig
                                                           .scaleHeight(1.5),
                                                       fontWeight:
                                                           FontWeight.w400,
@@ -367,7 +349,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                 ],
                                               ),
                                             ),
-                                            if (userClassProvider.isHistory ==
+                                            if (adminProvider.isHistory ==
                                                 false) ...[
                                               Column(
                                                 mainAxisAlignment:
@@ -424,7 +406,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                       }),
                                                 ],
                                               )
-                                            ] else if (userClassProvider
+                                            ] else if (adminProvider
                                                     .isHistory ==
                                                 true) ...[
                                               Transform.rotate(

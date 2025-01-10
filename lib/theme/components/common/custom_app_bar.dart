@@ -9,14 +9,18 @@ import 'package:provider/provider.dart';
 
 class CustomAppBar<T> extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
-  final List<T>? data; // Lista genérica de datos
-  final String Function(T)? searchField; // Función para obtener el campo a buscar
+  final List Function(T)?
+      dataExtractor; //! Función para extraer datos del provider
+  final String Function(dynamic)?
+      searchField; //! Función para buscar dentro de los datos
+  final void Function(dynamic)? onTap; //! Función para ejecutar al hacer tap
 
   const CustomAppBar({
     super.key,
     this.backgroundColor = AppColors.white100,
-    this.data,
+    this.dataExtractor,
     this.searchField,
+    this.onTap,
   });
 
   @override
@@ -48,23 +52,31 @@ class CustomAppBar<T> extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        // Mostrar la acción solo si se pasa `data` y `searchField`
-        if (data != null && searchField != null)
-          IconButton(
-            icon: Icon(FontAwesomeIcons.magnifyingGlass,
+        Consumer<T>(
+          builder: (context, provider, child) {
+            final data = dataExtractor?.call(provider) ?? [];
+            return IconButton(
+              icon: Icon(
+                FontAwesomeIcons.magnifyingGlass,
                 color: backgroundColor == AppColors.white100
                     ? AppColors.black100
-                    : AppColors.white100),
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: CustomSearchDelegate<T>(
-                  data: data!, // Pasa la lista genérica
-                  searchField: searchField!, // Pasa la función de campo a buscar
-                ),
-              );
-            },
-          ),
+                    : AppColors.white100,
+              ),
+              onPressed: data.isNotEmpty
+                  ? () {
+                      showSearch(
+                        context: context,
+                        delegate: CustomSearchDelegate<dynamic>(
+                          data: data,
+                          searchField: searchField!,
+                          onTap: onTap!, 
+                        ),
+                      );
+                    }
+                  : null,
+            );
+          },
+        ),
       ],
     );
   }
