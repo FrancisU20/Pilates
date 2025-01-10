@@ -944,7 +944,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
                   pw.Text(
                     'Reporte Nutricional ${DateTime.now().year}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().day.toString().padLeft(2, '0')}',
                     style: pw.TextStyle(
-                      fontSize: 18,
+                      fontSize:SizeConfig.scaleText(1.8),
                       fontWeight: pw.FontWeight.bold,
                     ),
                   ),
@@ -958,7 +958,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
               pw.Text(
                 'Información Personal:',
                 style: pw.TextStyle(
-                  fontSize: SizeConfig.scaleText(1.6),
+                  fontSize:SizeConfig.scaleText(1.6),
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
@@ -977,85 +977,85 @@ class NutritionalInfoProvider extends ChangeNotifier {
               pw.SizedBox(height: SizeConfig.scaleHeight(1)),
               pw.Text(
                   'Nombre: ${nutritionalData.personalInformation!.completeName}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Fecha de Nacimiento: ${nutritionalData.personalInformation!.birthDate}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text('Edad: ${nutritionalData.personalInformation!.age}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text('Género: ${nutritionalData.personalInformation!.gender}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Estado Civil: ${nutritionalData.personalInformation!.maritalStatus}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Dirección: ${nutritionalData.personalInformation!.address}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Ocupación: ${nutritionalData.personalInformation!.occupation}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text('Teléfono: ${nutritionalData.personalInformation!.phone}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Correo Electrónico: ${nutritionalData.personalInformation!.email}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.SizedBox(height: SizeConfig.scaleHeight(2)),
               pw.Text(
                 'Hábitos Alimenticios:',
                 style: pw.TextStyle(
-                  fontSize: SizeConfig.scaleText(1.6),
+                  fontSize:SizeConfig.scaleText(1.6),
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
               pw.SizedBox(height: SizeConfig.scaleHeight(1)),
               pw.Text(
                   'Cuántas comidas consumes al día? ${nutritionalData.eatingHabits!.numberOfMeals}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Alergia a medicamentos: ${nutritionalData.eatingHabits!.medicationAllergy}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Toma suplementos? ${nutritionalData.eatingHabits!.takesSupplement != null && nutritionalData.eatingHabits!.takesSupplement == true ? 'Sí' : 'No'}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               if (nutritionalData.eatingHabits!.takesSupplement ?? false) ...[
                 pw.Text(
                     'Nombre del suplemento: ${nutritionalData.eatingHabits!.supplementName}',
-                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                    style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
                 pw.Text(
                     'Dosis: ${nutritionalData.eatingHabits!.supplementDose}',
-                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                    style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
                 pw.Text(
                     'Razón: ${nutritionalData.eatingHabits!.supplementReason}',
-                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                    style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               ],
               pw.Text(
                   'Tu alimentación varía con tu estado de ánimo? ${nutritionalData.eatingHabits!.foodVariesWithMood != null && nutritionalData.eatingHabits!.foodVariesWithMood == true ? 'Sí' : 'No'}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Tienes un plan de alimentación? ${nutritionalData.eatingHabits!.hasDietPlan != null && nutritionalData.eatingHabits!.hasDietPlan == true ? 'Sí' : 'No'}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Consumes alcohol? ${nutritionalData.eatingHabits!.consumesAlcohol != null && nutritionalData.eatingHabits!.consumesAlcohol == true ? 'Sí' : 'No'}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Fumas? ${nutritionalData.eatingHabits!.smokes != null && nutritionalData.eatingHabits!.smokes == true ? 'Sí' : 'No'}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Realizabas actividad física anteriormente? ${nutritionalData.eatingHabits!.previousPhysicalActivity != null && nutritionalData.eatingHabits!.previousPhysicalActivity == true ? 'Sí' : 'No'}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               if (nutritionalData.personalInformation!.gender != 'M') ...[
                 pw.Text(
                     'Estás embarazada? ${nutritionalData.eatingHabits!.isPregnant != null && nutritionalData.eatingHabits!.isPregnant == true ? 'Sí' : 'No'}',
-                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                    style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               ],
               pw.Text(
                   'Realizas actividad física actualmente? ${nutritionalData.eatingHabits!.currentPhysicalInjury != null && nutritionalData.eatingHabits!.currentPhysicalInjury == true ? 'Sí' : 'No'}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               if (nutritionalData.eatingHabits!.currentPhysicalInjury ??
                   false) ...[
                 pw.Text(
                     'Duración de la lesión: ${nutritionalData.eatingHabits!.currentSportsInjuryDuration}',
-                    style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                    style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               ],
             ],
           ),
@@ -1070,7 +1070,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
               pw.Text(
                 'Reporte Nutricional ${DateTime.now().year}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().day.toString().padLeft(2, '0')}',
                 style: pw.TextStyle(
-                  fontSize: SizeConfig.scaleText(1.8),
+                  fontSize:SizeConfig.scaleText(1.8),
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
@@ -1078,60 +1078,60 @@ class NutritionalInfoProvider extends ChangeNotifier {
               pw.Text(
                 'Información de Enfermedades:',
                 style: pw.TextStyle(
-                  fontSize: SizeConfig.scaleText(1.6),
+                  fontSize:SizeConfig.scaleText(1.6),
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
               pw.SizedBox(height: SizeConfig.scaleHeight(1)),
               pw.Text(
                   'Diabetes: ${nutritionalData.diseasesInformation!.diabetes}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Dislipidemias: ${nutritionalData.diseasesInformation!.dyslipidemias}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Obesidad: ${nutritionalData.diseasesInformation!.obesity}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Hipertensión: ${nutritionalData.diseasesInformation!.hypertension}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text('Cáncer: ${nutritionalData.diseasesInformation!.cancer}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Hipo/Hipertiroidismo: ${nutritionalData.diseasesInformation!.hypoHyperthyroidism}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Otras condiciones: ${nutritionalData.diseasesInformation!.otherConditions}',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.SizedBox(height: SizeConfig.scaleHeight(2)),
               pw.Text(
                 'Datos Antropométricos:',
                 style: pw.TextStyle(
-                  fontSize: SizeConfig.scaleText(1.6),
+                  fontSize:SizeConfig.scaleText(1.6),
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
               pw.SizedBox(height: SizeConfig.scaleHeight(1)),
               pw.Text('Peso: ${nutritionalData.anthropometricData!.weight} lb',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Altura: ${nutritionalData.anthropometricData!.height} cm',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Circunferencia del cuello: ${nutritionalData.anthropometricData!.neckCircumference} cm',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Circunferencia de la cintura: ${nutritionalData.anthropometricData!.waistCircumference} cm',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.Text(
                   'Circunferencia de la cadera: ${nutritionalData.anthropometricData!.hipCircumference} cm',
-                  style: pw.TextStyle(fontSize: SizeConfig.scaleText(1.5))),
+                  style: pw.TextStyle(fontSize:SizeConfig.scaleText(1.5))),
               pw.SizedBox(height: SizeConfig.scaleHeight(2)),
               //? Disclaimer y Firma
               pw.Text(
                 'Este reporte es generado automáticamente por el sistema de Curve Pilates, en caso de requerir más información, por favor contactar a nuestra especialista en nutrición.',
                 style: pw.TextStyle(
-                  fontSize: SizeConfig.scaleText(1.5),
+                  fontSize:SizeConfig.scaleText(1.5),
                   fontStyle: pw.FontStyle.italic,
                 ),
               ),
@@ -1139,7 +1139,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
               pw.Text(
                 'Firma del cliente: ${nutritionalData.personalInformation!.completeName}',
                 style: pw.TextStyle(
-                  fontSize: SizeConfig.scaleText(1.5),
+                  fontSize:SizeConfig.scaleText(1.5),
                 ),
               ),
             ],

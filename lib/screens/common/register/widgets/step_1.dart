@@ -50,7 +50,7 @@ class Step1State extends State<Step1> {
           CustomText(
               text: 'Ingresa tus datos por favor:',
               fontWeight: FontWeight.w400,
-              fontSize: SizeConfig.scaleText(2)),
+              fontSize:SizeConfig.scaleText(2)),
           SizedBox(height: SizeConfig.scaleHeight(2)),
           CustomTextField(
             title: 'Correo electrónico',
@@ -58,7 +58,7 @@ class Step1State extends State<Step1> {
             hintText: 'info@example.com',
             typeTextField: TextFieldType.email,
             controller: widget.emailController,
-            fontSize: SizeConfig.scaleText(1.7),
+            fontSize:SizeConfig.scaleText(1.7),
             onChanged: (value) {
               registerProvider.setEmail(value);
             },
@@ -69,7 +69,7 @@ class Step1State extends State<Step1> {
             hintText: '1003368724',
             typeTextField: TextFieldType.dni,
             controller: widget.dniController,
-            fontSize: SizeConfig.scaleText(1.7),
+            fontSize:SizeConfig.scaleText(1.7),
             onChanged: (value) {
               registerProvider.setDni(value);
             },
@@ -83,7 +83,7 @@ class Step1State extends State<Step1> {
                 typeTextField: TextFieldType.alphanumeric,
                 width: 38.5,
                 controller: widget.nameController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   registerProvider.setName(value);
                 },
@@ -96,7 +96,7 @@ class Step1State extends State<Step1> {
                 typeTextField: TextFieldType.alphanumeric,
                 width: 38.5,
                 controller: widget.lastNameController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   registerProvider.setLastname(value);
                 },
@@ -109,7 +109,7 @@ class Step1State extends State<Step1> {
             hintText: '**********',
             typeTextField: TextFieldType.password,
             controller: widget.passwordController,
-            fontSize: SizeConfig.scaleText(1.7),
+            fontSize:SizeConfig.scaleText(1.7),
             onChanged: (value) {
               registerProvider.setPassword(value);
             },
@@ -120,7 +120,7 @@ class Step1State extends State<Step1> {
             hintText: '**********',
             typeTextField: TextFieldType.repeatPassword,
             controller: widget.repeatPasswordController,
-            fontSize: SizeConfig.scaleText(1.7),
+            fontSize:SizeConfig.scaleText(1.7),
             compareValue: registerProvider.password,
             onChanged: (value) {
               registerProvider.setRepeatPassword(value);
@@ -135,7 +135,7 @@ class Step1State extends State<Step1> {
                 typeTextField: TextFieldType.date,
                 width: 38.5,
                 controller: widget.birthdayController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   registerProvider.setBirthday(DateTime.parse(value));
                 },
@@ -148,7 +148,7 @@ class Step1State extends State<Step1> {
                 typeTextField: TextFieldType.phone,
                 width: 38.5,
                 controller: widget.phoneController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   registerProvider.setPhone(value);
                 },

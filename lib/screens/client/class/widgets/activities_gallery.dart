@@ -61,14 +61,14 @@ class ActivitiesGallery extends StatelessWidget {
                           CustomText(
                             text: activitiesData[index]['description']!,
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleText(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w500,
                             textAlign: TextAlign.start,
                           ),
                           CustomText(
                             text: 'Curve Pilates',
                             color: AppColors.brown200,
-                            fontSize: SizeConfig.scaleText(1.8),
+                            fontSize:SizeConfig.scaleText(1.8),
                             fontWeight: FontWeight.w500,
                           ),
                         ],

@@ -8,7 +8,7 @@ import 'package:pilates/screens/client/class/widgets/class_picker.dart';
 import 'package:pilates/screens/client/class/widgets/hour_picker.dart';
 import 'package:pilates/screens/client/class/widgets/view_month.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/components/client/client_app_bar.dart';
+import 'package:pilates/theme/components/common/custom_app_bar.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
 import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
@@ -62,7 +62,7 @@ class ClassPageState extends State<ClassPage> {
         children: [
           Scaffold(
             backgroundColor: AppColors.white100,
-            appBar: const ClientAppBar(
+            appBar: const CustomAppBar(
                 backgroundColor: AppColors.brown200, ),
             body: Container(
               color: AppColors.brown200,
@@ -126,7 +126,7 @@ class ClassPageState extends State<ClassPage> {
                                         .listClassFilter.isNotEmpty) ...[
                                       CustomText(
                                           text: 'Selecciona la hora de inicio:',
-                                          fontSize: SizeConfig.scaleText(2)),
+                                          fontSize:SizeConfig.scaleText(2)),
                                       SizedBox(
                                         height: SizeConfig.scaleHeight(2),
                                       ),
@@ -139,7 +139,7 @@ class ClassPageState extends State<ClassPage> {
                                       ),
                                       CustomText(
                                           text: 'Nuestras actividades:',
-                                          fontSize: SizeConfig.scaleText(2)),
+                                          fontSize:SizeConfig.scaleText(2)),
                                       ActivitiesGallery(
                                           activitiesData: activitiesData),
                                       SizedBox(

@@ -47,13 +47,13 @@ class CustomPageHeader extends StatelessWidget {
               CustomText(
                 text: title,
                 color: textColor,
-                fontSize: SizeConfig.scaleText(3),
+                fontSize:SizeConfig.scaleText(3),
                 fontWeight: FontWeight.w600,
               ),
               CustomText(
                 text: subtitle,
                 color: textColor,
-                fontSize: SizeConfig.scaleText(1.8),
+                fontSize:SizeConfig.scaleText(1.8),
                 fontWeight: FontWeight.w400,
                 textAlign: TextAlign.left,
               ),

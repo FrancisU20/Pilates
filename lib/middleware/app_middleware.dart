@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/routes/page_state_provider.dart';
@@ -50,5 +51,23 @@ class AppMiddleware {
       pageStateProvider.setActiveRoute('/dashboard');
       context.go('/dashboard');
     }
+  }
+
+  static Future<void> updateAdminData(
+      BuildContext context, String route) async {
+    PageStateProvider pageStateProvider =
+        Provider.of<PageStateProvider>(context, listen: false);
+    AdminProvider adminProvider =
+        Provider.of<AdminProvider>(context, listen: false);
+    
+    //? Limpia las variables en memoria del provider
+    adminProvider.reset();
+
+    //? Obtiene los mese y planes
+    adminProvider.getMonths();
+    adminProvider.getUsersPlans(context);
+
+    pageStateProvider.setActiveRoute(route);
+    context.go(route);
   }
 }

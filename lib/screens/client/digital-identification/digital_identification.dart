@@ -3,7 +3,7 @@ import 'package:pilates/config/size_config.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/components/client/client_app_bar.dart';
+import 'package:pilates/theme/components/common/custom_app_bar.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
@@ -31,7 +31,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
         children: [
           Scaffold(
             backgroundColor: AppColors.white100,
-            appBar: const ClientAppBar(backgroundColor: AppColors.white100),
+            appBar: const CustomAppBar(backgroundColor: AppColors.white100),
             body: Padding(
               padding: EdgeInsets.only(
                 top: SizeConfig.scaleHeight(20),
@@ -85,14 +85,14 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                                             text:
                                                 '${loginProvider.user!.name} ${loginProvider.user!.lastname}',
                                             color: AppColors.white100,
-                                            fontSize: SizeConfig.scaleText(2),
+                                            fontSize:SizeConfig.scaleText(2),
                                             fontWeight: FontWeight.w400,
                                             textAlign: TextAlign.left,
                                           ),
                                           CustomText(
                                             text: loginProvider.user!.dniNumber,
                                             color: AppColors.white100,
-                                            fontSize: SizeConfig.scaleText(2),
+                                            fontSize:SizeConfig.scaleText(2),
                                             fontWeight: FontWeight.w400,
                                             textAlign: TextAlign.left,
                                           ),
@@ -100,7 +100,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                                             text:
                                                 'Celular: ${loginProvider.user!.phone.replaceAll('+593', '0')}',
                                             color: AppColors.white100,
-                                            fontSize: SizeConfig.scaleText(2),
+                                            fontSize:SizeConfig.scaleText(2),
                                             fontWeight: FontWeight.w400,
                                             textAlign: TextAlign.left,
                                           ),
@@ -108,7 +108,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                                             text:
                                                 'Cumpleaños: ${userPlanProvider.convertDate(loginProvider.user!.birthdate.toString().substring(0, 10)).substring(0, 9)}',
                                             color: AppColors.white100,
-                                            fontSize: SizeConfig.scaleText(2),
+                                            fontSize:SizeConfig.scaleText(2),
                                             fontWeight: FontWeight.w400,
                                             textAlign: TextAlign.left,
                                           ),
@@ -122,7 +122,7 @@ class DigitalIdentificationPageState extends State<DigitalIdentificationPage> {
                                       text:
                                           'Miembro desde el ${userPlanProvider.convertDate(loginProvider.user!.createdAt.toString().substring(0, 10))}',
                                       color: AppColors.white100,
-                                      fontSize: SizeConfig.scaleText(2),
+                                      fontSize:SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),

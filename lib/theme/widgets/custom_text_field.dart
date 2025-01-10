@@ -247,7 +247,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                 labelStyle: GoogleFonts.montserrat(
                   textStyle: TextStyle(
                     color: textColor,
-                    fontSize: widget.fontSize!,
+                    fontSize:widget.fontSize!,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -256,7 +256,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                 hintStyle: GoogleFonts.montserrat(
                   textStyle: TextStyle(
                     color: textColor,
-                    fontSize: widget.fontSize!,
+                    fontSize:widget.fontSize!,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -316,7 +316,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                 errorStyle: GoogleFonts.montserrat(
                   textStyle: TextStyle(
                     color: AppColors.red300,
-                    fontSize: widget.fontSize! - 0.2,
+                    fontSize:widget.fontSize! - 0.2,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -325,7 +325,7 @@ class CustomTextFieldState extends State<CustomTextField> {
             style: GoogleFonts.montserrat(
               textStyle: TextStyle(
                 color: textColor,
-                fontSize: widget.fontSize!,
+                fontSize:widget.fontSize!,
                 fontWeight: FontWeight.w400,
               ),
             ),

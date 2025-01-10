@@ -38,7 +38,7 @@ class Indicators extends StatelessWidget {
                           .length
                           .toString(),
                       color: AppColors.white100,
-                      fontSize: SizeConfig.scaleText(4.5),
+                      fontSize:SizeConfig.scaleText(4.5),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -60,13 +60,13 @@ class Indicators extends StatelessWidget {
                   CustomText(
                     text: 'Clientes',
                     color: AppColors.black100,
-                    fontSize: SizeConfig.scaleText(1.6),
+                    fontSize:SizeConfig.scaleText(1.6),
                     fontWeight: FontWeight.w400,
                   ),
                   CustomText(
                     text: 'Nuevos',
                     color: AppColors.black100,
-                    fontSize: SizeConfig.scaleText(1.8),
+                    fontSize:SizeConfig.scaleText(1.8),
                     fontWeight: FontWeight.w600,
                   ),
                 ],
@@ -92,7 +92,7 @@ class Indicators extends StatelessWidget {
                     child: CustomText(
                       text: adminProvider.listUserPlans.length.toString(),
                       color: AppColors.white100,
-                      fontSize: SizeConfig.scaleText(4.5),
+                      fontSize:SizeConfig.scaleText(4.5),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -114,13 +114,13 @@ class Indicators extends StatelessWidget {
                   CustomText(
                     text: 'Planes',
                     color: AppColors.black100,
-                    fontSize: SizeConfig.scaleText(1.6),
+                    fontSize:SizeConfig.scaleText(1.6),
                     fontWeight: FontWeight.w400,
                   ),
                   CustomText(
                     text: 'Vendidos',
                     color: AppColors.black100,
-                    fontSize: SizeConfig.scaleText(1.8),
+                    fontSize:SizeConfig.scaleText(1.8),
                     fontWeight: FontWeight.w600,
                   ),
                 ],
@@ -150,7 +150,7 @@ class Indicators extends StatelessWidget {
                           .length
                           .toString(),
                       color: AppColors.white100,
-                      fontSize: SizeConfig.scaleText(4.5),
+                      fontSize:SizeConfig.scaleText(4.5),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -172,13 +172,13 @@ class Indicators extends StatelessWidget {
                   CustomText(
                     text: 'Clientes',
                     color: AppColors.black100,
-                    fontSize: SizeConfig.scaleText(1.6),
+                    fontSize:SizeConfig.scaleText(1.6),
                     fontWeight: FontWeight.w400,
                   ),
                   CustomText(
                     text: 'Totales',
                     color: AppColors.black100,
-                    fontSize: SizeConfig.scaleText(1.8),
+                    fontSize:SizeConfig.scaleText(1.8),
                     fontWeight: FontWeight.w600,
                   ),
                 ],

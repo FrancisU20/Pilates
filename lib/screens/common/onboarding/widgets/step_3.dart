@@ -29,7 +29,7 @@ class Step3State extends State<Step3> {
         CustomText(
             text:
                 'Reserva tu primera clase y comienza tu viaje hacia una vida más saludable y equilibrada',
-            fontSize: SizeConfig.scaleText(2.5),
+            fontSize:SizeConfig.scaleText(2.5),
             fontWeight: FontWeight.w400,
             maxLines: 3,),
       ],

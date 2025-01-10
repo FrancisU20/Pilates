@@ -58,7 +58,7 @@ class Step2State extends State<Step2> {
                               ? AppColors.brown200
                               : AppColors.black100,
                           fontWeight: FontWeight.w400,
-                          fontSize: SizeConfig.scaleText(2),
+                          fontSize:SizeConfig.scaleText(2),
                         ),
                       ],
                     ),
@@ -91,7 +91,7 @@ class Step2State extends State<Step2> {
                                 ? AppColors.brown200
                                 : AppColors.black100,
                             fontWeight: FontWeight.w400,
-                            fontSize: SizeConfig.scaleText(2)),
+                            fontSize:SizeConfig.scaleText(2)),
                       ],
                     ),
                   ),
@@ -124,7 +124,7 @@ class Step2State extends State<Step2> {
                               ? AppColors.brown200
                               : AppColors.black100,
                           fontWeight: FontWeight.w400,
-                          fontSize: SizeConfig.scaleText(2)),
+                          fontSize:SizeConfig.scaleText(2)),
                     ),
                   ),
                 ),

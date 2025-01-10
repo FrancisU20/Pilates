@@ -31,7 +31,7 @@ class CustomText extends StatelessWidget {
       style: GoogleFonts.montserrat(
         textStyle: TextStyle(
           color: color,
-          fontSize: fontSize,
+          fontSize:fontSize,
           fontWeight: fontWeight,
         ),
       ),

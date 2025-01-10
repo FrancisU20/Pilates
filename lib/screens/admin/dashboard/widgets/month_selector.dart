@@ -18,7 +18,7 @@ class MonthSelector extends StatelessWidget {
         CustomText(
             text: 'Estadísticas, ',
             color: AppColors.brown400,
-            fontSize: SizeConfig.scaleText(3),
+            fontSize:SizeConfig.scaleText(3),
             fontWeight: FontWeight.w400),
         SizedBox(
           width: SizeConfig.scaleWidth(1),
@@ -26,7 +26,7 @@ class MonthSelector extends StatelessWidget {
         CustomText(
             text: adminProvider.getStringMonth(adminProvider.selectedMonth),
             color: AppColors.brown200,
-            fontSize: SizeConfig.scaleText(3),
+            fontSize:SizeConfig.scaleText(3),
             fontWeight: FontWeight.w600),
         const Spacer(),
         CustomIconButton(

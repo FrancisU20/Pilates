@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/icons_paths.dart';
 import 'package:pilates/config/size_config.dart';
@@ -30,17 +29,6 @@ class AdminHomeBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      actions: [
-        IconButton(
-          icon: const Icon(
-            FontAwesomeIcons.rotateLeft,
-            color: AppColors.grey200,
-          ),
-          onPressed: () async {
-            
-          },
-        ),
-      ],
     );
   }
 }

@@ -69,7 +69,7 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 child: CustomText(
                   text: 'Medidas Antropométricas',
                   color: AppColors.black100,
-                  fontSize: SizeConfig.scaleText(2.5),
+                  fontSize:SizeConfig.scaleText(2.5),
                   fontWeight: FontWeight.w500,
                   maxLines: 2,
                 ),
@@ -83,7 +83,7 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 hintText: '110 lb',
                 typeTextField: TextFieldType.number,
                 controller: widget.weightController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setWeight(double.parse(value));
@@ -100,7 +100,7 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 hintText: '170 cm',
                 typeTextField: TextFieldType.number,
                 controller: widget.heightController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setHeight(double.parse(value));
@@ -117,7 +117,7 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 hintText: '40 cm',
                 typeTextField: TextFieldType.number,
                 controller: widget.neckCircumferenceController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setNeckCircumference(double.parse(value));
@@ -134,7 +134,7 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 hintText: '80 cm',
                 typeTextField: TextFieldType.number,
                 controller: widget.waistCircumferenceController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setWaistCircumference(double.parse(value));
@@ -151,7 +151,7 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 hintText: '90 cm',
                 typeTextField: TextFieldType.number,
                 controller: widget.hipCircumferenceController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setHipCircumference(double.parse(value));

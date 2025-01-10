@@ -29,7 +29,7 @@ class Step2State extends State<Step2> {
         CustomText(
             text:
                 'Descubre cómo nuestras rutinas te ayudarán a aumentar tu flexibilidad y fortaleza',
-            fontSize: SizeConfig.scaleText(2.5),
+            fontSize:SizeConfig.scaleText(2.5),
             fontWeight: FontWeight.w400,
             maxLines: 3,),
       ],

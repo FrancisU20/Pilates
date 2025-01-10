@@ -64,7 +64,7 @@ class HourPickerState extends State<HourPicker> {
                             .substring(0, 5),
                         color:
                             isSelected ? AppColors.gold100 : AppColors.grey200,
-                        fontSize: SizeConfig.scaleText(2),
+                        fontSize:SizeConfig.scaleText(2),
                         fontWeight: FontWeight.w500,
                       ),
                       Container(

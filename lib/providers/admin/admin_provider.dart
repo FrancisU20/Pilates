@@ -16,8 +16,7 @@ class AdminProvider extends ChangeNotifier {
 
   //****************************************/
   //? Variables
-  DateTime selectedMonth = DateTime.now();
-  DateTime selectedMonthEnd = DateTime.now();
+  DateTime selectedMonth = DateTime(DateTime.now().year, DateTime.now().month, 1);
 
   //? Setters Variables
   void setSelectedMonth(DateTime selectedMonth) {
@@ -25,19 +24,9 @@ class AdminProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedMonthEnd(DateTime selectedMonthEnd) {
-    this.selectedMonthEnd = selectedMonthEnd;
-    notifyListeners();
-  }
-
   //? Clean Variables
   void cleanSelectedMonth() {
-    selectedMonth = DateTime.now();
-    notifyListeners();
-  }
-
-  void cleanSelectedMonthEnd() {
-    selectedMonthEnd = DateTime.now();
+    selectedMonth = DateTime(DateTime.now().year, DateTime.now().month, 1);
     notifyListeners();
   }
 
@@ -92,6 +81,8 @@ class AdminProvider extends ChangeNotifier {
 
   //? Eliminar toda la data
   void reset() {
+    cleanSelectedMonth();
+    cleanListUserPlans();
     cleanListMonth();
   }
 
@@ -192,9 +183,11 @@ class AdminProvider extends ChangeNotifier {
 
   //? Obtener Planes de los Usuarios
   Future<void> getUsersPlans(BuildContext context,
-      {String? status, DateTime? startDate, DateTime? endDate}) async {
+      {String? status}) async {
     try {
       showLoading();
+      DateTime startDate = DateTime(selectedMonth.year, selectedMonth.month);
+      DateTime endDate = DateTime(selectedMonth.year, selectedMonth.month + 1, 0);
 
       StandardResponse<List<UserPlanModel>> userPlansResponse =
           await userPlanController.getUserPlans(

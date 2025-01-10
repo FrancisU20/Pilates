@@ -6,7 +6,7 @@ import 'package:pilates/screens/client/my-account/widgets/classes_summary.dart';
 import 'package:pilates/theme/components/common/app_plan_details.dart';
 import 'package:pilates/theme/components/client/client_identification.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
-import 'package:pilates/theme/components/client/client_app_bar.dart';
+import 'package:pilates/theme/components/common/custom_app_bar.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
@@ -32,7 +32,7 @@ class MyAccountPageState extends State<MyAccountPage> {
         children: [
           Scaffold(
             backgroundColor: AppColors.white100,
-            appBar: const ClientAppBar(
+            appBar: const CustomAppBar(
               backgroundColor: AppColors.brown200,
             ),
             body: SingleChildScrollView(
@@ -91,7 +91,7 @@ class MyAccountPageState extends State<MyAccountPage> {
                                         CustomText(
                                             text: 'Mi Plan',
                                             color: AppColors.black100,
-                                            fontSize: SizeConfig.scaleText(2),
+                                            fontSize:SizeConfig.scaleText(2),
                                             fontWeight: FontWeight.w500,
                                             textAlign: TextAlign.left),
                                         ClassesSummary(
@@ -154,7 +154,7 @@ class MyAccountPageState extends State<MyAccountPage> {
                                                         context);
                                               },
                                               text: 'Eliminar Cuenta',
-                                              fontSize: 2,
+                                              fontSize:SizeConfig.scaleText(1),
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.red300),
                                         ),

@@ -7,7 +7,7 @@ import 'package:pilates/screens/admin/dashboard/widgets/month_selector.dart';
 import 'package:pilates/screens/admin/dashboard/widgets/pie_data.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/admin/admin_home_bar.dart';
-import 'package:pilates/theme/components/client/client_nav_bar.dart';
+import 'package:pilates/theme/components/admin/admin_nav_bar.dart';
 import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/components/common/app_plan_details.dart';
@@ -16,14 +16,14 @@ import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:provider/provider.dart';
 
-class AdmDashboardPage extends StatefulWidget {
-  const AdmDashboardPage({super.key});
+class AdminDashboardPage extends StatefulWidget {
+  const AdminDashboardPage({super.key});
 
   @override
-  AdmDashboardPageState createState() => AdmDashboardPageState();
+  AdminDashboardPageState createState() => AdminDashboardPageState();
 }
 
-class AdmDashboardPageState extends State<AdmDashboardPage> {
+class AdminDashboardPageState extends State<AdminDashboardPage> {
   final menuItems = MenuData.menuItems;
 
   @override
@@ -53,8 +53,6 @@ class AdmDashboardPageState extends State<AdmDashboardPage> {
                   vertical: SizeConfig.scaleHeight(0.5)),
               child: Consumer<AdminProvider>(
                 builder: (context, adminProvider, child) {
-                  PlanModel mostUsedPlan = adminProvider.getMostUsedPlan();
-
                   if (adminProvider.listUserPlans.isEmpty) {
                     return Column(
                       children: [
@@ -63,10 +61,11 @@ class AdmDashboardPageState extends State<AdmDashboardPage> {
                             imagePath:
                                 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/box/box-empty.png',
                             message:
-                                'No se ha encontrado datos para este el mes de ${adminProvider.getStringMonth(adminProvider.selectedMonth)}'),
+                                'No se ha encontrado datos para el mes de ${adminProvider.getStringMonth(adminProvider.selectedMonth)}'),
                       ],
                     );
                   } else {
+                    PlanModel mostUsedPlan = adminProvider.getMostUsedPlan();
                     return ListView(
                       children: [
                         Column(
@@ -98,7 +97,7 @@ class AdmDashboardPageState extends State<AdmDashboardPage> {
                               child: CustomText(
                                   text: 'Métricas mensuales ',
                                   color: AppColors.black100,
-                                  fontSize: SizeConfig.scaleHeight(2.5),
+                                  fontSize:SizeConfig.scaleText(2.5),
                                   fontWeight: FontWeight.w500),
                             ),
                             SizedBox(
@@ -108,19 +107,20 @@ class AdmDashboardPageState extends State<AdmDashboardPage> {
                             SizedBox(
                               height: SizeConfig.scaleHeight(2),
                             ),
-                            CustomText(
-                              text: 'Plan más usado',
-                              color: AppColors.black100,
-                              fontSize: SizeConfig.scaleHeight(2.5),
-                              fontWeight: FontWeight.w500,
+                            Center(
+                              child: CustomText(
+                                text: 'Plan más usado',
+                                color: AppColors.black100,
+                                fontSize:SizeConfig.scaleText(2.5),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                             SizedBox(
                               height: SizeConfig.scaleHeight(1),
                             ),
                             AppPlanDetails(
                               planName: mostUsedPlan.name,
-                              planDescription:
-                                  mostUsedPlan.description,
+                              planDescription: mostUsedPlan.description,
                               planPrice: mostUsedPlan.basePrice.toString(),
                             ),
                           ],
@@ -131,7 +131,7 @@ class AdmDashboardPageState extends State<AdmDashboardPage> {
                 },
               ),
             ),
-            bottomNavigationBar: const ClientNavBar(),
+            bottomNavigationBar: const AdminNavBar(),
           ),
           const AppLoading(),
         ],

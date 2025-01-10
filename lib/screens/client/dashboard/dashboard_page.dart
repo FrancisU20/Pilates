@@ -68,7 +68,7 @@ class DashboardPageState extends State<DashboardPage> {
                             CustomText(
                                 text: 'Hola,',
                                 color: AppColors.brown400,
-                                fontSize: SizeConfig.scaleText(4),
+                                fontSize:SizeConfig.scaleText(4),
                                 fontWeight: FontWeight.w400),
                             SizedBox(
                               width: SizeConfig.scaleWidth(3),
@@ -76,7 +76,7 @@ class DashboardPageState extends State<DashboardPage> {
                             CustomText(
                                 text: '${loginProvider.user!.name}!',
                                 color: AppColors.brown200,
-                                fontSize: SizeConfig.scaleText(4),
+                                fontSize:SizeConfig.scaleText(4),
                                 fontWeight: FontWeight.w400),
                           ],
                         );
@@ -90,7 +90,7 @@ class DashboardPageState extends State<DashboardPage> {
                         CustomText(
                             text: '¿Qué te gustaría hacer hoy?',
                             color: AppColors.brown400,
-                            fontSize: SizeConfig.scaleText(2.5),
+                            fontSize:SizeConfig.scaleText(2.5),
                             fontWeight: FontWeight.w500),
                       ],
                     ),
@@ -139,7 +139,7 @@ class DashboardPageState extends State<DashboardPage> {
                                       child: CustomText(
                                           text: menuItem['description']!,
                                           color: AppColors.white100,
-                                          fontSize: SizeConfig.scaleText(2.5),
+                                          fontSize:SizeConfig.scaleText(2.5),
                                           fontWeight: FontWeight.w500,
                                           textAlign: TextAlign.center),
                                     ),
@@ -172,7 +172,7 @@ class DashboardPageState extends State<DashboardPage> {
                                         text:
                                             '${userPlanProvider.activeUserPlan!.plan.classesCount - userPlanProvider.activeUserPlan!.scheduledClasses} de ${userPlanProvider.activeUserPlan!.plan.classesCount}',
                                         color: AppColors.brown200,
-                                        fontSize: SizeConfig.scaleText(2),
+                                        fontSize:SizeConfig.scaleText(2),
                                         fontWeight: FontWeight.w500),
                                     SizedBox(
                                       height: SizeConfig.scaleHeight(1.5),
@@ -199,7 +199,7 @@ class DashboardPageState extends State<DashboardPage> {
                                     CustomText(
                                         text: 'Clases Disponibles',
                                         color: AppColors.brown200,
-                                        fontSize: SizeConfig.scaleText(2),
+                                        fontSize:SizeConfig.scaleText(2),
                                         fontWeight: FontWeight.w500,
                                         textAlign: TextAlign.start),
                                   ],
@@ -218,7 +218,7 @@ class DashboardPageState extends State<DashboardPage> {
                                       text:
                                           'Tu plan se encuentra en proceso de activación',
                                       color: AppColors.brown400,
-                                      fontSize: SizeConfig.scaleText(2),
+                                      fontSize:SizeConfig.scaleText(2),
                                       fontWeight: FontWeight.w500,
                                       maxLines: 2,
                                     ),

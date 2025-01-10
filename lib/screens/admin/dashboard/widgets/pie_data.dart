@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
@@ -30,7 +31,7 @@ class PieDataState extends State<PieData> {
           child: CustomText(
               text: 'Información de planes ',
               color: AppColors.black100,
-              fontSize: SizeConfig.scaleHeight(2.5),
+              fontSize:SizeConfig.scaleText(2.5),
               fontWeight: FontWeight.w500),
         ),
         SizedBox(
@@ -53,7 +54,7 @@ class PieDataState extends State<PieData> {
                   CustomText(
                       text: 'Activos',
                       color: AppColors.green200,
-                      fontSize: SizeConfig.scaleHeight(1.5),
+                      fontSize:SizeConfig.scaleText(1.5),
                       fontWeight: FontWeight.w500),
                 ],
               ),
@@ -73,7 +74,7 @@ class PieDataState extends State<PieData> {
                   CustomText(
                       text: 'Completados',
                       color: AppColors.blue200,
-                      fontSize: SizeConfig.scaleHeight(1.5),
+                      fontSize:SizeConfig.scaleText(1.5),
                       fontWeight: FontWeight.w500),
                 ],
               ),
@@ -93,7 +94,7 @@ class PieDataState extends State<PieData> {
                   CustomText(
                       text: 'Expirados',
                       color: AppColors.orange300,
-                      fontSize: SizeConfig.scaleHeight(1.5),
+                      fontSize:SizeConfig.scaleText(1.5),
                       fontWeight: FontWeight.w500),
                 ],
               ),
@@ -113,7 +114,7 @@ class PieDataState extends State<PieData> {
                   CustomText(
                       text: 'Inactivos',
                       color: AppColors.red300,
-                      fontSize: SizeConfig.scaleHeight(1.5),
+                      fontSize:SizeConfig.scaleText(1.5),
                       fontWeight: FontWeight.w500),
                 ],
               ),
@@ -156,10 +157,14 @@ class PieDataState extends State<PieData> {
                       .length
                       .toString(),
                   radius: SizeConfig.scaleHeight(7),
-                  titleStyle: TextStyle(
-                    fontSize: SizeConfig.scaleHeight(2.5),
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white100,
+                  titleStyle: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                      color: AppColors.white100,
+                      fontSize:SizeConfig.scaleText(2.5),
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -0.5,
+                      height: 0.9,
+                    ),
                   ),
                 ),
                 PieChartSectionData(
@@ -173,10 +178,14 @@ class PieDataState extends State<PieData> {
                       .length
                       .toString(),
                   radius: SizeConfig.scaleHeight(7),
-                  titleStyle: TextStyle(
-                    fontSize: SizeConfig.scaleHeight(2.5),
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white100,
+                  titleStyle: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                      color: AppColors.white100,
+                      fontSize:SizeConfig.scaleText(2.5),
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -0.5,
+                      height: 0.9,
+                    ),
                   ),
                 ),
                 PieChartSectionData(
@@ -190,10 +199,14 @@ class PieDataState extends State<PieData> {
                       .length
                       .toString(),
                   radius: SizeConfig.scaleHeight(7),
-                  titleStyle: TextStyle(
-                    fontSize: SizeConfig.scaleHeight(2.5),
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white100,
+                  titleStyle: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                      color: AppColors.white100,
+                      fontSize:SizeConfig.scaleText(2.5),
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -0.5,
+                      height: 0.9,
+                    ),
                   ),
                 ),
                 PieChartSectionData(
@@ -207,10 +220,14 @@ class PieDataState extends State<PieData> {
                       .length
                       .toString(),
                   radius: SizeConfig.scaleHeight(7),
-                  titleStyle: TextStyle(
-                    fontSize: SizeConfig.scaleHeight(2.5),
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white100,
+                  titleStyle: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                      color: AppColors.white100,
+                      fontSize:SizeConfig.scaleText(2.5),
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -0.5,
+                      height: 0.9,
+                    ),
                   ),
                 ),
               ],

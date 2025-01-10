@@ -65,7 +65,7 @@ class ClassesSummary extends StatelessWidget {
               CustomText(
                 text: countText,
                 color: textColor,
-                fontSize: SizeConfig.scaleText(3.5),
+                fontSize:SizeConfig.scaleText(3.5),
                 fontWeight: FontWeight.w600,
               ),
             ],
@@ -77,7 +77,7 @@ class ClassesSummary extends StatelessWidget {
         CustomText(
           text: labelText,
           color: AppColors.black100,
-          fontSize: SizeConfig.scaleHeight(1.5),
+          fontSize:SizeConfig.scaleText(1.5),
           fontWeight: FontWeight.w400,
         ),
       ],

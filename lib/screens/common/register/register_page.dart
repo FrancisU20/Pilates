@@ -147,7 +147,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 ? 'Registro'
                                 : 'Completado',
                             fontWeight: FontWeight.w500,
-                            fontSize: SizeConfig.scaleText(2.7)),
+                            fontSize:SizeConfig.scaleText(2.7)),
                         content: Step1(
                           emailController: emailController,
                           passwordController: passwordController,
@@ -169,7 +169,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 ? 'Cuál es tu género?'
                                 : 'Completado',
                             fontWeight: FontWeight.w500,
-                            fontSize: SizeConfig.scaleText(2.7)),
+                            fontSize:SizeConfig.scaleText(2.7)),
                         content: const Step2(),
                         isActive: registerProvider.currentStep >= 1,
                         state: registerProvider.isStep2Completed
@@ -182,7 +182,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 ? 'Sube una foto de perfil'
                                 : 'Completado',
                             fontWeight: FontWeight.w500,
-                            fontSize: SizeConfig.scaleText(2.7)),
+                            fontSize:SizeConfig.scaleText(2.7)),
                         content: const Step3(),
                         isActive: registerProvider.currentStep >= 2,
                         state: registerProvider.isStep3Completed
@@ -195,7 +195,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 ? 'Registro Exitoso'
                                 : 'En Proceso',
                             fontWeight: FontWeight.w500,
-                            fontSize: SizeConfig.scaleText(2.7)),
+                            fontSize:SizeConfig.scaleText(2.7)),
                         content: const RegisterSuccess(),
                         state: StepState.complete,
                         isActive: registerProvider.currentStep == 3,

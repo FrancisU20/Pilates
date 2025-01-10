@@ -28,7 +28,7 @@ class Step1State extends State<Step1> {
         CustomText(
             text:
                 'Experimenta los beneficios de nuestros servicios y siente la diferencia',
-            fontSize: SizeConfig.scaleText(2.5),
+            fontSize:SizeConfig.scaleText(2.5),
             fontWeight: FontWeight.w400,
             maxLines: 3,),
       ],

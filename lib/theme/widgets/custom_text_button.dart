@@ -28,7 +28,7 @@ class CustomTextButton extends StatelessWidget {
       child: CustomText(
           text: text ?? '',
           color: color,
-          fontSize: SizeConfig.scaleText(fontSize),
+          fontSize:SizeConfig.scaleText(fontSize),
           fontWeight: fontWeight),
     );
   }

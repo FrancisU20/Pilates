@@ -38,7 +38,7 @@ class PlanStatusDisclaimer extends StatelessWidget {
                       CustomText(
                         text: 'Plan creado con éxito',
                         color: AppColors.white100,
-                        fontSize: SizeConfig.scaleText(2),
+                        fontSize:SizeConfig.scaleText(2),
                         fontWeight: FontWeight.w600,
                         textAlign: TextAlign.center,
                       ),
@@ -51,7 +51,7 @@ class PlanStatusDisclaimer extends StatelessWidget {
             CustomText(
               text:
                   'Estamos validando tu transferencia. Mientras tanto, tu plan permanecerá en estado inactivo. Una vez que confirmemos el pago, activaremos tu suscripción. Si tienes alguna duda, pulsa el botón de abajo para comunicarte con nosotros a través de WhatsApp. ¡Estamos aquí para ayudarte!',
-              fontSize: SizeConfig.scaleText(1.8),
+              fontSize:SizeConfig.scaleText(1.8),
               color: AppColors.green200,
               fontWeight: FontWeight.w500,
               maxLines: 8,

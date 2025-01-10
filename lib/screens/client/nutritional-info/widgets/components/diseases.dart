@@ -73,7 +73,7 @@ class DiseasesState extends State<Diseases> {
                 child: CustomText(
                   text: 'Antecedentes Heredo Familiares',
                   color: AppColors.black100,
-                  fontSize: SizeConfig.scaleText(2.5),
+                  fontSize:SizeConfig.scaleText(2.5),
                   fontWeight: FontWeight.w500,
                   maxLines: 2,
                 ),
@@ -87,7 +87,7 @@ class DiseasesState extends State<Diseases> {
                 hintText: '',
                 typeTextField: TextFieldType.diseases,
                 controller: widget.diabetesController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setDiabetes(value);
                 },
@@ -99,7 +99,7 @@ class DiseasesState extends State<Diseases> {
                 hintText: '',
                 typeTextField: TextFieldType.diseases,
                 controller: widget.dyslipidemiasController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setDyslipidemias(value);
                 },
@@ -111,7 +111,7 @@ class DiseasesState extends State<Diseases> {
                 hintText: '',
                 typeTextField: TextFieldType.diseases,
                 controller: widget.obesityController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setObesity(value);
                 },
@@ -123,7 +123,7 @@ class DiseasesState extends State<Diseases> {
                 hintText: '',
                 typeTextField: TextFieldType.diseases,
                 controller: widget.hypertensionController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setHypertension(value);
                 },
@@ -135,7 +135,7 @@ class DiseasesState extends State<Diseases> {
                 hintText: '',
                 typeTextField: TextFieldType.diseases,
                 controller: widget.cancerController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setCancer(value);
                 },
@@ -147,7 +147,7 @@ class DiseasesState extends State<Diseases> {
                 hintText: '',
                 typeTextField: TextFieldType.diseases,
                 controller: widget.hypoHyperthyroidismController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setHypoHyperthyroidism(value);
                 },
@@ -159,7 +159,7 @@ class DiseasesState extends State<Diseases> {
                 hintText: 'Trastornos alimenticios, etc.',
                 typeTextField: TextFieldType.alphanumeric,
                 controller: widget.otherConditionsController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setOtherConditions(value);
                 },

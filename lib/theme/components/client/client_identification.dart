@@ -73,14 +73,14 @@ class ClientIdentification extends StatelessWidget {
                         text:
                             '${loginProvider.user!.name} ${loginProvider.user!.lastname}',
                         color: AppColors.white100,
-                        fontSize: SizeConfig.scaleText(1.6),
+                        fontSize:SizeConfig.scaleText(1.6),
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.left,
                       ),
                       CustomText(
                         text: loginProvider.user!.dniNumber,
                         color: AppColors.white100,
-                        fontSize: SizeConfig.scaleText(1.6),
+                        fontSize:SizeConfig.scaleText(1.6),
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.left,
                       ),
@@ -88,7 +88,7 @@ class ClientIdentification extends StatelessWidget {
                         text:
                             'Celular: ${loginProvider.user!.phone.replaceAll('+593', '0')}',
                         color: AppColors.white100,
-                        fontSize: SizeConfig.scaleText(1.6),
+                        fontSize:SizeConfig.scaleText(1.6),
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.left,
                       ),
@@ -96,7 +96,7 @@ class ClientIdentification extends StatelessWidget {
                         text:
                             'Cumpleaños: ${userPlanProvider.convertDate(loginProvider.user!.birthdate.toString().substring(0, 10)).substring(0, 9)}',
                         color: AppColors.white100,
-                        fontSize: SizeConfig.scaleText(1.6),
+                        fontSize:SizeConfig.scaleText(1.6),
                         fontWeight: FontWeight.w500,
                         textAlign: TextAlign.left,
                       ),
@@ -112,7 +112,7 @@ class ClientIdentification extends StatelessWidget {
               text:
                   'Miembro desde el ${userPlanProvider.convertDate(loginProvider.user!.createdAt.toString().substring(0, 10))}',
               color: AppColors.white100,
-              fontSize: SizeConfig.scaleText(1.6),
+              fontSize:SizeConfig.scaleText(1.6),
               fontWeight: FontWeight.w500,
             ),
           ),

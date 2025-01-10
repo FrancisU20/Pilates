@@ -89,7 +89,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 child: CustomText(
                     text: 'Hábitos alimenticios',
                     color: AppColors.black100,
-                    fontSize: SizeConfig.scaleText(2.5),
+                    fontSize:SizeConfig.scaleText(2.5),
                     fontWeight: FontWeight.w500,
                     maxLines: 2,),
               ),
@@ -102,7 +102,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.numberInt,
                 controller: widget.numberOfMealsController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setNumberOfMeals(int.parse(value));
@@ -119,7 +119,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: 'Penicilina, aspirina, etc.',
                 typeTextField: TextFieldType.alphanumeric,
                 controller: widget.medicationAllergyController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setMedicationAllergy(value);
                 },
@@ -131,7 +131,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.boolean,
                 controller: widget.takesSupplementController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
                     nutritionalInfoProvider.setTakesSupplement(true);
@@ -150,7 +150,7 @@ class EatingHabitsState extends State<EatingHabits> {
                       hintText: 'Proteína, creatina, etc.',
                       typeTextField: TextFieldType.alphanumeric,
                       controller: widget.supplementNameController,
-                      fontSize: SizeConfig.scaleText(1.7),
+                      fontSize:SizeConfig.scaleText(1.7),
                       onChanged: (value) {
                         nutritionalInfoProvider.setSupplementName(value);
                       },
@@ -162,7 +162,7 @@ class EatingHabitsState extends State<EatingHabits> {
                       hintText: '1 ml, 1 pastilla, etc.',
                       typeTextField: TextFieldType.alphanumeric,
                       controller: widget.supplementDoseController,
-                      fontSize: SizeConfig.scaleText(1.7),
+                      fontSize:SizeConfig.scaleText(1.7),
                       onChanged: (value) {
                         nutritionalInfoProvider.setSupplementDose(value);
                       },
@@ -174,7 +174,7 @@ class EatingHabitsState extends State<EatingHabits> {
                       hintText: '',
                       typeTextField: TextFieldType.alphanumeric,
                       controller: widget.supplementReasonController,
-                      fontSize: SizeConfig.scaleText(1.7),
+                      fontSize:SizeConfig.scaleText(1.7),
                       onChanged: (value) {
                         nutritionalInfoProvider.setSupplementReason(value);
                       },
@@ -189,7 +189,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.boolean,
                 controller: widget.foodVariesWithMoodController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
                     nutritionalInfoProvider.setFoodVariesWithMood(true);
@@ -205,7 +205,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.boolean,
                 controller: widget.hasDietPlanController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
                     nutritionalInfoProvider.setHasDietPlan(true);
@@ -221,7 +221,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.boolean,
                 controller: widget.consumesAlcoholController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
                     nutritionalInfoProvider.setConsumesAlcohol(true);
@@ -237,7 +237,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.boolean,
                 controller: widget.smokesController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
                     nutritionalInfoProvider.setSmokes(true);
@@ -253,7 +253,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.boolean,
                 controller: widget.previousPhysicalActivityController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
                     nutritionalInfoProvider.setPreviousPhysicalActivity(true);
@@ -270,7 +270,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.boolean,
                 controller: widget.isPregnantController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
                     nutritionalInfoProvider.setIsPregnant(true);
@@ -286,7 +286,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.boolean,
                 controller: widget.currentPhysicalActivityController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   if (value == 'SI') {
                     nutritionalInfoProvider.setCurrentPhysicalInjury(true);
@@ -303,7 +303,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 hintText: '',
                 typeTextField: TextFieldType.alphanumeric,
                 controller: widget.currentSportsInjuryDurationController,
-                fontSize: SizeConfig.scaleText(1.7),
+                fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
                   nutritionalInfoProvider.setCurrentSportsInjuryDuration(value);
                 },

@@ -30,7 +30,7 @@ class AppBankDetails extends StatelessWidget {
           CustomText(
             text: 'Datos de la cuenta:',
             color: AppColors.white100,
-            fontSize: SizeConfig.scaleText(2),
+            fontSize:SizeConfig.scaleText(2),
             fontWeight: FontWeight.w500,
           ),
           SizedBox(height: SizeConfig.scaleHeight(1.5)),
@@ -82,14 +82,14 @@ class AppBankDetails extends StatelessWidget {
         CustomText(
           text: label,
           color: AppColors.white200,
-          fontSize: SizeConfig.scaleText(1.5),
+          fontSize:SizeConfig.scaleText(1.5),
           fontWeight: FontWeight.w600,
         ),
         SizedBox(width: SizeConfig.scaleWidth(2)),
         CustomText(
           text: value,
           color: AppColors.white200,
-          fontSize: SizeConfig.scaleText(1.5),
+          fontSize:SizeConfig.scaleText(1.5),
           fontWeight: FontWeight.w400,
         ),
       ],
@@ -107,7 +107,7 @@ class AppBankDetails extends StatelessWidget {
         CustomText(
           text: label,
           color: AppColors.white200,
-          fontSize: SizeConfig.scaleText(1.5),
+          fontSize:SizeConfig.scaleText(1.5),
           fontWeight: FontWeight.w600,
         ),
         SizedBox(width: SizeConfig.scaleWidth(2)),
@@ -116,7 +116,7 @@ class AppBankDetails extends StatelessWidget {
           child: CustomText(
             text: value,
             color: AppColors.white200,
-            fontSize: SizeConfig.scaleText(1.5),
+            fontSize:SizeConfig.scaleText(1.5),
             fontWeight: FontWeight.bold,
           ),
         ),

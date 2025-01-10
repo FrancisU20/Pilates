@@ -59,7 +59,7 @@ class AppPlanDetails extends StatelessWidget {
         CustomText(
           text: label,
           color: AppColors.black100,
-          fontSize: SizeConfig.scaleHeight(1.5),
+          fontSize:SizeConfig.scaleText(1.5),
           fontWeight: FontWeight.bold,
         ),
         SizedBox(
@@ -68,7 +68,7 @@ class AppPlanDetails extends StatelessWidget {
         CustomText(
           text: value,
           color: AppColors.black100,
-          fontSize: SizeConfig.scaleHeight(1.5),
+          fontSize:SizeConfig.scaleText(1.5),
           fontWeight: FontWeight.w400,
         ),
       ],

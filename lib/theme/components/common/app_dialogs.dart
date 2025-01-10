@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/models/class/class_model.dart';
@@ -47,7 +48,7 @@ class AppDialogs {
           title: CustomText(
             text: 'Próximamente ...',
             color: AppColors.black100,
-            fontSize: SizeConfig.scaleText(2.5),
+            fontSize:SizeConfig.scaleText(2.5),
             fontWeight: FontWeight.w500,
           ),
           content: SizedBox(
@@ -66,7 +67,7 @@ class AppDialogs {
                       text:
                           'El módulo estará disponible en la próxima actualización',
                       color: AppColors.black100,
-                      fontSize: SizeConfig.scaleText(2),
+                      fontSize:SizeConfig.scaleText(2),
                       fontWeight: FontWeight.w400,
                       maxLines: 3,
                     ),
@@ -112,7 +113,7 @@ class AppDialogs {
           title: CustomText(
             text: 'Seleccione un método de pago',
             color: AppColors.black100,
-            fontSize: SizeConfig.scaleText(2),
+            fontSize:SizeConfig.scaleText(2),
             fontWeight: FontWeight.w500,
             maxLines: 3,
           ),
@@ -132,7 +133,7 @@ class AppDialogs {
                       text:
                           'Usted ha seleccionado el plan ${selectedPlan.name}',
                       color: AppColors.black100,
-                      fontSize: SizeConfig.scaleText(1.7),
+                      fontSize:SizeConfig.scaleText(1.7),
                       fontWeight: FontWeight.w400,
                       maxLines: 3,
                     ),
@@ -143,7 +144,7 @@ class AppDialogs {
                       text:
                           'Nota: Una vez realizado el pago, no se aceptan devoluciones.',
                       color: AppColors.red300,
-                      fontSize: SizeConfig.scaleText(1.5),
+                      fontSize:SizeConfig.scaleText(1.5),
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.start,
                       maxLines: 3,
@@ -203,7 +204,7 @@ class AppDialogs {
             title: CustomText(
               text: 'Confirmar Cierre de Sesión',
               color: AppColors.black100,
-              fontSize: SizeConfig.scaleText(2.5),
+              fontSize:SizeConfig.scaleText(2.5),
               fontWeight: FontWeight.w500,
             ),
             content: SizedBox(
@@ -225,7 +226,7 @@ class AppDialogs {
                           CustomText(
                             text: 'Estás seguro que deseas cerrar sesión?',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleText(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                             maxLines: 2,
                           ),
@@ -244,7 +245,7 @@ class AppDialogs {
                 child: CustomText(
                   text: 'No',
                   color: AppColors.beige200,
-                  fontSize: SizeConfig.scaleText(2),
+                  fontSize:SizeConfig.scaleText(2),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -278,7 +279,7 @@ class AppDialogs {
                   text: 'Galería',
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: SizeConfig.scaleText(2),
+                  fontSize:SizeConfig.scaleText(2),
                 ),
                 onTap: () {
                   registerProvider.pickImage(context, ImageSource.gallery);
@@ -291,7 +292,7 @@ class AppDialogs {
                   text: 'Cámara',
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: SizeConfig.scaleText(2),
+                  fontSize:SizeConfig.scaleText(2),
                 ),
                 onTap: () {
                   registerProvider.pickImage(context, ImageSource.camera);
@@ -320,7 +321,7 @@ class AppDialogs {
                   text: 'Galería',
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: SizeConfig.scaleText(2),
+                  fontSize:SizeConfig.scaleText(2),
                 ),
                 onTap: () {
                   loginProvider.pickImage(context, ImageSource.gallery);
@@ -333,7 +334,7 @@ class AppDialogs {
                   text: 'Cámara',
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: SizeConfig.scaleText(2),
+                  fontSize:SizeConfig.scaleText(2),
                 ),
                 onTap: () {
                   loginProvider.pickImage(context, ImageSource.camera);
@@ -363,7 +364,7 @@ class AppDialogs {
                   text: 'Galería',
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: SizeConfig.scaleText(2),
+                  fontSize:SizeConfig.scaleText(2),
                 ),
                 onTap: () {
                   userPlanProvider.pickImage(context, ImageSource.gallery, dni);
@@ -376,7 +377,7 @@ class AppDialogs {
                   text: 'Cámara',
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.start,
-                  fontSize: SizeConfig.scaleText(2),
+                  fontSize:SizeConfig.scaleText(2),
                 ),
                 onTap: () {
                   userPlanProvider.pickImage(context, ImageSource.camera, dni);
@@ -400,7 +401,7 @@ class AppDialogs {
             title: CustomText(
               text: 'Seleccione una opción:',
               color: AppColors.black100,
-              fontSize: SizeConfig.scaleText(2),
+              fontSize:SizeConfig.scaleText(2),
               fontWeight: FontWeight.w500,
             ),
             actions: [
@@ -445,7 +446,7 @@ class AppDialogs {
             title: CustomText(
               text: 'Seleccione una opción:',
               color: AppColors.black100,
-              fontSize: SizeConfig.scaleText(2),
+              fontSize:SizeConfig.scaleText(2),
               fontWeight: FontWeight.w500,
             ),
             content: SizedBox(
@@ -511,7 +512,7 @@ class AppDialogs {
             title: CustomText(
               text: 'Confirmar cita',
               color: AppColors.black100,
-              fontSize: SizeConfig.scaleText(2.5),
+              fontSize:SizeConfig.scaleText(2.5),
               fontWeight: FontWeight.w500,
             ),
             content: SizedBox(
@@ -529,7 +530,7 @@ class AppDialogs {
                           CustomText(
                             text: 'Nombre:',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w500,
                           ),
                           SizedBox(
@@ -538,7 +539,7 @@ class AppDialogs {
                           CustomText(
                             text: 'Apellido:',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w500,
                           ),
                           SizedBox(
@@ -547,7 +548,7 @@ class AppDialogs {
                           CustomText(
                             text: 'Fecha:',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w500,
                           ),
                           SizedBox(
@@ -556,7 +557,7 @@ class AppDialogs {
                           CustomText(
                             text: 'Hora de inicio:',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w500,
                           ),
                           SizedBox(
@@ -565,7 +566,7 @@ class AppDialogs {
                           CustomText(
                             text: 'Hora de fin:',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w500,
                           ),
                           SizedBox(
@@ -574,7 +575,7 @@ class AppDialogs {
                           CustomText(
                             text: 'Duración:',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w500,
                           ),
                         ],
@@ -589,7 +590,7 @@ class AppDialogs {
                           CustomText(
                             text: loginProvider.user!.name,
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                           ),
                           SizedBox(
@@ -598,7 +599,7 @@ class AppDialogs {
                           CustomText(
                             text: loginProvider.user!.lastname,
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                           ),
                           SizedBox(
@@ -607,7 +608,7 @@ class AppDialogs {
                           CustomText(
                             text: selectedDate,
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                           ),
                           SizedBox(
@@ -616,7 +617,7 @@ class AppDialogs {
                           CustomText(
                             text: '$startHour hrs',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                           ),
                           SizedBox(
@@ -625,7 +626,7 @@ class AppDialogs {
                           CustomText(
                             text: '$endHour hrs',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                           ),
                           SizedBox(
@@ -634,7 +635,7 @@ class AppDialogs {
                           CustomText(
                             text: '50 min',
                             color: AppColors.black100,
-                            fontSize: SizeConfig.scaleHeight(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                           ),
                         ],
@@ -679,7 +680,7 @@ class AppDialogs {
                 title: CustomText(
                   text: 'Confirmar cancelación',
                   color: AppColors.black100,
-                  fontSize: SizeConfig.scaleHeight(2.5),
+                  fontSize:SizeConfig.scaleText(2.5),
                   fontWeight: FontWeight.w500,
                 ),
                 content: SizedBox(
@@ -699,7 +700,7 @@ class AppDialogs {
                             CustomText(
                               text: 'Estás seguro de cancelar la cita?',
                               color: AppColors.black100,
-                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontSize:SizeConfig.scaleText(1.8),
                               fontWeight: FontWeight.w400,
                             ),
                             SizedBox(
@@ -708,7 +709,7 @@ class AppDialogs {
                             CustomText(
                               text: 'Aviso Importante:',
                               color: AppColors.gold100,
-                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontSize:SizeConfig.scaleText(1.8),
                               fontWeight: FontWeight.w700,
                               textAlign: TextAlign.justify,
                             ),
@@ -716,7 +717,7 @@ class AppDialogs {
                               text:
                                   'Si decides cancelar una clase, puedes hacerlo con al menos 24 horas de anticipación a las 00:00 del día de la clase. De esta forma, la clase se repondrá automáticamente a tu plan y no la perderás. Recuerda que no se permite cancelar clases después de este plazo.',
                               color: AppColors.green200,
-                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontSize:SizeConfig.scaleText(1.8),
                               fontWeight: FontWeight.w500,
                               textAlign: TextAlign.justify,
                               maxLines: 10,
@@ -727,7 +728,7 @@ class AppDialogs {
                             CustomText(
                               text: 'Atención:',
                               color: AppColors.red300,
-                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontSize:SizeConfig.scaleText(1.8),
                               fontWeight: FontWeight.w600,
                               textAlign: TextAlign.justify,
                             ),
@@ -735,7 +736,7 @@ class AppDialogs {
                               text:
                                   'Si cancelas la última clase disponible de tu plan, esta no será repuesta, y el plan se marcará como completado.',
                               color: AppColors.red300,
-                              fontSize: SizeConfig.scaleHeight(1.8),
+                              fontSize:SizeConfig.scaleText(1.8),
                               fontWeight: FontWeight.w600,
                               textAlign: TextAlign.justify,
                               maxLines: 5,
@@ -754,7 +755,7 @@ class AppDialogs {
                     child: CustomText(
                       text: 'Regresar',
                       color: AppColors.brown200,
-                      fontSize: SizeConfig.scaleHeight(2),
+                      fontSize:SizeConfig.scaleText(2),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -806,7 +807,7 @@ class AppDialogs {
             title: CustomText(
               text: 'Confirmar eliminación de cuenta',
               color: AppColors.black100,
-              fontSize: SizeConfig.scaleText(2.5),
+              fontSize:SizeConfig.scaleText(2.5),
               fontWeight: FontWeight.w500,
             ),
             content: SizedBox(
@@ -829,7 +830,7 @@ class AppDialogs {
                             text:
                                 'Tus datos serán eliminados de forma permanente, y no podrás recuperarlos.',
                             color: AppColors.red300,
-                            fontSize: SizeConfig.scaleText(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                             textAlign: TextAlign.justify,
                             maxLines: 3,
@@ -840,7 +841,7 @@ class AppDialogs {
                           CustomText(
                             text: 'Estás seguro que deseas eliminar tu cuenta?',
                             color: AppColors.red300,
-                            fontSize: SizeConfig.scaleText(2),
+                            fontSize:SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w500,
                             maxLines: 2,
                           ),
@@ -859,7 +860,7 @@ class AppDialogs {
                 child: CustomText(
                   text: 'No',
                   color: AppColors.green200,
-                  fontSize: SizeConfig.scaleText(2),
+                  fontSize:SizeConfig.scaleText(2),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -894,11 +895,14 @@ class AppDialogs {
                       2)), // Espaciado alrededor del título
                   child: Text(
                     "Selecciona un mes:",
-                    style: TextStyle(
-                      fontSize:
-                          SizeConfig.scaleText(2), // Ajustar tamaño del texto
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.black100,
+                    style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                        color: AppColors.black100,
+                        fontSize:SizeConfig.scaleText(2.5),
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -0.5,
+                        height: 0.9,
+                      ),
                     ),
                   ),
                 ),
@@ -916,28 +920,17 @@ class AppDialogs {
                           text: adminProvider
                               .getStringMonth(adminProvider.listMonth[index]),
                           color: AppColors.black100,
-                          fontSize: SizeConfig.scaleText(1.8),
+                          fontSize:SizeConfig.scaleText(1.8),
                           fontWeight: FontWeight.w600,
                         ),
                         onTap: () async {
                           adminProvider
                               .setSelectedMonth(adminProvider.listMonth[index]);
 
-                          DateTime startDate = adminProvider.selectedMonth;
-                          DateTime endDate = DateTime(
-                            startDate.year,
-                            startDate.month + 1,
-                            0,
-                          );
-
                           context.pop();
 
-                          adminProvider.setSelectedMonthEnd(endDate);
-
                           await adminProvider.getUsersPlans(
-                            context,
-                            startDate: startDate,
-                            endDate: endDate,
+                            context
                           );
                         },
                       );

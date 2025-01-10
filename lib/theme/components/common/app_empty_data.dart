@@ -63,7 +63,7 @@ class AppEmptyData extends StatelessWidget {
                 child: CustomText(
                   text: message,
                   color: AppColors.black100,
-                  fontSize: SizeConfig.scaleText(2.5),
+                  fontSize:SizeConfig.scaleText(2.5),
                   fontWeight: FontWeight.w400,
                   maxLines: 3,
                 ),

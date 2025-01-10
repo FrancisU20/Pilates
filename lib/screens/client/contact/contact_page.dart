@@ -4,7 +4,7 @@ import 'package:pilates/integrations/instagram_launcher.dart';
 import 'package:pilates/integrations/maps_launcher.dart';
 import 'package:pilates/integrations/whatsapp_launcher.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
-import 'package:pilates/theme/components/client/client_app_bar.dart';
+import 'package:pilates/theme/components/common/custom_app_bar.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_icon_button.dart';
@@ -29,7 +29,7 @@ class ContactPageState extends State<ContactPage> {
         children: [
           Scaffold(
             backgroundColor: AppColors.white100,
-            appBar: const ClientAppBar(
+            appBar: const CustomAppBar(
               backgroundColor: AppColors.brown200,
             ),
             body: SingleChildScrollView(
@@ -78,7 +78,7 @@ class ContactPageState extends State<ContactPage> {
                                   child: CustomText(
                                       text: 'Dirección: \n',
                                       color: AppColors.black100,
-                                      fontSize: SizeConfig.scaleText(1.8),
+                                      fontSize:SizeConfig.scaleText(1.8),
                                       fontWeight: FontWeight.bold,
                                       textAlign: TextAlign.left,
                                       maxLines: 2),
@@ -92,7 +92,7 @@ class ContactPageState extends State<ContactPage> {
                                       text:
                                           'Galo Plaza Lasso 675 y Judith Granda Almeida',
                                       color: AppColors.black100,
-                                      fontSize: SizeConfig.scaleText(1.8),
+                                      fontSize:SizeConfig.scaleText(1.8),
                                       fontWeight: FontWeight.w400,
                                       textAlign: TextAlign.left,
                                       maxLines: 2),
@@ -109,7 +109,7 @@ class ContactPageState extends State<ContactPage> {
                                   child: CustomText(
                                       text: 'Horarios: \n \n \n',
                                       color: AppColors.black100,
-                                      fontSize: SizeConfig.scaleText(1.8),
+                                      fontSize:SizeConfig.scaleText(1.8),
                                       fontWeight: FontWeight.bold,
                                       textAlign: TextAlign.left,
                                       maxLines: 3),
@@ -123,7 +123,7 @@ class ContactPageState extends State<ContactPage> {
                                       text:
                                           'Lunes a Viernes - 06:00 a 21:00\nSábados - 08:00 a 11:00\nDomingos Cerrado',
                                       color: AppColors.black100,
-                                      fontSize: SizeConfig.scaleText(1.8),
+                                      fontSize:SizeConfig.scaleText(1.8),
                                       fontWeight: FontWeight.w400,
                                       textAlign: TextAlign.left,
                                       maxLines: 4),

@@ -90,7 +90,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   child: CustomText(
                     text: 'Datos de Identificación',
                     color: AppColors.black100,
-                    fontSize: SizeConfig.scaleText(2.5),
+                    fontSize:SizeConfig.scaleText(2.5),
                     fontWeight: FontWeight.w500,
                     maxLines: 2,
                   ),
@@ -104,7 +104,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: '',
                   typeTextField: TextFieldType.alphanumeric,
                   controller: widget.completeNameController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
                 CustomTextField(
@@ -113,7 +113,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: '',
                   typeTextField: TextFieldType.alphanumeric,
                   controller: widget.birthDateController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
                 CustomTextField(
@@ -122,7 +122,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: '',
                   typeTextField: TextFieldType.numberInt,
                   controller: widget.ageController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
                 CustomTextField(
@@ -131,7 +131,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: '',
                   typeTextField: TextFieldType.alphanumeric,
                   controller: widget.genderController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
                 CustomTextField(
@@ -140,7 +140,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: 'Casado/a, Soltero/a etc.',
                   typeTextField: TextFieldType.alphanumeric,
                   controller: widget.maritalStatusController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   onChanged: (value) {
                     nutritionalInfoProvider.setMaritalStatus(value);
                   },
@@ -152,7 +152,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: 'Calle 123',
                   typeTextField: TextFieldType.alphanumeric,
                   controller: widget.addressController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   onChanged: (value) {
                     nutritionalInfoProvider.setAddress(value);
                   },
@@ -164,7 +164,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: 'Estudiante, Ingeniero, etc.',
                   typeTextField: TextFieldType.alphanumeric,
                   controller: widget.occupationController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   onChanged: (value) {
                     nutritionalInfoProvider.setOccupation(value);
                   },
@@ -176,7 +176,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: '0987654321',
                   typeTextField: TextFieldType.phone,
                   controller: widget.phoneController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
                 CustomTextField(
@@ -185,7 +185,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   hintText: 'info@example.com',
                   typeTextField: TextFieldType.email,
                   controller: widget.emailController,
-                  fontSize: SizeConfig.scaleText(1.7),
+                  fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
               ],

@@ -59,7 +59,7 @@ class CustomIconButton extends StatelessWidget {
                     CustomText(
                       text: text!,
                       color: textColor,
-                      fontSize: SizeConfig.scaleText(fontSize!),
+                      fontSize:SizeConfig.scaleText(fontSize!),
                       fontWeight: FontWeight.w500,
                       maxLines: 2,
                     )

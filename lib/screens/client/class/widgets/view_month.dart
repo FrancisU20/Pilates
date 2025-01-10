@@ -25,7 +25,7 @@ class ViewMonth extends StatelessWidget {
           children: [
             CustomText(
               text: 'Ver mes',
-              fontSize: SizeConfig.scaleText(2),
+              fontSize:SizeConfig.scaleText(2),
             ),
             IconButton(
               icon: Icon(

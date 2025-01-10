@@ -16,7 +16,7 @@ class RegisterSuccess extends StatelessWidget {
         children: [
           CustomText(
               text: '¡Has completado tu registro ahora puedes iniciar sesión en el App!',
-              fontWeight: FontWeight.w400, fontSize: SizeConfig.scaleText(2),maxLines: 2,),
+              fontWeight: FontWeight.w400, fontSize:SizeConfig.scaleText(2),maxLines: 2,),
         ],
       ),
     );

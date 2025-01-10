@@ -16,14 +16,14 @@ import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
-class UserClassPage extends StatefulWidget {
-  const UserClassPage({super.key});
+class AdminUsersPage extends StatefulWidget {
+  const AdminUsersPage({super.key});
 
   @override
-  UserClassPageState createState() => UserClassPageState();
+  AdminUsersPageState createState() => AdminUsersPageState();
 }
 
-class UserClassPageState extends State<UserClassPage> {
+class AdminUsersPageState extends State<AdminUsersPage> {
   @override
   void initState() {
     super.initState();

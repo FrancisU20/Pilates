@@ -55,7 +55,7 @@ class ConfirmNutritionalInfo extends StatelessWidget {
                     CustomText(
                       text: 'Confirma tu información nutricional',
                       color: AppColors.white100,
-                      fontSize: SizeConfig.scaleText(2),
+                      fontSize:SizeConfig.scaleText(2),
                       fontWeight: FontWeight.w600,
                       textAlign: TextAlign.center,
                       maxLines: 2,
@@ -69,7 +69,7 @@ class ConfirmNutritionalInfo extends StatelessWidget {
           CustomText(
             text:
                 'Por favor, verifica que la información nutricional que ingresaste es correcta. Una vez confirmada, se enviará a tu nutricionista para su revisión.',
-            fontSize: SizeConfig.scaleText(2),
+            fontSize:SizeConfig.scaleText(2),
             color: AppColors.green200,
             fontWeight: FontWeight.w500,
             maxLines: 8,

@@ -69,7 +69,7 @@ class CustomButton extends StatelessWidget {
           CustomText(
             text: text!,
             color: textColor,
-            fontSize: SizeConfig.scaleText(2),
+            fontSize:SizeConfig.scaleText(2),
             fontWeight: FontWeight.w500,
           ),
         ],
@@ -78,7 +78,7 @@ class CustomButton extends StatelessWidget {
       return CustomText(
         text: text!,
         color: textColor,
-        fontSize: SizeConfig.scaleText(2),
+        fontSize:SizeConfig.scaleText(2),
         fontWeight: FontWeight.w500,
       );
     } else if (hasIcon) {

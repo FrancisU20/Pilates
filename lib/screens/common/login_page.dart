@@ -111,14 +111,14 @@ class LoginPageState extends State<LoginPage> {
                                     text: 'Bienvenido,',
                                     fontWeight: FontWeight.w500,
                                     textAlign: TextAlign.start,
-                                    fontSize: SizeConfig.scaleText(3),
+                                    fontSize:SizeConfig.scaleText(3),
                                   ),
                                   SizedBox(height: SizeConfig.scaleHeight(1)),
                                   CustomText(
                                     text: 'Es un gusto volver a verte',
                                     fontWeight: FontWeight.w500,
                                     textAlign: TextAlign.start,
-                                    fontSize: SizeConfig.scaleText(2),
+                                    fontSize:SizeConfig.scaleText(2),
                                   ),
                                   SizedBox(height: SizeConfig.scaleHeight(2)),
                                   Consumer<LoginProvider>(
@@ -181,7 +181,7 @@ class LoginPageState extends State<LoginPage> {
                                               typeTextField: TextFieldType.email,
                                               controller: emailController,
                                               disableError: true,
-                                              fontSize: SizeConfig.scaleText(1.7),
+                                              fontSize:SizeConfig.scaleText(1.7),
                                             ),
                                             SizedBox(
                                                 height:
@@ -195,7 +195,7 @@ class LoginPageState extends State<LoginPage> {
                                                   TextFieldType.password,
                                               controller: passwordController,
                                               disableError: true,
-                                              fontSize: SizeConfig.scaleText(1.7),
+                                              fontSize:SizeConfig.scaleText(1.7),
                                             ),
                                             SizedBox(
                                                 height:

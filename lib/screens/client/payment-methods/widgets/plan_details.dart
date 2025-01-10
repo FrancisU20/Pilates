@@ -32,7 +32,7 @@ class PlanDetails extends StatelessWidget {
           CustomText(
             text: 'Datos del plan contratado:',
             color: AppColors.black100,
-            fontSize: SizeConfig.scaleText(2),
+            fontSize:SizeConfig.scaleText(2),
             fontWeight: FontWeight.w500,
           ),
           SizedBox(height: SizeConfig.scaleHeight(1.5)),
@@ -67,14 +67,14 @@ class PlanDetails extends StatelessWidget {
         CustomText(
           text: label,
           color: AppColors.black100,
-          fontSize: SizeConfig.scaleText(1.5),
+          fontSize:SizeConfig.scaleText(1.5),
           fontWeight: FontWeight.w600,
         ),
         SizedBox(width: SizeConfig.scaleWidth(2)),
         CustomText(
           text: value,
           color: AppColors.black100,
-          fontSize: SizeConfig.scaleText(1.5),
+          fontSize:SizeConfig.scaleText(1.5),
           fontWeight: FontWeight.w400,
         ),
       ],
