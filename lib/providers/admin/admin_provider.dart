@@ -292,8 +292,13 @@ class AdminProvider extends ChangeNotifier {
               startDate: startDate,
               endDate: endDate);
 
-      //? Filtrar todos los planes que no sean completados status (C) y expirados status (E)
       List<UserPlanModel> listUserPlans = userPlansResponse.data!;
+
+      //? Eliminar los planes del admin y del tester 
+      listUserPlans = listUserPlans
+          .where((element) =>
+              element.user.role != 'admin' && element.user.role != 'tester')
+          .toList();
 
       //? Guardar en la lista de planes de los usuarios
       setListUserPlans(listUserPlans);
