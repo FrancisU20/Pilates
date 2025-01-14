@@ -10,7 +10,6 @@ import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
 import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_stepper_widget.dart';
-import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
@@ -206,15 +205,15 @@ class NutritionalSheetState extends State<NutritionalSheet> {
             if (widget.viewMode == false)
               Column(
                 children: [
-                  SizedBox(
-                    height: SizeConfig.scaleHeight(2),
-                  ),
-                  CustomText(
-                      text: 'Completa el formulario, por favor.',
-                      fontSize:SizeConfig.scaleText(1.5),
-                      color: AppColors.red300),
-                  SizedBox(
-                    height: SizeConfig.scaleHeight(2),
+                  CustomTextButton(
+                    onPressed: () {
+                      setState(() {
+                        currentStep = 0;
+                        nutritionalInfoProvider.setIsEditable(false);
+                      });
+                    },
+                    text: 'Cancelar',
+                    color: AppColors.red300,
                   ),
                 ],
               ),

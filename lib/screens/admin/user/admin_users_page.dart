@@ -91,6 +91,7 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                               CustomTextButton(
                                   onPressed: () {
                                     adminProvider.setIsActive(true);
+                                    adminProvider.cleanSelectedUserId();
                                     //? Aqui va el get con filtro solo (A)
                                     adminProvider.getUsersPlans(context,
                                         status: 'A');
@@ -102,6 +103,7 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                               CustomTextButton(
                                   onPressed: () {
                                     adminProvider.setIsActive(false);
+                                    adminProvider.cleanSelectedUserId();
                                     //? Aqui va el get con filtro (C), (E), (X)
                                     adminProvider.getUsersPlans(context,
                                         status: 'I');
@@ -120,10 +122,7 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                     ),
                     Consumer<AdminProvider>(
                       builder: (context, adminProvider, child) {
-                        if (adminProvider.listUserPlans.isEmpty &&
-                                !adminProvider.isActive ||
-                            adminProvider.listUserPlans.isEmpty &&
-                                adminProvider.isActive) {
+                        if (adminProvider.listUserPlans.isEmpty) {
                           return const AppEmptyData(
                             imagePath:
                                 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/users/empty_users.png',
@@ -151,6 +150,23 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                       adminProvider.listUserPlans;
                                   return Column(
                                     children: [
+                                      if (index == 0 &&
+                                          adminProvider
+                                              .selectedUserId.isNotEmpty) ...[
+                                        IconButton(
+                                            onPressed: () {
+                                              adminProvider
+                                                  .cleanSelectedUserId();
+                                              adminProvider.getUsersPlans(
+                                                  context,
+                                                  status: adminProvider.isActive
+                                                      ? 'A'
+                                                      : 'I');
+                                            },
+                                            icon: const Icon(
+                                                FontAwesomeIcons.circleXmark,
+                                                color: AppColors.red300)),
+                                      ],
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -226,9 +242,7 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                               width: SizeConfig.scaleWidth(5),
                                             ),
                                             SizedBox(
-                                              width: adminProvider.isActive
-                                                  ? SizeConfig.scaleWidth(35)
-                                                  : SizeConfig.scaleWidth(40),
+                                              width: SizeConfig.scaleWidth(40),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -349,16 +363,22 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                                         : FontAwesomeIcons
                                                             .clock,
                                                     onPressed: () async {
+                                                      String newStatus =
+                                                          listUserPlan[index]
+                                                                      .status ==
+                                                                  'A'
+                                                              ? 'I'
+                                                              : 'A';
+
                                                       UserPlanModel userPlan =
                                                           listUserPlan[index];
+
                                                       UpdateStatusModel
                                                           updateStatus =
                                                           UpdateStatusModel(
-                                                              status:
-                                                                  userPlan.status ==
-                                                                          'A'
-                                                                      ? 'I'
-                                                                      : 'A');
+                                                        status: newStatus,
+                                                      );
+
                                                       await adminProvider
                                                           .updateStatusUserPlan(
                                                               context,
@@ -370,18 +390,18 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                                       }
 
                                                       adminProvider.setIsActive(
-                                                          userPlan.status == 'A'
+                                                          newStatus == 'A'
                                                               ? true
                                                               : false);
+
+                                                      adminProvider
+                                                          .cleanSelectedUserId();
 
                                                       await adminProvider
                                                           .getUsersPlans(
                                                               context,
                                                               status:
-                                                                  userPlan.status ==
-                                                                          'A'
-                                                                      ? 'A'
-                                                                      : 'I');
+                                                                  newStatus);
                                                     }),
                                               ],
                                             )

@@ -958,11 +958,13 @@ class AppDialogs {
             ),
             content: SizedBox(
               width: SizeConfig.scaleWidth(100),
-              height: SizeConfig.scaleHeight(50),
+              height: SizeConfig.scaleHeight(40),
               child: CustomImageNetwork(
                 imagePath: invoiceUrl,
                 width: SizeConfig.scaleWidth(100),
-                height: SizeConfig.scaleHeight(50),
+                height: SizeConfig.scaleHeight(40),
+                fit: BoxFit.contain,
+
               ),
             ),
             actions: [

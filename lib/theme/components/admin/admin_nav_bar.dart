@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pilates/middleware/app_middleware.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
@@ -34,7 +33,6 @@ class AdminNavBar extends StatelessWidget {
                     ? AppColors.gold100
                     : AppColors.white100,
                 onPressed: () async {
-                  context.go('/admin-dashboard/user-class');
                   await AppMiddleware.updateAdminData(
                       context, '/admin-dashboard/user-class');
                 },

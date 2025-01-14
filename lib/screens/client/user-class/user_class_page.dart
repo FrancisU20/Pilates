@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/integrations/maps_launcher.dart';
 import 'package:pilates/models/user-class/user_class_model.dart';
 import 'package:pilates/providers/user-class/user_class_provider.dart';
+import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/common/custom_app_bar.dart';
 import 'package:pilates/theme/components/client/client_nav_bar.dart';
@@ -133,7 +134,8 @@ class UserClassPageState extends State<UserClassPage> {
                                 itemBuilder: (BuildContext context, int index) {
                                   List<UserClassModel> listUserClass =
                                       userClassProvider.isHistory
-                                          ? userClassProvider.listUserClassHistory
+                                          ? userClassProvider
+                                              .listUserClassHistory
                                           : userClassProvider.listUserClass;
                                   return Column(
                                     children: [
@@ -148,7 +150,7 @@ class UserClassPageState extends State<UserClassPage> {
                                             text:
                                                 '${listUserClass[index].classModel.schedule!.startHour.substring(0, 5)} ${userClassProvider.getAMFM(listUserClass[index].classModel.schedule!.startHour.substring(0, 5))}',
                                             color: AppColors.black100,
-                                            fontSize:SizeConfig.scaleText(3),
+                                            fontSize: SizeConfig.scaleText(3),
                                             fontWeight: FontWeight.w600,
                                           ),
                                           SizedBox(
@@ -157,7 +159,7 @@ class UserClassPageState extends State<UserClassPage> {
                                           CustomText(
                                             text: '50 min',
                                             color: AppColors.grey200,
-                                            fontSize:SizeConfig.scaleText(1.8),
+                                            fontSize: SizeConfig.scaleText(1.8),
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ],
@@ -196,7 +198,8 @@ class UserClassPageState extends State<UserClassPage> {
                                               decoration: BoxDecoration(
                                                   color: AppColors.white100,
                                                   borderRadius:
-                                                      BorderRadius.circular(50)),
+                                                      BorderRadius.circular(
+                                                          50)),
                                               padding: EdgeInsets.all(
                                                   SizeConfig.scaleHeight(2)),
                                               child: Column(
@@ -212,9 +215,8 @@ class UserClassPageState extends State<UserClassPage> {
                                                           .substring(8, 10)
                                                           .toString(),
                                                       color: AppColors.black100,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              3),
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(3),
                                                       fontWeight:
                                                           FontWeight.w600),
                                                   SizedBox(
@@ -231,9 +233,8 @@ class UserClassPageState extends State<UserClassPage> {
                                                                       .classModel
                                                                       .classDate)),
                                                       color: AppColors.black100,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              1.5),
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(1.5),
                                                       fontWeight:
                                                           FontWeight.w400),
                                                 ],
@@ -255,9 +256,8 @@ class UserClassPageState extends State<UserClassPage> {
                                                   CustomText(
                                                       text: 'Datos:',
                                                       color: AppColors.black100,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              1.5),
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(1.5),
                                                       fontWeight:
                                                           FontWeight.w600),
                                                   SizedBox(
@@ -286,11 +286,12 @@ class UserClassPageState extends State<UserClassPage> {
                                                           .user
                                                           .dniNumber,
                                                       color: AppColors.grey200,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              1.5),
-                                                      fontWeight: FontWeight.w400,
-                                                      textAlign: TextAlign.start),
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(1.5),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      textAlign:
+                                                          TextAlign.start),
                                                   SizedBox(
                                                     height:
                                                         SizeConfig.scaleHeight(
@@ -309,11 +310,12 @@ class UserClassPageState extends State<UserClassPage> {
                                                               ? 'Mujer'
                                                               : 'LGBTQ+',
                                                       color: AppColors.grey200,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              1.5),
-                                                      fontWeight: FontWeight.w400,
-                                                      textAlign: TextAlign.start),
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(1.5),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      textAlign:
+                                                          TextAlign.start),
                                                 ],
                                               ),
                                             ),
@@ -327,7 +329,8 @@ class UserClassPageState extends State<UserClassPage> {
                                                 children: [
                                                   SizedBox(
                                                     width:
-                                                        SizeConfig.scaleWidth(2),
+                                                        SizeConfig.scaleWidth(
+                                                            2),
                                                   ),
                                                   CustomIconButton(
                                                       color: AppColors.black100,
@@ -336,38 +339,56 @@ class UserClassPageState extends State<UserClassPage> {
                                                       icon: FontAwesomeIcons
                                                           .locationDot,
                                                       onPressed: () {
-                                                        double latitude = 0.34291;
+                                                        double latitude =
+                                                            0.34291;
                                                         double longitude =
                                                             -78.1352;
                                                         String name =
                                                             'Curve Pilates';
                                                         mapServices.openMaps(
                                                             latitude: latitude,
-                                                            longitude: longitude,
+                                                            longitude:
+                                                                longitude,
                                                             name: name);
                                                       }),
                                                   SizedBox(
                                                     height:
-                                                        SizeConfig.scaleHeight(2),
+                                                        SizeConfig.scaleHeight(
+                                                            2),
                                                   ),
-                                                  CustomIconButton(
-                                                      color: AppColors.red300,
-                                                      height: 5,
-                                                      width: 10,
-                                                      icon:
-                                                          FontAwesomeIcons.xmark,
-                                                      onPressed: () {
-                                                        AppDialogs.showDeleteConfirm(
-                                                            context,
-                                                            listUserClass[index]
-                                                                .id!,
-                                                            DateTime.parse(
-                                                                listUserClass[
-                                                                        index]
-                                                                    .classModel
-                                                                    .classDate
-                                                                    .toString()));
-                                                      }),
+                                                  Consumer<UserPlanProvider>(
+                                                    builder: (context,
+                                                        userPlanProvider,
+                                                        child) {
+                                                      if (userPlanProvider
+                                                              .activeUserPlan !=
+                                                          null) {
+                                                        return CustomIconButton(
+                                                            color: AppColors
+                                                                .red300,
+                                                            height: 5,
+                                                            width: 10,
+                                                            icon:
+                                                                FontAwesomeIcons
+                                                                    .xmark,
+                                                            onPressed: () {
+                                                              AppDialogs.showDeleteConfirm(
+                                                                  context,
+                                                                  listUserClass[
+                                                                          index]
+                                                                      .id!,
+                                                                  DateTime.parse(listUserClass[
+                                                                          index]
+                                                                      .classModel
+                                                                      .classDate
+                                                                      .toString()));
+                                                            });
+                                                      } else {
+                                                        return const SizedBox
+                                                            .shrink();
+                                                      }
+                                                    },
+                                                  ),
                                                 ],
                                               )
                                             ] else if (userClassProvider
@@ -384,21 +405,26 @@ class UserClassPageState extends State<UserClassPage> {
                                                         : listUserClass[index]
                                                                     .status ==
                                                                 'E'
-                                                            ? AppColors.orange300
+                                                            ? AppColors
+                                                                .orange300
                                                             : listUserClass[index]
                                                                         .status ==
                                                                     'X'
-                                                                ? AppColors.red300
+                                                                ? AppColors
+                                                                    .red300
                                                                 : AppColors
                                                                     .black100,
                                                     borderRadius:
-                                                        BorderRadius.circular(50),
+                                                        BorderRadius.circular(
+                                                            50),
                                                   ),
                                                   padding: EdgeInsets.symmetric(
                                                     vertical:
-                                                        SizeConfig.scaleWidth(2),
+                                                        SizeConfig.scaleWidth(
+                                                            2),
                                                     horizontal:
-                                                        SizeConfig.scaleWidth(2),
+                                                        SizeConfig.scaleWidth(
+                                                            2),
                                                   ),
                                                   child: CustomText(
                                                     text: listUserClass[index]
@@ -416,7 +442,8 @@ class UserClassPageState extends State<UserClassPage> {
                                                                 : '',
                                                     color: AppColors.white100,
                                                     fontSize:
-                                                        SizeConfig.scaleWidth(3),
+                                                        SizeConfig.scaleWidth(
+                                                            3),
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),

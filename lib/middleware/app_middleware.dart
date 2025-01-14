@@ -51,6 +51,20 @@ class AppMiddleware {
       pageStateProvider.setActiveRoute('/dashboard');
       context.go('/dashboard');
     }
+    else if(userPlanProvider.activeUserPlan == null && route == '/dashboard/class'){
+      if (!context.mounted) return;
+      CustomSnackBar.show(
+          context,
+          'No tienes un plan. Por favor contrata un plan para poder disfrutar de la app.',
+          SnackBarType.error);
+      pageStateProvider.setActiveRoute('/dashboard');
+      context.go('/dashboard');
+    }
+    else{
+      if (!context.mounted) return;
+      pageStateProvider.setActiveRoute(route);
+      context.go(route);
+    }
   }
 
   static Future<void> updateAdminData(
