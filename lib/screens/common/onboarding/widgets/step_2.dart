@@ -18,7 +18,7 @@ class Step2State extends State<Step2> {
     return Column(
       children: [
         CustomImageNetwork(
-          imagePath: 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/onboarding/onboarding2.jpg',
+          imagePath: 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/onboarding/onboarding2.jpeg',
           height: SizeConfig.scaleHeight(50),
           borderRadius: 15.0,
           errorBackgroundColor: AppColors.white200,

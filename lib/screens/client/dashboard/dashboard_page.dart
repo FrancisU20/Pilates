@@ -135,13 +135,26 @@ class DashboardPageState extends State<DashboardPage> {
                                             BlendMode.darken),
                                       ),
                                     ),
-                                    child: Center(
-                                      child: CustomText(
-                                          text: menuItem['description']!,
-                                          color: AppColors.white100,
-                                          fontSize:SizeConfig.scaleText(2.5),
-                                          fontWeight: FontWeight.w500,
-                                          textAlign: TextAlign.center),
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: SizeConfig.scaleWidth(8),
+                                            vertical: SizeConfig.scaleHeight(1.5)),
+                                        decoration: BoxDecoration(
+                                    
+                                          borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20)),
+                                          color: AppColors.white100.withOpacity(0.8),
+                                        ),
+                                        child: CustomText(
+                                            text: menuItem['description']!,
+                                            color: AppColors.black100,
+                                            fontSize:SizeConfig.scaleText(2),
+                                            fontWeight: FontWeight.w500,
+                                            textAlign: TextAlign.center),
+                                      ),
                                     ),
                                   ),
                                 );

@@ -7,7 +7,7 @@ class ActivitiesData {
       'image': imagesPaths.pilates,
     },
     {
-      'description': 'Rutina de relajación',
+      'description': 'Eventos',
       'image': imagesPaths.relaxation,
     },
     {

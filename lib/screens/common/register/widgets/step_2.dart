@@ -50,7 +50,7 @@ class Step2State extends State<Step2> {
                       children: [
                         CustomImageNetwork(
                             imagePath: 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/gender/male.png',
-                            height: SizeConfig.scaleHeight(16.5),
+                            height: SizeConfig.scaleHeight(15),
                             fit: BoxFit.contain),
                         CustomText(
                           text: 'Hombre',
@@ -83,7 +83,7 @@ class Step2State extends State<Step2> {
                       children: [
                         CustomImageNetwork(
                             imagePath: 'https://curvepilates-bucket.s3.amazonaws.com/app-assets/gender/female.png',
-                            height: SizeConfig.scaleHeight(16.5),
+                            height: SizeConfig.scaleHeight(15),
                             fit: BoxFit.contain),
                         CustomText(
                             text: 'Mujer',
