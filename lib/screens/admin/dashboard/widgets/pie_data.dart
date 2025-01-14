@@ -25,17 +25,13 @@ class PieDataState extends State<PieData> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        CustomText(
+            text: 'Información de planes ',
+            color: AppColors.black100,
+            fontSize:SizeConfig.scaleText(2),
+            fontWeight: FontWeight.w500),
         SizedBox(
-          height: SizeConfig.scaleHeight(2),
-          width: SizeConfig.scaleWidth(90),
-          child: CustomText(
-              text: 'Información de planes ',
-              color: AppColors.black100,
-              fontSize:SizeConfig.scaleText(2.5),
-              fontWeight: FontWeight.w500),
-        ),
-        SizedBox(
-          height: SizeConfig.scaleHeight(2),
+          height: SizeConfig.scaleHeight(0.5),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -122,7 +118,7 @@ class PieDataState extends State<PieData> {
           ],
         ),
         SizedBox(
-          height: SizeConfig.scaleHeight(22),
+          height: SizeConfig.scaleHeight(18),
           child: PieChart(
             PieChartData(
               centerSpaceColor: AppColors.white100,
@@ -156,11 +152,11 @@ class PieDataState extends State<PieData> {
                       .where((element) => element.status == 'A')
                       .length
                       .toString(),
-                  radius: SizeConfig.scaleHeight(7),
+                  radius: SizeConfig.scaleHeight(5),
                   titleStyle: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                       color: AppColors.white100,
-                      fontSize:SizeConfig.scaleText(2.5),
+                      fontSize:SizeConfig.scaleText(2),
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
@@ -177,11 +173,11 @@ class PieDataState extends State<PieData> {
                       .where((element) => element.status == 'C')
                       .length
                       .toString(),
-                  radius: SizeConfig.scaleHeight(7),
+                  radius: SizeConfig.scaleHeight(5),
                   titleStyle: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                       color: AppColors.white100,
-                      fontSize:SizeConfig.scaleText(2.5),
+                      fontSize:SizeConfig.scaleText(2),
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
@@ -198,11 +194,11 @@ class PieDataState extends State<PieData> {
                       .where((element) => element.status == 'E')
                       .length
                       .toString(),
-                  radius: SizeConfig.scaleHeight(7),
+                  radius: SizeConfig.scaleHeight(5),
                   titleStyle: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                       color: AppColors.white100,
-                      fontSize:SizeConfig.scaleText(2.5),
+                      fontSize:SizeConfig.scaleText(2),
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,
@@ -219,11 +215,11 @@ class PieDataState extends State<PieData> {
                       .where((element) => element.status == 'I')
                       .length
                       .toString(),
-                  radius: SizeConfig.scaleHeight(7),
+                  radius: SizeConfig.scaleHeight(5),
                   titleStyle: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                       color: AppColors.white100,
-                      fontSize:SizeConfig.scaleText(2.5),
+                      fontSize:SizeConfig.scaleText(2),
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
                       height: 0.9,

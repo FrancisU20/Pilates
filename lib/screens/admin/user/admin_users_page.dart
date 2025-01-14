@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pilates/integrations/maps_launcher.dart';
-import 'package:pilates/models/user-class/user_class_model.dart';
-import 'package:pilates/providers/user-class/user_class_provider.dart';
+import 'package:pilates/models/common/update_status_model.dart';
+import 'package:pilates/models/user-plan/user_plan_model.dart';
+import 'package:pilates/models/user/user_model.dart';
+import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
-import 'package:pilates/theme/components/common/custom_app_bar.dart';
-import 'package:pilates/theme/components/client/client_nav_bar.dart';
+import 'package:pilates/theme/components/admin/admin_nav_bar.dart';
 import 'package:pilates/theme/components/common/app_dialogs.dart';
+import 'package:pilates/theme/components/common/custom_app_bar.dart';
 import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_icon_button.dart';
+import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_page_header.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -28,8 +30,8 @@ class AdminUsersPageState extends State<AdminUsersPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Provider.of<UserClassProvider>(context, listen: false)
-          .getUserClass(context);
+      await Provider.of<AdminProvider>(context, listen: false)
+          .getUsersPlans(context, status: 'A');
     });
   }
 
@@ -46,22 +48,37 @@ class AdminUsersPageState extends State<AdminUsersPage> {
         children: [
           Scaffold(
               backgroundColor: AppColors.white100,
-              appBar: const CustomAppBar(
+              appBar: CustomAppBar<AdminProvider>(
                 backgroundColor: AppColors.brown200,
+                dataExtractor: (adminProvider) => adminProvider.listUserPlans
+                    .map((userPlan) => userPlan.user)
+                    .fold<Map<String, UserModel>>({}, (map, user) {
+                      map[user.id!] = user;
+                      return map;
+                    })
+                    .values
+                    .toList(),
+                searchField: (user) => user.dniNumber,
+                onTap: (user) {
+                  AdminProvider adminProvider =
+                      Provider.of<AdminProvider>(context, listen: false);
+                  adminProvider.onUserSelectedPlans(
+                      context, adminProvider.isActive ? 'A' : 'I', user.id);
+                },
               ),
               body: Container(
                 color: AppColors.brown200,
                 child: Column(
                   children: [
                     const CustomPageHeader(
-                        icon: FontAwesomeIcons.calendarCheck,
-                        title: 'Citas',
-                        subtitle: 'Qué tenemos para ti hoy?'),
+                        icon: FontAwesomeIcons.addressBook,
+                        title: 'Usuarios y Planes',
+                        subtitle: 'Agenda de usuarios y planes'),
                     SizedBox(
                       height: SizeConfig.scaleHeight(2),
                     ),
-                    Consumer<UserClassProvider>(
-                      builder: (context, userClassProvider, child) {
+                    Consumer<AdminProvider>(
+                      builder: (context, adminProvider, child) {
                         return Container(
                           decoration: BoxDecoration(
                               color: AppColors.black100,
@@ -73,22 +90,24 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                             children: [
                               CustomTextButton(
                                   onPressed: () {
-                                    userClassProvider.setIsHistory(false);
+                                    adminProvider.setIsActive(true);
                                     //? Aqui va el get con filtro solo (A)
-                                    userClassProvider.getUserClass(context);
+                                    adminProvider.getUsersPlans(context,
+                                        status: 'A');
                                   },
-                                  text: 'Agendadas',
-                                  color: !userClassProvider.isHistory
+                                  text: 'Activos',
+                                  color: adminProvider.isActive
                                       ? AppColors.gold100
                                       : AppColors.white100),
                               CustomTextButton(
                                   onPressed: () {
-                                    userClassProvider.setIsHistory(true);
+                                    adminProvider.setIsActive(false);
                                     //? Aqui va el get con filtro (C), (E), (X)
-                                    userClassProvider.getUserClass(context);
+                                    adminProvider.getUsersPlans(context,
+                                        status: 'I');
                                   },
-                                  text: 'Historial',
-                                  color: userClassProvider.isHistory
+                                  text: 'Inactivos',
+                                  color: !adminProvider.isActive
                                       ? AppColors.gold100
                                       : AppColors.white100),
                             ],
@@ -99,16 +118,16 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                     SizedBox(
                       height: SizeConfig.scaleHeight(2),
                     ),
-                    Consumer<UserClassProvider>(
-                      builder: (context, userClassProvider, child) {
-                        if (userClassProvider.listUserClass.isEmpty &&
-                                !userClassProvider.isHistory ||
-                            userClassProvider.listUserClassHistory.isEmpty &&
-                                userClassProvider.isHistory) {
+                    Consumer<AdminProvider>(
+                      builder: (context, adminProvider, child) {
+                        if (adminProvider.listUserPlans.isEmpty &&
+                                !adminProvider.isActive ||
+                            adminProvider.listUserPlans.isEmpty &&
+                                adminProvider.isActive) {
                           return const AppEmptyData(
                             imagePath:
-                                'https://curvepilates-bucket.s3.amazonaws.com/app-assets/calendar/empty-calendar.png',
-                            message: 'No se encontraron citas',
+                                'https://curvepilates-bucket.s3.amazonaws.com/app-assets/users/empty_users.png',
+                            message: 'No se encontraron usuarios',
                           );
                         } else {
                           return Flexible(
@@ -126,15 +145,10 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                               height: SizeConfig.scaleHeight(100),
                               width: SizeConfig.scaleWidth(100),
                               child: ListView.builder(
-                                itemCount: userClassProvider.isHistory
-                                    ? userClassProvider
-                                        .listUserClassHistory.length
-                                    : userClassProvider.listUserClass.length,
+                                itemCount: adminProvider.listUserPlans.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  List<UserClassModel> listUserClass =
-                                      userClassProvider.isHistory
-                                          ? userClassProvider.listUserClassHistory
-                                          : userClassProvider.listUserClass;
+                                  List<UserPlanModel> listUserPlan =
+                                      adminProvider.listUserPlans;
                                   return Column(
                                     children: [
                                       Row(
@@ -145,19 +159,30 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                             width: SizeConfig.scaleWidth(5),
                                           ),
                                           CustomText(
-                                            text:
-                                                '${listUserClass[index].classModel.schedule!.startHour.substring(0, 5)} ${userClassProvider.getAMFM(listUserClass[index].classModel.schedule!.startHour.substring(0, 5))}',
+                                            text: listUserPlan[index]
+                                                .user
+                                                .dniNumber,
                                             color: AppColors.black100,
-                                            fontSize:SizeConfig.scaleText(3),
+                                            fontSize: SizeConfig.scaleText(3),
                                             fontWeight: FontWeight.w600,
                                           ),
                                           SizedBox(
                                             width: SizeConfig.scaleWidth(4),
                                           ),
                                           CustomText(
-                                            text: '50 min',
+                                            text: listUserPlan[index]
+                                                        .user
+                                                        .gender ==
+                                                    'M'
+                                                ? 'Hombre'
+                                                : listUserPlan[index]
+                                                            .user
+                                                            .gender ==
+                                                        'F'
+                                                    ? 'Mujer'
+                                                    : 'LGBTQ+',
                                             color: AppColors.grey200,
-                                            fontSize:SizeConfig.scaleText(1.8),
+                                            fontSize: SizeConfig.scaleText(1.8),
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ],
@@ -189,61 +214,19 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                             ]),
                                         child: Row(
                                           children: [
-                                            Container(
-                                              width: SizeConfig.scaleWidth(21),
+                                            CustomImageNetwork(
+                                              imagePath: listUserPlan[index]
+                                                  .user
+                                                  .photo,
                                               height:
-                                                  SizeConfig.scaleHeight(10.5),
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.white100,
-                                                  borderRadius:
-                                                      BorderRadius.circular(50)),
-                                              padding: EdgeInsets.all(
-                                                  SizeConfig.scaleHeight(2)),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  CustomText(
-                                                      text: listUserClass[index]
-                                                          .classModel
-                                                          .classDate
-                                                          .substring(8, 10)
-                                                          .toString(),
-                                                      color: AppColors.black100,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              3),
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                  SizedBox(
-                                                    height:
-                                                        SizeConfig.scaleHeight(
-                                                            0.5),
-                                                  ),
-                                                  CustomText(
-                                                      text: userClassProvider
-                                                          .getStringMonth(
-                                                              DateTime.parse(
-                                                                  listUserClass[
-                                                                          index]
-                                                                      .classModel
-                                                                      .classDate)),
-                                                      color: AppColors.black100,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              1.5),
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ],
-                                              ),
+                                                  SizeConfig.scaleHeight(12),
+                                              width: SizeConfig.scaleWidth(18),
                                             ),
                                             SizedBox(
                                               width: SizeConfig.scaleWidth(5),
                                             ),
                                             SizedBox(
-                                              width: userClassProvider.isHistory
+                                              width: adminProvider.isActive
                                                   ? SizeConfig.scaleWidth(35)
                                                   : SizeConfig.scaleWidth(40),
                                               child: Column(
@@ -255,9 +238,8 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                                   CustomText(
                                                       text: 'Datos:',
                                                       color: AppColors.black100,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              1.5),
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(1.5),
                                                       fontWeight:
                                                           FontWeight.w600),
                                                   SizedBox(
@@ -267,7 +249,7 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                                   ),
                                                   CustomText(
                                                     text:
-                                                        '${listUserClass[index].user.name} ${listUserClass[index].user.lastname}',
+                                                        '${listUserPlan[index].user.name} ${listUserPlan[index].user.lastname}',
                                                     color: AppColors.grey200,
                                                     fontSize:
                                                         SizeConfig.scaleHeight(
@@ -282,146 +264,127 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                                             0.5),
                                                   ),
                                                   CustomText(
-                                                      text: listUserClass[index]
-                                                          .user
-                                                          .dniNumber,
+                                                      text: listUserPlan[index]
+                                                          .plan
+                                                          .name,
                                                       color: AppColors.grey200,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              1.5),
-                                                      fontWeight: FontWeight.w400,
-                                                      textAlign: TextAlign.start),
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(1.5),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      textAlign:
+                                                          TextAlign.start),
                                                   SizedBox(
                                                     height:
                                                         SizeConfig.scaleHeight(
                                                             0.5),
                                                   ),
                                                   CustomText(
-                                                      text: listUserClass[index]
-                                                                  .user
-                                                                  .gender ==
-                                                              'M'
-                                                          ? 'Hombre'
-                                                          : listUserClass[index]
-                                                                      .user
-                                                                      .gender ==
-                                                                  'F'
-                                                              ? 'Mujer'
-                                                              : 'LGBTQ+',
+                                                      text: listUserPlan[index]
+                                                          .plan
+                                                          .description,
                                                       color: AppColors.grey200,
-                                                      fontSize:
-                                                          SizeConfig.scaleHeight(
-                                                              1.5),
-                                                      fontWeight: FontWeight.w400,
-                                                      textAlign: TextAlign.start),
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(1.5),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      textAlign:
+                                                          TextAlign.start),
+                                                  SizedBox(
+                                                    height:
+                                                        SizeConfig.scaleHeight(
+                                                            0.5),
+                                                  ),
+                                                  CustomText(
+                                                      text:
+                                                          '${(listUserPlan[index].plan.classesCount - listUserPlan[index].scheduledClasses)} disponibles de ${listUserPlan[index].plan.classesCount}',
+                                                      color: AppColors.grey200,
+                                                      fontSize: SizeConfig
+                                                          .scaleHeight(1.5),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      textAlign:
+                                                          TextAlign.start),
                                                 ],
                                               ),
                                             ),
-                                            if (userClassProvider.isHistory ==
-                                                false) ...[
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                    width:
-                                                        SizeConfig.scaleWidth(2),
-                                                  ),
-                                                  CustomIconButton(
-                                                      color: AppColors.black100,
-                                                      height: 5,
-                                                      width: 10,
-                                                      icon: FontAwesomeIcons
-                                                          .locationDot,
-                                                      onPressed: () {
-                                                        double latitude = 0.34291;
-                                                        double longitude =
-                                                            -78.1352;
-                                                        String name =
-                                                            'Curve Pilates';
-                                                        mapServices.openMaps(
-                                                            latitude: latitude,
-                                                            longitude: longitude,
-                                                            name: name);
-                                                      }),
-                                                  SizedBox(
-                                                    height:
-                                                        SizeConfig.scaleHeight(2),
-                                                  ),
-                                                  CustomIconButton(
-                                                      color: AppColors.red300,
-                                                      height: 5,
-                                                      width: 10,
-                                                      icon:
-                                                          FontAwesomeIcons.xmark,
-                                                      onPressed: () {
-                                                        AppDialogs.showDeleteConfirm(
-                                                            context,
-                                                            listUserClass[index]
-                                                                .id!,
-                                                            DateTime.parse(
-                                                                listUserClass[
-                                                                        index]
-                                                                    .classModel
-                                                                    .classDate
-                                                                    .toString()));
-                                                      }),
-                                                ],
-                                              )
-                                            ] else if (userClassProvider
-                                                    .isHistory ==
-                                                true) ...[
-                                              Transform.rotate(
-                                                angle: -3.14 / 2,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: listUserClass[index]
-                                                                .status ==
-                                                            'C'
-                                                        ? AppColors.green200
-                                                        : listUserClass[index]
-                                                                    .status ==
-                                                                'E'
-                                                            ? AppColors.orange300
-                                                            : listUserClass[index]
-                                                                        .status ==
-                                                                    'X'
-                                                                ? AppColors.red300
-                                                                : AppColors
-                                                                    .black100,
-                                                    borderRadius:
-                                                        BorderRadius.circular(50),
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                    vertical:
-                                                        SizeConfig.scaleWidth(2),
-                                                    horizontal:
-                                                        SizeConfig.scaleWidth(2),
-                                                  ),
-                                                  child: CustomText(
-                                                    text: listUserClass[index]
-                                                                .status ==
-                                                            'C'
-                                                        ? 'Completada'
-                                                        : listUserClass[index]
-                                                                    .status ==
-                                                                'E'
-                                                            ? 'Expirada'
-                                                            : listUserClass[index]
-                                                                        .status ==
-                                                                    'X'
-                                                                ? 'Cancelada'
-                                                                : '',
-                                                    color: AppColors.white100,
-                                                    fontSize:
-                                                        SizeConfig.scaleWidth(3),
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  width:
+                                                      SizeConfig.scaleWidth(2),
                                                 ),
-                                              ),
-                                            ]
+                                                CustomIconButton(
+                                                    color: AppColors.black100,
+                                                    height: 5,
+                                                    width: 10,
+                                                    icon: FontAwesomeIcons
+                                                        .fileInvoiceDollar,
+                                                    onPressed: () {
+                                                      AppDialogs.showInvoice(
+                                                          context,
+                                                          listUserPlan[index]
+                                                              .paymentPhoto);
+                                                    }),
+                                                SizedBox(
+                                                  height:
+                                                      SizeConfig.scaleHeight(2),
+                                                ),
+                                                CustomIconButton(
+                                                    color: listUserPlan[index]
+                                                                .status ==
+                                                            'A'
+                                                        ? AppColors.green200
+                                                        : AppColors.orange300,
+                                                    height: 5,
+                                                    width: 10,
+                                                    icon: listUserPlan[index]
+                                                                .status ==
+                                                            'A'
+                                                        ? FontAwesomeIcons.check
+                                                        : FontAwesomeIcons
+                                                            .clock,
+                                                    onPressed: () async {
+                                                      UserPlanModel userPlan =
+                                                          listUserPlan[index];
+                                                      UpdateStatusModel
+                                                          updateStatus =
+                                                          UpdateStatusModel(
+                                                              status:
+                                                                  userPlan.status ==
+                                                                          'A'
+                                                                      ? 'I'
+                                                                      : 'A');
+                                                      await adminProvider
+                                                          .updateStatusUserPlan(
+                                                              context,
+                                                              userPlan,
+                                                              updateStatus);
+
+                                                      if (!context.mounted) {
+                                                        return;
+                                                      }
+
+                                                      adminProvider.setIsActive(
+                                                          userPlan.status == 'A'
+                                                              ? true
+                                                              : false);
+
+                                                      await adminProvider
+                                                          .getUsersPlans(
+                                                              context,
+                                                              status:
+                                                                  userPlan.status ==
+                                                                          'A'
+                                                                      ? 'A'
+                                                                      : 'I');
+                                                    }),
+                                              ],
+                                            )
                                           ],
                                         ),
                                       ),
@@ -440,7 +403,7 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                   ],
                 ),
               ),
-              bottomNavigationBar: const ClientNavBar()),
+              bottomNavigationBar: const AdminNavBar()),
           const AppLoading(),
         ],
       ),

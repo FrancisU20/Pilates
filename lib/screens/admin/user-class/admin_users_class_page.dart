@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pilates/integrations/maps_launcher.dart';
 import 'package:pilates/models/user-class/user_class_model.dart';
 import 'package:pilates/models/user/user_model.dart';
 import 'package:pilates/providers/admin/admin_provider.dart';
+import 'package:pilates/screens/admin/user-class/widgets/user_class_metrics.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/admin/admin_nav_bar.dart';
 import 'package:pilates/theme/components/common/custom_app_bar.dart';
-import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
-import 'package:pilates/theme/widgets/custom_icon_button.dart';
 import 'package:pilates/theme/widgets/custom_page_header.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -68,7 +66,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                 onTap: (user) {
                   AdminProvider adminProvider =
                       Provider.of<AdminProvider>(context, listen: false);
-                  adminProvider.onUserSelected(context, user.id);
+                  adminProvider.onUserSelectedClass(context, user.id);
                 },
               ),
               body: Container(
@@ -168,6 +166,34 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                                 FontAwesomeIcons.circleXmark,
                                                 color: AppColors.red300)),
                                       ],
+                                      if (index == 0) ...[
+                                        UserClassMetrics(
+                                          listUserClass: listUserClass,
+                                          isHistory: adminProvider.isHistory,
+                                        ),
+                                        SizedBox(
+                                          height: SizeConfig.scaleHeight(2),
+                                        ),
+                                        adminProvider.selectedUserId.isNotEmpty
+                                            ? CustomText(
+                                                text:
+                                                    'Citas de ${listUserClass[index].user.name} ${listUserClass[index].user.lastname}',
+                                                color: AppColors.grey200,
+                                                fontSize:
+                                                    SizeConfig.scaleText(1.8),
+                                                fontWeight: FontWeight.w600,
+                                              )
+                                            : CustomText(
+                                                text: 'Citas Totales',
+                                                color: AppColors.grey200,
+                                                fontSize:
+                                                    SizeConfig.scaleText(1.8),
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        SizedBox(
+                                          height: SizeConfig.scaleHeight(2),
+                                        ),
+                                      ],
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -201,7 +227,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                             0,
                                             SizeConfig.scaleHeight(2)),
                                         width: SizeConfig.scaleWidth(90),
-                                        height: SizeConfig.scaleHeight(20),
+                                        height: SizeConfig.scaleHeight(15),
                                         decoration: BoxDecoration(
                                             color: AppColors.white200,
                                             border: Border.all(
@@ -350,64 +376,6 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                               ),
                                             ),
                                             if (adminProvider.isHistory ==
-                                                false) ...[
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  SizedBox(
-                                                    width:
-                                                        SizeConfig.scaleWidth(
-                                                            2),
-                                                  ),
-                                                  CustomIconButton(
-                                                      color: AppColors.black100,
-                                                      height: 5,
-                                                      width: 10,
-                                                      icon: FontAwesomeIcons
-                                                          .locationDot,
-                                                      onPressed: () {
-                                                        double latitude =
-                                                            0.34291;
-                                                        double longitude =
-                                                            -78.1352;
-                                                        String name =
-                                                            'Curve Pilates';
-                                                        mapServices.openMaps(
-                                                            latitude: latitude,
-                                                            longitude:
-                                                                longitude,
-                                                            name: name);
-                                                      }),
-                                                  SizedBox(
-                                                    height:
-                                                        SizeConfig.scaleHeight(
-                                                            2),
-                                                  ),
-                                                  CustomIconButton(
-                                                      color: AppColors.red300,
-                                                      height: 5,
-                                                      width: 10,
-                                                      icon: FontAwesomeIcons
-                                                          .xmark,
-                                                      onPressed: () {
-                                                        AppDialogs.showDeleteConfirm(
-                                                            context,
-                                                            listUserClass[index]
-                                                                .id!,
-                                                            DateTime.parse(
-                                                                listUserClass[
-                                                                        index]
-                                                                    .classModel
-                                                                    .classDate
-                                                                    .toString()));
-                                                      }),
-                                                ],
-                                              )
-                                            ] else if (adminProvider
-                                                    .isHistory ==
                                                 true) ...[
                                               Transform.rotate(
                                                 angle: -3.14 / 2,

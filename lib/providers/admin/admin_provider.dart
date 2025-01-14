@@ -24,7 +24,8 @@ class AdminProvider extends ChangeNotifier {
   String selectedUserId = '';
   DateTime selectedMonth =
       DateTime(DateTime.now().year, DateTime.now().month, 1);
-  
+
+  bool isActive = true;
 
   //? Setters Variables
   void setIsHistory(bool isHistory) {
@@ -42,6 +43,11 @@ class AdminProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setIsActive(bool isActive) {
+    this.isActive = isActive;
+    notifyListeners();
+  }
+
   //? Clean Variables
   void cleanIsHistory() {
     isHistory = false;
@@ -55,6 +61,11 @@ class AdminProvider extends ChangeNotifier {
 
   void cleanSelectedMonth() {
     selectedMonth = DateTime(DateTime.now().year, DateTime.now().month, 1);
+    notifyListeners();
+  }
+
+  void cleanIsActive() {
+    isActive = true;
     notifyListeners();
   }
 
@@ -150,6 +161,7 @@ class AdminProvider extends ChangeNotifier {
     cleanSelectedMonth();
     cleanListUserPlans();
     cleanListMonth();
+    cleanListClass();
   }
 
   //****************************************/
@@ -264,16 +276,18 @@ class AdminProvider extends ChangeNotifier {
   }
 
   //? Obtener Planes de los Usuarios
-  Future<void> getUsersPlans(BuildContext context, {String? status}) async {
+  Future<void> getUsersPlans(BuildContext context, {String? status, String? selectedUserId}) async {
     try {
       showLoading();
       DateTime startDate = DateTime(selectedMonth.year, selectedMonth.month);
       DateTime endDate =
           DateTime(selectedMonth.year, selectedMonth.month + 1, 0);
 
+      String? userId = selectedUserId == '' ? null : selectedUserId;
+
       StandardResponse<List<UserPlanModel>> userPlansResponse =
           await userPlanController.getUserPlans(
-              userId: null,
+              userId: userId,
               status: status,
               startDate: startDate,
               endDate: endDate);
@@ -398,8 +412,8 @@ class AdminProvider extends ChangeNotifier {
     }
   }
 
-  //? Funcion para buscar por usuario
-  void onUserSelected(BuildContext context, String? selectedUserId) {
+  //? Funcion para buscar por usuario una clase
+  void onUserSelectedClass(BuildContext context, String? selectedUserId) {
     AdminProvider adminProvider =
         Provider.of<AdminProvider>(context, listen: false);
 
@@ -407,6 +421,17 @@ class AdminProvider extends ChangeNotifier {
 
     // Llama a getUsersClass con el userId seleccionado o sin userId
     adminProvider.getUsersClass(context, userId: selectedUserId);
+  }
+
+  //? Funcion para buscar por usuario unos planes 
+  void onUserSelectedPlans(BuildContext context, String? status,String? selectedUserId) {
+    AdminProvider adminProvider =
+        Provider.of<AdminProvider>(context, listen: false);
+
+    setSelectedUserId(selectedUserId ?? '');
+
+    // Llama a getUsersClass con el userId seleccionado o sin userId
+    adminProvider.getUsersPlans(context, status: status, selectedUserId: selectedUserId);
   }
 
   //? Funciona para actualizar es estado de una clase

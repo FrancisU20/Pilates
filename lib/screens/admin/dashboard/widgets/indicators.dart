@@ -38,7 +38,7 @@ class Indicators extends StatelessWidget {
                           .length
                           .toString(),
                       color: AppColors.white100,
-                      fontSize:SizeConfig.scaleText(4.5),
+                      fontSize:SizeConfig.scaleText(2.5),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -92,7 +92,7 @@ class Indicators extends StatelessWidget {
                     child: CustomText(
                       text: adminProvider.listUserPlans.length.toString(),
                       color: AppColors.white100,
-                      fontSize:SizeConfig.scaleText(4.5),
+                      fontSize:SizeConfig.scaleText(2.5),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -150,7 +150,7 @@ class Indicators extends StatelessWidget {
                           .length
                           .toString(),
                       color: AppColors.white100,
-                      fontSize:SizeConfig.scaleText(4.5),
+                      fontSize:SizeConfig.scaleText(2.5),
                       fontWeight: FontWeight.w500,
                     ),
                   ),

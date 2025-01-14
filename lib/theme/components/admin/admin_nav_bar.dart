@@ -62,7 +62,7 @@ class AdminNavBar extends StatelessWidget {
                     : AppColors.white100,
                 onPressed: () async {
                   await AppMiddleware.updateAdminData(
-                      context, '/admin-dashboard');
+                      context, '/admin-dashboard/users');
                 },
               ),
             ],

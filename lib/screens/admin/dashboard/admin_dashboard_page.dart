@@ -82,7 +82,7 @@ class AdminDashboardPageState extends State<AdminDashboardPage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               width: SizeConfig.scaleWidth(90),
-                              height: SizeConfig.scaleHeight(32),
+                              height: SizeConfig.scaleHeight(27),
                               padding: EdgeInsets.symmetric(
                                   horizontal: SizeConfig.scaleWidth(5),
                                   vertical: SizeConfig.scaleHeight(2)),
@@ -97,7 +97,7 @@ class AdminDashboardPageState extends State<AdminDashboardPage> {
                               child: CustomText(
                                   text: 'Métricas mensuales ',
                                   color: AppColors.black100,
-                                  fontSize:SizeConfig.scaleText(2.5),
+                                  fontSize:SizeConfig.scaleText(2),
                                   fontWeight: FontWeight.w500),
                             ),
                             SizedBox(
@@ -111,7 +111,7 @@ class AdminDashboardPageState extends State<AdminDashboardPage> {
                               child: CustomText(
                                 text: 'Plan más usado',
                                 color: AppColors.black100,
-                                fontSize:SizeConfig.scaleText(2.5),
+                                fontSize:SizeConfig.scaleText(2),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
