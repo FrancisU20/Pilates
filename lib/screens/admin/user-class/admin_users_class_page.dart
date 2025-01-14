@@ -31,7 +31,8 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       AdminProvider adminProvider =
           Provider.of<AdminProvider>(context, listen: false);
-
+      adminProvider.setIsHistory(false);
+      adminProvider.cleanSelectedUserId();
       await adminProvider.getUsersClass(context);
     });
   }

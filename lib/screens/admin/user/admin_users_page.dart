@@ -30,8 +30,11 @@ class AdminUsersPageState extends State<AdminUsersPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Provider.of<AdminProvider>(context, listen: false)
-          .getUsersPlans(context, status: 'A');
+      AdminProvider adminProvider =
+          Provider.of<AdminProvider>(context, listen: false);
+      adminProvider.setIsActive(true);
+      adminProvider.cleanSelectedUserId();
+      await adminProvider.getUsersPlans(context, status: 'A');
     });
   }
 
@@ -348,20 +351,7 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                                   height:
                                                       SizeConfig.scaleHeight(2),
                                                 ),
-                                                CustomIconButton(
-                                                    color: listUserPlan[index]
-                                                                .status ==
-                                                            'A'
-                                                        ? AppColors.green200
-                                                        : AppColors.orange300,
-                                                    height: 5,
-                                                    width: 10,
-                                                    icon: listUserPlan[index]
-                                                                .status ==
-                                                            'A'
-                                                        ? FontAwesomeIcons.check
-                                                        : FontAwesomeIcons
-                                                            .clock,
+                                                IconButton(
                                                     onPressed: () async {
                                                       String newStatus =
                                                           listUserPlan[index]
@@ -402,7 +392,23 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                                               context,
                                                               status:
                                                                   newStatus);
-                                                    }),
+                                                    },
+                                                    icon: Icon(
+                                                      listUserPlan[index]
+                                                                  .status ==
+                                                              'A'
+                                                          ? FontAwesomeIcons
+                                                              .toggleOn
+                                                          : FontAwesomeIcons
+                                                              .toggleOff,
+                                                      color: listUserPlan[index]
+                                                                  .status ==
+                                                              'A'
+                                                          ? AppColors.green200
+                                                          : AppColors.red300,
+                                                      size: SizeConfig
+                                                          .scaleHeight(3.5),
+                                                    )),
                                               ],
                                             )
                                           ],
