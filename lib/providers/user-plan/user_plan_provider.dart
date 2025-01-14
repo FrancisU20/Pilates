@@ -389,11 +389,15 @@ class UserPlanProvider extends ChangeNotifier {
       }
     } catch (e) {
       if (!context.mounted) return;
-      CustomSnackBar.show(
-        context,
-        e.toString(),
-        SnackBarType.error,
-      );
+      if (e.toString().contains('No se encontraron planes')) {
+        Logger.logAppError(e.toString());
+      } else {
+        CustomSnackBar.show(
+          context,
+          e.toString(),
+          SnackBarType.error,
+        );
+      }
     } finally {
       hideLoading();
     }

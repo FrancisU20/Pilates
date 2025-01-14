@@ -887,7 +887,7 @@ class AppDialogs {
           backgroundColor: AppColors.white100,
           child: SizedBox(
             height:
-                SizeConfig.scaleHeight(25), // Ajustar altura según necesidad
+                SizeConfig.scaleHeight(35), // Ajustar altura según necesidad
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

@@ -41,26 +41,16 @@ class AppMiddleware {
         pageStateProvider.setActiveRoute(route);
         context.go(route);
       }
-    } else if (userPlanProvider.inactiveUserPlan != null) {
-      //? Verificar si el plan está inactivo
+    } else if (userPlanProvider.activeUserPlan == null &&
+        route == '/dashboard/class') {
       if (!context.mounted) return;
       CustomSnackBar.show(
           context,
-          'Tu plan está inactivo. Por favor, informa tu pago para poder disfrutar de la app.',
+          '¡Ups! No tienes un plan activo. Activa o contrata uno y empieza a agendar tus clases. ¡Te esperamos!',
           SnackBarType.error);
       pageStateProvider.setActiveRoute('/dashboard');
       context.go('/dashboard');
-    }
-    else if(userPlanProvider.activeUserPlan == null && route == '/dashboard/class'){
-      if (!context.mounted) return;
-      CustomSnackBar.show(
-          context,
-          'No tienes un plan. Por favor contrata un plan para poder disfrutar de la app.',
-          SnackBarType.error);
-      pageStateProvider.setActiveRoute('/dashboard');
-      context.go('/dashboard');
-    }
-    else{
+    } else {
       if (!context.mounted) return;
       pageStateProvider.setActiveRoute(route);
       context.go(route);
@@ -73,7 +63,7 @@ class AppMiddleware {
         Provider.of<PageStateProvider>(context, listen: false);
     AdminProvider adminProvider =
         Provider.of<AdminProvider>(context, listen: false);
-    
+
     //? Limpia las variables en memoria del provider
     adminProvider.reset();
 
