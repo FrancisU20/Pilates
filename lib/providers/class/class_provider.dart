@@ -128,7 +128,7 @@ class ClassProvider extends ChangeNotifier {
       CustomSnackBar.show(
         context,
         availableClasses.isEmpty
-            ? 'Lo sentimos, nuestro horario está completo 😓'
+            ? 'Lo sentimos, nuestros horarios están completos 😓'
             : 'Clases cargadas correctamente 🎉',
         availableClasses.isEmpty ? SnackBarType.error : SnackBarType.success,
       );
