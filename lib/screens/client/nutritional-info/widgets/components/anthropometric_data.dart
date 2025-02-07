@@ -91,9 +91,6 @@ class AnthropometricDataState extends State<AnthropometricData> {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setWeight(double.parse(value));
                   }
-                  else {
-                    nutritionalInfoProvider.setWeight(0);
-                  }
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
@@ -110,9 +107,6 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setHeight(double.parse(value));
-                  }
-                  else {
-                    nutritionalInfoProvider.setHeight(0);
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
@@ -131,9 +125,6 @@ class AnthropometricDataState extends State<AnthropometricData> {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setNeckCircumference(double.parse(value));
                   }
-                  else {
-                    nutritionalInfoProvider.setNeckCircumference(0);
-                  }
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
@@ -151,9 +142,6 @@ class AnthropometricDataState extends State<AnthropometricData> {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setWaistCircumference(double.parse(value));
                   }
-                  else {
-                    nutritionalInfoProvider.setWaistCircumference(0);
-                  }
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
@@ -170,9 +158,6 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                   nutritionalInfoProvider.setHipCircumference(double.parse(value));
-                  }
-                  else {
-                    nutritionalInfoProvider.setHipCircumference(0);
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
