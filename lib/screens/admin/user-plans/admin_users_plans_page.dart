@@ -63,7 +63,7 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                     .values
                     .toList(),
                 searchField: (user) => user.dniNumber,
-                onTap: (user) async{
+                onTap: (user) async {
                   AdminProvider adminProvider =
                       Provider.of<AdminProvider>(context, listen: false);
                   await adminProvider.onUserSelectedPlans(
@@ -93,7 +93,7 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomTextButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     adminProvider.setIsActive(true);
                                     adminProvider.cleanSelectedUserId();
                                     //? Aqui va el get con filtro solo (A)
@@ -105,7 +105,7 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                                       ? AppColors.gold100
                                       : AppColors.white100),
                               CustomTextButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     adminProvider.setIsActive(false);
                                     adminProvider.cleanSelectedUserId();
                                     //? Aqui va el get con filtro (C), (E), (X)
@@ -234,14 +234,23 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                                             ]),
                                         child: Row(
                                           children: [
-                                            CustomImageNetwork(
-                                              imagePath: listUserPlan[index]
-                                                  .user
-                                                  .photo,
-                                              height:
-                                                  SizeConfig.scaleHeight(12),
-                                              width:
-                                                  SizeConfig.scaleWidth(18),
+                                            GestureDetector(
+                                              onTap: () {
+                                                AppDialogs.showUserPhoto(
+                                                    context,
+                                                    listUserPlan[index]
+                                                        .user
+                                                        .photo);
+                                              },
+                                              child: CustomImageNetwork(
+                                                imagePath: listUserPlan[index]
+                                                    .user
+                                                    .photo,
+                                                height:
+                                                    SizeConfig.scaleHeight(12),
+                                                width:
+                                                    SizeConfig.scaleWidth(18),
+                                              ),
                                             ),
                                             SizedBox(
                                               width: SizeConfig.scaleWidth(5),
