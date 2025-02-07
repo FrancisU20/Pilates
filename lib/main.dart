@@ -70,29 +70,34 @@ class MyApp extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return OrientationBuilder(builder: (context, orientation) {
         SizeConfig.init(constraints, orientation);
-        return MaterialApp.router(
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en', 'US'), // Inglés
-              Locale('es', 'ES'), // Español
-            ],
-            builder: (context, child) {
-              return MediaQuery(
-                data: MediaQuery.of(context)
-                    .copyWith(textScaler: const TextScaler.linear(.90)),
-                child: child!,
-              );
-            },
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: AppColors.beige200),
-              useMaterial3: true,
-            ),
-            debugShowCheckedModeBanner: false,
-            routerConfig: goRouter);
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: MaterialApp.router(
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en', 'US'), // Inglés
+                Locale('es', 'ES'), // Español
+              ],
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context)
+                      .copyWith(textScaler: const TextScaler.linear(.90)),
+                  child: child!,
+                );
+              },
+              theme: ThemeData(
+                colorScheme:
+                    ColorScheme.fromSeed(seedColor: AppColors.beige200),
+                useMaterial3: true,
+              ),
+              debugShowCheckedModeBanner: false,
+              routerConfig: goRouter),
+        );
       });
     });
   }

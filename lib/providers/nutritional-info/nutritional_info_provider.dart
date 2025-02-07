@@ -34,7 +34,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
   //! Personal Information
   String completeName = '';
   DateTime birthDate = DateTime.now();
-  int age = 0;
+  int? age;
   String gender = '';
   String maritalStatus = '';
   String address = '';
@@ -43,7 +43,7 @@ class NutritionalInfoProvider extends ChangeNotifier {
   String email = '';
 
   //! Nutritional Information
-  int numberOfMeals = 0;
+  int? numberOfMeals;
   String medicationAllergy = '';
   bool? takesSupplement;
   String supplementName = '';
@@ -68,11 +68,11 @@ class NutritionalInfoProvider extends ChangeNotifier {
   String otherConditions = '';
 
   //! Anthropometric Data
-  double weight = 0.0;
-  double height = 0.0;
-  double neckCircumference = 0.0;
-  double waistCircumference = 0.0;
-  double hipCircumference = 0.0;
+  double? weight;
+  double? height;
+  double? neckCircumference;
+  double? waistCircumference;
+  double? hipCircumference;
 
   //! Validado todo el form
   bool validateForm = false;
@@ -292,6 +292,11 @@ class NutritionalInfoProvider extends ChangeNotifier {
 
   void hideLoading() {
     isLoading = false;
+    notifyListeners();
+  }
+
+  void setCurrentStep(int value) {
+    currentStep = value;
     notifyListeners();
   }
 
@@ -841,48 +846,48 @@ class NutritionalInfoProvider extends ChangeNotifier {
       numberOfMealsController.text = numberOfMeals.toString();
       medicationAllergyController.text = medicationAllergy;
       takesSupplementController.text = takesSupplement == true
-          ? 'SI'
+          ? 'Sí'
           : takesSupplement == false
-              ? 'NO'
+              ? 'No'
               : '';
       supplementNameController.text = supplementName;
       supplementDoseController.text = supplementDose;
       supplementReasonController.text = supplementReason;
       foodVariesWithMoodController.text = foodVariesWithMood == true
-          ? 'SI'
+          ? 'Sí'
           : foodVariesWithMood == false
-              ? 'NO'
+              ? 'No'
               : '';
       hasDietPlanController.text = hasDietPlan == true
-          ? 'SI'
+          ? 'Sí'
           : hasDietPlan == false
-              ? 'NO'
+              ? 'No'
               : '';
       consumesAlcoholController.text = consumesAlcohol == true
-          ? 'SI'
+          ? 'Sí'
           : consumesAlcohol == false
-              ? 'NO'
+              ? 'No'
               : '';
       smokesController.text = smokes == true
-          ? 'SI'
+          ? 'Sí'
           : smokes == false
-              ? 'NO'
+              ? 'No'
               : '';
       previousPhysicalActivityController.text = previousPhysicalActivity == true
-          ? 'SI'
+          ? 'Sí'
           : previousPhysicalActivity == false
-              ? 'NO'
+              ? 'No'
               : '';
       currentPhysicalActivityController.text = currentPhysicalInjury == true
-          ? 'SI'
+          ? 'Sí'
           : currentPhysicalInjury == false
-              ? 'NO'
+              ? 'No'
               : '';
       currentSportsInjuryDurationController.text = currentSportsInjuryDuration;
       isPregnantController.text = isPregnant == true
-          ? 'SI'
+          ? 'Sí'
           : isPregnant == false
-              ? 'NO'
+              ? 'No'
               : '';
       diabetesController.text = diabetes;
       dyslipidemiasController.text = dyslipidemias;

@@ -89,9 +89,12 @@ class EatingHabitsState extends State<EatingHabits> {
                 child: CustomText(
                     text: 'Hábitos alimenticios',
                     color: AppColors.black100,
-                    fontSize:SizeConfig.scaleText(2.5),
+                    fontSize:SizeConfig.scaleText(2),
                     fontWeight: FontWeight.w500,
                     maxLines: 2,),
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               SizedBox(
                 height: SizeConfig.scaleHeight(1),
@@ -113,6 +116,9 @@ class EatingHabitsState extends State<EatingHabits> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: 'Alergias a medicamentos',
                 labelColor: AppColors.black100,
@@ -125,6 +131,9 @@ class EatingHabitsState extends State<EatingHabits> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: '¿Tomas algún suplemento?',
                 labelColor: AppColors.black100,
@@ -133,7 +142,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.takesSupplementController,
                 fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  if (value == 'SI') {
+                  if (value == 'Sí') {
                     nutritionalInfoProvider.setTakesSupplement(true);
                   } else {
                     nutritionalInfoProvider.setTakesSupplement(false);
@@ -144,7 +153,10 @@ class EatingHabitsState extends State<EatingHabits> {
               if (nutritionalInfoProvider.takesSupplement == true)
                 Column(
                   children: [
-                    CustomTextField(
+                    SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                       title: '¿Cuál suplemento tomas?',
                       labelColor: AppColors.black100,
                       hintText: 'Proteína, creatina, etc.',
@@ -156,7 +168,10 @@ class EatingHabitsState extends State<EatingHabits> {
                       },
                       isActive: widget.viewMode == true ? false : true,
                     ),
-                    CustomTextField(
+                    SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                       title: 'Dosis del suplemento',
                       labelColor: AppColors.black100,
                       hintText: '1 ml, 1 pastilla, etc.',
@@ -168,7 +183,10 @@ class EatingHabitsState extends State<EatingHabits> {
                       },
                       isActive: widget.viewMode == true ? false : true,
                     ),
-                    CustomTextField(
+                    SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                       title: '¿Por qué tomas el suplemento?',
                       labelColor: AppColors.black100,
                       hintText: '',
@@ -182,6 +200,9 @@ class EatingHabitsState extends State<EatingHabits> {
                     ),
                   ],
                 ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title:
                     '¿Tu alimentación varía con tu ánimo?',
@@ -191,13 +212,16 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.foodVariesWithMoodController,
                 fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  if (value == 'SI') {
+                  if (value == 'Sí') {
                     nutritionalInfoProvider.setFoodVariesWithMood(true);
                   } else {
                     nutritionalInfoProvider.setFoodVariesWithMood(false);
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: '¿Has llevado un plan de alimentación?',
@@ -207,13 +231,16 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.hasDietPlanController,
                 fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  if (value == 'SI') {
+                  if (value == 'Sí') {
                     nutritionalInfoProvider.setHasDietPlan(true);
                   } else {
                     nutritionalInfoProvider.setHasDietPlan(false);
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: '¿Consumes alcohol?',
@@ -223,13 +250,16 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.consumesAlcoholController,
                 fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  if (value == 'SI') {
+                  if (value == 'Sí') {
                     nutritionalInfoProvider.setConsumesAlcohol(true);
                   } else {
                     nutritionalInfoProvider.setConsumesAlcohol(false);
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: '¿Fumas?',
@@ -239,13 +269,16 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.smokesController,
                 fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  if (value == 'SI') {
+                  if (value == 'Sí') {
                     nutritionalInfoProvider.setSmokes(true);
                   } else {
                     nutritionalInfoProvider.setSmokes(false);
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: '¿Has realizado actividad física antes?',
@@ -255,7 +288,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.previousPhysicalActivityController,
                 fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  if (value == 'SI') {
+                  if (value == 'Sí') {
                     nutritionalInfoProvider.setPreviousPhysicalActivity(true);
                   } else {
                     nutritionalInfoProvider.setPreviousPhysicalActivity(false);
@@ -264,6 +297,9 @@ class EatingHabitsState extends State<EatingHabits> {
                 isActive: widget.viewMode == true ? false : true,
               ),
               if(loginProvider.user!.gender != 'M')
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: '¿Estás embarazada?',
                 labelColor: AppColors.black100,
@@ -272,13 +308,16 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.isPregnantController,
                 fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  if (value == 'SI') {
+                  if (value == 'Sí') {
                     nutritionalInfoProvider.setIsPregnant(true);
                   } else {
                     nutritionalInfoProvider.setIsPregnant(false);
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: '¿Tienes alguna lesión deportiva actualmente?',
@@ -288,7 +327,7 @@ class EatingHabitsState extends State<EatingHabits> {
                 controller: widget.currentPhysicalActivityController,
                 fontSize:SizeConfig.scaleText(1.7),
                 onChanged: (value) {
-                  if (value == 'SI') {
+                  if (value == 'Sí') {
                     nutritionalInfoProvider.setCurrentPhysicalInjury(true);
                   } else {
                     nutritionalInfoProvider.setCurrentPhysicalInjury(false);
@@ -297,6 +336,9 @@ class EatingHabitsState extends State<EatingHabits> {
                 isActive: widget.viewMode == true ? false : true,
               ),
               if (nutritionalInfoProvider.currentPhysicalInjury == true)
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: '¿Hace cuánto tiempo ocurrió la lesión?',
                 labelColor: AppColors.black100,

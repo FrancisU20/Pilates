@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/screens/client/nutritional-info/widgets/components/anthropometric_data.dart';
@@ -8,8 +9,9 @@ import 'package:pilates/screens/client/nutritional-info/widgets/components/eatin
 import 'package:pilates/screens/client/nutritional-info/widgets/components/personal_info.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
-import 'package:pilates/theme/widgets/custom_image_network.dart';
+import 'package:pilates/theme/widgets/custom_icon_button.dart';
 import 'package:pilates/theme/widgets/custom_stepper_widget.dart';
+import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
@@ -98,8 +100,6 @@ class NutritionalSheet extends StatefulWidget {
 }
 
 class NutritionalSheetState extends State<NutritionalSheet> {
-  int currentStep = 0;
-
   @override
   void initState() {
     super.initState();
@@ -107,9 +107,6 @@ class NutritionalSheetState extends State<NutritionalSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final nutritionalInfoProvider =
-        Provider.of<NutritionalInfoProvider>(context, listen: false);
-
     return Flexible(
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -124,172 +121,175 @@ class NutritionalSheetState extends State<NutritionalSheet> {
         ),
         height: SizeConfig.scaleHeight(100),
         width: SizeConfig.scaleWidth(100),
-        child: ListView(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+        child: Consumer<NutritionalInfoProvider>(
+          builder: (context, nutritionalInfoProvider, child) {
+            int currentStep = nutritionalInfoProvider.currentStep;
+            return ListView(
               children: [
-                IconButton(
-                  onPressed: () {
-                    if (currentStep != 0) {
-                      setState(() {
-                        currentStep--;
-                      });
-                    }
-                  },
-                  icon: Icon(Icons.arrow_back_ios,
-                      size: SizeConfig.scaleHeight(4)),
-                  color: currentStep != 0
-                      ? AppColors.black100
-                      : AppColors.white100,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.scaleWidth(5),
-                    vertical: SizeConfig.scaleHeight(2),
+                if (widget.viewMode == true) ...[
+                  Row(
+                    children: [
+                      CustomText(
+                        text: 'Modo Visualización',
+                        fontSize: SizeConfig.scaleText(2.5),
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.grey200,
+                      ),
+                      const Spacer(),
+                      CustomIconButton(
+                          icon: FontAwesomeIcons.penToSquare,
+                          iconSize: 2,
+                          width: 10,
+                          height: 5,
+                          isCircle: true,
+                          radius: 50,
+                          onPressed: () {
+                            nutritionalInfoProvider.setCurrentStep(0);
+                            nutritionalInfoProvider.setIsEditable(true);
+                          })
+                    ],
                   ),
-                  decoration: BoxDecoration(
-                    color: AppColors.black100,
-                    borderRadius:
-                        BorderRadius.circular(SizeConfig.scaleWidth(2)),
-                    border: Border.all(
-                      color: AppColors.black100.withOpacity(0.1),
-                    ),
+                ] else if (widget.viewMode == false)
+                  Row(
+                    children: [
+                      CustomText(
+                        text: 'Modo Edición',
+                        fontSize: SizeConfig.scaleText(2.5),
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.grey200,
+                      ),
+                      const Spacer(),
+                      CustomIconButton(
+                          icon: FontAwesomeIcons.xmark,
+                          iconSize: 2,
+                          width: 10,
+                          height: 5,
+                          isCircle: true,
+                          radius: 50,
+                          onPressed: () {
+                            nutritionalInfoProvider.setCurrentStep(0);
+                            nutritionalInfoProvider.setIsEditable(false);
+                          })
+                    ],
                   ),
-                  child: CustomImageNetwork(
-                    imagePath:
-                        'https://curvepilates-bucket.s3.amazonaws.com/app-assets/logo/logo_rectangle_transparent_white.png',
-                    height: SizeConfig.scaleHeight(4),
-                  ),
+                SizedBox(
+                  height: SizeConfig.scaleHeight(1.5),
                 ),
-                IconButton(
-                  onPressed: () async {
-                    if (currentStep == 3) {
-                      await nutritionalInfoProvider
-                          .validateNutritionalInfo(context);
-                    }
-                    if (currentStep == 3 &&
-                        nutritionalInfoProvider.validateForm == true &&
-                        !widget.viewMode!) {
-                      setState(() {
-                        currentStep++;
-                      });
-                    }
-                    if (currentStep < 3) {
-                      setState(() {
-                        currentStep++;
-                      });
-                    }
-                  },
-                  icon: Icon(Icons.arrow_forward_ios,
-                      size: SizeConfig.scaleHeight(4)),
-                  color: currentStep != 4 && widget.viewMode == false
-                      ? AppColors.black100
-                      : currentStep != 3 && widget.viewMode == true
-                          ? AppColors.black100
-                          : AppColors.white100,
+                CustomStepperWidget(
+                  currentStep: currentStep,
+                  totalSteps: widget.viewMode! ? 4 : 5,
                 ),
-              ],
-            ),
-            if (widget.viewMode == true)
-              CustomTextButton(
-                onPressed: () {
-                  setState(() {
-                    currentStep = 0;
-                    nutritionalInfoProvider.setIsEditable(true);
-                  });
-                },
-                text: 'Editar Información',
-              ),
-            if (widget.viewMode == false)
-              Column(
-                children: [
-                  CustomTextButton(
-                    onPressed: () {
-                      setState(() {
-                        currentStep = 0;
-                        nutritionalInfoProvider.setIsEditable(false);
-                      });
-                    },
-                    text: 'Cancelar',
-                    color: AppColors.red300,
+                SizedBox(
+                  height: SizeConfig.scaleHeight(2),
+                ),
+                if (currentStep == 0) //! OJO CON ESTO
+                  PersonalInformation(
+                      completeNameController: widget.completeNameController,
+                      birthDateController: widget.birthDateController,
+                      ageController: widget.ageController,
+                      genderController: widget.genderController,
+                      maritalStatusController: widget.maritalStatusController,
+                      addressController: widget.addressController,
+                      occupationController: widget.occupationController,
+                      phoneController: widget.phoneController,
+                      emailController: widget.emailController,
+                      viewMode: widget.viewMode)
+                else if (currentStep == 1) //! OJO CON ESTO
+                  EatingHabits(
+                      numberOfMealsController: widget.numberOfMealsController,
+                      medicationAllergyController:
+                          widget.medicationAllergyController,
+                      takesSupplementController:
+                          widget.takesSupplementController,
+                      supplementNameController: widget.supplementNameController,
+                      supplementDoseController: widget.supplementDoseController,
+                      supplementReasonController:
+                          widget.supplementReasonController,
+                      foodVariesWithMoodController:
+                          widget.foodVariesWithMoodController,
+                      hasDietPlanController: widget.hasDietPlanController,
+                      consumesAlcoholController:
+                          widget.consumesAlcoholController,
+                      smokesController: widget.smokesController,
+                      previousPhysicalActivityController:
+                          widget.previousPhysicalActivityController,
+                      currentPhysicalActivityController:
+                          widget.currentPhysicalActivityController,
+                      currentSportsInjuryDurationController:
+                          widget.currentSportsInjuryDurationController,
+                      isPregnantController: widget.isPregnantController,
+                      viewMode: widget.viewMode)
+                else if (currentStep == 2)
+                  Diseases(
+                      diabetesController: widget.diabetesController,
+                      dyslipidemiasController: widget.dyslipidemiasController,
+                      obesityController: widget.obesityController,
+                      hypertensionController: widget.hypertensionController,
+                      cancerController: widget.cancerController,
+                      hypoHyperthyroidismController:
+                          widget.hypoHyperthyroidismController,
+                      otherConditionsController:
+                          widget.otherConditionsController,
+                      viewMode: widget.viewMode)
+                else if (currentStep == 3)
+                  AnthropometricData(
+                      weightController: widget.weightController,
+                      heightController: widget.heightController,
+                      neckCircumferenceController:
+                          widget.neckCircumferenceController,
+                      waistCircumferenceController:
+                          widget.waistCircumferenceController,
+                      hipCircumferenceController:
+                          widget.hipCircumferenceController,
+                      viewMode: widget.viewMode)
+                else if (currentStep == 4 && !widget.viewMode!)
+                  const ConfirmNutritionalInfo(),
+                if (currentStep == 3 && widget.viewMode!) ...[
+                  CustomButton(
+                      onPressed: () {
+                        nutritionalInfoProvider.generatePdf(context);
+                      },
+                      text: 'Descargar PDF',
+                      color: AppColors.brown200),
+                ] else if (currentStep < 4) ...[
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: SizeConfig.scaleHeight(2),
+                      ),
+                      CustomButton(
+                          onPressed: () async {
+                            if (currentStep == 3) {
+                              await nutritionalInfoProvider
+                                  .validateNutritionalInfo(context);
+                            }
+                            if (currentStep == 3 &&
+                                nutritionalInfoProvider.validateForm == true &&
+                                !widget.viewMode!) {
+                              nutritionalInfoProvider.nextStep();
+                            }
+                            if (currentStep < 3) {
+                              nutritionalInfoProvider.nextStep();
+                            }
+                          },
+                          text: 'Siguiente',
+                          color: AppColors.brown200),
+                    ],
                   ),
                 ],
-              ),
-            CustomStepperWidget(
-              currentStep: currentStep,
-              totalSteps: widget.viewMode! ? 4 : 5,
-            ),
-            SizedBox(
-              height: SizeConfig.scaleHeight(2),
-            ),
-            if (currentStep == 0) //! OJO CON ESTO
-              PersonalInformation(
-                  completeNameController: widget.completeNameController,
-                  birthDateController: widget.birthDateController,
-                  ageController: widget.ageController,
-                  genderController: widget.genderController,
-                  maritalStatusController: widget.maritalStatusController,
-                  addressController: widget.addressController,
-                  occupationController: widget.occupationController,
-                  phoneController: widget.phoneController,
-                  emailController: widget.emailController,
-                  viewMode: widget.viewMode)
-            else if (currentStep == 1) //! OJO CON ESTO
-              EatingHabits(
-                  numberOfMealsController: widget.numberOfMealsController,
-                  medicationAllergyController:
-                      widget.medicationAllergyController,
-                  takesSupplementController: widget.takesSupplementController,
-                  supplementNameController: widget.supplementNameController,
-                  supplementDoseController: widget.supplementDoseController,
-                  supplementReasonController: widget.supplementReasonController,
-                  foodVariesWithMoodController:
-                      widget.foodVariesWithMoodController,
-                  hasDietPlanController: widget.hasDietPlanController,
-                  consumesAlcoholController: widget.consumesAlcoholController,
-                  smokesController: widget.smokesController,
-                  previousPhysicalActivityController:
-                      widget.previousPhysicalActivityController,
-                  currentPhysicalActivityController:
-                      widget.currentPhysicalActivityController,
-                  currentSportsInjuryDurationController:
-                      widget.currentSportsInjuryDurationController,
-                  isPregnantController: widget.isPregnantController,
-                  viewMode: widget.viewMode)
-            else if (currentStep == 2)
-              Diseases(
-                  diabetesController: widget.diabetesController,
-                  dyslipidemiasController: widget.dyslipidemiasController,
-                  obesityController: widget.obesityController,
-                  hypertensionController: widget.hypertensionController,
-                  cancerController: widget.cancerController,
-                  hypoHyperthyroidismController:
-                      widget.hypoHyperthyroidismController,
-                  otherConditionsController: widget.otherConditionsController,
-                  viewMode: widget.viewMode)
-            else if (currentStep == 3)
-              AnthropometricData(
-                  weightController: widget.weightController,
-                  heightController: widget.heightController,
-                  neckCircumferenceController:
-                      widget.neckCircumferenceController,
-                  waistCircumferenceController:
-                      widget.waistCircumferenceController,
-                  hipCircumferenceController: widget.hipCircumferenceController,
-                  viewMode: widget.viewMode)
-            else if (currentStep == 4 && !widget.viewMode!)
-              const ConfirmNutritionalInfo(),
-            if (currentStep == 3 && widget.viewMode!) ...[
-              CustomButton(
-                  onPressed: () {
-                    nutritionalInfoProvider.generatePdf(context);
-                  },
-                  text: 'Descargar PDF',
-                  color: AppColors.brown200),
-            ]
-          ],
+                if (currentStep > 0) ...[
+                  CustomTextButton(
+                    onPressed: () {
+                      if (currentStep != 0) {
+                        nutritionalInfoProvider.previousStep();
+                      }
+                    },
+                    text: 'Regresar',
+                  )
+                ]
+              ],
+            );
+          },
         ),
       ),
     );

@@ -69,10 +69,13 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 child: CustomText(
                   text: 'Medidas Antropométricas',
                   color: AppColors.black100,
-                  fontSize:SizeConfig.scaleText(2.5),
+                  fontSize:SizeConfig.scaleText(2),
                   fontWeight: FontWeight.w500,
                   maxLines: 2,
                 ),
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               SizedBox(
                 height: SizeConfig.scaleHeight(1),
@@ -94,6 +97,9 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: 'Estatura (cm)',
                 labelColor: AppColors.black100,
@@ -110,6 +116,9 @@ class AnthropometricDataState extends State<AnthropometricData> {
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: 'Circunferencia de Cuello (cm)',
@@ -128,6 +137,9 @@ class AnthropometricDataState extends State<AnthropometricData> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: 'Circunferencia de Cintura (cm)',
                 labelColor: AppColors.black100,
@@ -144,6 +156,9 @@ class AnthropometricDataState extends State<AnthropometricData> {
                   }
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: 'Circunferencia de Cadera (cm)',

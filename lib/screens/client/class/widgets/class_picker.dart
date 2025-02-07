@@ -22,7 +22,7 @@ class ClassPicker extends StatefulWidget {
 }
 
 class ClassPickerState extends State<ClassPicker> {
-  DateTime firstDay  = DateTime.now().add(const Duration(days: 1));
+  DateTime firstDay = DateTime.now().add(const Duration(days: 1));
   DateTime focusedDay = DateTime.now().add(const Duration(days: 1));
   DateTime? selectedDay;
 
@@ -39,7 +39,7 @@ class ClassPickerState extends State<ClassPicker> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ClassProvider>(
-      builder: (context, classProvider, _) {
+      builder: (context, classProvider, child) {
         return Container(
           decoration: BoxDecoration(
             color: AppColors.white200,
@@ -55,6 +55,14 @@ class ClassPickerState extends State<ClassPicker> {
             focusedDay: focusedDay,
             calendarFormat: widget.calendarFormat,
             selectedDayPredicate: (day) => isSameDay(selectedDay, day),
+            onPageChanged: (focusedDay) {
+              classProvider.getClassList(context);
+              classProvider.cleanSelectedHourIndex();
+              classProvider.cleanListClassFilter();
+              setState(() {
+                this.focusedDay = focusedDay;
+              });
+            },
             onDaySelected: (selectedDay, focusedDay) {
               // Verifica si el día está en la lista de clases
               if (widget.classList.any((element) =>
@@ -83,7 +91,7 @@ class ClassPickerState extends State<ClassPicker> {
               selectedTextStyle: GoogleFonts.montserrat(
                 textStyle: TextStyle(
                   color: AppColors.white100,
-                  fontSize:SizeConfig.scaleText(1.7),
+                  fontSize: SizeConfig.scaleText(1.7),
                   fontWeight: FontWeight.w500,
                   letterSpacing: -0.5,
                   height: 0.9,
@@ -92,7 +100,7 @@ class ClassPickerState extends State<ClassPicker> {
               defaultTextStyle: GoogleFonts.montserrat(
                 textStyle: TextStyle(
                   color: AppColors.black100,
-                  fontSize:SizeConfig.scaleText(1.7),
+                  fontSize: SizeConfig.scaleText(1.7),
                   fontWeight: FontWeight.w500,
                   letterSpacing: -0.5,
                   height: 0.9,
@@ -101,7 +109,7 @@ class ClassPickerState extends State<ClassPicker> {
               disabledTextStyle: GoogleFonts.montserrat(
                 textStyle: TextStyle(
                   color: AppColors.brown200,
-                  fontSize:SizeConfig.scaleText(1.7),
+                  fontSize: SizeConfig.scaleText(1.7),
                   fontWeight: FontWeight.w500,
                   letterSpacing: -0.5,
                   height: 0.9,
@@ -110,7 +118,7 @@ class ClassPickerState extends State<ClassPicker> {
               weekendTextStyle: GoogleFonts.montserrat(
                 textStyle: TextStyle(
                   color: AppColors.black100,
-                  fontSize:SizeConfig.scaleText(1.7),
+                  fontSize: SizeConfig.scaleText(1.7),
                   fontWeight: FontWeight.w500,
                   letterSpacing: -0.5,
                   height: 0.9,
@@ -124,7 +132,7 @@ class ClassPickerState extends State<ClassPicker> {
               titleTextStyle: GoogleFonts.montserrat(
                 textStyle: TextStyle(
                   color: AppColors.black100,
-                  fontSize:SizeConfig.scaleText(2.5),
+                  fontSize: SizeConfig.scaleText(2.5),
                   fontWeight: FontWeight.w500,
                   letterSpacing: -0.5,
                   height: 0.9,
@@ -135,7 +143,7 @@ class ClassPickerState extends State<ClassPicker> {
               weekdayStyle: GoogleFonts.montserrat(
                 textStyle: TextStyle(
                   color: AppColors.black100,
-                  fontSize:SizeConfig.scaleText(1.7),
+                  fontSize: SizeConfig.scaleText(1.7),
                   fontWeight: FontWeight.w500,
                   letterSpacing: -0.5,
                   height: 0.9,
@@ -144,7 +152,7 @@ class ClassPickerState extends State<ClassPicker> {
               weekendStyle: GoogleFonts.montserrat(
                 textStyle: TextStyle(
                   color: AppColors.black100,
-                  fontSize:SizeConfig.scaleText(1.7),
+                  fontSize: SizeConfig.scaleText(1.7),
                   fontWeight: FontWeight.w500,
                   letterSpacing: -0.5,
                   height: 0.9,
@@ -180,7 +188,7 @@ class ClassPickerState extends State<ClassPicker> {
                           style: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                               color: AppColors.black100,
-                              fontSize:SizeConfig.scaleText(1.7),
+                              fontSize: SizeConfig.scaleText(1.7),
                               fontWeight: FontWeight.w500,
                               letterSpacing: -0.5,
                               height: 0.9,
@@ -211,7 +219,7 @@ class ClassPickerState extends State<ClassPicker> {
                         style: GoogleFonts.montserrat(
                           textStyle: TextStyle(
                             color: AppColors.white100,
-                            fontSize:SizeConfig.scaleText(1.7),
+                            fontSize: SizeConfig.scaleText(1.7),
                             fontWeight: FontWeight.w500,
                             letterSpacing: -0.5,
                             height: 0.9,

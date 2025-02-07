@@ -14,7 +14,6 @@ import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/widgets/custom_button.dart';
-import 'package:pilates/theme/widgets/custom_image_network.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -393,17 +392,18 @@ class AppDialogs {
   }
 
   static Future<void> showBooleanOptions(
-      BuildContext context, TextEditingController controller) {
+      BuildContext context, TextEditingController controller, String title) {
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             backgroundColor: AppColors.white100,
             title: CustomText(
-              text: 'Seleccione una opción:',
+              text: title,
               color: AppColors.black100,
-              fontSize: SizeConfig.scaleText(2),
+              fontSize: SizeConfig.scaleText(1.7),
               fontWeight: FontWeight.w500,
+              maxLines: 5,
             ),
             actions: [
               Row(
@@ -414,7 +414,7 @@ class AppDialogs {
                     color: AppColors.beige200,
                     width: SizeConfig.scaleWidth(6),
                     onPressed: () {
-                      controller.text = 'NO';
+                      controller.text = 'No';
                       context.pop();
                     },
                   ),
@@ -426,7 +426,7 @@ class AppDialogs {
                     color: AppColors.brown200,
                     width: SizeConfig.scaleWidth(6),
                     onPressed: () {
-                      controller.text = 'SI';
+                      controller.text = 'Sí';
                       context.pop();
                     },
                   ),
@@ -438,16 +438,16 @@ class AppDialogs {
   }
 
   static Future<void> showDiseasesOptions(
-      BuildContext context, TextEditingController controller) {
+      BuildContext context, TextEditingController controller, String title) {
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             backgroundColor: AppColors.white100,
             title: CustomText(
-              text: 'Seleccione una opción:',
+              text: title,
               color: AppColors.black100,
-              fontSize: SizeConfig.scaleText(2),
+              fontSize: SizeConfig.scaleText(1.7),
               fontWeight: FontWeight.w500,
             ),
             content: SizedBox(
@@ -946,41 +946,81 @@ class AppDialogs {
 
   static Future<void> showInvoice(BuildContext context, String invoiceUrl) {
     return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: AppColors.white100,
-            title: CustomText(
-              text: 'Confirmar eliminación de cuenta',
-              color: AppColors.black100,
-              fontSize: SizeConfig.scaleText(2.5),
-              fontWeight: FontWeight.w500,
-            ),
-            content: SizedBox(
-              width: SizeConfig.scaleWidth(100),
-              height: SizeConfig.scaleHeight(40),
-              child: CustomImageNetwork(
-                imagePath: invoiceUrl,
-                width: SizeConfig.scaleWidth(100),
-                height: SizeConfig.scaleHeight(40),
-                fit: BoxFit.contain,
-
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  context.pop();
-                },
-                child: CustomText(
-                  text: 'Atrás',
-                  color: AppColors.brown200,
-                  fontSize: SizeConfig.scaleText(2),
-                  fontWeight: FontWeight.w500,
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: AppColors.transparent,
+          insetPadding: const EdgeInsets.all(10),
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  invoiceUrl,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.contain,
                 ),
               ),
+              Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.black200, // Fondo negro
+                      shape: BoxShape.circle, // Hace que el fondo sea circular
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.close, color: AppColors.white100),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  )),
             ],
-          );
-        });
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<void> showUserPhoto(BuildContext context, String userPhoto) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: AppColors.transparent,
+          insetPadding: const EdgeInsets.all(10),
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  userPhoto,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+              Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.black200, // Fondo negro
+                      shape: BoxShape.circle, // Hace que el fondo sea circular
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.close, color: AppColors.white100),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  )),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

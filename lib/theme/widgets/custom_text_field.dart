@@ -167,9 +167,9 @@ class CustomTextFieldState extends State<CustomTextField> {
   String getValidationError() {
     switch (widget.typeTextField) {
       case TextFieldType.phone:
-        return 'Teléfono inválido';
+        return '* Teléfono requerido';
       case TextFieldType.email:
-        return 'Email inválido';
+        return '* Email requerido';
       case TextFieldType.number:
         return '* Requerido';
       case TextFieldType.numberInt:
@@ -183,7 +183,7 @@ class CustomTextFieldState extends State<CustomTextField> {
       case TextFieldType.repeatPassword:
         return '* Las contraseñas no coinciden';
       case TextFieldType.dni:
-        return '* Cédula inválida';
+        return '* Cédula requerida';
       case TextFieldType.boolean:
         return '* Requerido';
       case TextFieldType.diseases:
@@ -195,159 +195,154 @@ class CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: SizeConfig.scaleWidth(widget.width),
-      height: widget.typeTextField == TextFieldType.password &&
-              !validateInput(widget.controller.text)
-          ? SizeConfig.scaleHeight(widget.height + 2)
-          : SizeConfig.scaleHeight(widget.height),
-      child: GestureDetector(
-        onTap: widget.typeTextField == TextFieldType.date && widget.isActive
-            ? () async {
-                await AppBirthdayPicker.selectBirthday(
-                    context, widget.controller);
-                if (widget.onChanged != null) {
-                  widget.onChanged!(
-                      widget.controller.text); // Llamar a onChanged manualmente
-                }
+    return GestureDetector(
+      onTap: widget.typeTextField == TextFieldType.date && widget.isActive
+          ? () async {
+              await AppBirthdayPicker.selectBirthday(
+                  context, widget.controller);
+              if (widget.onChanged != null) {
+                widget.onChanged!(
+                    widget.controller.text); // Llamar a onChanged manualmente
               }
-            : widget.typeTextField == TextFieldType.boolean && widget.isActive
-                ? () async {
-                    await AppDialogs.showBooleanOptions(
-                        context, widget.controller);
-                    if (widget.onChanged != null) {
-                      widget.onChanged!(widget
-                          .controller.text); // Llamar a onChanged manualmente
-                    }
+            }
+          : widget.typeTextField == TextFieldType.boolean && widget.isActive
+              ? () async {
+                  await AppDialogs.showBooleanOptions(
+                      context, widget.controller, widget.title);
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(widget
+                        .controller.text); // Llamar a onChanged manualmente
                   }
-                : widget.typeTextField == TextFieldType.diseases &&
-                        widget.isActive
-                    ? () async {
-                        await AppDialogs.showDiseasesOptions(
-                            context, widget.controller);
-                        if (widget.onChanged != null) {
-                          widget.onChanged!(widget.controller
-                              .text); // Llamar a onChanged manualmente
-                        }
+                }
+              : widget.typeTextField == TextFieldType.diseases &&
+                      widget.isActive
+                  ? () async {
+                      await AppDialogs.showDiseasesOptions(
+                          context, widget.controller, widget.title);
+                      if (widget.onChanged != null) {
+                        widget.onChanged!(widget
+                            .controller.text); // Llamar a onChanged manualmente
                       }
-                    : null,
-        child: AbsorbPointer(
-          absorbing: (widget.typeTextField == TextFieldType.date ||
-                  widget.typeTextField == TextFieldType.boolean ||
-                  widget.typeTextField == TextFieldType.diseases)
-              ? true
-              : false,
-          child: TextFormField(
-            controller: widget.controller,
-            inputFormatters: inputFormatters,
-            keyboardType: keyboardType,
-            obscureText: obscureText,
-            decoration: InputDecoration(
-                labelText: widget.title,
-                labelStyle: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    color: textColor,
-                    fontSize:widget.fontSize!,
-                    fontWeight: FontWeight.w400,
-                  ),
+                    }
+                  : null,
+      child: AbsorbPointer(
+        absorbing: (widget.typeTextField == TextFieldType.date ||
+                widget.typeTextField == TextFieldType.boolean ||
+                widget.typeTextField == TextFieldType.diseases)
+            ? true
+            : false,
+        child: TextFormField(
+          controller: widget.controller,
+          inputFormatters: inputFormatters,
+          keyboardType: keyboardType,
+          obscureText: obscureText,
+          decoration: InputDecoration(
+              labelText: widget.title,
+              labelStyle: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                  color: textColor,
+                  fontSize: widget.fontSize!,
+                  fontWeight: FontWeight.w400,
                 ),
-                alignLabelWithHint: true,
-                hintText: widget.hintText,
-                hintStyle: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    color: textColor,
-                    fontSize:widget.fontSize!,
-                    fontWeight: FontWeight.w400,
-                  ),
+              ),
+              alignLabelWithHint: true,
+              hintText: widget.hintText,
+              hintStyle: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                  color: textColor,
+                  fontSize: widget.fontSize!,
+                  fontWeight: FontWeight.w400,
                 ),
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: SizeConfig.scaleHeight(1),
-                  horizontal: SizeConfig.scaleWidth(2),
+              ),
+              contentPadding: EdgeInsets.symmetric(
+                vertical: SizeConfig.scaleHeight(1),
+                horizontal: SizeConfig.scaleWidth(2),
+              ),
+              filled: true,
+              fillColor: widget.isActive
+                  ? widget.fillColor
+                  : widget.fillColor?.withOpacity(0.5),
+              prefixIcon: widget.icon != null
+                  ? Icon(
+                      widget.icon,
+                      color: textColor,
+                      size: SizeConfig.scaleHeight(2),
+                    )
+                  : null,
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: textColor,
+                  width: SizeConfig.scaleWidth(0.2),
                 ),
-                filled: true,
-                fillColor: widget.fillColor,
-                prefixIcon: widget.icon != null
-                    ? Icon(
-                        widget.icon,
+              ),
+              suffixIcon: widget.typeTextField == TextFieldType.password ||
+                      widget.typeTextField == TextFieldType.repeatPassword
+                  ? IconButton(
+                      icon: Icon(
+                        obscureText
+                            ? FontAwesomeIcons.eye
+                            : FontAwesomeIcons.eyeSlash,
                         color: textColor,
                         size: SizeConfig.scaleHeight(2),
-                      )
-                    : null,
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: textColor,
-                    width: SizeConfig.scaleWidth(0.2),
-                  ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          obscureText = !obscureText;
+                        });
+                      },
+                    )
+                  : widget.typeTextField == TextFieldType.date
+                      ? IconButton(
+                          icon: Icon(
+                            FontAwesomeIcons.calendar,
+                            color: textColor,
+                            size: SizeConfig.scaleHeight(2),
+                          ),
+                          onPressed: () {
+                            AppBirthdayPicker.selectBirthday(
+                                context, widget.controller);
+                          },
+                        )
+                      : null,
+              errorText: validateInput(widget.controller.text)
+                  ? null
+                  : widget.disableError == true
+                      ? null
+                      : getValidationError(),
+              errorStyle: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                  color: AppColors.red300,
+                  fontSize: widget.fontSize! - 3,
+                  fontWeight: FontWeight.w400,
                 ),
-                suffixIcon: widget.typeTextField == TextFieldType.password ||
-                        widget.typeTextField == TextFieldType.repeatPassword
-                    ? IconButton(
-                        icon: Icon(
-                          obscureText
-                              ? FontAwesomeIcons.eye
-                              : FontAwesomeIcons.eyeSlash,
-                          color: textColor,
-                          size: SizeConfig.scaleHeight(2),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            obscureText = !obscureText;
-                          });
-                        },
-                      )
-                    : widget.typeTextField == TextFieldType.date
-                        ? IconButton(
-                            icon: Icon(
-                              FontAwesomeIcons.calendar,
-                              color: textColor,
-                              size: SizeConfig.scaleHeight(2),
-                            ),
-                            onPressed: () {
-                              AppBirthdayPicker.selectBirthday(
-                                  context, widget.controller);
-                            },
-                          )
-                        : null,
-                errorText: validateInput(widget.controller.text)
-                    ? null
-                    : widget.disableError == true
-                        ? null
-                        : getValidationError(),
-                errorStyle: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    color: AppColors.red300,
-                    fontSize:widget.fontSize! - 0.2,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                errorMaxLines: 2),
-            enabled: widget.isActive,
-            style: GoogleFonts.montserrat(
-              textStyle: TextStyle(
-                color: textColor,
-                fontSize:widget.fontSize!,
-                fontWeight: FontWeight.w400,
               ),
+              errorMaxLines: 2),
+          enabled: widget.isActive,
+          style: GoogleFonts.montserrat(
+            textStyle: TextStyle(
+              color: textColor,
+              fontSize: widget.fontSize!,
+              fontWeight: FontWeight.w400,
             ),
-            cursorColor: textColor,
-            cursorWidth: SizeConfig.scaleWidth(0.2),
-            onChanged: (value) {
-              bool validateText = validateInput(widget.controller.text);
-              if (validateText == false && widget.disableError == false) {
-                setState(() {
-                  textColor = AppColors.red300;
-                });
-              } else {
-                setState(() {
-                  textColor = widget.labelColor;
-                });
-              }
-
-              if (widget.onChanged != null) {
-                widget.onChanged!(value);
-              }
-            },
           ),
+          cursorColor: textColor,
+          cursorWidth: SizeConfig.scaleWidth(0.2),
+          onChanged: (value) {
+            bool validateText = validateInput(widget.controller.text);
+            if (validateText == false && widget.disableError == false) {
+              setState(() {
+                textColor = AppColors.red300;
+              });
+            } else {
+              setState(() {
+                textColor = widget.labelColor;
+              });
+            }
+
+            if (widget.onChanged != null) {
+              widget.onChanged!(value);
+            }
+          },
         ),
       ),
     );

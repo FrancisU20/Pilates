@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pilates/screens/admin/dashboard/admin_dashboard_page.dart';
 import 'package:pilates/screens/admin/user-class/admin_users_class_page.dart';
-import 'package:pilates/screens/admin/user/admin_users_page.dart';
+import 'package:pilates/screens/admin/user-plans/admin_users_plans_page.dart';
 import 'package:pilates/screens/client/contact/contact_page.dart';
 import 'package:pilates/screens/client/dashboard/dashboard_page.dart';
 import 'package:pilates/screens/client/digital-identification/digital_identification.dart';
@@ -220,7 +220,7 @@ final GoRouter goRouter = GoRouter(
           return buildPageWithFadeTransition(
             context,
             state,
-            const AdminUsersPage(),
+            const AdminUsersPlansPage(),
           );
         }),
       ],

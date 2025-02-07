@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 
 class CustomPageHeader extends StatelessWidget {
@@ -15,9 +16,9 @@ class CustomPageHeader extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subtitle,
-    this.iconBackgroundColor = Colors.white,
-    this.iconColor = Colors.black,
-    this.textColor = Colors.white,
+    this.iconBackgroundColor = AppColors.white100,
+    this.iconColor = AppColors.black100,
+    this.textColor = AppColors.black100,
   });
 
   @override

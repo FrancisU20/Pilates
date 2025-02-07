@@ -64,14 +64,19 @@ class AppMiddleware {
     AdminProvider adminProvider =
         Provider.of<AdminProvider>(context, listen: false);
 
-    //? Limpia las variables en memoria del provider
-    adminProvider.reset();
+    if (route == '/admin-dashboard') {
+      //? Limpia las variables en memoria del provider
+      adminProvider.reset();
 
-    //? Obtiene los mese y planes
-    adminProvider.getMonths();
-    adminProvider.getUsersPlans(context);
+      //? Obtiene los mese y planes
+      adminProvider.getMonths();
+      adminProvider.getUsersPlans(context);
 
-    pageStateProvider.setActiveRoute(route);
-    context.go(route);
+      pageStateProvider.setActiveRoute(route);
+      context.go(route);
+    } else {
+      pageStateProvider.setActiveRoute(route);
+      context.go(route);
+    }
   }
 }

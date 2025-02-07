@@ -100,13 +100,12 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: SizeConfig.scaleHeight(2)),
                             Container(
                               padding: EdgeInsets.symmetric(
                                 horizontal: SizeConfig.scaleWidth(5),
                                 vertical: SizeConfig.scaleHeight(2),
                               ),
-                              height: SizeConfig.scaleHeight(38),
+                              height: SizeConfig.scaleHeight(50),
                               width: SizeConfig.scaleWidth(100),
                               child: Form(
                                 child: Column(
@@ -114,10 +113,11 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                     SizedBox(height: SizeConfig.scaleHeight(1)),
                                     Center(
                                       child: CustomText(
-                                        text: 'Datos de Usuario',
+                                        text: 'Por favor, sigue las instrucciones para recuperar tu contraseña:',
                                         color: AppColors.black100,
-                                        fontSize:SizeConfig.scaleText(2.5),
+                                        fontSize:SizeConfig.scaleText(2),
                                         fontWeight: FontWeight.w500,
+                                        textAlign: TextAlign.justify,
                                         maxLines: 2,
                                       ),
                                     ),
@@ -130,7 +130,10 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                           false) {
                                         return Column(
                                           children: [
-                                            CustomTextField(
+                                            SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                                               title: 'Correo Electrónico',
                                               labelColor: AppColors.black100,
                                               hintText: 'info@curve.com',
@@ -209,7 +212,10 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            CustomTextField(
+                                            SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                                               title: 'Contraseña',
                                               labelColor: AppColors.black100,
                                               hintText: '********',
@@ -223,7 +229,10 @@ class RecoverPasswordPageState extends State<RecoverPasswordPage> {
                                                     .setPassword(value);
                                               },
                                             ),
-                                            CustomTextField(
+                                            SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                                               title: 'Confirmar Contraseña',
                                               labelColor: AppColors.black100,
                                               hintText: '********',

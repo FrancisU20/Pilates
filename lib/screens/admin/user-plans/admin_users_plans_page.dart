@@ -18,20 +18,21 @@ import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/widgets/custom_text_button.dart';
 import 'package:provider/provider.dart';
 
-class AdminUsersPage extends StatefulWidget {
-  const AdminUsersPage({super.key});
+class AdminUsersPlansPage extends StatefulWidget {
+  const AdminUsersPlansPage({super.key});
 
   @override
-  AdminUsersPageState createState() => AdminUsersPageState();
+  AdminUsersPlansPageState createState() => AdminUsersPlansPageState();
 }
 
-class AdminUsersPageState extends State<AdminUsersPage> {
+class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       AdminProvider adminProvider =
           Provider.of<AdminProvider>(context, listen: false);
+      adminProvider.reset();
       adminProvider.setIsActive(true);
       adminProvider.cleanSelectedUserId();
       await adminProvider.getUsersPlans(context, status: 'A');
@@ -239,7 +240,8 @@ class AdminUsersPageState extends State<AdminUsersPage> {
                                                   .photo,
                                               height:
                                                   SizeConfig.scaleHeight(12),
-                                              width: SizeConfig.scaleWidth(18),
+                                              width:
+                                                  SizeConfig.scaleWidth(18),
                                             ),
                                             SizedBox(
                                               width: SizeConfig.scaleWidth(5),

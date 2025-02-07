@@ -29,55 +29,47 @@ class ConfirmNutritionalInfo extends StatelessWidget {
           ),
         ],
       ),
-      height: SizeConfig.scaleHeight(40),
+      height: SizeConfig.scaleHeight(30),
       child: Column(
         children: [
           Center(
             child: GestureDetector(
               onTap: () {},
-              child: Container(
-                width: SizeConfig.scaleWidth(60),
-                height: SizeConfig.scaleHeight(12),
-                decoration: BoxDecoration(
-                  color: AppColors.green200,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.clipboardCheck,
-                      color: AppColors.white100,
-                      size: SizeConfig.scaleHeight(3),
-                    ),
-                    SizedBox(height: SizeConfig.scaleHeight(1)),
-                    CustomText(
-                      text: 'Confirma tu información nutricional',
-                      color: AppColors.white100,
-                      fontSize:SizeConfig.scaleText(2),
-                      fontWeight: FontWeight.w600,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                    ),
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    FontAwesomeIcons.clipboardCheck,
+                    color: AppColors.grey100,
+                    size: SizeConfig.scaleHeight(3),
+                  ),
+                  SizedBox(height: SizeConfig.scaleHeight(1)),
+                  CustomText(
+                    text: '¡Estás a punto de guardar tus datos!',
+                    color: AppColors.grey200,
+                    fontSize: SizeConfig.scaleText(2),
+                    fontWeight: FontWeight.w600,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                  ),
+                ],
               ),
             ),
           ),
           SizedBox(height: SizeConfig.scaleHeight(2)),
           CustomText(
             text:
-                'Por favor, verifica que la información nutricional que ingresaste es correcta. Una vez confirmada, se enviará a tu nutricionista para su revisión.',
-            fontSize:SizeConfig.scaleText(2),
-            color: AppColors.green200,
+                'Revisa que la información nutricional sea correcta. Una vez confirmada, la enviaremos a tu nutricionista para su revisión.',
+            fontSize: SizeConfig.scaleText(1.8),
+            color: AppColors.grey100,
             fontWeight: FontWeight.w500,
             maxLines: 8,
             textAlign: TextAlign.justify,
           ),
           const Spacer(),
           CustomButton(
-            text: 'Guardar Ficha',
+            text: 'Confirmar y Guardar',
             onPressed: () async {
               NutritionalInfoProvider nutritionalInfoProvider =
                   Provider.of<NutritionalInfoProvider>(context, listen: false);
@@ -88,9 +80,8 @@ class ConfirmNutritionalInfo extends StatelessWidget {
               if (!context.mounted) return;
               //? Actualiza la informacion del cliente y lo redirige al dashboard
               await AppMiddleware.updateClientData(context, '/dashboard');
-
             },
-            color: AppColors.brown200,
+            color: AppColors.green200,
           ),
         ],
       ),

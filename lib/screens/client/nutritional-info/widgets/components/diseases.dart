@@ -73,10 +73,13 @@ class DiseasesState extends State<Diseases> {
                 child: CustomText(
                   text: 'Antecedentes Heredo Familiares',
                   color: AppColors.black100,
-                  fontSize:SizeConfig.scaleText(2.5),
+                  fontSize:SizeConfig.scaleText(2),
                   fontWeight: FontWeight.w500,
                   maxLines: 2,
                 ),
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               SizedBox(
                 height: SizeConfig.scaleHeight(1),
@@ -93,6 +96,9 @@ class DiseasesState extends State<Diseases> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: 'Dislipidemias',
                 labelColor: AppColors.black100,
@@ -104,6 +110,9 @@ class DiseasesState extends State<Diseases> {
                   nutritionalInfoProvider.setDyslipidemias(value);
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: 'Obesidad',
@@ -117,6 +126,9 @@ class DiseasesState extends State<Diseases> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: 'Hipertensión',
                 labelColor: AppColors.black100,
@@ -128,6 +140,9 @@ class DiseasesState extends State<Diseases> {
                   nutritionalInfoProvider.setHypertension(value);
                 },
                 isActive: widget.viewMode == true ? false : true,
+              ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
               ),
               CustomTextField(
                 title: 'Cáncer',
@@ -141,6 +156,9 @@ class DiseasesState extends State<Diseases> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
                 title: 'Hipotiroidismo/Hipertiroidismo',
                 labelColor: AppColors.black100,
@@ -153,8 +171,11 @@ class DiseasesState extends State<Diseases> {
                 },
                 isActive: widget.viewMode == true ? false : true,
               ),
+              SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
               CustomTextField(
-                title: 'Otras condiciones',
+                title: 'Otras condiciones (opcional)',
                 labelColor: AppColors.black100,
                 hintText: 'Trastornos alimenticios, etc.',
                 typeTextField: TextFieldType.alphanumeric,

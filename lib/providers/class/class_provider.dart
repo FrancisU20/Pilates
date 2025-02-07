@@ -22,6 +22,7 @@ class ClassProvider extends ChangeNotifier {
   //****************************************/
   //? Variables
   int? selectedHourIndex;
+  int availableSlots = 0;
 
   //? Setters Variables
   void setSelectedHourIndex(int selectedHourIndex) {
@@ -29,9 +30,19 @@ class ClassProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setAvailableSlots(int availableSlots) {
+    this.availableSlots = availableSlots;
+    notifyListeners();
+  }
+
   //? Clean Variables
   void cleanSelectedHourIndex() {
     selectedHourIndex = null;
+    notifyListeners();
+  }
+
+  void cleanAvailableSlots() {
+    availableSlots = 0;
     notifyListeners();
   }
 
@@ -96,6 +107,7 @@ class ClassProvider extends ChangeNotifier {
   //! Eliminar toda la data
   void reset() {
     cleanSelectedHourIndex();
+    cleanAvailableSlots();
     cleanSelectedClass();
     cleanListClass();
     cleanListClassFilter();
@@ -125,16 +137,47 @@ class ClassProvider extends ChangeNotifier {
       setListClass(availableClasses);
 
       if (!context.mounted) return;
-      CustomSnackBar.show(
-        context,
-        availableClasses.isEmpty
-            ? 'Lo sentimos, nuestros horarios están completos 😓'
-            : 'Clases cargadas correctamente 🎉',
-        availableClasses.isEmpty ? SnackBarType.error : SnackBarType.success,
-      );
+      if (availableClasses.isEmpty) {
+        CustomSnackBar.show(
+          context,
+          'Lo sentimos, nuestros horarios están completos 😓',
+          SnackBarType.error,
+        );
+      }
     } catch (e) {
       Logger.logAppError('Error en getClasses $e');
       CustomSnackBar.show(context, e.toString(), SnackBarType.error);
+    } finally {
+      hideLoading();
+    }
+  }
+
+  //? Obtener Clases y Horarios
+  Future<int> checkAvailableSlots(BuildContext context, String classId) async {
+    try {
+      showLoading();
+
+      StandardResponse<ClassModel> response =
+          await classController.getClass(classId);
+      ClassModel availableSlots = response.data!;
+
+      if (availableSlots.availableClasses == 0) {
+        if (context.mounted) {
+          CustomSnackBar.show(
+            context,
+            'Los cupos para esta clase ya están completos',
+            SnackBarType.error,
+          );
+        }
+      }
+
+      return availableSlots.availableClasses;
+    } catch (e) {
+      Logger.logAppError('Error en getClasses $e');
+      if (context.mounted) {
+        CustomSnackBar.show(context, e.toString(), SnackBarType.error);
+      }
+      return 0; // Ensure an integer is returned even in case of an error
     } finally {
       hideLoading();
     }

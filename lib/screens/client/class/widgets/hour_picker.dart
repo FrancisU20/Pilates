@@ -24,11 +24,15 @@ class HourPickerState extends State<HourPicker> {
     super.initState();
   }
 
-  void _handlePicker(int index) {
+  Future<void> _handlePicker(int index) async {
     ClassProvider classProvider =
         Provider.of<ClassProvider>(context, listen: false);
+    ClassModel selectedClass = widget.userClassList[index];
+    int availableSlots = await classProvider.checkAvailableSlots(context, selectedClass.id!);
+
+    classProvider.setAvailableSlots(availableSlots);
     classProvider.setSelectedHourIndex(index);
-    classProvider.setSelectedClass(widget.userClassList[index]);
+    classProvider.setSelectedClass(selectedClass);
   }
 
   @override
@@ -46,15 +50,16 @@ class HourPickerState extends State<HourPicker> {
       ),
       width: SizeConfig.scaleWidth(90),
       height: SizeConfig.scaleHeight(6),
-      child:
-          Consumer<ClassProvider>(builder: (context, classProvider, _) {
+      child: Consumer<ClassProvider>(builder: (context, classProvider, _) {
         return ListView.builder(
           itemCount: widget.userClassList.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             bool isSelected = classProvider.selectedHourIndex == index;
             return GestureDetector(
-              onTap: () => _handlePicker(index),
+              onTap: () async {
+                await _handlePicker(index);
+              },
               child: Row(
                 children: [
                   Column(
@@ -64,7 +69,7 @@ class HourPickerState extends State<HourPicker> {
                             .substring(0, 5),
                         color:
                             isSelected ? AppColors.gold100 : AppColors.grey200,
-                        fontSize:SizeConfig.scaleText(2),
+                        fontSize: SizeConfig.scaleText(2),
                         fontWeight: FontWeight.w500,
                       ),
                       Container(

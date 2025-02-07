@@ -38,14 +38,16 @@ class ClassPageState extends State<ClassPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ClassProvider userPlanProvider =
+      ClassProvider classProvider =
           Provider.of<ClassProvider>(context, listen: false);
       //? Limpiar clase seleccionada e index
-      userPlanProvider.cleanSelectedHourIndex();
-      userPlanProvider.cleanSelectedClass();
+      classProvider.cleanSelectedHourIndex();
+      classProvider.cleanSelectedClass();
+      classProvider.cleanListClass();
+      classProvider.cleanListClassFilter();
 
       //? Consulta al de la lista de clases
-      await userPlanProvider.getClassList(context);
+      await classProvider.getClassList(context);
     });
   }
 
@@ -63,7 +65,8 @@ class ClassPageState extends State<ClassPage> {
           Scaffold(
             backgroundColor: AppColors.white100,
             appBar: const CustomAppBar(
-                backgroundColor: AppColors.brown200, ),
+              backgroundColor: AppColors.brown200,
+            ),
             body: Container(
               color: AppColors.brown200,
               child: Column(
@@ -126,7 +129,7 @@ class ClassPageState extends State<ClassPage> {
                                         .listClassFilter.isNotEmpty) ...[
                                       CustomText(
                                           text: 'Selecciona la hora de inicio:',
-                                          fontSize:SizeConfig.scaleText(2)),
+                                          fontSize: SizeConfig.scaleText(2)),
                                       SizedBox(
                                         height: SizeConfig.scaleHeight(2),
                                       ),
@@ -135,11 +138,44 @@ class ClassPageState extends State<ClassPage> {
                                             classProvider.listClassFilter,
                                       ),
                                       SizedBox(
+                                        height: SizeConfig.scaleHeight(1),
+                                      ),
+                                      Consumer<ClassProvider>(
+                                        builder:
+                                            (context, classProvider, child) {
+                                          if (classProvider.selectedClass ==
+                                              null) {
+                                            return const SizedBox.shrink();
+                                          }
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              CustomText(
+                                                  text:
+                                                      'Clases disponibles: ${classProvider.availableSlots}',
+                                                  fontSize:
+                                                      SizeConfig.scaleText(1.5),
+                                                  color: classProvider
+                                                              .availableSlots >
+                                                          4
+                                                      ? AppColors.green200
+                                                      : classProvider
+                                                                  .availableSlots >
+                                                              2
+                                                          ? AppColors.orange300
+                                                          : AppColors.red300,
+                                                  fontWeight: FontWeight.bold),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(
                                         height: SizeConfig.scaleHeight(2),
                                       ),
                                       CustomText(
                                           text: 'Nuestras actividades:',
-                                          fontSize:SizeConfig.scaleText(2)),
+                                          fontSize: SizeConfig.scaleText(2)),
                                       ActivitiesGallery(
                                           activitiesData: activitiesData),
                                       SizedBox(

@@ -13,7 +13,7 @@ class CustomSnackBar {
         text: message.replaceAll('Exception: ', ''),
         fontWeight: FontWeight.w500,
         textAlign: TextAlign.start,
-        fontSize:SizeConfig.scaleText(2),
+        fontSize:SizeConfig.scaleText(1.5),
         color: AppColors.white100,
         maxLines: 3,
       ),

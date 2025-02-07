@@ -90,7 +90,7 @@ class PersonalInformationState extends State<PersonalInformation> {
                   child: CustomText(
                     text: 'Datos de Identificación',
                     color: AppColors.black100,
-                    fontSize:SizeConfig.scaleText(2.5),
+                    fontSize:SizeConfig.scaleText(2),
                     fontWeight: FontWeight.w500,
                     maxLines: 2,
                   ),
@@ -98,7 +98,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                 SizedBox(
                   height: SizeConfig.scaleHeight(1),
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Nombre',
                   labelColor: AppColors.black100,
                   hintText: '',
@@ -107,7 +110,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                   fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Fecha de nacimiento',
                   labelColor: AppColors.black100,
                   hintText: '',
@@ -116,7 +122,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                   fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Edad',
                   labelColor: AppColors.black100,
                   hintText: '',
@@ -125,7 +134,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                   fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Sexo',
                   labelColor: AppColors.black100,
                   hintText: '',
@@ -134,7 +146,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                   fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Estado civil',
                   labelColor: AppColors.black100,
                   hintText: 'Casado/a, Soltero/a etc.',
@@ -146,7 +161,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                   },
                   isActive: widget.viewMode == true ? false : true,
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Dirección',
                   labelColor: AppColors.black100,
                   hintText: 'Calle 123',
@@ -158,7 +176,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                   },
                   isActive: widget.viewMode == true ? false : true,
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Ocupación',
                   labelColor: AppColors.black100,
                   hintText: 'Estudiante, Ingeniero, etc.',
@@ -170,7 +191,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                   },
                   isActive: widget.viewMode == true ? false : true,
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Teléfono',
                   labelColor: AppColors.black100,
                   hintText: '0987654321',
@@ -179,7 +203,10 @@ class PersonalInformationState extends State<PersonalInformation> {
                   fontSize:SizeConfig.scaleText(1.7),
                   isActive: false,
                 ),
-                CustomTextField(
+                SizedBox(
+                height: SizeConfig.scaleHeight(1),
+              ),
+              CustomTextField(
                   title: 'Correo electrónico',
                   labelColor: AppColors.black100,
                   hintText: 'info@example.com',
