@@ -1,6 +1,6 @@
 name: pilates
 description: "Curve Pilates App"
-version: 1.0.1+6
+version: 1.0.2+7
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -56,6 +56,9 @@ flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/logo/logo.png"
+  background_color: "#FFFFFF"  # Fondo blanco para Android
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/logo/logo.png"
 
 flutter:
 
