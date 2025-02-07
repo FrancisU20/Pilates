@@ -238,7 +238,8 @@ class UserClassProvider extends ChangeNotifier {
       String startAt = isHistory
           ? ''
           : DateTime(DateTime.now().year, DateTime.now().month, 1)
-              .toString().substring(0, 10);
+              .toString()
+              .substring(0, 10);
 
       StandardResponse<List<UserClassModel>> response =
           await userClassController.getUserClass(
@@ -263,14 +264,18 @@ class UserClassProvider extends ChangeNotifier {
           int classEndHour = int.parse(
               listUserClass[i].classModel.schedule!.endHour.split(':')[0]);
 
-          if (classDate.isBefore(ecuadorCurrentDate) ||
-              (classDate.isAtSameMomentAs(ecuadorCurrentDate) &&
-                  (ecuadorCurrentHour > classEndHour ||
-                      (ecuadorCurrentHour == classEndHour &&
-                          ecuadorCurrentMinute >= 0)))) {
-            listUserClass[i].status = 'C';
-            if (!context.mounted) return;
-            await updateUserClassStatus(context, listUserClass[i].id!, 'C');
+          if (listUserClass[i].status != 'C' &&
+              classDate.isBefore(ecuadorCurrentDate)) {
+            // Verifica si la hora actual ya ha superado la hora de finalización de la clase
+            if (ecuadorCurrentHour > classEndHour ||
+                (ecuadorCurrentHour == classEndHour &&
+                    ecuadorCurrentMinute > 0)) {
+              listUserClass[i].status = 'E';
+
+              if (!context.mounted) return;
+
+              await updateUserClassStatus(context, listUserClass[i].id!, 'E');
+            }
           }
         }
       }

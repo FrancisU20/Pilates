@@ -29,8 +29,10 @@ class UserClassPageState extends State<UserClassPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Provider.of<UserClassProvider>(context, listen: false)
-          .getUserClass(context);
+      UserClassProvider userClassProvider =
+          Provider.of<UserClassProvider>(context, listen: false);
+      userClassProvider.setIsHistory(false);
+      await userClassProvider.getUserClass(context);
     });
   }
 
@@ -73,20 +75,22 @@ class UserClassPageState extends State<UserClassPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomTextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     userClassProvider.setIsHistory(false);
                                     //? Aqui va el get con filtro solo (A)
-                                    userClassProvider.getUserClass(context);
+                                    await userClassProvider
+                                        .getUserClass(context);
                                   },
                                   text: 'Agendadas',
                                   color: !userClassProvider.isHistory
                                       ? AppColors.gold100
                                       : AppColors.white100),
                               CustomTextButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     userClassProvider.setIsHistory(true);
                                     //? Aqui va el get con filtro (C), (E), (X)
-                                    userClassProvider.getUserClass(context);
+                                    await userClassProvider
+                                        .getUserClass(context);
                                   },
                                   text: 'Historial',
                                   color: userClassProvider.isHistory
@@ -137,6 +141,7 @@ class UserClassPageState extends State<UserClassPage> {
                                           ? userClassProvider
                                               .listUserClassHistory
                                           : userClassProvider.listUserClass;
+
                                   return Column(
                                     children: [
                                       Row(
@@ -360,29 +365,102 @@ class UserClassPageState extends State<UserClassPage> {
                                                     builder: (context,
                                                         userPlanProvider,
                                                         child) {
-                                                      if (userPlanProvider
-                                                              .activeUserPlan !=
-                                                          null) {
+                                                      int nowHourEcuador =
+                                                          DateTime.now()
+                                                              .toUtc()
+                                                              .subtract(
+                                                                  const Duration(
+                                                                      hours: 5))
+                                                              .hour;
+
+                                                      int nowMinuteEcuador =
+                                                          DateTime.now()
+                                                              .toUtc()
+                                                              .subtract(
+                                                                  const Duration(
+                                                                      hours: 5))
+                                                              .minute;
+
+                                                      int classHour = int.parse(
+                                                          listUserClass[index]
+                                                              .classModel
+                                                              .schedule!
+                                                              .startHour
+                                                              .substring(0, 2));
+
+                                                      int classMinute =
+                                                          int.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .schedule!
+                                                                  .startHour
+                                                                  .substring(
+                                                                      3, 5));
+
+                                                      DateTime classDate =
+                                                          DateTime.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .classDate);
+
+                                                      bool isSameDay = classDate
+                                                              .difference(
+                                                                  DateTime
+                                                                      .now())
+                                                              .inDays ==
+                                                          0;
+
+                                                      bool canCheck = isSameDay &&
+                                                          nowHourEcuador ==
+                                                              classHour &&
+                                                          nowMinuteEcuador >=
+                                                              classMinute &&
+                                                          nowMinuteEcuador <=
+                                                              59;
+
+                                                      if (canCheck) {
                                                         return CustomIconButton(
-                                                            color: AppColors
-                                                                .red300,
-                                                            height: 5,
-                                                            width: 10,
-                                                            icon:
-                                                                FontAwesomeIcons
-                                                                    .xmark,
-                                                            onPressed: () {
-                                                              AppDialogs.showDeleteConfirm(
-                                                                  context,
+                                                          color: AppColors
+                                                              .green200,
+                                                          height: 5,
+                                                          width: 10,
+                                                          icon: FontAwesomeIcons
+                                                              .check,
+                                                          onPressed: () {
+                                                            AppDialogs
+                                                                .showConfirmAttendance(
+                                                                    context,
+                                                                    listUserClass[
+                                                                            index]
+                                                                        .id!);
+                                                          },
+                                                        );
+                                                      } else if (!canCheck) {
+                                                        return CustomIconButton(
+                                                          color:
+                                                              AppColors.red300,
+                                                          height: 5,
+                                                          width: 10,
+                                                          icon: FontAwesomeIcons
+                                                              .xmark,
+                                                          onPressed: () {
+                                                            AppDialogs
+                                                                .showDeleteConfirm(
+                                                              context,
+                                                              listUserClass[
+                                                                      index]
+                                                                  .id!,
+                                                              DateTime.parse(
                                                                   listUserClass[
-                                                                          index]
-                                                                      .id!,
-                                                                  DateTime.parse(listUserClass[
                                                                           index]
                                                                       .classModel
                                                                       .classDate
-                                                                      .toString()));
-                                                            });
+                                                                      .toString()),
+                                                            );
+                                                          },
+                                                        );
                                                       } else {
                                                         return const SizedBox
                                                             .shrink();

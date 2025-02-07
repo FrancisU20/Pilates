@@ -93,22 +93,22 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomTextButton(
-                                  onPressed: () {
+                                  onPressed: () async{
                                     adminProvider.setIsHistory(false);
                                     //? Aqui va el get con filtro solo (A)
                                     adminProvider.cleanSelectedUserId();
-                                    adminProvider.getUsersClass(context);
+                                    await adminProvider.getUsersClass(context);
                                   },
                                   text: 'Agendadas',
                                   color: !adminProvider.isHistory
                                       ? AppColors.gold100
                                       : AppColors.white100),
                               CustomTextButton(
-                                  onPressed: () {
+                                  onPressed: () async{
                                     adminProvider.setIsHistory(true);
                                     //? Aqui va el get con filtro (C), (E), (X)
                                     adminProvider.cleanSelectedUserId();
-                                    adminProvider.getUsersClass(context);
+                                    await adminProvider.getUsersClass(context);
                                   },
                                   text: 'Historial',
                                   color: adminProvider.isHistory

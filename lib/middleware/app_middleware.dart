@@ -70,7 +70,9 @@ class AppMiddleware {
 
       //? Obtiene los mese y planes
       adminProvider.getMonths();
-      adminProvider.getUsersPlans(context);
+      await adminProvider.getUsersPlans(context);
+
+      if (!context.mounted) return;
 
       pageStateProvider.setActiveRoute(route);
       context.go(route);

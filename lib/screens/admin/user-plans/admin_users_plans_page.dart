@@ -63,10 +63,10 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                     .values
                     .toList(),
                 searchField: (user) => user.dniNumber,
-                onTap: (user) {
+                onTap: (user) async{
                   AdminProvider adminProvider =
                       Provider.of<AdminProvider>(context, listen: false);
-                  adminProvider.onUserSelectedPlans(
+                  await adminProvider.onUserSelectedPlans(
                       context, adminProvider.isActive ? 'A' : 'I', user.id);
                 },
               ),
@@ -93,11 +93,11 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomTextButton(
-                                  onPressed: () {
+                                  onPressed: () async{
                                     adminProvider.setIsActive(true);
                                     adminProvider.cleanSelectedUserId();
                                     //? Aqui va el get con filtro solo (A)
-                                    adminProvider.getUsersPlans(context,
+                                    await adminProvider.getUsersPlans(context,
                                         status: 'A');
                                   },
                                   text: 'Activos',
@@ -105,11 +105,11 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                                       ? AppColors.gold100
                                       : AppColors.white100),
                               CustomTextButton(
-                                  onPressed: () {
+                                  onPressed: () async{
                                     adminProvider.setIsActive(false);
                                     adminProvider.cleanSelectedUserId();
                                     //? Aqui va el get con filtro (C), (E), (X)
-                                    adminProvider.getUsersPlans(context,
+                                    await adminProvider.getUsersPlans(context,
                                         status: 'I');
                                   },
                                   text: 'Inactivos',

@@ -33,7 +33,7 @@ class AdminDashboardPageState extends State<AdminDashboardPage> {
       Provider.of<PageStateProvider>(context, listen: false)
           .setActiveRoute('/admin-dashboard');
       Provider.of<AdminProvider>(context, listen: false).getMonths();
-      Provider.of<AdminProvider>(context, listen: false).getUsersPlans(context);
+      await Provider.of<AdminProvider>(context, listen: false).getUsersPlans(context);
     });
   }
 

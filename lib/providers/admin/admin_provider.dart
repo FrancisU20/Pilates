@@ -276,7 +276,8 @@ class AdminProvider extends ChangeNotifier {
   }
 
   //? Obtener Planes de los Usuarios
-  Future<void> getUsersPlans(BuildContext context, {String? status, String? selectedUserId}) async {
+  Future<void> getUsersPlans(BuildContext context,
+      {String? status, String? selectedUserId}) async {
     try {
       showLoading();
       DateTime startDate = DateTime(selectedMonth.year, selectedMonth.month);
@@ -294,7 +295,7 @@ class AdminProvider extends ChangeNotifier {
 
       List<UserPlanModel> listUserPlans = userPlansResponse.data!;
 
-      //? Eliminar los planes del admin y del tester 
+      //? Eliminar los planes del admin y del tester
       listUserPlans = listUserPlans
           .where((element) =>
               element.user.role != 'admin' && element.user.role != 'tester')
@@ -351,8 +352,10 @@ class AdminProvider extends ChangeNotifier {
 
       String statusFilter = isHistory ? '' : 'A';
       String startAt = isHistory
-          ? DateTime(selectedMonth.year, selectedMonth.month - 3, 0).toString().substring(0,10)
-          : selectedMonth.toString().substring(0,10);
+          ? DateTime(selectedMonth.year, selectedMonth.month - 3, 0)
+              .toString()
+              .substring(0, 10)
+          : selectedMonth.toString().substring(0, 10);
 
       StandardResponse<List<UserClassModel>> response =
           await userClassController.getUserClass(
@@ -376,14 +379,18 @@ class AdminProvider extends ChangeNotifier {
           int classEndHour = int.parse(
               listUserClass[i].classModel.schedule!.endHour.split(':')[0]);
 
-          if (classDate.isBefore(ecuadorCurrentDate) ||
-              (classDate.isAtSameMomentAs(ecuadorCurrentDate) &&
-                  (ecuadorCurrentHour > classEndHour ||
-                      (ecuadorCurrentHour == classEndHour &&
-                          ecuadorCurrentMinute >= 0)))) {
-            listUserClass[i].status = 'C';
-            if (!context.mounted) return;
-            await updateUserClassStatus(context, listUserClass[i].id!, 'C');
+          if (listUserClass[i].status != 'C' &&
+              classDate.isBefore(ecuadorCurrentDate)) {
+            // Verifica si la hora actual ya ha superado la hora de finalización de la clase
+            if (ecuadorCurrentHour > classEndHour ||
+                (ecuadorCurrentHour == classEndHour &&
+                    ecuadorCurrentMinute > 0)) {
+              listUserClass[i].status = 'E';
+
+              if (!context.mounted) return;
+
+              await updateUserClassStatus(context, listUserClass[i].id!, 'E');
+            }
           }
         }
       }
@@ -428,15 +435,17 @@ class AdminProvider extends ChangeNotifier {
     adminProvider.getUsersClass(context, userId: selectedUserId);
   }
 
-  //? Funcion para buscar por usuario unos planes 
-  void onUserSelectedPlans(BuildContext context, String? status,String? selectedUserId) {
+  //? Funcion para buscar por usuario unos planes
+  Future<void> onUserSelectedPlans(
+      BuildContext context, String? status, String? selectedUserId) async {
     AdminProvider adminProvider =
         Provider.of<AdminProvider>(context, listen: false);
 
     setSelectedUserId(selectedUserId ?? '');
 
     // Llama a getUsersClass con el userId seleccionado o sin userId
-    adminProvider.getUsersPlans(context, status: status, selectedUserId: selectedUserId);
+    await adminProvider.getUsersPlans(context,
+        status: status, selectedUserId: selectedUserId);
   }
 
   //? Funciona para actualizar es estado de una clase

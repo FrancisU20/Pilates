@@ -797,6 +797,77 @@ class AppDialogs {
         });
   }
 
+  static Future<void> showConfirmAttendance(
+      BuildContext context, String userClassId) {
+    UserClassProvider userClassProvider =
+        Provider.of<UserClassProvider>(context, listen: false);
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColors.white100,
+            title: CustomText(
+              text: 'Confirmar Asistencia',
+              color: AppColors.black100,
+              fontSize: SizeConfig.scaleText(2.5),
+              fontWeight: FontWeight.w500,
+            ),
+            content: SizedBox(
+              width: SizeConfig.scaleWidth(100),
+              height: SizeConfig.scaleHeight(24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildLogo(),
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                          text:
+                              '¿Estás seguro que deseas confirmar tu asistencia a la clase?',
+                          color: AppColors.grey200,
+                          fontSize: SizeConfig.scaleText(2),
+                          fontWeight: FontWeight.w400,
+                          textAlign: TextAlign.justify,
+                          maxLines: 3,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  context.pop();
+                },
+                child: CustomText(
+                  text: 'No',
+                  color: AppColors.brown200,
+                  fontSize: SizeConfig.scaleText(2),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              CustomButton(
+                text: 'Sí',
+                color: AppColors.green200,
+                width: SizeConfig.scaleWidth(6),
+                onPressed: () async {
+                  await userClassProvider.updateUserClassStatus(
+                      context, userClassId, 'C');
+                  if (!context.mounted) return;
+                  context.pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   static Future<void> showDeleteAccountDialog(BuildContext context) {
     LoginProvider loginProvider =
         Provider.of<LoginProvider>(context, listen: false);
