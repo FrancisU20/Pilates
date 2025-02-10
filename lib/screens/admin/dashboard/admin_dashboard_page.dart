@@ -82,7 +82,7 @@ class AdminDashboardPageState extends State<AdminDashboardPage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               width: SizeConfig.scaleWidth(90),
-                              height: SizeConfig.scaleHeight(27),
+                              height: SizeConfig.scaleHeight(40),
                               padding: EdgeInsets.symmetric(
                                   horizontal: SizeConfig.scaleWidth(5),
                                   vertical: SizeConfig.scaleHeight(2)),
