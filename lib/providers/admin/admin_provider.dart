@@ -352,7 +352,7 @@ class AdminProvider extends ChangeNotifier {
 
       String statusFilter = isHistory ? '' : 'A';
       String startAt = isHistory
-          ? DateTime(selectedMonth.year, selectedMonth.month - 3, 0)
+          ? DateTime(selectedMonth.year, selectedMonth.month - 1, 15)
               .toString()
               .substring(0, 10)
           : selectedMonth.toString().substring(0, 10);
