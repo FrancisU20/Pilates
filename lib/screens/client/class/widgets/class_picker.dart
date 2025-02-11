@@ -22,8 +22,14 @@ class ClassPicker extends StatefulWidget {
 }
 
 class ClassPickerState extends State<ClassPicker> {
-  DateTime firstDay = DateTime.now().add(const Duration(days: 1));
-  DateTime focusedDay = DateTime.now().add(const Duration(days: 1));
+  DateTime firstDay = DateTime.now()
+      .toUtc()
+      .subtract(const Duration(hours: 5))
+      .add(const Duration(days: 1));
+  DateTime focusedDay = DateTime.now()
+      .toUtc()
+      .subtract(const Duration(hours: 5))
+      .add(const Duration(days: 1));
   DateTime? selectedDay;
 
   @override

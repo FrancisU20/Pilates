@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:pilates/common/logger.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
@@ -29,16 +30,20 @@ class LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (!mounted) return;
-      final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+      try {
+        final loginProvider =
+            Provider.of<LoginProvider>(context, listen: false);
 
-      await loginProvider.canUseBiometrics(context);
-      if (!mounted) return;
+        await loginProvider.canUseBiometrics(context);
+        if (!mounted) return;
 
-      await loginProvider.getAvailableBiometrics(context);
-      if (!mounted) return;
+        await loginProvider.getAvailableBiometrics(context);
+        if (!mounted) return;
 
-      await loginProvider.getSharedPreferences(context);
+        await loginProvider.getSharedPreferences(context);
+      } catch (e) {
+        Logger.logAppError('Al inicializar pantalla: $e');
+      }
     });
   }
 
@@ -69,7 +74,8 @@ class LoginPageState extends State<LoginPage> {
                       image: AssetImage(imagesPaths.backgroundLogin),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
-                          AppColors.black100.withOpacity(0.8), BlendMode.dstATop),
+                          AppColors.black100.withOpacity(0.8),
+                          BlendMode.dstATop),
                     ),
                   ),
                   child: Center(
@@ -112,14 +118,14 @@ class LoginPageState extends State<LoginPage> {
                                       text: 'Bienvenido,',
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.start,
-                                      fontSize:SizeConfig.scaleText(3),
+                                      fontSize: SizeConfig.scaleText(3),
                                     ),
                                     SizedBox(height: SizeConfig.scaleHeight(1)),
                                     CustomText(
                                       text: 'Es un gusto volver a verte',
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.start,
-                                      fontSize:SizeConfig.scaleText(2),
+                                      fontSize: SizeConfig.scaleText(2),
                                     ),
                                     SizedBox(height: SizeConfig.scaleHeight(2)),
                                     Consumer<LoginProvider>(
@@ -136,13 +142,16 @@ class LoginPageState extends State<LoginPage> {
                                                   loginProvider
                                                       .loginBiometric(context);
                                                 },
-                                                icon: loginProvider.listBiometrics
+                                                icon: loginProvider
+                                                        .listBiometrics
                                                         .contains(
                                                             BiometricType.face)
                                                     ? Icons.face
-                                                    : FontAwesomeIcons.fingerprint,
+                                                    : FontAwesomeIcons
+                                                        .fingerprint,
                                                 iconSize: 5,
-                                                text: loginProvider.listBiometrics
+                                                text: loginProvider
+                                                        .listBiometrics
                                                         .contains(
                                                             BiometricType.face)
                                                     ? 'Face ID'
@@ -153,7 +162,8 @@ class LoginPageState extends State<LoginPage> {
                                               ),
                                               SizedBox(
                                                   height:
-                                                      SizeConfig.scaleHeight(1)),
+                                                      SizeConfig.scaleHeight(
+                                                          1)),
                                               Center(
                                                 child: CustomTextButton(
                                                   text:
@@ -174,39 +184,47 @@ class LoginPageState extends State<LoginPage> {
                                           return Column(
                                             children: [
                                               SizedBox(
-                height: SizeConfig.scaleHeight(1),
-              ),
-              CustomTextField(
+                                                height:
+                                                    SizeConfig.scaleHeight(1),
+                                              ),
+                                              CustomTextField(
                                                 title: 'Correo Electrónico',
                                                 labelColor: AppColors.black100,
                                                 hintText:
                                                     'Ingrese su correo electrónico',
                                                 icon: FontAwesomeIcons.at,
-                                                typeTextField: TextFieldType.email,
+                                                typeTextField:
+                                                    TextFieldType.email,
                                                 controller: emailController,
                                                 disableError: true,
-                                                fontSize:SizeConfig.scaleText(1.7),
+                                                fontSize:
+                                                    SizeConfig.scaleText(1.7),
                                               ),
                                               SizedBox(
                                                   height:
-                                                      SizeConfig.scaleHeight(2)),
+                                                      SizeConfig.scaleHeight(
+                                                          2)),
                                               SizedBox(
-                height: SizeConfig.scaleHeight(1),
-              ),
-              CustomTextField(
+                                                height:
+                                                    SizeConfig.scaleHeight(1),
+                                              ),
+                                              CustomTextField(
                                                 title: 'Contraseña',
                                                 labelColor: AppColors.black100,
-                                                hintText: 'Ingrese su contraseña',
+                                                hintText:
+                                                    'Ingrese su contraseña',
                                                 icon: Icons.password_outlined,
                                                 typeTextField:
                                                     TextFieldType.password,
                                                 controller: passwordController,
                                                 disableError: true,
-                                                fontSize:SizeConfig.scaleText(1.7),
+                                                fontSize:
+                                                    SizeConfig.scaleText(1.7),
                                               ),
                                               SizedBox(
                                                   height:
-                                                      SizeConfig.scaleHeight(2)),
+                                                      SizeConfig.scaleHeight(
+                                                          2)),
                                               SizedBox(
                                                 child: Center(
                                                   child: CustomButton(
@@ -232,7 +250,8 @@ class LoginPageState extends State<LoginPage> {
                                                     text:
                                                         '¿Olvidaste tu contraseña?',
                                                     onPressed: () {
-                                                      context.go('/login/recover-password');
+                                                      context.go(
+                                                          '/login/recover-password');
                                                     },
                                                     color: AppColors.brown200,
                                                   ),
@@ -240,7 +259,8 @@ class LoginPageState extends State<LoginPage> {
                                               ),
                                               SizedBox(
                                                   height:
-                                                      SizeConfig.scaleHeight(2)),
+                                                      SizeConfig.scaleHeight(
+                                                          2)),
                                               Center(
                                                 child: CustomTextButton(
                                                   text:

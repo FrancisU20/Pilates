@@ -1,47 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:pilates/common/logger.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/images_paths.dart';
 import 'package:pilates/config/size_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({super.key});
+
   @override
   State<SplashScreenPage> createState() => _SplashScreenPageState();
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
   final _globalKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
-    detectIsFirstOpen().then((isFirstOpen) {
-      if (isFirstOpen) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Future.delayed(const Duration(seconds: 3), () {
-            context.go('/onboarding');
-          });
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        bool ifFirstTime = prefs.getBool('isFirstTime') ?? true;
+
+        if (ifFirstTime) {
+          await prefs.setBool('isFirstTime', false);
+        }
+
+        await Future.delayed(const Duration(seconds: 5), () {
+          if (mounted) {
+            context.go(ifFirstTime ? '/onboarding' : '/onboarding');
+          }
         });
-      } else {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Future.delayed(const Duration(seconds: 3), () {
-            context.go('/login');
-          });
-        });
+      } catch (e) {
+        Logger.logAppError('Error en SplashScreenPage $e');
       }
     });
-  }
-
-  Future<bool> detectIsFirstOpen() async {
-    //instanciar variable de hive
-    Box onboardingBox = await Hive.openBox('onboardingBox');
-    bool? isFirstOpen = onboardingBox.get('isFirstTime', defaultValue: true);
-    if (isFirstOpen!) {
-      onboardingBox.put('isFirstTime', false);
-    }
-    return isFirstOpen;
   }
 
   @override
@@ -67,7 +63,9 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             ),
             SizedBox(height: SizeConfig.scaleHeight(1)),
             LoadingAnimationWidget.staggeredDotsWave(
-                color: AppColors.black100, size: SizeConfig.scaleHeight(5)),
+              color: AppColors.black100,
+              size: SizeConfig.scaleHeight(5),
+            ),
           ],
         ),
       ),

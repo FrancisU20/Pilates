@@ -365,30 +365,31 @@ class UserClassPageState extends State<UserClassPage> {
                                                     builder: (context,
                                                         userPlanProvider,
                                                         child) {
-                                                      int nowHourEcuador =
-                                                          DateTime.now()
-                                                              .toUtc()
-                                                              .subtract(
-                                                                  const Duration(
-                                                                      hours: 5))
-                                                              .hour;
+                                                      DateTime now = DateTime
+                                                              .now()
+                                                          .toUtc()
+                                                          .subtract(
+                                                              const Duration(
+                                                                  hours: 5));
 
-                                                      int nowMinuteEcuador =
-                                                          DateTime.now()
-                                                              .toUtc()
-                                                              .subtract(
-                                                                  const Duration(
-                                                                      hours: 5))
-                                                              .minute;
+                                                      DateTime classDate =
+                                                          DateTime.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .classDate);
 
-                                                      int classHour = int.parse(
-                                                          listUserClass[index]
-                                                              .classModel
-                                                              .schedule!
-                                                              .startHour
-                                                              .substring(0, 2));
+                                                      int classStartHour =
+                                                          int.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .schedule!
+                                                                  .startHour
+                                                                  .substring(
+                                                                      0, 2));
 
-                                                      int classMinute =
+                                                      int classStartMinute =
                                                           int.parse(
                                                               listUserClass[
                                                                       index]
@@ -398,27 +399,49 @@ class UserClassPageState extends State<UserClassPage> {
                                                                   .substring(
                                                                       3, 5));
 
-                                                      DateTime classDate =
-                                                          DateTime.parse(
+                                                      int classEndHour =
+                                                          int.parse(
                                                               listUserClass[
                                                                       index]
                                                                   .classModel
-                                                                  .classDate);
+                                                                  .schedule!
+                                                                  .endHour
+                                                                  .substring(
+                                                                      0, 2));
 
-                                                      bool isSameDay = classDate
-                                                              .difference(
-                                                                  DateTime
-                                                                      .now())
-                                                              .inDays ==
-                                                          0;
+                                                      int classEndMinute =
+                                                          int.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .schedule!
+                                                                  .endHour
+                                                                  .substring(
+                                                                      3, 5));
 
-                                                      bool canCheck = isSameDay &&
-                                                          nowHourEcuador ==
-                                                              classHour &&
-                                                          nowMinuteEcuador >=
-                                                              classMinute &&
-                                                          nowMinuteEcuador <=
-                                                              59;
+                                                      DateTime classDateStart =
+                                                          DateTime(
+                                                              classDate.year,
+                                                              classDate.month,
+                                                              classDate.day,
+                                                              classStartHour,
+                                                              classStartMinute);
+
+                                                      DateTime classDateEnd =
+                                                          DateTime(
+                                                              classDate.year,
+                                                              classDate.month,
+                                                              classDate.day,
+                                                              classEndHour,
+                                                              classEndMinute);
+
+                                                      //! canCheck se activa si now esta entre la hora de inicio y fin de la clase
+
+                                                      bool canCheck = now
+                                                              .isAfter(
+                                                                  classDateStart) &&
+                                                          now.isBefore(
+                                                              classDateEnd);
 
                                                       if (canCheck) {
                                                         return CustomIconButton(
