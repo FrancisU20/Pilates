@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pilates/middleware/app_middleware.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/routes/page_state_provider.dart';
+import 'package:pilates/theme/routes/providers/page_state_provider.dart';
 import 'package:provider/provider.dart';
 
 class AdminNavBar extends StatelessWidget {

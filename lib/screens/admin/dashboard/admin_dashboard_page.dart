@@ -11,7 +11,7 @@ import 'package:pilates/theme/components/admin/admin_nav_bar.dart';
 import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
 import 'package:pilates/theme/components/common/app_plan_details.dart';
-import 'package:pilates/theme/routes/page_state_provider.dart';
+import 'package:pilates/theme/routes/providers/page_state_provider.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:provider/provider.dart';

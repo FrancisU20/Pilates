@@ -15,9 +15,9 @@ import 'package:pilates/providers/user-class/user_class_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/config/size_config.dart';
-import 'package:pilates/theme/routes/page_state_provider.dart';
+import 'package:pilates/theme/routes/providers/page_state_provider.dart';
 import 'package:pilates/theme/routes/routes.dart';
-import 'package:pilates/theme/routes/routes_provider.dart';
+import 'package:pilates/theme/routes/providers/routes_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

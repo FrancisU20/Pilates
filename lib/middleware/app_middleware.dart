@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
 import 'package:pilates/providers/user-plan/user_plan_provider.dart';
-import 'package:pilates/theme/routes/page_state_provider.dart';
+import 'package:pilates/theme/routes/providers/page_state_provider.dart';
 import 'package:pilates/theme/widgets/custom_snack_bar.dart';
 import 'package:provider/provider.dart';
 

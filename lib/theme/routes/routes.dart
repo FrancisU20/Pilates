@@ -17,8 +17,8 @@ import 'package:pilates/screens/common/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
 import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
 import 'package:pilates/screens/common/pdf_viewer/pdf_viewer_page.dart';
-import 'package:pilates/theme/routes/page_transitions.dart';
-import 'package:pilates/theme/routes/routes_provider.dart';
+import 'package:pilates/theme/routes/components/page_transitions.dart';
+import 'package:pilates/theme/routes/providers/routes_provider.dart';
 import 'package:provider/provider.dart';
 
 Page<void> buildPageWithFadeTransition(
