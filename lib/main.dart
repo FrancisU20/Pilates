@@ -119,8 +119,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return OrientationBuilder(builder: (context, orientation) {
-        print('constraints: $constraints');
-        print('orientation: $orientation');
         SizeConfig.init(constraints, orientation);
         return GestureDetector(
           behavior: HitTestBehavior.opaque,

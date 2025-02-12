@@ -25,8 +25,6 @@ class SizeConfig {
 
     blockWidth = screenWidth / 100;
     blockHeight = screenHeight / 100;
-
-    print('Inicialización de SizeConfig: screenWidth: $screenWidth, screenHeight: $screenHeight, blockWidth: $blockWidth, blockHeight: $blockHeight');
   }
 
   /// Escala el tamaño del texto según la altura.
