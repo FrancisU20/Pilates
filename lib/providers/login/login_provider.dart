@@ -170,8 +170,22 @@ class LoginProvider extends ChangeNotifier {
   //****************************************/
   //***************FUNCIONES****************/
   //****************************************/
+  //? Inicializador de pagina
+  void init() async {
+    try {
+      await getSharedPreferences();
+      await canUseBiometrics();
+      await getAvailableBiometrics();
+
+      //? Simular carga de 2 segundos para que la pantalla se cargue completa
+      await Future.delayed(const Duration(seconds: 2));
+    } catch (e) {
+      Logger.logAppError(e.toString());
+    }
+  }
+
   //? SHARED PREFERENCES
-  Future<void> getSharedPreferences(BuildContext context) async {
+  Future<void> getSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String email = prefs.getString('email') ?? '';
     String password = prefs.getString('password') ?? '';
@@ -229,28 +243,28 @@ class LoginProvider extends ChangeNotifier {
   }
 
   //? Verificar si se puede realizar una autenticación biométrica.
-  Future<void> canUseBiometrics(BuildContext context) async {
+  Future<void> canUseBiometrics() async {
     try {
       final LocalAuthentication localAuth = LocalAuthentication();
       bool canCheckBiometrics = await localAuth.canCheckBiometrics;
-
-      if (!context.mounted) return;
       setCanCheckBiometric(canCheckBiometrics);
+      Logger.logCustomMessage(
+          'Se puede usar biometría:', '$canCheckBiometrics');
     } catch (e) {
       setCanCheckBiometric(false);
+      Logger.logAppError(e.toString());
     }
   }
 
   //? Lista de Biometricos
-  Future<void> getAvailableBiometrics(BuildContext context) async {
+  Future<void> getAvailableBiometrics() async {
     try {
       final LocalAuthentication localAuth = LocalAuthentication();
       List<BiometricType> availableBiometrics =
           await localAuth.getAvailableBiometrics();
 
-      if (!context.mounted) return;
-
       setListBiometrics(availableBiometrics);
+      Logger.logCustomMessage('Biometría disponible:', '$availableBiometrics');
     } catch (e) {
       setListBiometrics([]);
     }
