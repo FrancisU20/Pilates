@@ -127,4 +127,30 @@ class UserPlanController {
       throw Exception(e.toString().replaceAll('Exception: ', ''));
     }
   }
+
+  Future<StandardResponse<UserPlanModel>> deleteUserPlan(String userPlanId) async {
+    try {
+      final apiBase = await ApiBaseService.create(contentType: 'json');
+
+      final response = await apiBase.delete('/users-plans/$userPlanId');
+      final serverJson = json.decode(response.body);
+
+      if (serverJson['statusCode'] != 200 && serverJson['statusCode'] != 201) {
+        Logger.logServerError(serverJson);
+        throw Exception(serverJson['message']);
+      } else {
+        Logger.logServerSuccess(serverJson);
+      }
+
+      StandardResponse<UserPlanModel> deleteUserPlanResponse =
+          StandardResponse<UserPlanModel>.fromJson(
+        serverJson,
+        (data) => UserPlanModel.fromJson(data),
+      );
+
+      return deleteUserPlanResponse;
+    } catch (e) {
+      throw Exception(e.toString().replaceAll('Exception: ', ''));
+    }
+  }
 }

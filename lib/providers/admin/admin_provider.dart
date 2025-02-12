@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pilates/common/logger.dart';
 import 'package:pilates/controllers/user-class/user_class_controller.dart';
 import 'package:pilates/controllers/user-plan/user_plan_controller.dart';
@@ -472,6 +473,37 @@ class AdminProvider extends ChangeNotifier {
       if (!context.mounted) return;
       Logger.logAppError('Error al actualizar el estado de la clase: $e');
       throw Exception(e.toString().replaceAll('Exception: ', ''));
+    } finally {
+      hideLoading();
+    }
+  }
+
+  //? Función para eliminar plan del usuario
+  Future<void> deleteUserPlan(BuildContext context, String userPlanId) async {
+    try {
+      showLoading();
+
+      StandardResponse<UserPlanModel> deleteUserPlanResponse =
+          await userPlanController.deleteUserPlan(userPlanId);
+
+      if (!context.mounted) return;
+      CustomSnackBar.show(
+        context,
+        deleteUserPlanResponse.message,
+        SnackBarType.success,
+      );
+
+      await getUsersPlans(context,status: 'I');
+      if(!context.mounted) return;
+      context.pop();
+    } catch (e) {
+      if (!context.mounted) return;
+      Logger.logAppError('Error al eliminar el plan del usuario: $e');
+      CustomSnackBar.show(
+        context,
+        e.toString(),
+        SnackBarType.error,
+      );
     } finally {
       hideLoading();
     }

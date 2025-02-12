@@ -212,9 +212,11 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                                             SizeConfig.scaleWidth(5),
                                             SizeConfig.scaleHeight(2),
                                             0,
-                                            SizeConfig.scaleHeight(2)),
+                                            0),
                                         width: SizeConfig.scaleWidth(90),
-                                        height: SizeConfig.scaleHeight(20),
+                                        height: !adminProvider.isActive
+                                            ? SizeConfig.scaleHeight(21)
+                                            : SizeConfig.scaleHeight(18),
                                         decoration: BoxDecoration(
                                             color: AppColors.white200,
                                             border: Border.all(
@@ -232,196 +234,238 @@ class AdminUsersPlansPageState extends State<AdminUsersPlansPage> {
                                                 offset: const Offset(0, 1),
                                               ),
                                             ]),
-                                        child: Row(
+                                        child: Column(
                                           children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                AppDialogs.showUserPhoto(
-                                                    context,
-                                                    listUserPlan[index]
-                                                        .user
-                                                        .photo);
-                                              },
-                                              child: CustomImageNetwork(
-                                                imagePath: listUserPlan[index]
-                                                    .user
-                                                    .photo,
-                                                height:
-                                                    SizeConfig.scaleHeight(12),
-                                                width:
-                                                    SizeConfig.scaleWidth(18),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: SizeConfig.scaleWidth(5),
-                                            ),
-                                            SizedBox(
-                                              width: SizeConfig.scaleWidth(40),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  CustomText(
-                                                      text: 'Datos:',
-                                                      color: AppColors.black100,
-                                                      fontSize: SizeConfig
-                                                          .scaleHeight(1.5),
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                  SizedBox(
-                                                    height:
-                                                        SizeConfig.scaleHeight(
-                                                            0.5),
-                                                  ),
-                                                  CustomText(
-                                                    text:
-                                                        '${listUserPlan[index].user.name} ${listUserPlan[index].user.lastname}',
-                                                    color: AppColors.grey200,
-                                                    fontSize:
-                                                        SizeConfig.scaleHeight(
-                                                            1.5),
-                                                    fontWeight: FontWeight.w400,
-                                                    textAlign: TextAlign.start,
-                                                    maxLines: 2,
-                                                  ),
-                                                  SizedBox(
-                                                    height:
-                                                        SizeConfig.scaleHeight(
-                                                            0.5),
-                                                  ),
-                                                  CustomText(
-                                                      text: listUserPlan[index]
-                                                          .plan
-                                                          .name,
-                                                      color: AppColors.grey200,
-                                                      fontSize: SizeConfig
-                                                          .scaleHeight(1.5),
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      textAlign:
-                                                          TextAlign.start),
-                                                  SizedBox(
-                                                    height:
-                                                        SizeConfig.scaleHeight(
-                                                            0.5),
-                                                  ),
-                                                  CustomText(
-                                                      text: listUserPlan[index]
-                                                          .plan
-                                                          .description,
-                                                      color: AppColors.grey200,
-                                                      fontSize: SizeConfig
-                                                          .scaleHeight(1.5),
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      textAlign:
-                                                          TextAlign.start),
-                                                  SizedBox(
-                                                    height:
-                                                        SizeConfig.scaleHeight(
-                                                            0.5),
-                                                  ),
-                                                  CustomText(
-                                                      text:
-                                                          '${(listUserPlan[index].plan.classesCount - listUserPlan[index].scheduledClasses)} disponibles de ${listUserPlan[index].plan.classesCount}',
-                                                      color: AppColors.grey200,
-                                                      fontSize: SizeConfig
-                                                          .scaleHeight(1.5),
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      textAlign:
-                                                          TextAlign.start),
-                                                ],
-                                              ),
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                            Row(
                                               children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    AppDialogs.showUserPhoto(
+                                                        context,
+                                                        listUserPlan[index]
+                                                            .user
+                                                            .photo);
+                                                  },
+                                                  child: CustomImageNetwork(
+                                                    imagePath:
+                                                        listUserPlan[index]
+                                                            .user
+                                                            .photo,
+                                                    height:
+                                                        SizeConfig.scaleHeight(
+                                                            12),
+                                                    width:
+                                                        SizeConfig.scaleWidth(
+                                                            18),
+                                                  ),
+                                                ),
                                                 SizedBox(
                                                   width:
-                                                      SizeConfig.scaleWidth(2),
+                                                      SizeConfig.scaleWidth(5),
                                                 ),
-                                                CustomIconButton(
-                                                    color: AppColors.black100,
-                                                    height: 5,
-                                                    width: 10,
-                                                    icon: FontAwesomeIcons
-                                                        .fileInvoiceDollar,
-                                                    onPressed: () {
-                                                      AppDialogs.showInvoice(
-                                                          context,
-                                                          listUserPlan[index]
-                                                              .paymentPhoto);
-                                                    }),
                                                 SizedBox(
-                                                  height:
-                                                      SizeConfig.scaleHeight(2),
+                                                  width:
+                                                      SizeConfig.scaleWidth(40),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      CustomText(
+                                                          text: 'Datos:',
+                                                          color: AppColors
+                                                              .black100,
+                                                          fontSize: SizeConfig
+                                                              .scaleHeight(1.5),
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                      SizedBox(
+                                                        height: SizeConfig
+                                                            .scaleHeight(0.5),
+                                                      ),
+                                                      CustomText(
+                                                        text:
+                                                            '${listUserPlan[index].user.name} ${listUserPlan[index].user.lastname}',
+                                                        color:
+                                                            AppColors.grey200,
+                                                        fontSize: SizeConfig
+                                                            .scaleHeight(1.5),
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: 2,
+                                                      ),
+                                                      SizedBox(
+                                                        height: SizeConfig
+                                                            .scaleHeight(0.5),
+                                                      ),
+                                                      CustomText(
+                                                          text: listUserPlan[
+                                                                  index]
+                                                              .plan
+                                                              .name,
+                                                          color:
+                                                              AppColors.grey200,
+                                                          fontSize: SizeConfig
+                                                              .scaleHeight(1.5),
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          textAlign:
+                                                              TextAlign.start),
+                                                      SizedBox(
+                                                        height: SizeConfig
+                                                            .scaleHeight(0.5),
+                                                      ),
+                                                      CustomText(
+                                                          text: listUserPlan[
+                                                                  index]
+                                                              .plan
+                                                              .description,
+                                                          color:
+                                                              AppColors.grey200,
+                                                          fontSize: SizeConfig
+                                                              .scaleHeight(1.5),
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          textAlign:
+                                                              TextAlign.start),
+                                                      SizedBox(
+                                                        height: SizeConfig
+                                                            .scaleHeight(0.5),
+                                                      ),
+                                                      CustomText(
+                                                          text:
+                                                              '${(listUserPlan[index].plan.classesCount - listUserPlan[index].scheduledClasses)} disponibles de ${listUserPlan[index].plan.classesCount}',
+                                                          color:
+                                                              AppColors.grey200,
+                                                          fontSize: SizeConfig
+                                                              .scaleHeight(1.5),
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          textAlign:
+                                                              TextAlign.start),
+                                                    ],
+                                                  ),
                                                 ),
-                                                IconButton(
-                                                    onPressed: () async {
-                                                      String newStatus =
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      width:
+                                                          SizeConfig.scaleWidth(
+                                                              2),
+                                                    ),
+                                                    CustomIconButton(
+                                                        color:
+                                                            AppColors.black100,
+                                                        height: 5,
+                                                        width: 10,
+                                                        icon: FontAwesomeIcons
+                                                            .fileInvoiceDollar,
+                                                        onPressed: () {
+                                                          AppDialogs.showInvoice(
+                                                              context,
+                                                              listUserPlan[
+                                                                      index]
+                                                                  .paymentPhoto);
+                                                        }),
+                                                    SizedBox(
+                                                      height: SizeConfig
+                                                          .scaleHeight(2),
+                                                    ),
+                                                    IconButton(
+                                                        onPressed: () async {
+                                                          String newStatus =
+                                                              listUserPlan[index]
+                                                                          .status ==
+                                                                      'A'
+                                                                  ? 'I'
+                                                                  : 'A';
+
+                                                          UserPlanModel
+                                                              userPlan =
+                                                              listUserPlan[
+                                                                  index];
+
+                                                          UpdateStatusModel
+                                                              updateStatus =
+                                                              UpdateStatusModel(
+                                                            status: newStatus,
+                                                          );
+
+                                                          await adminProvider
+                                                              .updateStatusUserPlan(
+                                                                  context,
+                                                                  userPlan,
+                                                                  updateStatus);
+
+                                                          if (!context
+                                                              .mounted) {
+                                                            return;
+                                                          }
+
+                                                          adminProvider
+                                                              .setIsActive(
+                                                                  newStatus ==
+                                                                          'A'
+                                                                      ? true
+                                                                      : false);
+
+                                                          adminProvider
+                                                              .cleanSelectedUserId();
+
+                                                          await adminProvider
+                                                              .getUsersPlans(
+                                                                  context,
+                                                                  status:
+                                                                      newStatus);
+                                                        },
+                                                        icon: Icon(
                                                           listUserPlan[index]
                                                                       .status ==
                                                                   'A'
-                                                              ? 'I'
-                                                              : 'A';
-
-                                                      UserPlanModel userPlan =
-                                                          listUserPlan[index];
-
-                                                      UpdateStatusModel
-                                                          updateStatus =
-                                                          UpdateStatusModel(
-                                                        status: newStatus,
-                                                      );
-
-                                                      await adminProvider
-                                                          .updateStatusUserPlan(
-                                                              context,
-                                                              userPlan,
-                                                              updateStatus);
-
-                                                      if (!context.mounted) {
-                                                        return;
-                                                      }
-
-                                                      adminProvider.setIsActive(
-                                                          newStatus == 'A'
-                                                              ? true
-                                                              : false);
-
-                                                      adminProvider
-                                                          .cleanSelectedUserId();
-
-                                                      await adminProvider
-                                                          .getUsersPlans(
-                                                              context,
-                                                              status:
-                                                                  newStatus);
-                                                    },
-                                                    icon: Icon(
-                                                      listUserPlan[index]
-                                                                  .status ==
-                                                              'A'
-                                                          ? FontAwesomeIcons
-                                                              .toggleOn
-                                                          : FontAwesomeIcons
-                                                              .toggleOff,
-                                                      color: listUserPlan[index]
-                                                                  .status ==
-                                                              'A'
-                                                          ? AppColors.green200
-                                                          : AppColors.red300,
-                                                      size: SizeConfig
-                                                          .scaleHeight(3.5),
-                                                    )),
+                                                              ? FontAwesomeIcons
+                                                                  .toggleOn
+                                                              : FontAwesomeIcons
+                                                                  .toggleOff,
+                                                          color: listUserPlan[
+                                                                          index]
+                                                                      .status ==
+                                                                  'A'
+                                                              ? AppColors
+                                                                  .green200
+                                                              : AppColors
+                                                                  .red300,
+                                                          size: SizeConfig
+                                                              .scaleHeight(3.5),
+                                                        )),
+                                                  ],
+                                                ),
                                               ],
-                                            )
+                                            ),
+                                            !adminProvider.isActive
+                                                ? CustomTextButton(
+                                                    onPressed: () async {
+                                                      String userPlanId =
+                                                          listUserPlan[index]
+                                                              .id!;
+                                                      await AppDialogs
+                                                          .showDeletePlanDialog(
+                                                              context,
+                                                              adminProvider,
+                                                              userPlanId);
+                                                    },
+                                                    text: 'Eliminar Plan',
+                                                    color: AppColors.red300,
+                                                  )
+                                                : const SizedBox.shrink(),
                                           ],
                                         ),
                                       ),

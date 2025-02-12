@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pilates/models/plan/plan_model.dart';
 import 'package:pilates/models/class/class_model.dart';
 import 'package:pilates/providers/admin/admin_provider.dart';
@@ -664,12 +665,12 @@ class AppDialogs {
         });
   }
 
-  static Future<void> showCancelDate(
-      BuildContext context, String classId, DateTime classDate, int hour, int minute) async {
+  static Future<void> showCancelDate(BuildContext context, String classId,
+      DateTime classDate, int hour, int minute) async {
     DateTime now = DateTime.now().toUtc().subtract(const Duration(hours: 5));
 
-    DateTime classDateNormalized = DateTime(
-        classDate.year, classDate.month, classDate.day, hour, minute);
+    DateTime classDateNormalized =
+        DateTime(classDate.year, classDate.month, classDate.day, hour, minute);
 
     //Restar las diferencias de horas
     int hoursDifference = classDateNormalized.difference(now).inHours;
@@ -880,7 +881,7 @@ class AppDialogs {
           return AlertDialog(
             backgroundColor: AppColors.white100,
             title: CustomText(
-              text: 'Confirmar eliminación de cuenta',
+              text: 'Confirmar Eliminación',
               color: AppColors.black100,
               fontSize: SizeConfig.scaleText(2.5),
               fontWeight: FontWeight.w500,
@@ -904,7 +905,7 @@ class AppDialogs {
                           CustomText(
                             text:
                                 'Tus datos serán eliminados de forma permanente, y no podrás recuperarlos.',
-                            color: AppColors.red300,
+                            color: AppColors.black100,
                             fontSize: SizeConfig.scaleText(2),
                             fontWeight: FontWeight.w400,
                             textAlign: TextAlign.justify,
@@ -950,6 +951,104 @@ class AppDialogs {
             ],
           );
         });
+  }
+
+  static Future<void> showDeletePlanDialog(
+      BuildContext context, AdminProvider adminProvider, String userPlanId) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Consumer<AdminProvider>(
+          builder: (context, provider, _) {
+            return AlertDialog(
+              backgroundColor: AppColors.white100,
+              title: CustomText(
+                text: 'Confirmar Eliminación',
+                color: AppColors.black100,
+                fontSize: SizeConfig.scaleText(2.5),
+                fontWeight: FontWeight.w500,
+                maxLines: 2,
+              ),
+              content: SizedBox(
+                width: SizeConfig.scaleWidth(100),
+                height: SizeConfig.scaleHeight(30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildLogo(),
+                    Center(
+                      child: SizedBox(
+                        width: SizeConfig.scaleWidth(60),
+                        height: SizeConfig.scaleHeight(15),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              text:
+                                  'El plan será eliminado de forma permanente, y no podrás recuperarlo.',
+                              color: AppColors.black100,
+                              fontSize: SizeConfig.scaleText(2),
+                              fontWeight: FontWeight.w400,
+                              textAlign: TextAlign.justify,
+                              maxLines: 3,
+                            ),
+                            SizedBox(height: SizeConfig.scaleHeight(2)),
+                            CustomText(
+                              text:
+                                  '¿Estás seguro de que deseas eliminar el plan?',
+                              color: AppColors.red300,
+                              fontSize: SizeConfig.scaleText(2),
+                              fontWeight: FontWeight.w500,
+                              maxLines: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                provider.isLoading
+                    ? Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.red300,
+                          size: SizeConfig.scaleHeight(4),
+                        ),
+                    )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              context.pop();
+                            },
+                            child: CustomText(
+                              text: 'No',
+                              color: AppColors.green200,
+                              fontSize: SizeConfig.scaleText(2),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          CustomButton(
+                            text: 'Sí',
+                            color: AppColors.red300,
+                            width: SizeConfig.scaleWidth(6),
+                            onPressed: () async {
+                              await provider.deleteUserPlan(
+                                  context, userPlanId);
+                            },
+                          ),
+                        ],
+                      )
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   static Future<void> showMonthSelector(
