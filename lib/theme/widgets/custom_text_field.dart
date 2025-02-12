@@ -124,8 +124,6 @@ class CustomTextFieldState extends State<CustomTextField> {
       case TextFieldType.diseases:
         keyboardType = TextInputType.text;
         break;
-      default:
-        keyboardType = TextInputType.text;
     }
 
     // Set initial value if provided
@@ -159,8 +157,6 @@ class CustomTextFieldState extends State<CustomTextField> {
         return value.isNotEmpty;
       case TextFieldType.diseases:
         return value.isNotEmpty;
-      default:
-        return value.isNotEmpty;
     }
   }
 
@@ -187,8 +183,6 @@ class CustomTextFieldState extends State<CustomTextField> {
       case TextFieldType.boolean:
         return '* Requerido';
       case TextFieldType.diseases:
-        return '* Requerido';
-      default:
         return '* Requerido';
     }
   }

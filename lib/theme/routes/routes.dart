@@ -16,7 +16,6 @@ import 'package:pilates/screens/client/user-class/user_class_page.dart';
 import 'package:pilates/screens/common/register/register_page.dart';
 import 'package:pilates/screens/common/login_page.dart';
 import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
-import 'package:pilates/screens/common/splash_screen.dart';
 import 'package:pilates/screens/common/pdf_viewer/pdf_viewer_page.dart';
 import 'package:pilates/theme/routes/page_transitions.dart';
 
@@ -26,7 +25,6 @@ Page<void> buildPageWithFadeTransition(
   Widget child,
 ) {
   return CustomTransitionPage(
-    key: state.pageKey,
     child: child,
     transitionDuration: const Duration(milliseconds: 300),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -36,6 +34,7 @@ Page<void> buildPageWithFadeTransition(
 }
 
 final GoRouter goRouter = GoRouter(
+  initialLocation: '/',
   routes: <GoRoute>[
     GoRoute(
       path: '/',
@@ -43,7 +42,7 @@ final GoRouter goRouter = GoRouter(
         return buildPageWithFadeTransition(
           context,
           state,
-          const SplashScreenPage(),
+          const OnboardingPage(),
         );
       },
     ),
@@ -216,13 +215,15 @@ final GoRouter goRouter = GoRouter(
                 const AdminUserClassPage(),
               );
             }),
-        GoRoute(path: 'users', pageBuilder: (context, state) {
-          return buildPageWithFadeTransition(
-            context,
-            state,
-            const AdminUsersPlansPage(),
-          );
-        }),
+        GoRoute(
+            path: 'users',
+            pageBuilder: (context, state) {
+              return buildPageWithFadeTransition(
+                context,
+                state,
+                const AdminUsersPlansPage(),
+              );
+            }),
       ],
     ),
   ],

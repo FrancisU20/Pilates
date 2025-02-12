@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
@@ -45,6 +46,7 @@ class LoginPageState extends State<LoginPage> {
         Logger.logAppError('Al inicializar pantalla: $e');
       }
     });
+    FlutterNativeSplash.remove();
   }
 
   @override

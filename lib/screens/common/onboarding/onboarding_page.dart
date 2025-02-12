@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pilates/providers/register/register_provider.dart';
 import 'package:pilates/screens/common/onboarding/widgets/step_1.dart';
@@ -22,6 +23,18 @@ class OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
 
   int currentStep = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _incrementCounter() {
     RegisterProvider registerProvider =

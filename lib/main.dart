@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/providers/login/login_provider.dart';
 import 'package:pilates/providers/nutritional-info/nutritional_info_provider.dart';
@@ -18,7 +19,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Cargar Variables de entorno.
   await dotenv.load(fileName: ".env");
@@ -58,8 +60,19 @@ Future<void> main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
@@ -69,29 +82,29 @@ class MyApp extends StatelessWidget {
           behavior: HitTestBehavior.opaque,
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: MaterialApp.router(
-              localizationsDelegates: const [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: const [
-                Locale('en', 'US'), // Inglés
-                Locale('es', 'ES'), // Español
-              ],
-              builder: (context, child) {
-                return MediaQuery(
-                  data: MediaQuery.of(context)
-                      .copyWith(textScaler: const TextScaler.linear(.90)),
-                  child: child!,
-                );
-              },
-              theme: ThemeData(
-                colorScheme:
-                    ColorScheme.fromSeed(seedColor: AppColors.beige200),
-                useMaterial3: true,
-              ),
-              debugShowCheckedModeBanner: false,
-              routerConfig: goRouter),
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', 'US'),
+              Locale('es', 'ES'),
+            ],
+            builder: (context, child) {
+              return MediaQuery(
+                data: MediaQuery.of(context)
+                    .copyWith(textScaler: const TextScaler.linear(.90)),
+                child: child!,
+              );
+            },
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: AppColors.beige200),
+              useMaterial3: true,
+            ),
+            debugShowCheckedModeBanner: false,
+            routerConfig: goRouter,
+          ),
         );
       });
     });

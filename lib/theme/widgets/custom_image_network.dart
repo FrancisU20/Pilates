@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:pilates/common/logger.dart';
 import 'package:pilates/config/size_config.dart';
 import 'package:pilates/theme/app_colors.dart';
 
@@ -35,6 +36,7 @@ class CustomImageNetwork extends StatelessWidget {
         width: width,
         fit: fit,
         errorBuilder: (context, error, stackTrace) {
+          Logger.logAppError('Error loading image: $imagePath - $error');
           return Container(
             height: height,
             width: width,
