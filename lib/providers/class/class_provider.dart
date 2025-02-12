@@ -197,7 +197,7 @@ class ClassProvider extends ChangeNotifier {
               selectedDate.toString().substring(0, 10))
           .toList();
 
-      DateTime now = DateTime.now().toUtc().subtract(const Duration(hours: 5));
+      DateTime now = DateTime.now().toLocal();
 
       List<ClassModel>  filterByHour = userClassFilter.where((element) {
         int year = int.parse(element.classDate.substring(0, 4));
@@ -206,9 +206,9 @@ class ClassProvider extends ChangeNotifier {
         int hour = int.parse(element.schedule!.startHour.substring(0, 2));
         int minute = int.parse(element.schedule!.startHour.substring(3, 5));
 
-        DateTime classDate = DateTime(year, month, day, hour, minute);
+        DateTime classDate = DateTime(year, month, day, hour, minute).toLocal();
 
-        if (classDate.isAfter(now.subtract(const Duration(hours: 3)))) {
+        if (classDate.difference(now).inMinutes > 1) { //120 minutos = 2 horas //? Para test cambiar a 1 minutox
           return true;
         } 
         return false;

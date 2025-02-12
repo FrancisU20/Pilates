@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:pilates/common/logger.dart';
 
 class SizeConfig {
   static double screenWidth = 0;
@@ -54,7 +55,7 @@ class SizeConfig {
   /// Verifica que la configuración esté inicializada antes de escalar
   static void _ensureInitialized() {
     if (blockWidth == 0 || blockHeight == 0) {
-      throw Exception("SizeConfig no ha sido inicializado. Llama a SizeConfig.init() antes de usar.");
+      Logger.logAppError("SizeConfig no ha sido inicializado. Llama a SizeConfig.init() antes de usar.");
     }
   }
 }

@@ -667,10 +667,10 @@ class AppDialogs {
 
   static Future<void> showCancelDate(BuildContext context, String classId,
       DateTime classDate, int hour, int minute) async {
-    DateTime now = DateTime.now().toUtc().subtract(const Duration(hours: 5));
+    DateTime now = DateTime.now().toLocal();
 
     DateTime classDateNormalized =
-        DateTime(classDate.year, classDate.month, classDate.day, hour, minute);
+        DateTime(classDate.year, classDate.month, classDate.day, hour, minute).toLocal();
 
     //Restar las diferencias de horas
     int hoursDifference = classDateNormalized.difference(now).inHours;
@@ -714,7 +714,7 @@ class AppDialogs {
                             CustomText(
                               text: 'Aviso Importante:',
                               color: AppColors.gold100,
-                              fontSize: SizeConfig.scaleText(1.8),
+                              fontSize: SizeConfig.scaleText(1.7),
                               fontWeight: FontWeight.w700,
                               textAlign: TextAlign.justify,
                             ),
@@ -722,7 +722,7 @@ class AppDialogs {
                               text:
                                   'Para reprogramar tu cita y que se reponga en tus clases disponibles, debes cancelarla con al menos 3 horas de anticipación. No es posible cancelar la cita fuera de este tiempo.',
                               color: AppColors.green200,
-                              fontSize: SizeConfig.scaleText(1.8),
+                              fontSize: SizeConfig.scaleText(1.7),
                               fontWeight: FontWeight.w500,
                               textAlign: TextAlign.justify,
                               maxLines: 10,
@@ -774,7 +774,7 @@ class AppDialogs {
                           context.pop();
                           CustomSnackBar.show(
                               context,
-                              'No se puede cancelar la cita, debe ser con 24 horas de anticipación.',
+                              'No se puede cancelar la cita, debe ser con 3 horas de anticipación.',
                               SnackBarType.error);
                           return;
                         }

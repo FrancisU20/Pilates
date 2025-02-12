@@ -365,12 +365,7 @@ class UserClassPageState extends State<UserClassPage> {
                                                     builder: (context,
                                                         userPlanProvider,
                                                         child) {
-                                                      DateTime now = DateTime
-                                                              .now()
-                                                          .toUtc()
-                                                          .subtract(
-                                                              const Duration(
-                                                                  hours: 5));
+                                                      DateTime now = DateTime.now().toLocal();
 
                                                       DateTime classDate =
                                                           DateTime.parse(
@@ -425,7 +420,7 @@ class UserClassPageState extends State<UserClassPage> {
                                                               classDate.month,
                                                               classDate.day,
                                                               classStartHour,
-                                                              classStartMinute);
+                                                              classStartMinute).toLocal();
 
                                                       DateTime classDateEnd =
                                                           DateTime(
@@ -433,10 +428,9 @@ class UserClassPageState extends State<UserClassPage> {
                                                               classDate.month,
                                                               classDate.day,
                                                               classEndHour,
-                                                              classEndMinute);
+                                                              classEndMinute).toLocal();
 
                                                       //! canCheck se activa si now esta entre la hora de inicio y fin de la clase
-
                                                       bool canCheck = now.isAfter(
                                                               classDateStart) &&
                                                           now.isBefore(
