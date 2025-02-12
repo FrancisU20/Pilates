@@ -208,7 +208,7 @@ class ClassProvider extends ChangeNotifier {
 
         DateTime classDate = DateTime(year, month, day, hour, minute).toLocal();
 
-        if (classDate.difference(now).inMinutes > 1) { //120 minutos = 2 horas //? Para test cambiar a 1 minutox
+        if (classDate.difference(now).inMinutes > 120) {
           return true;
         } 
         return false;
