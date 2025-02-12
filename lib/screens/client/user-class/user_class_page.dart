@@ -437,9 +437,8 @@ class UserClassPageState extends State<UserClassPage> {
 
                                                       //! canCheck se activa si now esta entre la hora de inicio y fin de la clase
 
-                                                      bool canCheck = now
-                                                              .isAfter(
-                                                                  classDateStart) &&
+                                                      bool canCheck = now.isAfter(
+                                                              classDateStart) &&
                                                           now.isBefore(
                                                               classDateEnd);
 
@@ -470,7 +469,7 @@ class UserClassPageState extends State<UserClassPage> {
                                                               .xmark,
                                                           onPressed: () {
                                                             AppDialogs
-                                                                .showDeleteConfirm(
+                                                                .showCancelDate(
                                                               context,
                                                               listUserClass[
                                                                       index]
@@ -481,6 +480,24 @@ class UserClassPageState extends State<UserClassPage> {
                                                                       .classModel
                                                                       .classDate
                                                                       .toString()),
+                                                              int.parse(
+                                                                  listUserClass[
+                                                                          index]
+                                                                      .classModel
+                                                                      .schedule!
+                                                                      .startHour
+                                                                      .substring(
+                                                                          0,
+                                                                          2)),
+                                                              int.parse(
+                                                                  listUserClass[
+                                                                          index]
+                                                                      .classModel
+                                                                      .schedule!
+                                                                      .startHour
+                                                                      .substring(
+                                                                          3,
+                                                                          5)),
                                                             );
                                                           },
                                                         );

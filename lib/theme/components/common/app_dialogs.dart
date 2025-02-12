@@ -664,12 +664,15 @@ class AppDialogs {
         });
   }
 
-  static Future<void> showDeleteConfirm(
-      BuildContext context, String classId, DateTime classDate) async {
-    DateTime now = DateTime.now();
+  static Future<void> showCancelDate(
+      BuildContext context, String classId, DateTime classDate, int hour, int minute) async {
+    DateTime now = DateTime.now().toUtc().subtract(const Duration(hours: 5));
+
+    DateTime classDateNormalized = DateTime(
+        classDate.year, classDate.month, classDate.day, hour, minute);
 
     //Restar las diferencias de horas
-    int hoursDifference = classDate.difference(now).inHours;
+    int hoursDifference = classDateNormalized.difference(now).inHours;
 
     showDialog(
         context: context,
@@ -686,7 +689,7 @@ class AppDialogs {
                 ),
                 content: SizedBox(
                   width: SizeConfig.scaleWidth(100),
-                  height: SizeConfig.scaleHeight(55),
+                  height: SizeConfig.scaleHeight(50),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -701,7 +704,7 @@ class AppDialogs {
                             CustomText(
                               text: 'Estás seguro de cancelar la cita?',
                               color: AppColors.black100,
-                              fontSize: SizeConfig.scaleText(1.8),
+                              fontSize: SizeConfig.scaleText(2),
                               fontWeight: FontWeight.w400,
                             ),
                             SizedBox(
@@ -716,7 +719,7 @@ class AppDialogs {
                             ),
                             CustomText(
                               text:
-                                  'Si decides cancelar una clase, puedes hacerlo con al menos 24 horas de anticipación a las 00:00 del día de la clase. De esta forma, la clase se repondrá automáticamente a tu plan y no la perderás. Recuerda que no se permite cancelar clases después de este plazo.',
+                                  'Para reprogramar tu cita y que se reponga en tus clases disponibles, debes cancelarla con al menos 3 horas de anticipación. No es posible cancelar la cita fuera de este tiempo.',
                               color: AppColors.green200,
                               fontSize: SizeConfig.scaleText(1.8),
                               fontWeight: FontWeight.w500,
@@ -735,7 +738,7 @@ class AppDialogs {
                             ),
                             CustomText(
                               text:
-                                  'Si cancelas la última clase disponible de tu plan, esta no será repuesta, y el plan se marcará como completado.',
+                                  'No podrás cancelar la cita si no tienes clases disponibles. Te recomendamos mantener al menos 1 clase disponible para poder reprogramar tus citas.',
                               color: AppColors.red300,
                               fontSize: SizeConfig.scaleText(1.8),
                               fontWeight: FontWeight.w600,
@@ -766,7 +769,7 @@ class AppDialogs {
                     width: SizeConfig.scaleWidth(10),
                     onPressed: () async {
                       try {
-                        if (hoursDifference < 24) {
+                        if (hoursDifference < 3) {
                           context.pop();
                           CustomSnackBar.show(
                               context,

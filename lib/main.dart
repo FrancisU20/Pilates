@@ -65,34 +65,50 @@ class AppInitializer extends StatelessWidget {
             child: const MyApp(),
           );
         } else {
-          return MaterialApp(
-            home: Scaffold(
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(SizeConfig.scaleHeight(25)),
-                      ),
-                      clipBehavior: Clip.hardEdge,
-                      height: SizeConfig.scaleHeight(25),
-                      child: Image.asset(
-                        imagesPaths.logoSquareFill,
-                        fit: BoxFit.scaleDown,
-                      ),
+          return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => PageStateProvider()),
+                ChangeNotifierProvider(create: (_) => RegisterProvider()),
+                ChangeNotifierProvider(create: (_) => LoginProvider()),
+                ChangeNotifierProvider(create: (_) => PlanProvider()),
+                ChangeNotifierProvider(create: (_) => UserPlanProvider()),
+                ChangeNotifierProvider(
+                    create: (_) => NutritionalInfoProvider()),
+                ChangeNotifierProvider(create: (_) => ClassProvider()),
+                ChangeNotifierProvider(
+                    create: (_) => RecoverPasswordProvider()),
+                ChangeNotifierProvider(create: (_) => UserClassProvider()),
+                ChangeNotifierProvider(create: (_) => AdminProvider()),
+                ChangeNotifierProvider(create: (_) => RoutesProvider()),
+              ],
+              child: MaterialApp(
+                home: Scaffold(
+                  body: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.scaleHeight(25)),
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          height: SizeConfig.scaleHeight(25),
+                          child: Image.asset(
+                            imagesPaths.logoSquareFill,
+                            fit: BoxFit.scaleDown,
+                          ),
+                        ),
+                        SizedBox(height: SizeConfig.scaleHeight(5)),
+                        LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.white100,
+                          size: SizeConfig.scaleHeight(7.5),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: SizeConfig.scaleHeight(5)),
-                    LoadingAnimationWidget.staggeredDotsWave(
-                      color: AppColors.white100,
-                      size: SizeConfig.scaleHeight(7.5),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
+              ));
         }
       },
     );

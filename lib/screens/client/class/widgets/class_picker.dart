@@ -24,12 +24,10 @@ class ClassPicker extends StatefulWidget {
 class ClassPickerState extends State<ClassPicker> {
   DateTime firstDay = DateTime.now()
       .toUtc()
-      .subtract(const Duration(hours: 5))
-      .add(const Duration(days: 1));
+      .subtract(const Duration(hours: 5));
   DateTime focusedDay = DateTime.now()
       .toUtc()
-      .subtract(const Duration(hours: 5))
-      .add(const Duration(days: 1));
+      .subtract(const Duration(hours: 5));
   DateTime? selectedDay;
 
   @override
@@ -84,8 +82,14 @@ class ClassPickerState extends State<ClassPicker> {
             },
             calendarStyle: CalendarStyle(
               todayDecoration: const BoxDecoration(
-                color: AppColors.beige100,
+                color: AppColors.brown200,
                 shape: BoxShape.circle,
+                border: Border.fromBorderSide(
+                  BorderSide(
+                    color: AppColors.green200,
+                    width: 1,
+                  ),
+                ),
               ),
               selectedDecoration: const BoxDecoration(
                 color: AppColors.black100, // Cambia el color según prefieras

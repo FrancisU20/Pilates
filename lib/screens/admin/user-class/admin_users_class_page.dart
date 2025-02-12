@@ -6,9 +6,11 @@ import 'package:pilates/providers/admin/admin_provider.dart';
 import 'package:pilates/screens/admin/user-class/widgets/user_class_metrics.dart';
 import 'package:pilates/theme/app_colors.dart';
 import 'package:pilates/theme/components/admin/admin_nav_bar.dart';
+import 'package:pilates/theme/components/common/app_dialogs.dart';
 import 'package:pilates/theme/components/common/custom_app_bar.dart';
 import 'package:pilates/theme/components/common/app_empty_data.dart';
 import 'package:pilates/theme/components/common/app_loading.dart';
+import 'package:pilates/theme/widgets/custom_icon_button.dart';
 import 'package:pilates/theme/widgets/custom_page_header.dart';
 import 'package:pilates/theme/widgets/custom_text.dart';
 import 'package:pilates/config/size_config.dart';
@@ -93,7 +95,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomTextButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     adminProvider.setIsHistory(false);
                                     //? Aqui va el get con filtro solo (A)
                                     adminProvider.cleanSelectedUserId();
@@ -104,7 +106,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                       ? AppColors.gold100
                                       : AppColors.white100),
                               CustomTextButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     adminProvider.setIsHistory(true);
                                     //? Aqui va el get con filtro (C), (E), (X)
                                     adminProvider.cleanSelectedUserId();
@@ -228,7 +230,7 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                             0,
                                             SizeConfig.scaleHeight(2)),
                                         width: SizeConfig.scaleWidth(90),
-                                        height: SizeConfig.scaleHeight(15),
+                                        height: SizeConfig.scaleHeight(18),
                                         decoration: BoxDecoration(
                                             color: AppColors.white200,
                                             border: Border.all(
@@ -377,6 +379,131 @@ class AdminUserClassPageState extends State<AdminUserClassPage> {
                                               ),
                                             ),
                                             if (adminProvider.isHistory ==
+                                                false) ...[
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    width:
+                                                        SizeConfig.scaleWidth(
+                                                            2),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                        SizeConfig.scaleHeight(
+                                                            2),
+                                                  ),
+                                                  Consumer<AdminProvider>(
+                                                    builder: (context,
+                                                        userPlanProvider,
+                                                        child) {
+                                                      DateTime now = DateTime
+                                                              .now()
+                                                          .toUtc()
+                                                          .subtract(
+                                                              const Duration(
+                                                                  hours: 5));
+
+                                                      DateTime classDate =
+                                                          DateTime.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .classDate);
+
+                                                      int classStartHour =
+                                                          int.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .schedule!
+                                                                  .startHour
+                                                                  .substring(
+                                                                      0, 2));
+
+                                                      int classStartMinute =
+                                                          int.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .schedule!
+                                                                  .startHour
+                                                                  .substring(
+                                                                      3, 5));
+
+                                                      int classEndHour =
+                                                          int.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .schedule!
+                                                                  .endHour
+                                                                  .substring(
+                                                                      0, 2));
+
+                                                      int classEndMinute =
+                                                          int.parse(
+                                                              listUserClass[
+                                                                      index]
+                                                                  .classModel
+                                                                  .schedule!
+                                                                  .endHour
+                                                                  .substring(
+                                                                      3, 5));
+
+                                                      DateTime classDateStart =
+                                                          DateTime(
+                                                              classDate.year,
+                                                              classDate.month,
+                                                              classDate.day,
+                                                              classStartHour,
+                                                              classStartMinute);
+
+                                                      DateTime classDateEnd =
+                                                          DateTime(
+                                                              classDate.year,
+                                                              classDate.month,
+                                                              classDate.day,
+                                                              classEndHour,
+                                                              classEndMinute);
+
+                                                      //! canCheck se activa si now esta entre la hora de inicio y fin de la clase
+
+                                                      bool canCheck = now.isAfter(
+                                                              classDateStart) &&
+                                                          now.isBefore(
+                                                              classDateEnd);
+
+                                                      if (canCheck) {
+                                                        return CustomIconButton(
+                                                          color: AppColors
+                                                              .green200,
+                                                          height: 5,
+                                                          width: 10,
+                                                          icon: FontAwesomeIcons
+                                                              .check,
+                                                          onPressed: () {
+                                                            AppDialogs
+                                                                .showConfirmAttendance(
+                                                                    context,
+                                                                    listUserClass[
+                                                                            index]
+                                                                        .id!);
+                                                          },
+                                                        );
+                                                      } else {
+                                                        return const SizedBox
+                                                            .shrink();
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              )
+                                            ] else if (adminProvider
+                                                    .isHistory ==
                                                 true) ...[
                                               Transform.rotate(
                                                 angle: -3.14 / 2,

@@ -28,7 +28,8 @@ class HourPickerState extends State<HourPicker> {
     ClassProvider classProvider =
         Provider.of<ClassProvider>(context, listen: false);
     ClassModel selectedClass = widget.userClassList[index];
-    int availableSlots = await classProvider.checkAvailableSlots(context, selectedClass.id!);
+    int availableSlots =
+        await classProvider.checkAvailableSlots(context, selectedClass.id!);
 
     classProvider.setAvailableSlots(availableSlots);
     classProvider.setSelectedHourIndex(index);

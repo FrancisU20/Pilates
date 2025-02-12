@@ -19,7 +19,6 @@ import 'package:pilates/screens/common/onboarding/onboarding_page.dart';
 import 'package:pilates/screens/common/pdf_viewer/pdf_viewer_page.dart';
 import 'package:pilates/theme/routes/components/page_transitions.dart';
 import 'package:pilates/theme/routes/providers/routes_provider.dart';
-import 'package:provider/provider.dart';
 
 Page<void> buildPageWithFadeTransition(
   BuildContext context,
@@ -36,12 +35,12 @@ Page<void> buildPageWithFadeTransition(
 }
 
 final GoRouter goRouter = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/',
   errorBuilder: (context, state) => Scaffold(
     body: Center(child: Text('Error: ${state.error.toString()}')),
   ),
   refreshListenable: RoutesProvider(),
-  redirect: (context, state) {
+  /* redirect: (context, state) {
     final routesProvider = Provider.of<RoutesProvider>(context, listen: false);
 
     bool isFirstTime = routesProvider.isFirstTime;
@@ -52,7 +51,7 @@ final GoRouter goRouter = GoRouter(
     }
 
     return '/login';
-  },
+  }, */
   routes: <GoRoute>[
     GoRoute(
       path: '/',

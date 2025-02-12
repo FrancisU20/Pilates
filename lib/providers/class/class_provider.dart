@@ -197,11 +197,28 @@ class ClassProvider extends ChangeNotifier {
               selectedDate.toString().substring(0, 10))
           .toList();
 
+      DateTime now = DateTime.now().toUtc().subtract(const Duration(hours: 5));
+
+      List<ClassModel>  filterByHour = userClassFilter.where((element) {
+        int year = int.parse(element.classDate.substring(0, 4));
+        int month = int.parse(element.classDate.substring(5, 7));
+        int day = int.parse(element.classDate.substring(8, 10));
+        int hour = int.parse(element.schedule!.startHour.substring(0, 2));
+        int minute = int.parse(element.schedule!.startHour.substring(3, 5));
+
+        DateTime classDate = DateTime(year, month, day, hour, minute);
+
+        if (classDate.isAfter(now.subtract(const Duration(hours: 3)))) {
+          return true;
+        } 
+        return false;
+      }).toList();
+
       //? Ordenar las clases por hora
-      userClassFilter.sort(
+      filterByHour.sort(
           (a, b) => a.schedule!.startHour.compareTo(b.schedule!.startHour));
 
-      setListClassFilter(userClassFilter);
+      setListClassFilter(filterByHour);
     } catch (e) {
       Logger.logAppError('Error en filterClassByDate $e');
     } finally {
